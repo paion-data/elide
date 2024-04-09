@@ -39,7 +39,7 @@
     </scm>
 
     <properties>
-        <dataStoreHarness>com.yahoo.elide.initialization.InMemoryDataStoreHarness</dataStoreHarness>
+        <dataStoreHarness>com.paiondata.elide.initialization.InMemoryDataStoreHarness</dataStoreHarness>
         <excludeTags>skipInMemory</excludeTags>
     </properties>
 
