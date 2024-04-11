@@ -5,15 +5,17 @@
  */
 package com.paiondata.elide;
 
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
+
 /**
- * Utility methods for customizing a {@link ElideSettings.ElideSettingsBuilder}.
+ * Utility methods for customizing a {@link ElideSettingsBuilder}.
  */
 public class ElideSettingsBuilderCustomizers {
     private ElideSettingsBuilderCustomizers() {
     }
 
-    public static ElideSettings.ElideSettingsBuilder buildElideSettingsBuilder(ElideSettingsBuilderCustomizer customizer) {
-        ElideSettings.ElideSettingsBuilder builder = new ElideSettings.ElideSettingsBuilder();
+    public static ElideSettingsBuilder buildElideSettingsBuilder(ElideSettingsBuilderCustomizer customizer) {
+        ElideSettingsBuilder builder = new ElideSettingsBuilder();
         if (customizer != null) {
             customizer.customize(builder);
         }

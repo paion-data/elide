@@ -21,7 +21,6 @@ import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.exceptions.InvalidOperationException;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.graphql.QueryRunner;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

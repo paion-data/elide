@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.Path.PathElement;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.filter.predicates.InPredicate;
@@ -132,8 +131,8 @@ public class FilterPredicatePushdownExtractorTest {
     public void testPath() {
         Path path = new Path(Book.class, dictionary, "genre");
 
-        ImmutableList<PathElement> pathElements = ImmutableList.of(
-                new PathElement(Book.class, String.class, "genre"));
+        ImmutableList<Path.PathElement> pathElements = ImmutableList.of(
+                new Path.PathElement(Book.class, String.class, "genre"));
 
         assertEquals("example_Book", path.getAlias());
         assertEquals("genre", path.getFieldPath());
@@ -144,9 +143,9 @@ public class FilterPredicatePushdownExtractorTest {
         path = new Path(Book.class, dictionary, "this.editor.firstName");
 
         pathElements = ImmutableList.of(
-                new PathElement(Book.class, null, "this"),
-                new PathElement(Book.class, Editor.class, "editor"),
-                new PathElement(Editor.class, String.class, "firstName"));
+                new Path.PathElement(Book.class, null, "this"),
+                new Path.PathElement(Book.class, Editor.class, "editor"),
+                new Path.PathElement(Editor.class, String.class, "firstName"));
 
         assertEquals("example_Book_editor", path.getAlias());
         assertEquals("this.editor.firstName", path.getFieldPath());

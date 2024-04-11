@@ -14,7 +14,6 @@ import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.spring.config.ElideConfigProperties;
 import com.paiondata.elide.spring.security.AuthenticationUser;
 import com.paiondata.elide.utils.HeaderProcessor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

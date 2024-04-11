@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.graphql.subscriptions.serialization;
 
-import com.paiondata.elide.core.dictionary.EntityBinding;
 import com.paiondata.elide.graphql.subscriptions.annotations.SubscriptionField;
+import com.paiondata.elide.core.dictionary.EntityBinding;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;

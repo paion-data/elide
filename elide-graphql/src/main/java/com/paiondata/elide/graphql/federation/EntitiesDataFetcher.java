@@ -5,12 +5,12 @@
  */
 package com.paiondata.elide.graphql.federation;
 
-import com.paiondata.elide.core.PersistentResource;
-import com.paiondata.elide.core.exceptions.BadRequestException;
-import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.graphql.GraphQLRequestScope;
 import com.paiondata.elide.graphql.KeyWord;
 import com.paiondata.elide.graphql.containers.NodeContainer;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.EntityProjection;
 
 import com.apollographql.federation.graphqljava._Entity;
 

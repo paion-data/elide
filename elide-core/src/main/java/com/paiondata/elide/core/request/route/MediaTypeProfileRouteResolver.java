@@ -5,7 +5,7 @@
  */
 package com.paiondata.elide.core.request.route;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class MediaTypeProfileRouteResolver extends MediaTypeParameterRouteResolv
             Profile profile = parseProfile(parameter.substring(MEDIA_TYPE_PARAMETER_PROFILE.length()));
             return processProfile(profile);
         }
-        return EntityDictionary.NO_VERSION;
+        return NO_VERSION;
     }
 
     public String processProfile(Profile profile) {
@@ -57,7 +57,7 @@ public class MediaTypeProfileRouteResolver extends MediaTypeParameterRouteResolv
                 }
             }
         }
-        return EntityDictionary.NO_VERSION;
+        return NO_VERSION;
     }
 
     /**

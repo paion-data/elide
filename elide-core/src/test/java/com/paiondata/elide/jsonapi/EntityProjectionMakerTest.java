@@ -31,6 +31,7 @@ import example.Book;
 import example.Editor;
 import example.Price;
 import example.Publisher;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -843,9 +844,9 @@ public class EntityProjectionMakerTest {
     }
 
     private void projectionEquals(EntityProjection projection1, EntityProjection projection2) {
-        assertEquals(projection1.getType(), projection2.getType());
+        Assertions.assertEquals(projection1.getType(), projection2.getType());
         assertEquals(projection1.getSorting(), projection2.getSorting());
-        assertEquals(projection1.getFilterExpression(), projection2.getFilterExpression());
+        Assertions.assertEquals(projection1.getFilterExpression(), projection2.getFilterExpression());
         assertEquals(projection1.getPagination(), projection2.getPagination());
 
         //Ignore order

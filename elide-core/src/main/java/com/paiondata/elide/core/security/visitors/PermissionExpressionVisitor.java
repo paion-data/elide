@@ -6,14 +6,14 @@
 
 package com.paiondata.elide.core.security.visitors;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
 import com.paiondata.elide.core.security.permissions.expressions.Expression;
 import com.paiondata.elide.core.security.permissions.expressions.NotExpression;
 import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
-import com.yahoo.elide.generated.parsers.ExpressionBaseVisitor;
-import com.yahoo.elide.generated.parsers.ExpressionParser;
+import com.paiondata.elide.generated.parsers.ExpressionBaseVisitor;
+import com.paiondata.elide.generated.parsers.ExpressionParser;
 
 import java.util.function.Function;
 

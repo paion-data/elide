@@ -5,9 +5,9 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.datastores.aggregation.annotation.TimeGrainDefinition;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 
 import jakarta.persistence.Id;
 import lombok.Value;

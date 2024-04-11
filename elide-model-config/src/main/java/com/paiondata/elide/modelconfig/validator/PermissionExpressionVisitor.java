@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.modelconfig.validator;
 
-import com.yahoo.elide.generated.parsers.ExpressionBaseVisitor;
-import com.yahoo.elide.generated.parsers.ExpressionParser;
+import com.paiondata.elide.generated.parsers.ExpressionBaseVisitor;
+import com.paiondata.elide.generated.parsers.ExpressionParser;
 
 import lombok.AllArgsConstructor;
 

@@ -71,8 +71,8 @@ public class AsyncApiCancelRunnableTest {
 
     @Test
     public void testAsyncQueryCancelThreadSet() {
-        Assertions.assertEquals(elide, cancelThread.getElide());
-        assertEquals(asyncApiDao, cancelThread.getAsyncApiDao());
+        assertEquals(elide, cancelThread.getElide());
+        Assertions.assertEquals(asyncApiDao, cancelThread.getAsyncApiDao());
         assertEquals(7, cancelThread.getQueryMaxRunTimeSeconds());
     }
 

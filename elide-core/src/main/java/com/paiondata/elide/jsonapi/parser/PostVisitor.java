@@ -5,10 +5,9 @@
  */
 package com.paiondata.elide.jsonapi.parser;
 
-import com.yahoo.elide.generated.parsers.CoreParser.QueryContext;
 import com.paiondata.elide.jsonapi.JsonApiRequestScope;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
-
+import com.paiondata.elide.generated.parsers.CoreParser.QueryContext;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.function.Supplier;

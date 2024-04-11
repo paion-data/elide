@@ -5,6 +5,8 @@
  */
 package com.paiondata.elide.swagger.converter;
 
+import com.paiondata.elide.swagger.models.media.Relationship;
+import com.paiondata.elide.swagger.models.media.Resource;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
 import com.paiondata.elide.annotation.Include;
@@ -14,8 +16,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.coerce.converters.Serde;
-import com.paiondata.elide.swagger.models.media.Relationship;
-import com.paiondata.elide.swagger.models.media.Resource;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;

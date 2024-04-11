@@ -5,9 +5,11 @@
  */
 package com.paiondata.elide;
 
+import com.paiondata.elide.Serdes.SerdesBuilder;
+
 /**
- * Used to customize the mutable {@link Serdes.SerdesBuilder}.
+ * Used to customize the mutable {@link SerdesBuilder}.
  */
 public interface SerdesBuilderCustomizer {
-    void customize(Serdes.SerdesBuilder builder);
+    void customize(SerdesBuilder builder);
 }

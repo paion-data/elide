@@ -5,14 +5,11 @@
  */
 package com.paiondata.elide.core.lifecycle;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
-
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.core.exceptions.BadRequestException;
-import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
 
 import jakarta.persistence.Id;
 
@@ -22,7 +19,7 @@ import java.util.Optional;
  * Tests life cycle hooks which raise errors.
  */
 @Include(name = "errorTestModel")
-@LifeCycleHookBinding(hook = ErrorTestModel.ErrorHook.class, operation = CREATE, phase = PRECOMMIT)
+@LifeCycleHookBinding(hook = ErrorTestModel.ErrorHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
 public class ErrorTestModel {
 
     @Id

@@ -6,18 +6,20 @@
 package com.paiondata.elide.graphql.parser;
 
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.graphql.PersistentResourceFetcherTest;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Pagination;
-import com.paiondata.elide.graphql.PersistentResourceFetcherTest;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -46,15 +48,15 @@ public class GraphQLEntityProjectMakerTest extends PersistentResourceFetcherTest
 
      @Test
      public void testParameterizedAttribute() {
-         String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.selection(
-                         GraphQLDSL.field(
-                                 "parameterizedExample", GraphQLDSL.arguments(
-                                         GraphQLDSL.argument("entityArgument", "xyz", true)
+         String graphQLRequest = document(
+                 selection(
+                         field(
+                                 "parameterizedExample", arguments(
+                                         argument("entityArgument", "xyz", true)
                                          ),
-                                 GraphQLDSL.selections(
-                                         GraphQLDSL.field("attribute", GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("argument", "abc", true)
+                                 selections(
+                                         field("attribute", arguments(
+                                                 argument("argument", "abc", true)
                                          ))
                                  )
                          )
@@ -92,12 +94,12 @@ public class GraphQLEntityProjectMakerTest extends PersistentResourceFetcherTest
 
     @Test
     public void testParameterizedAttributeDefaultValue() {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "parameterizedExample",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("attribute")
+                                selections(
+                                        field("attribute")
                                 )
                         )
                 )

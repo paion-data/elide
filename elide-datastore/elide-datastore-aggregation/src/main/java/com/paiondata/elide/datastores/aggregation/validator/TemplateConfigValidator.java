@@ -6,11 +6,11 @@
 
 package com.paiondata.elide.datastores.aggregation.validator;
 
-import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
 import com.paiondata.elide.datastores.aggregation.metadata.FormulaValidator;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;

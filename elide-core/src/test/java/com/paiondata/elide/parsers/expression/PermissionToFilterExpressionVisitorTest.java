@@ -6,10 +6,6 @@
 
 package com.paiondata.elide.parsers.expression;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
-import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
-import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,7 +36,6 @@ import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizat
 import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
 import com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
 import com.paiondata.elide.core.type.Type;
-
 import example.Author;
 import example.Book;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -200,7 +195,7 @@ public class PermissionToFilterExpressionVisitorTest {
     @Test
     public void testTestMethods() {
         List<FilterExpression> unfilterable = Arrays.asList(
-                FALSE_USER_CHECK_EXPRESSION, TRUE_USER_CHECK_EXPRESSION, NO_EVALUATION_EXPRESSION);
+                PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION, PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION, PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION);
 
         for (FilterExpression e : unfilterable) {
             assertTrue(isSpecialCase(e), String.format("isSpecialCase(%s)", e));
@@ -215,17 +210,17 @@ public class PermissionToFilterExpressionVisitorTest {
         ));
 
         assertFalse(containsOnlyFilterableExpressions(
-                new AndFilterExpression(IN_PREDICATE, FALSE_USER_CHECK_EXPRESSION)
+                new AndFilterExpression(IN_PREDICATE, PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION)
         ));
         assertFalse(containsOnlyFilterableExpressions(
-                new OrFilterExpression(IN_PREDICATE, FALSE_USER_CHECK_EXPRESSION)
+                new OrFilterExpression(IN_PREDICATE, PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION)
         ));
 
         assertFalse(containsOnlyFilterableExpressions(
-                new AndFilterExpression(IN_PREDICATE, new AndFilterExpression(IN_PREDICATE, TRUE_USER_CHECK_EXPRESSION))
+                new AndFilterExpression(IN_PREDICATE, new AndFilterExpression(IN_PREDICATE, PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION))
         ));
         assertFalse(containsOnlyFilterableExpressions(
-                new OrFilterExpression(IN_PREDICATE, new OrFilterExpression(IN_PREDICATE, TRUE_USER_CHECK_EXPRESSION))
+                new OrFilterExpression(IN_PREDICATE, new OrFilterExpression(IN_PREDICATE, PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION))
         ));
 
         FilterExpression negated, expected;
@@ -240,7 +235,7 @@ public class PermissionToFilterExpressionVisitorTest {
     //
     public RequestScope newRequestScope() {
         User john = new TestUser("John");
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         return requestScope = RequestScope.builder().route(route).user(john).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
     }
@@ -257,9 +252,9 @@ public class PermissionToFilterExpressionVisitorTest {
     }
 
     private static boolean isSpecialCase(FilterExpression expr) {
-        return expr == FALSE_USER_CHECK_EXPRESSION
-                || expr == TRUE_USER_CHECK_EXPRESSION
-                || expr == NO_EVALUATION_EXPRESSION;
+        return expr == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION
+                || expr == PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION
+                || expr == PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
     }
 
     private static boolean containsOnlyFilterableExpressions(FilterExpression expr) {
@@ -291,17 +286,17 @@ public class PermissionToFilterExpressionVisitorTest {
     }
 
     private static boolean isFilterPermission(FilterExpression permission) {
-        return permission != TRUE_USER_CHECK_EXPRESSION
-                && permission != FALSE_USER_CHECK_EXPRESSION
-                && permission != NO_EVALUATION_EXPRESSION;
+        return permission != PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION
+                && permission != PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION
+                && permission != PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
     }
 
     private static FilterExpression filterFor(String permission) {
         switch (permission) {
-            case USER_ALLOW:    return TRUE_USER_CHECK_EXPRESSION;
-            case USER_DENY:     return FALSE_USER_CHECK_EXPRESSION;
-            case AT_OP_ALLOW:   return NO_EVALUATION_EXPRESSION;
-            case AT_OP_DENY:    return NO_EVALUATION_EXPRESSION;
+            case USER_ALLOW:    return PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
+            case USER_DENY:     return PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
+            case AT_OP_ALLOW:   return PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
+            case AT_OP_DENY:    return PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
             case IN_FILTER:     return IN_PREDICATE;
             case NOT_IN_FILTER: return NOT_IN_PREDICATE;
             case LT_FILTER:     return LT_PREDICATE;
@@ -311,14 +306,14 @@ public class PermissionToFilterExpressionVisitorTest {
     }
 
     private static FilterExpression negate(FilterExpression expression) {
-        if (expression == TRUE_USER_CHECK_EXPRESSION) {
-            return FALSE_USER_CHECK_EXPRESSION;
+        if (expression == PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION) {
+            return PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
         }
-        if (expression == FALSE_USER_CHECK_EXPRESSION) {
-            return TRUE_USER_CHECK_EXPRESSION;
+        if (expression == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION) {
+            return PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
         }
-        if (expression == NO_EVALUATION_EXPRESSION) {
-            return NO_EVALUATION_EXPRESSION;
+        if (expression == PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION) {
+            return PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
         }
         if (expression instanceof FilterPredicate) {
             FilterPredicate filter = (FilterPredicate) expression;
@@ -382,8 +377,8 @@ public class PermissionToFilterExpressionVisitorTest {
     }
 
     private static FilterExpression filterForAndOf(FilterExpression left, FilterExpression right) {
-        if (left == FALSE_USER_CHECK_EXPRESSION || right == FALSE_USER_CHECK_EXPRESSION) {
-            return FALSE_USER_CHECK_EXPRESSION;
+        if (left == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION || right == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION) {
+            return PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
         }
 
         if (!isFilterPermission(left)) {
@@ -398,26 +393,26 @@ public class PermissionToFilterExpressionVisitorTest {
     }
 
     private static FilterExpression filterForOrOf(FilterExpression left, FilterExpression right) {
-        if (left == TRUE_USER_CHECK_EXPRESSION || left == NO_EVALUATION_EXPRESSION) {
+        if (left == PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION || left == PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION) {
             // left will not filter, return it
             return left;
         }
 
-        if (right == TRUE_USER_CHECK_EXPRESSION || right == NO_EVALUATION_EXPRESSION) {
+        if (right == PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION || right == PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION) {
             // right will not filter, return it
             return right;
         }
 
-        if (left == FALSE_USER_CHECK_EXPRESSION && right == FALSE_USER_CHECK_EXPRESSION) {
+        if (left == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION && right == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION) {
             // both false
-            return FALSE_USER_CHECK_EXPRESSION;
+            return PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
         }
 
-        if (left == FALSE_USER_CHECK_EXPRESSION) {
+        if (left == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION) {
             return right;
         }
 
-        if (right == FALSE_USER_CHECK_EXPRESSION) {
+        if (right == PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION) {
             return left;
         }
 
@@ -428,21 +423,21 @@ public class PermissionToFilterExpressionVisitorTest {
     public static class Permissions {
         public static class Succeeds extends OperationCheck<Object> {
             @Override
-            public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+            public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
                 return true;
             }
         }
 
         public static class Fails extends OperationCheck<Object> {
             @Override
-            public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+            public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
                 return false;
             }
         }
 
         public static class InFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.IN);
             }
         }
@@ -450,21 +445,21 @@ public class PermissionToFilterExpressionVisitorTest {
         public static class NotInFilterExpression extends FilterExpressionCheck {
             @Override
             public FilterPredicate getFilterExpression(Type entityClass,
-                                                       RequestScope requestScope) {
+                                                       com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.NOT);
             }
         }
 
         public static class LessThanFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.LT);
             }
         }
 
         public static class GreaterThanOrEqualFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.GE);
             }
         }

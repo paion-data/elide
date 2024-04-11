@@ -5,8 +5,12 @@
  */
 package com.paiondata.elide.tests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,8 +22,6 @@ import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,54 +31,54 @@ public class BookAuthorIT extends IntegrationTest {
     private static final String RELATIONSHIPS = "relationships";
     private static final String INCLUDED = "included";
 
-    private static final Resource HEMINGWAY = JsonApiDSL.resource(
-            JsonApiDSL.type("author"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", "Ernest Hemingway")
+    private static final Resource HEMINGWAY = resource(
+            type("author"),
+            attributes(
+                    attr("name", "Ernest Hemingway")
             )
     );
 
-    private static final Resource THE_OLD_MAN_AND_THE_SEA = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "The Old Man and the Sea"),
-                    JsonApiDSL.attr("genre", "Literary Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource THE_OLD_MAN_AND_THE_SEA = resource(
+            type("book"),
+            attributes(
+                    attr("title", "The Old Man and the Sea"),
+                    attr("genre", "Literary Fiction"),
+                    attr("language", "English")
             )
     );
 
-    private static final Resource HEMINGWAY_RELATIONSHIP = JsonApiDSL.resource(
-            JsonApiDSL.type("author"),
-            JsonApiDSL.id(1)
+    private static final Resource HEMINGWAY_RELATIONSHIP = resource(
+            type("author"),
+            id(1)
     );
 
-    private static final Resource ORSON_SCOTT_CARD = JsonApiDSL.resource(
-            JsonApiDSL.type("author"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", "Orson Scott Card")
+    private static final Resource ORSON_SCOTT_CARD = resource(
+            type("author"),
+            attributes(
+                    attr("name", "Orson Scott Card")
             )
     );
 
-    private static final Resource ENDERS_GAME = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "Ender's Game"),
-                    JsonApiDSL.attr("genre", "Science Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource ENDERS_GAME = resource(
+            type("book"),
+            attributes(
+                    attr("title", "Ender's Game"),
+                    attr("genre", "Science Fiction"),
+                    attr("language", "English")
             )
     );
 
-    private static final Resource ORSON_RELATIONSHIP = JsonApiDSL.resource(
-            JsonApiDSL.type("author"),
-            JsonApiDSL.id(2)
+    private static final Resource ORSON_RELATIONSHIP = resource(
+            type("author"),
+            id(2)
     );
 
-    private static final Resource FOR_WHOM_THE_BELL_TOLLS = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "For Whom the Bell Tolls"),
-                    JsonApiDSL.attr("genre", "Literary Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource FOR_WHOM_THE_BELL_TOLLS = resource(
+            type("book"),
+            attributes(
+                    attr("title", "For Whom the Bell Tolls"),
+                    attr("genre", "Literary Fiction"),
+                    attr("language", "English")
             )
     );
 
@@ -89,7 +91,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(HEMINGWAY).toJSON()
+                        datum(HEMINGWAY).toJSON()
                 )
                 .post("/author")
                 .then()
@@ -100,7 +102,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(THE_OLD_MAN_AND_THE_SEA).toJSON()
+                        datum(THE_OLD_MAN_AND_THE_SEA).toJSON()
                 )
                 .post("/book")
                 .then()
@@ -111,7 +113,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(HEMINGWAY_RELATIONSHIP).toJSON()
+                        datum(HEMINGWAY_RELATIONSHIP).toJSON()
                 )
                 .patch("/book/1/relationships/authors")
                 .then()
@@ -122,7 +124,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(ORSON_SCOTT_CARD).toJSON()
+                        datum(ORSON_SCOTT_CARD).toJSON()
                 )
                 .post("/author")
                 .then()
@@ -133,7 +135,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(ENDERS_GAME).toJSON()
+                        datum(ENDERS_GAME).toJSON()
                 )
                 .post("/book")
                 .then()
@@ -144,7 +146,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(ORSON_RELATIONSHIP).toJSON()
+                        datum(ORSON_RELATIONSHIP).toJSON()
                 )
                 .patch("/book/2/relationships/authors")
                 .then()
@@ -155,7 +157,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(FOR_WHOM_THE_BELL_TOLLS).toJSON()
+                        datum(FOR_WHOM_THE_BELL_TOLLS).toJSON()
                 )
                 .post("/book")
                 .then()
@@ -166,7 +168,7 @@ public class BookAuthorIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(HEMINGWAY_RELATIONSHIP).toJSON()
+                        datum(HEMINGWAY_RELATIONSHIP).toJSON()
                 )
                 .patch("/book/3/relationships/authors")
                 .then()

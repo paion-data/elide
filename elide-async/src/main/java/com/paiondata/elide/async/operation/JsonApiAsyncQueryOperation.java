@@ -13,7 +13,6 @@ import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.jsonapi.JsonApi;
-
 import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 

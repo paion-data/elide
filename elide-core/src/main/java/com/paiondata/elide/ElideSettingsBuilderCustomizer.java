@@ -5,9 +5,11 @@
  */
 package com.paiondata.elide;
 
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
+
 /**
- * Used to customize the mutable {@link ElideSettings.ElideSettingsBuilder}.
+ * Used to customize the mutable {@link ElideSettingsBuilder}.
  */
 public interface ElideSettingsBuilderCustomizer {
-    public void customize(ElideSettings.ElideSettingsBuilder builder);
+    public void customize(ElideSettingsBuilder builder);
 }

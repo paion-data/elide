@@ -6,7 +6,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.yahoo.elide</groupId>
+    <groupId>com.paiondata.elide</groupId>
     <artifactId>elide-parent-pom</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -886,7 +886,7 @@
                 <version>${versioneye-maven-plugin.version}</version>
                 <configuration>
                     <apiKey>${env.versioneye_api_key}</apiKey>
-                    <parentGroupId>com.yahoo.elide</parentGroupId>
+                    <parentGroupId>com.paiondata.elide</parentGroupId>
                     <parentArtifactId>elide-parent-pom</parentArtifactId>
                     <mergeAfterCreate>true</mergeAfterCreate>
                     <skipScopes>test</skipScopes>

@@ -5,6 +5,10 @@
  */
 package com.paiondata.elide.core.security.permissions.expressions;
 
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.DEFERRED;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.FAIL;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.PASS;
+
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 
 import lombok.Getter;
@@ -30,15 +34,15 @@ public class NotExpression implements Expression {
     public ExpressionResult evaluate(EvaluationMode mode) {
         ExpressionResult result = logical.evaluate(mode);
 
-        if (result == ExpressionResult.FAIL) {
-            return ExpressionResult.PASS;
+        if (result == FAIL) {
+            return PASS;
         }
 
-        if (result == ExpressionResult.PASS) {
-            return ExpressionResult.FAIL;
+        if (result == PASS) {
+            return FAIL;
         }
 
-        return ExpressionResult.DEFERRED;
+        return DEFERRED;
     }
 
     @Override

@@ -6,9 +6,14 @@
 
 package com.paiondata.elide.inheritance;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
@@ -16,8 +21,6 @@ import static org.hamcrest.Matchers.equalTo;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.Test;
 
 public class InheritanceIT extends IntegrationTest {
@@ -29,10 +32,10 @@ public class InheritanceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("manager"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("manager"),
+                                        id(null)
                                 )
                         )
                 )
@@ -45,14 +48,14 @@ public class InheritanceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("employee"),
-                                        JsonApiDSL.id(null),
-                                        JsonApiDSL.attributes(),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("boss",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("manager"), JsonApiDSL.id("1"))
+                        datum(
+                                resource(
+                                        type("employee"),
+                                        id(null),
+                                        attributes(),
+                                        relationships(
+                                                relation("boss",
+                                                        linkage(type("manager"), id("1"))
                                                 )
                                         )
                                 )

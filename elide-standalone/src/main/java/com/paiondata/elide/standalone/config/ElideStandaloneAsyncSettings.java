@@ -11,6 +11,7 @@ import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
 import com.paiondata.elide.async.export.formatter.CsvExportFormatter;
 import com.paiondata.elide.async.export.formatter.JsonExportFormatter;
 import com.paiondata.elide.async.export.formatter.TableExportFormatters;
+import com.paiondata.elide.async.export.formatter.TableExportFormatters.TableExportFormattersBuilder;
 import com.paiondata.elide.async.export.formatter.XlsxExportFormatter;
 import com.paiondata.elide.async.models.ResultType;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
@@ -173,13 +174,13 @@ public interface ElideStandaloneAsyncSettings {
     }
 
     /**
-     * Get the {@link TableExportFormatters.TableExportFormattersBuilder}.
+     * Get the {@link TableExportFormattersBuilder}.
      *
      * @param elide elideObject
      * @return the TableExportFormattersBuilder
      */
-    default TableExportFormatters.TableExportFormattersBuilder getTableExportFormattersBuilder(Elide elide) {
-        TableExportFormatters.TableExportFormattersBuilder builder = TableExportFormatters.builder();
+    default TableExportFormattersBuilder getTableExportFormattersBuilder(Elide elide) {
+        TableExportFormattersBuilder builder = TableExportFormatters.builder();
         builder.entry(ResultType.CSV, new CsvExportFormatter(elide, csvWriteHeader()));
         builder.entry(ResultType.JSON, new JsonExportFormatter(elide));
         builder.entry(ResultType.XLSX, new XlsxExportFormatter(elide, true));

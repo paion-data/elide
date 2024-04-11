@@ -6,7 +6,6 @@
 package com.paiondata.elide.core.security.permissions.expressions;
 
 import com.paiondata.elide.core.PersistentResource;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.Check;
@@ -14,6 +13,7 @@ import com.paiondata.elide.core.security.checks.OperationCheck;
 import com.paiondata.elide.core.security.checks.UserCheck;
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.security.permissions.ExpressionResultCache;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

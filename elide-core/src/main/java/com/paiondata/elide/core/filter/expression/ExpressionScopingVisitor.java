@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.core.filter.expression;
 
-import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 
 /**
  * A Visitor which deep clones an entire filter expression.

@@ -6,12 +6,11 @@
 
 package com.paiondata.elide.modelconfig.io;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.paiondata.elide.modelconfig.DynamicConfigHelpers;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -132,7 +131,7 @@ public class FileLoader {
                     .type(toType(path))
                     .contentProvider(() -> CONTENT_PROVIDER.apply(resource))
                     .path(path)
-                    .version(EntityDictionary.NO_VERSION)
+                    .version(NO_VERSION)
                     .build());
         }
 
@@ -154,7 +153,7 @@ public class FileLoader {
                 .type(toType(relativePath))
                 .contentProvider(() -> CONTENT_PROVIDER.apply(hjsonResources[0]))
                 .path(relativePath)
-                .version(EntityDictionary.NO_VERSION)
+                .version(NO_VERSION)
                 .build();
     }
 

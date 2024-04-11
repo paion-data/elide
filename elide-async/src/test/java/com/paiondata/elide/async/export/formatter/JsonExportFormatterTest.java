@@ -25,7 +25,6 @@ import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.jsonapi.models.Resource;
-
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

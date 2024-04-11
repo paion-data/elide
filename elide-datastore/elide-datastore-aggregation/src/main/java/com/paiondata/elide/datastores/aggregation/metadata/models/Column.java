@@ -5,9 +5,10 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import static com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType.FIELD;
-import static com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType.FORMULA;
-
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueSourceType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.ToOne;
@@ -18,10 +19,6 @@ import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
 import com.paiondata.elide.datastores.aggregation.annotation.ColumnMeta;
 import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueSourceType;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.modelconfig.model.Named;
 
 import jakarta.persistence.Id;
@@ -138,7 +135,7 @@ public abstract class Column implements Versioned, Named, RequiresFilter {
         }
 
         if (dictionary.attributeOrRelationAnnotationExists(tableClass, fieldName, MetricFormula.class)) {
-            columnType = FORMULA;
+            columnType = ColumnType.FORMULA;
             MetricFormula metricFormula = dictionary.getAttributeOrRelationAnnotation(tableClass, MetricFormula.class,
                     fieldName);
             this.expression = metricFormula.value();
@@ -146,7 +143,7 @@ public abstract class Column implements Versioned, Named, RequiresFilter {
                     .map(argument -> new ArgumentDefinition(getId(), argument))
                     .collect(Collectors.toCollection(LinkedHashSet::new));
         } else if (dictionary.attributeOrRelationAnnotationExists(tableClass, fieldName, DimensionFormula.class)) {
-            columnType = FORMULA;
+            columnType = ColumnType.FORMULA;
             DimensionFormula dimensionFormula = dictionary.getAttributeOrRelationAnnotation(tableClass,
                     DimensionFormula.class, fieldName);
             this.expression = dimensionFormula.value();
@@ -154,7 +151,7 @@ public abstract class Column implements Versioned, Named, RequiresFilter {
                     .map(argument -> new ArgumentDefinition(getId(), argument))
                     .collect(Collectors.toCollection(LinkedHashSet::new));
         } else {
-            columnType = FIELD;
+            columnType = ColumnType.FIELD;
             expression = "{{$" + dictionary.getAnnotatedColumnName(tableClass, fieldName) + "}}";
             this.arguments = new LinkedHashSet<>();
         }

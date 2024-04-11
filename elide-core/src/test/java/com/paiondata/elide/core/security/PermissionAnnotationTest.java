@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.security;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.paiondata.elide.ElideSettings;
@@ -18,11 +17,10 @@ import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.audit.AuditLogger;
 import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.executors.ActivePermissionExecutor;
-
+import com.paiondata.elide.core.dictionary.TestDictionary;
 import example.FunWithPermissions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,8 +34,8 @@ public class PermissionAnnotationTest {
     private static final User GOOD_USER = new TestUser("3");
     private static final User BAD_USER = new TestUser("-1");
 
-    private static PersistentResource<FunWithPermissions> funRecord;
-    private static PersistentResource<FunWithPermissions> badRecord;
+    private static com.paiondata.elide.core.PersistentResource<FunWithPermissions> funRecord;
+    private static com.paiondata.elide.core.PersistentResource<FunWithPermissions> badRecord;
 
     private static EntityDictionary dictionary = TestDictionary.getTestDictionary();
 
@@ -59,11 +57,11 @@ public class PermissionAnnotationTest {
                 .entityDictionary(dictionary)
                 .build();
 
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
-        RequestScope goodScope = RequestScope.builder().route(route).user(GOOD_USER).requestId(UUID.randomUUID())
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
+        com.paiondata.elide.core.RequestScope goodScope = com.paiondata.elide.core.RequestScope.builder().route(route).user(GOOD_USER).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
-        funRecord = new PersistentResource<>(fun, goodScope.getUUIDFor(fun), goodScope);
-        RequestScope badScope = RequestScope.builder().route(route).user(BAD_USER).requestId(UUID.randomUUID())
+        funRecord = new com.paiondata.elide.core.PersistentResource<>(fun, goodScope.getUUIDFor(fun), goodScope);
+        com.paiondata.elide.core.RequestScope badScope = RequestScope.builder().route(route).user(BAD_USER).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
         badRecord = new PersistentResource<>(fun, badScope.getUUIDFor(fun), badScope);
     }

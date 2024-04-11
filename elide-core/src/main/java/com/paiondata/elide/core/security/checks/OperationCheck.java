@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.core.security.checks;
 
-import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.ChangeSpec;
 
 import java.util.Optional;
 

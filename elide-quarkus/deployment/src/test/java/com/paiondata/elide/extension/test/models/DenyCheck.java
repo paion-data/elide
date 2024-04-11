@@ -9,7 +9,6 @@ import com.paiondata.elide.annotation.SecurityCheck;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.OperationCheck;
-
 import java.util.Optional;
 
 /**

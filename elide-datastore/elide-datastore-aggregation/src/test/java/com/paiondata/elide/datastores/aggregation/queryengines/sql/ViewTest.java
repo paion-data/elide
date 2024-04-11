@@ -10,12 +10,11 @@ import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.paiondata.elide.core.request.Sorting;
-import com.paiondata.elide.core.sort.SortingImpl;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
 import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
 import example.PlayerStatsWithView;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

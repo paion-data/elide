@@ -9,11 +9,11 @@ package com.paiondata.elide.spring.orm.jpa.config;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
-import com.paiondata.elide.spring.config.ElideConfigProperties;
-import com.paiondata.elide.spring.orm.jpa.EntityManagerProxySupplier;
-import com.paiondata.elide.spring.orm.jpa.PlatformJpaTransactionSupplier;
-
 import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.spring.orm.jpa.EntityManagerProxySupplier;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.spring.orm.jpa.PlatformJpaTransactionSupplier;
+import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistration.JpaDataStoreRegistrationBuilder;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -62,7 +62,7 @@ public class JpaDataStoreRegistrations {
         JpaDataStore.JpaTransactionSupplier readJpaTransactionSupplier = buildJpaTransactionSupplier(platformTransactionManager,
                 entityManagerFactory, readJpaTransactionDefinition, settings);
 
-        JpaDataStoreRegistration.JpaDataStoreRegistrationBuilder builder = JpaDataStoreRegistration.builder().name(entityManagerFactoryName)
+        JpaDataStoreRegistrationBuilder builder = JpaDataStoreRegistration.builder().name(entityManagerFactoryName)
                 .entityManagerSupplier(buildEntityManagerSupplier())
                 .readTransactionSupplier(readJpaTransactionSupplier)
                 .writeTransactionSupplier(writeJpaTransactionSupplier)

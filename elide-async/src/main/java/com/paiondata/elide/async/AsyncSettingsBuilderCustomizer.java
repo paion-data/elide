@@ -5,9 +5,11 @@
  */
 package com.paiondata.elide.async;
 
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
+
 /**
- * Used to customize the mutable {@link AsyncSettings.AsyncSettingsBuilder}.
+ * Used to customize the mutable {@link AsyncSettingsBuilder}.
  */
 public interface AsyncSettingsBuilderCustomizer {
-    public void customize(AsyncSettings.AsyncSettingsBuilder builder);
+    public void customize(AsyncSettingsBuilder builder);
 }

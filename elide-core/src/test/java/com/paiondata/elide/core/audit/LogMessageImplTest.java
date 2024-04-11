@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.audit;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -52,7 +51,7 @@ public class LogMessageImplTest {
         friend.setId(9);
         child.setFriends(Sets.newHashSet(friend));
 
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         ElideSettings elideSettings = ElideSettings.builder().dataStore(null).auditLogger(new TestAuditLogger())
                 .entityDictionary(dictionary).build();
 

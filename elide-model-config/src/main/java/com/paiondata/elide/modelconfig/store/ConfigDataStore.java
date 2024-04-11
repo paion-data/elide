@@ -6,10 +6,10 @@
 
 package com.paiondata.elide.modelconfig.store;
 
+import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 import com.paiondata.elide.modelconfig.validator.Validator;
 

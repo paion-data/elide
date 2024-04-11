@@ -7,7 +7,6 @@ package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.imp
 
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
 import com.paiondata.elide.datastores.aggregation.timegrains.Time;
-
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.sql.SqlDialect;
 

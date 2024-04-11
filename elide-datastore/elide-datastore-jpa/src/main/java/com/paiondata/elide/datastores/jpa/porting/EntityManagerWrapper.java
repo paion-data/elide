@@ -5,11 +5,11 @@
  */
 package com.paiondata.elide.datastores.jpa.porting;
 
+import static com.paiondata.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
+
 import com.paiondata.elide.datastores.jpql.porting.Query;
 import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 import com.paiondata.elide.datastores.jpql.porting.Session;
-
-import com.paiondata.elide.datastores.jpa.JpaDataStore;
 
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class EntityManagerWrapper implements Session {
     private QueryLogger logger;
 
     public EntityManagerWrapper(EntityManager entityManager) {
-        this(entityManager, JpaDataStore.DEFAULT_LOGGER);
+        this(entityManager, DEFAULT_LOGGER);
     }
 
     public EntityManagerWrapper(EntityManager entityManager, QueryLogger logger) {

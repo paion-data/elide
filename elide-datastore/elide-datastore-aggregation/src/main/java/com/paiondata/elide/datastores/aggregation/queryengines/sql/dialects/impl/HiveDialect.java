@@ -6,7 +6,6 @@
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl;
 
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
-
 import org.apache.calcite.config.NullCollation;
 import org.apache.calcite.sql.SqlDialect;
 

@@ -5,16 +5,18 @@
  */
 package com.paiondata.elide.initialization;
 
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
+
+import com.paiondata.elide.core.audit.InMemoryLogger;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.core.audit.InMemoryLogger;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
-
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
 
 import example.TestCheckMappings;
 import example.models.triggers.Invoice;
@@ -73,8 +75,8 @@ public class LifeCycleIntegrationTestApplicationResourceConfig extends ResourceC
                 bind(billingService).to(BillingService.class);
 
                 InvoiceCompletionHook invoiceCompletionHook = new InvoiceCompletionHook(billingService);
-                dictionary.bindTrigger(Invoice.class, "complete", LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, invoiceCompletionHook);
-                dictionary.bindTrigger(Invoice.class, "complete", LifeCycleHookBinding.Operation.UPDATE, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, invoiceCompletionHook);
+                dictionary.bindTrigger(Invoice.class, "complete", CREATE, PRECOMMIT, invoiceCompletionHook);
+                dictionary.bindTrigger(Invoice.class, "complete", UPDATE, PRECOMMIT, invoiceCompletionHook);
             }
         });
     }

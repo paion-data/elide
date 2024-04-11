@@ -5,32 +5,31 @@
  */
 package com.paiondata.elide.core;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.mockito.Mockito.mock;
 
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.annotation.CreatePermission;
-import com.paiondata.elide.annotation.DeletePermission;
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
-import com.paiondata.elide.annotation.ReadPermission;
-import com.paiondata.elide.annotation.UpdatePermission;
 import com.paiondata.elide.core.audit.AuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.lifecycle.LifeCycleHook;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.TestUser;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.security.checks.OperationCheck;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.jsonapi.JsonApiRequestScope;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.security.TestUser;
 import com.google.common.collect.Sets;
 import example.Author;
 import example.Book;
@@ -141,7 +140,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
         super(
                 new Child(),
                 null, // new request scope + new Child == cannot possibly be a UUID for this object
-                RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+                RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                         .requestId(UUID.randomUUID()).elideSettings(initSettings()).build());
 
         elideSettings = initSettings();
@@ -166,7 +165,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
     }
 
     protected RequestScope buildRequestScope(String path, DataStoreTransaction tx, User user, Map<String, List<String>> queryParams) {
-        Route route = Route.builder().path(path).apiVersion(NO_VERSION).parameters(queryParams).build();
+        Route route = Route.builder().path(path).apiVersion(EntityDictionary.NO_VERSION).parameters(queryParams).build();
         return JsonApiRequestScope.builder().route(route).dataStoreTransaction(tx).user(user).requestId(UUID.randomUUID())
                 .jsonApiDocument(new JsonApiDocument()).elideSettings(elideSettings).build();
     }
@@ -177,7 +176,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
 
     protected <T> PersistentResource<T> bootstrapPersistentResource(T obj, DataStoreTransaction tx) {
         User goodUser = new TestUser("1");
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         RequestScope requestScope = RequestScope.builder().route(route)
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
@@ -185,7 +184,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
     }
 
     protected RequestScope getUserScope(User user, AuditLogger auditLogger) {
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         ElideSettings elideSettings = ElideSettings.builder().dataStore(null).entityDictionary(dictionary)
                 .auditLogger(auditLogger).settings(JsonApiSettings.builder()).build();
         return JsonApiRequestScope.builder().route(route).user(user).requestId(UUID.randomUUID())

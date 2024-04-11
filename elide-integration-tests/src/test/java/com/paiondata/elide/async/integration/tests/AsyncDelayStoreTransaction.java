@@ -11,7 +11,6 @@ import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.datastore.wrapped.TransactionWrapper;
 import com.paiondata.elide.core.request.EntityProjection;
-
 import org.apache.commons.collections4.CollectionUtils;
 
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -75,7 +74,7 @@ class RequestScopeTest {
         dictionary.bindEntity(MyBaseClass.class);
         dictionary.bindEntity(MyInheritedClass.class);
 
-        Route route = Route.builder().path("/").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().path("/").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideSettings elideSettings = ElideSettings.builder().dataStore(null).entityDictionary(dictionary).build();
         RequestScope requestScope = new RequestScope(route, null, null, UUID.randomUUID(), elideSettings, null);
 

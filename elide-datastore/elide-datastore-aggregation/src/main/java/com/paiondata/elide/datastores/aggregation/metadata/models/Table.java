@@ -5,6 +5,12 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
+import static com.paiondata.elide.datastores.aggregation.metadata.models.Column.getValueType;
+
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
 import com.paiondata.elide.annotation.ComputedRelationship;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.Include;
@@ -12,18 +18,13 @@ import com.paiondata.elide.core.dictionary.EntityBinding;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.TypeHelper;
-import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
 import com.paiondata.elide.datastores.aggregation.annotation.TableMeta;
 import com.paiondata.elide.datastores.aggregation.annotation.Temporal;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
-import com.paiondata.elide.datastores.aggregation.query.Queryable;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
 import com.paiondata.elide.modelconfig.model.Named;
-
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -257,7 +258,7 @@ public abstract class Table implements Versioned, Named, RequiresFilter {
                 return;
             }
 
-            ValueType valueType = Column.getValueType(cls, name, dictionary);
+            ValueType valueType = getValueType(cls, name, dictionary);
             if (valueType == ValueType.UNKNOWN) {
                 return;
             }

@@ -6,18 +6,19 @@
 
 package com.paiondata.elide.core.security.visitors;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.Operator;
-import com.paiondata.elide.core.filter.expression.AndFilterExpression;
-import com.paiondata.elide.core.filter.expression.FilterExpression;
-import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
-import com.paiondata.elide.core.filter.expression.NotFilterExpression;
-import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
 import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
 import com.paiondata.elide.core.security.permissions.expressions.AnyFieldExpression;
 import com.paiondata.elide.core.security.permissions.expressions.BooleanExpression;
@@ -26,7 +27,6 @@ import com.paiondata.elide.core.security.permissions.expressions.ExpressionVisit
 import com.paiondata.elide.core.security.permissions.expressions.NotExpression;
 import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
 import com.paiondata.elide.core.security.permissions.expressions.SpecificFieldExpression;
-import com.paiondata.elide.core.type.Type;
 
 import java.util.Objects;
 

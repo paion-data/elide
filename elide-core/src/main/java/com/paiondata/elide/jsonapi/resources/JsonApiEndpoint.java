@@ -8,16 +8,15 @@ package com.paiondata.elide.jsonapi.resources;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.utils.HeaderProcessor;
+import com.paiondata.elide.utils.ResourceUtils;
 import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
 import com.paiondata.elide.core.request.route.FlexibleRouteResolver;
 import com.paiondata.elide.core.request.route.NullRouteResolver;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.request.route.RouteResolver;
-import com.paiondata.elide.core.security.User;
-import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.utils.HeaderProcessor;
-import com.paiondata.elide.utils.ResourceUtils;
-
 import org.apache.commons.lang3.StringUtils;
 
 import jakarta.inject.Inject;

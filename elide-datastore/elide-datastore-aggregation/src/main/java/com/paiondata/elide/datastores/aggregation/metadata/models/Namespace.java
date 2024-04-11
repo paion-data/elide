@@ -5,12 +5,12 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
+import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
 import com.paiondata.elide.annotation.ApiVersion;
 import com.paiondata.elide.annotation.ComputedRelationship;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;

@@ -5,9 +5,18 @@
  */
 package com.paiondata.elide.tests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.patchOperation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.patchSet;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.elements.PatchOperationType.add;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -23,9 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-import com.paiondata.elide.test.jsonapi.elements.PatchOperationType;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -60,11 +66,11 @@ class PaginateIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                    JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                            JsonApiDSL.type(type),
-                            JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", "A name")
+                    datum(
+                        resource(
+                            type(type),
+                            attributes(
+                                attr("name", "A name")
                             )
                         )
                     ).toJSON()
@@ -100,49 +106,49 @@ class PaginateIT extends IntegrationTest {
             .contentType(JsonApi.JsonPatch.MEDIA_TYPE)
             .accept(JsonApi.JsonPatch.MEDIA_TYPE)
             .body(
-                JsonApiDSL.patchSet(
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/author", JsonApiDSL.resource(
-                        JsonApiDSL.type("author"),
-                        JsonApiDSL.id(tempAuthorId1),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("name", "Ernest Hemingway")
+                patchSet(
+                    patchOperation(add, "/author", resource(
+                        type("author"),
+                        id(tempAuthorId1),
+                        attributes(
+                            attr("name", "Ernest Hemingway")
                         ),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("books",
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId1)),
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId2))
+                        relationships(
+                            relation("books",
+                                linkage(type("book"), id(tempBookId1)),
+                                linkage(type("book"), id(tempBookId2))
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book/", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId1),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "The Old Man and the Sea"),
-                            JsonApiDSL.attr("genre", "Literary Fiction"),
-                            JsonApiDSL.attr("language", "English")
+                    patchOperation(add, "/book/", resource(
+                        type("book"),
+                        id(tempBookId1),
+                        attributes(
+                            attr("title", "The Old Man and the Sea"),
+                            attr("genre", "Literary Fiction"),
+                            attr("language", "English")
                         ),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("publisher",
-                                JsonApiDSL.linkage(JsonApiDSL.type("publisher"), JsonApiDSL.id(tempPubId))
+                        relationships(
+                            relation("publisher",
+                                linkage(type("publisher"), id(tempPubId))
 
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book/", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId2),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "For Whom the Bell Tolls"),
-                            JsonApiDSL.attr("genre", "Literary Fiction"),
-                            JsonApiDSL.attr("language", "English")
+                    patchOperation(add, "/book/", resource(
+                        type("book"),
+                        id(tempBookId2),
+                        attributes(
+                            attr("title", "For Whom the Bell Tolls"),
+                            attr("genre", "Literary Fiction"),
+                            attr("language", "English")
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book/" + tempBookId1 + "/publisher", JsonApiDSL.resource(
-                        JsonApiDSL.type("publisher"),
-                        JsonApiDSL.id(tempPubId),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("name", "Default publisher")
+                    patchOperation(add, "/book/" + tempBookId1 + "/publisher", resource(
+                        type("publisher"),
+                        id(tempPubId),
+                        attributes(
+                            attr("name", "Default publisher")
                         )
                     ))
                 ).toJSON()
@@ -155,38 +161,38 @@ class PaginateIT extends IntegrationTest {
             .contentType(JsonApi.JsonPatch.MEDIA_TYPE)
             .accept(JsonApi.JsonPatch.MEDIA_TYPE)
             .body(
-                JsonApiDSL.patchSet(
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/author", JsonApiDSL.resource(
-                        JsonApiDSL.type("author"),
-                        JsonApiDSL.id(tempAuthorId2),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("name", "Orson Scott Card")
+                patchSet(
+                    patchOperation(add, "/author", resource(
+                        type("author"),
+                        id(tempAuthorId2),
+                        attributes(
+                            attr("name", "Orson Scott Card")
                         ),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("books",
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId3)),
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId4))
+                        relationships(
+                            relation("books",
+                                linkage(type("book"), id(tempBookId3)),
+                                linkage(type("book"), id(tempBookId4))
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId3),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "Enders Game"),
-                            JsonApiDSL.attr("genre", "Science Fiction"),
-                            JsonApiDSL.attr("language", "English"),
-                            JsonApiDSL.attr("publishDate", 1454638927412L)
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId3),
+                        attributes(
+                            attr("title", "Enders Game"),
+                            attr("genre", "Science Fiction"),
+                            attr("language", "English"),
+                            attr("publishDate", 1454638927412L)
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId4),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "Enders Shadow"),
-                            JsonApiDSL.attr("genre", "Science Fiction"),
-                            JsonApiDSL.attr("language", "English"),
-                            JsonApiDSL.attr("publishDate", 1464638927412L)
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId4),
+                        attributes(
+                            attr("title", "Enders Shadow"),
+                            attr("genre", "Science Fiction"),
+                            attr("language", "English"),
+                            attr("publishDate", 1464638927412L)
                         )
                     ))
                 )
@@ -199,36 +205,36 @@ class PaginateIT extends IntegrationTest {
             .contentType(JsonApi.JsonPatch.MEDIA_TYPE)
             .accept(JsonApi.JsonPatch.MEDIA_TYPE)
             .body(
-                JsonApiDSL.patchSet(
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/author", JsonApiDSL.resource(
-                        JsonApiDSL.type("author"),
-                        JsonApiDSL.id(tempAuthorId3),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("name", "Isaac Asimov")
+                patchSet(
+                    patchOperation(add, "/author", resource(
+                        type("author"),
+                        id(tempAuthorId3),
+                        attributes(
+                            attr("name", "Isaac Asimov")
                         ),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("books",
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId5)),
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId6))
+                        relationships(
+                            relation("books",
+                                linkage(type("book"), id(tempBookId5)),
+                                linkage(type("book"), id(tempBookId6))
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId5),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "Foundation"),
-                            JsonApiDSL.attr("genre", "Science Fiction"),
-                            JsonApiDSL.attr("language", "English")
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId5),
+                        attributes(
+                            attr("title", "Foundation"),
+                            attr("genre", "Science Fiction"),
+                            attr("language", "English")
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId6),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "The Roman Republic"),
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId6),
+                        attributes(
+                            attr("title", "The Roman Republic"),
                             //genre null
-                            JsonApiDSL.attr("language", "English")
+                            attr("language", "English")
                         )
                     ))
                 )
@@ -241,35 +247,35 @@ class PaginateIT extends IntegrationTest {
             .contentType(JsonApi.JsonPatch.MEDIA_TYPE)
             .accept(JsonApi.JsonPatch.MEDIA_TYPE)
             .body(
-                JsonApiDSL.patchSet(
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/author", JsonApiDSL.resource(
-                        JsonApiDSL.type("author"),
-                        JsonApiDSL.id(tempAuthorId3),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("name", "Null Ned")
+                patchSet(
+                    patchOperation(add, "/author", resource(
+                        type("author"),
+                        id(tempAuthorId3),
+                        attributes(
+                            attr("name", "Null Ned")
                         ),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("books",
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId7)),
-                                JsonApiDSL.linkage(JsonApiDSL.type("book"), JsonApiDSL.id(tempBookId8))
+                        relationships(
+                            relation("books",
+                                linkage(type("book"), id(tempBookId7)),
+                                linkage(type("book"), id(tempBookId8))
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId7),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "Life with Null Ned"),
-                            JsonApiDSL.attr("language", "English")
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId7),
+                        attributes(
+                            attr("title", "Life with Null Ned"),
+                            attr("language", "English")
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/book", JsonApiDSL.resource(
-                        JsonApiDSL.type("book"),
-                        JsonApiDSL.id(tempBookId8),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("title", "Life with Null Ned 2"),
-                            JsonApiDSL.attr("genre", "Not Null"),
-                            JsonApiDSL.attr("language", "English")
+                    patchOperation(add, "/book", resource(
+                        type("book"),
+                        id(tempBookId8),
+                        attributes(
+                            attr("title", "Life with Null Ned 2"),
+                            attr("genre", "Not Null"),
+                            attr("language", "English")
                         )
                     ))
                 ).toJSON()
@@ -297,31 +303,31 @@ class PaginateIT extends IntegrationTest {
             .contentType(JsonApi.JsonPatch.MEDIA_TYPE)
             .accept(JsonApi.JsonPatch.MEDIA_TYPE)
             .body(
-                JsonApiDSL.patchSet(
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/parent", JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id(tempParentId),
-                        JsonApiDSL.relationships(
-                            JsonApiDSL.relation("children",
-                                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id(tempChildId1)),
-                                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id(tempChildId2))
+                patchSet(
+                    patchOperation(add, "/parent", resource(
+                        type("parent"),
+                        id(tempParentId),
+                        relationships(
+                            relation("children",
+                                linkage(type("child"), id(tempChildId1)),
+                                linkage(type("child"), id(tempChildId2))
                             ),
-                            JsonApiDSL.relation("spouses",
-                                JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id(tempSpouseId))
+                            relation("spouses",
+                                linkage(type("parent"), id(tempSpouseId))
                             )
                         )
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/parent/" + tempParentId + "/children", JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id(tempChildId1)
+                    patchOperation(add, "/parent/" + tempParentId + "/children", resource(
+                        type("child"),
+                        id(tempChildId1)
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/parent/" + tempParentId + "/children", JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id(tempChildId2)
+                    patchOperation(add, "/parent/" + tempParentId + "/children", resource(
+                        type("child"),
+                        id(tempChildId2)
                     )),
-                    JsonApiDSL.patchOperation(PatchOperationType.add, "/parent", JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id(tempSpouseId)
+                    patchOperation(add, "/parent", resource(
+                        type("parent"),
+                        id(tempSpouseId)
                     ))
                 ).toJSON()
             )

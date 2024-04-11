@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.datastores.aggregation.annotation.metricformula;
 
-import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
+import com.paiondata.elide.annotation.Include;
 
 import jakarta.persistence.Id;
 import lombok.EqualsAndHashCode;

@@ -5,16 +5,16 @@
  */
 package com.paiondata.elide.graphql.containers;
 
+import com.paiondata.elide.graphql.DeferredId;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.PersistentResourceFetcher;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.graphql.DeferredId;
-import com.paiondata.elide.graphql.Environment;
-import com.paiondata.elide.graphql.NonEntityDictionary;
-import com.paiondata.elide.graphql.PersistentResourceFetcher;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

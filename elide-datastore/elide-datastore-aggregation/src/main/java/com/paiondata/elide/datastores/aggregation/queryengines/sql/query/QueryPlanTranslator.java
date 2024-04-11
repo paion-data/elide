@@ -6,9 +6,9 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
 import com.paiondata.elide.datastores.aggregation.query.Query;

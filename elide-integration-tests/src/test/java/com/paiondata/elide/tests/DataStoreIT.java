@@ -7,12 +7,15 @@ package com.paiondata.elide.tests;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.Route;
@@ -20,12 +23,10 @@ import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.paiondata.elide.test.jsonapi.elements.Data;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import example.Author;
 import example.Book;
 import example.Chapter;
@@ -79,7 +80,7 @@ public class DataStoreIT extends IntegrationTest {
         elide = new Elide(ElideSettings.builder().dataStore(dataStore)
                 .auditLogger(new TestAuditLogger())
                 .entityDictionary(entityDictionary)
-                .settings(JsonApiSettings.JsonApiSettingsBuilder.withDefaults(entityDictionary))
+                .settings(JsonApiSettingsBuilder.withDefaults(entityDictionary))
                 .build());
 
         elide.doScans();
@@ -256,10 +257,10 @@ public class DataStoreIT extends IntegrationTest {
 
     @Test
     public void testFilteredWithPassingCheck() {
-        Data data = JsonApiDSL.data(
-                JsonApiDSL.linkage(JsonApiDSL.type("filtered"), JsonApiDSL.id("1")),
-                JsonApiDSL.linkage(JsonApiDSL.type("filtered"), JsonApiDSL.id("2")),
-                JsonApiDSL.linkage(JsonApiDSL.type("filtered"), JsonApiDSL.id("3"))
+        Data data = data(
+                linkage(type("filtered"), id("1")),
+                linkage(type("filtered"), id("2")),
+                linkage(type("filtered"), id("3"))
         );
 
         Route route = Route.builder().baseUrl(BASEURL).path("filtered").apiVersion(NO_VERSION)
@@ -271,9 +272,9 @@ public class DataStoreIT extends IntegrationTest {
 
     @Test
     public void testFilteredWithFailingCheck() {
-        Data data = JsonApiDSL.data(
-                JsonApiDSL.linkage(JsonApiDSL.type("filtered"), JsonApiDSL.id("1")),
-                JsonApiDSL.linkage(JsonApiDSL.type("filtered"), JsonApiDSL.id("3"))
+        Data data = data(
+                linkage(type("filtered"), id("1")),
+                linkage(type("filtered"), id("3"))
         );
         Route route = Route.builder().baseUrl(BASEURL).path("filtered").apiVersion(NO_VERSION)
                 .build();

@@ -11,10 +11,10 @@ import com.paiondata.elide.core.dictionary.RelationshipType;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.type.Type;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionReadCollectionContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionReadEntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionRelationshipContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionSubCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionReadCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionReadEntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionRelationshipContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionSubCollectionContext;
 import com.google.common.base.Preconditions;
 
 import io.reactivex.Observable;

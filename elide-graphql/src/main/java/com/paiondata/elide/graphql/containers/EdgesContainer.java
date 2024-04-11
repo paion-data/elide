@@ -5,11 +5,10 @@
  */
 package com.paiondata.elide.graphql.containers;
 
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.KeyWord;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.exceptions.BadRequestException;
-import com.paiondata.elide.graphql.Environment;
-
-import com.paiondata.elide.graphql.KeyWord;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

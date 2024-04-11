@@ -6,8 +6,8 @@
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects;
 
 import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedOperation;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
 
 import java.util.Arrays;
 import java.util.HashMap;

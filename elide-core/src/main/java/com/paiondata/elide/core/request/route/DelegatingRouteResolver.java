@@ -5,7 +5,7 @@
  */
 package com.paiondata.elide.core.request.route;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,11 +31,11 @@ public class DelegatingRouteResolver implements RouteResolver {
             Map<String, List<String>> headers, Map<String, List<String>> parameters) {
         for (RouteResolver routeResolver : this.routeResolvers) {
             Route route = routeResolver.resolve(mediaType, baseUrl, path, headers, parameters);
-            if (!EntityDictionary.NO_VERSION.equals(route.getApiVersion())) {
+            if (!NO_VERSION.equals(route.getApiVersion())) {
                 return route;
             }
         }
-        return Route.builder().apiVersion(EntityDictionary.NO_VERSION).baseUrl(baseUrl).path(path).headers(headers)
+        return Route.builder().apiVersion(NO_VERSION).baseUrl(baseUrl).path(path).headers(headers)
                 .parameters(parameters).build();
     }
 }

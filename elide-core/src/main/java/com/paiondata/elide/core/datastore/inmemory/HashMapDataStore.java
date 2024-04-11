@@ -5,17 +5,17 @@
  */
 package com.paiondata.elide.core.datastore.inmemory;
 
-import com.paiondata.elide.annotation.Exclude;
-import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.ObjectCloner;
 import com.paiondata.elide.core.utils.ObjectCloners;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import lombok.Getter;
 

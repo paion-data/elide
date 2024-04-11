@@ -6,10 +6,18 @@
 package com.paiondata.elide.datastores.aggregation.integration;
 
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.allOf;
@@ -19,16 +27,13 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 
-import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
-import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.test.graphql.elements.Arguments;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import example.PlayerStats;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -100,20 +105,20 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testGraphQLMetdata() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "table",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("ids", Arrays.asList("playerStatsView"))
+                                arguments(
+                                        argument("ids", Arrays.asList("playerStatsView"))
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("name"),
-                                        GraphQLDSL.field("arguments",
-                                                GraphQLDSL.selections(
-                                                    GraphQLDSL.field("name"),
-                                                    GraphQLDSL.field("type"),
-                                                    GraphQLDSL.field("defaultValue")
+                                selections(
+                                        field("name"),
+                                        field("arguments",
+                                                selections(
+                                                    field("name"),
+                                                    field("type"),
+                                                    field("defaultValue")
                                                 )
 
                                         )
@@ -122,22 +127,22 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "table",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("name", "playerStatsView"),
-                                        GraphQLDSL.field("arguments",
-                                                GraphQLDSL.selections(
-                                                    GraphQLDSL.field("name", "rating"),
-                                                    GraphQLDSL.field("type", "TEXT"),
-                                                    GraphQLDSL.field("defaultValue", "")
+                                selections(
+                                        field("name", "playerStatsView"),
+                                        field("arguments",
+                                                selections(
+                                                    field("name", "rating"),
+                                                    field("type", "TEXT"),
+                                                    field("defaultValue", "")
                                                 ),
-                                                GraphQLDSL.selections(
-                                                    GraphQLDSL.field("name", "minScore"),
-                                                    GraphQLDSL.field("type", "INTEGER"),
-                                                    GraphQLDSL.field("defaultValue", "0")
+                                                selections(
+                                                    field("name", "minScore"),
+                                                    field("type", "INTEGER"),
+                                                    field("defaultValue", "0")
                                                 )
                                         )
                                 )
@@ -150,40 +155,40 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testColumnWhichReferencesHiddenDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("zipCode")
+                                selections(
+                                        field("orderTotal"),
+                                        field("zipCode")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 78.87),
-                                        GraphQLDSL.field("zipCode", 0)
+                                selections(
+                                        field("orderTotal", 78.87),
+                                        field("zipCode", 0)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 61.43),
-                                        GraphQLDSL.field("zipCode", 10002)
+                                selections(
+                                        field("orderTotal", 61.43),
+                                        field("zipCode", 10002)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 285.19),
-                                        GraphQLDSL.field("zipCode", 20166)
+                                selections(
+                                        field("orderTotal", 285.19),
+                                        field("zipCode", 20166)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 88.22),
-                                        GraphQLDSL.field("zipCode", 20170)
+                                selections(
+                                        field("orderTotal", 88.22),
+                                        field("zipCode", 20170)
                                 )
                         )
                 )
@@ -194,12 +199,12 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testHiddenTable() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_performance",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("totalSales")
+                                selections(
+                                        field("totalSales")
                                 )
                         )
                 )
@@ -212,16 +217,16 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testHiddenColumn() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("zipCodeHidden")
+                                selections(
+                                        field("orderTotal"),
+                                        field("zipCodeHidden")
                                 )
                         )
                 )
@@ -238,12 +243,12 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
             .get("/SalesNamespace_orderDetails?filter=deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'&fields[SalesNamespace_orderDetails]=orderRatio")
             .then()
             .body(equalTo(
-                JsonApiDSL.data(
-                    JsonApiDSL.resource(
-                        JsonApiDSL.type("SalesNamespace_orderDetails"),
-                        JsonApiDSL.id("0"),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("orderRatio", new BigDecimal("1.0000000000000000000000000000000000000000"))
+                data(
+                    resource(
+                        type("SalesNamespace_orderDetails"),
+                        id("0"),
+                        attributes(
+                            attr("orderRatio", new BigDecimal("1.0000000000000000000000000000000000000000"))
                         )
                     )
                 ).toJSON())
@@ -253,29 +258,29 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void parameterizedGraphQLFilterNoAliasTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"orderRatio[numerator:orderMax][denominator:orderMax]>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"orderRatio[numerator:orderMax][denominator:orderMax]>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0)
+                                selections(
+                                        field("ratio1", 1.0)
                                 )
                         )
                 )
@@ -287,29 +292,29 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void parameterizedGraphQLFilterWithAliasTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"ratio1>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"ratio1>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0)
+                                selections(
+                                        field("ratio1", 1.0)
                                 )
                         )
                 )
@@ -321,30 +326,30 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void parameterizedGraphQLSortWithAliasTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\""),
-                                        GraphQLDSL.argument("sort", "\"ratio1\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\""),
+                                        argument("sort", "\"ratio1\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0)
+                                selections(
+                                        field("ratio1", 1.0)
                                 )
                         )
                 )
@@ -356,36 +361,36 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void parameterizedGraphQLColumnTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         )),
-                                        GraphQLDSL.field("orderRatio", "ratio2", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderTotal\"")
+                                        field("orderRatio", "ratio2", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderTotal\"")
                                         )),
-                                        GraphQLDSL.field("orderRatio", "ratio3", GraphQLDSL.arguments())
+                                        field("orderRatio", "ratio3", arguments())
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0),
-                                        GraphQLDSL.field("ratio2", 0.20190379786260731),
-                                        GraphQLDSL.field("ratio3", 1.0)
+                                selections(
+                                        field("ratio1", 1.0),
+                                        field("ratio2", 0.20190379786260731),
+                                        field("ratio3", 1.0)
                                 )
                         )
                 )
@@ -397,44 +402,44 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void basicAggregationTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"highScore\"")
+                                arguments(
+                                        argument("sort", "\"highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("overallRating"),
-                                        GraphQLDSL.field("countryIsoCode"),
-                                        GraphQLDSL.field("playerRank")
+                                selections(
+                                        field("highScore"),
+                                        field("overallRating"),
+                                        field("countryIsoCode"),
+                                        field("playerRank")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("countryIsoCode", "HKG"),
-                                        GraphQLDSL.field("playerRank", 3)
+                                selections(
+                                        field("highScore", 1000),
+                                        field("overallRating", "Good"),
+                                        field("countryIsoCode", "HKG"),
+                                        field("playerRank", 3)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1234),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerRank", 1)
+                                selections(
+                                        field("highScore", 1234),
+                                        field("overallRating", "Good"),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerRank", 1)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("overallRating", "Great"),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerRank", 2)
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("overallRating", "Great"),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerRank", 2)
                                 )
                         )
                 )
@@ -445,44 +450,44 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void metricFormulaTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"timeSpentPerSession\"")
+                                arguments(
+                                        argument("sort", "\"timeSpentPerSession\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent"),
-                                        GraphQLDSL.field("sessions"),
-                                        GraphQLDSL.field("timeSpentPerSession"),
-                                        GraphQLDSL.field("playerName")
+                                selections(
+                                        field("timeSpent"),
+                                        field("sessions"),
+                                        field("timeSpentPerSession"),
+                                        field("playerName")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 720),
-                                        GraphQLDSL.field("sessions", 60),
-                                        GraphQLDSL.field("timeSpentPerSession", 12.0),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("timeSpent", 720),
+                                        field("sessions", 60),
+                                        field("timeSpentPerSession", 12.0),
+                                        field("playerName", "Jon Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 350),
-                                        GraphQLDSL.field("sessions", 25),
-                                        GraphQLDSL.field("timeSpentPerSession", 14.0),
-                                        GraphQLDSL.field("playerName", "Jane Doe")
+                                selections(
+                                        field("timeSpent", 350),
+                                        field("sessions", 25),
+                                        field("timeSpentPerSession", 14.0),
+                                        field("playerName", "Jane Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 300),
-                                        GraphQLDSL.field("sessions", 10),
-                                        GraphQLDSL.field("timeSpentPerSession", 30.0),
-                                        GraphQLDSL.field("playerName", "Han")
+                                selections(
+                                        field("timeSpent", 300),
+                                        field("sessions", 10),
+                                        field("timeSpentPerSession", 30.0),
+                                        field("playerName", "Han")
                                 )
                         )
                 )
@@ -494,21 +499,21 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
         when(securityContextMock.isUserInRole("admin.user")).thenReturn(false);
 
-        expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        expected = document(
+                selections(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 720),
-                                        GraphQLDSL.field("sessions", 60),
-                                        GraphQLDSL.field("timeSpentPerSession", 12.0),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("timeSpent", 720),
+                                        field("sessions", 60),
+                                        field("timeSpentPerSession", 12.0),
+                                        field("playerName", "Jon Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 350),
-                                        GraphQLDSL.field("sessions", 25),
-                                        GraphQLDSL.field("timeSpentPerSession", 14.0),
-                                        GraphQLDSL.field("playerName", "Jane Doe")
+                                selections(
+                                        field("timeSpent", 350),
+                                        field("sessions", 25),
+                                        field("timeSpentPerSession", 14.0),
+                                        field("playerName", "Jane Doe")
                                 )
                         )
                 )
@@ -522,33 +527,33 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void dimensionFormulaTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"playerLevel\""),
-                                        GraphQLDSL.argument("filter", "\"playerLevel>\\\"0\\\"\"")
+                                arguments(
+                                        argument("sort", "\"playerLevel\""),
+                                        argument("filter", "\"playerLevel>\\\"0\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("playerLevel")
+                                selections(
+                                        field("highScore"),
+                                        field("playerLevel")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1234),
-                                        GraphQLDSL.field("playerLevel", 1)
+                                selections(
+                                        field("highScore", 1234),
+                                        field("playerLevel", 1)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("playerLevel", 2)
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("playerLevel", 2)
                                 )
                         )
                 )
@@ -559,29 +564,29 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void noMetricQueryTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStatsWithView",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"countryViewViewIsoCode\"")
+                                arguments(
+                                        argument("sort", "\"countryViewViewIsoCode\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("countryViewViewIsoCode")
+                                selections(
+                                        field("countryViewViewIsoCode")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStatsWithView",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("countryViewViewIsoCode", "HKG")
+                                selections(
+                                        field("countryViewViewIsoCode", "HKG")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("countryViewViewIsoCode", "USA")
+                                selections(
+                                        field("countryViewViewIsoCode", "USA")
                                 )
                         )
                 )
@@ -592,28 +597,28 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void whereFilterTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"overallRating==\\\"Good\\\"\"")
+                                arguments(
+                                        argument("filter", "\"overallRating==\\\"Good\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("overallRating")
+                                selections(
+                                        field("highScore"),
+                                        field("overallRating")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1234),
-                                        GraphQLDSL.field("overallRating", "Good")
+                                selections(
+                                        field("highScore", 1234),
+                                        field("overallRating", "Good")
                                 )
                         )
                 )
@@ -624,30 +629,30 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void havingFilterTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"lowScore<\\\"45\\\"\"")
+                                arguments(
+                                        argument("filter", "\"lowScore<\\\"45\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("overallRating"),
-                                        GraphQLDSL.field("playerName")
+                                selections(
+                                        field("lowScore"),
+                                        field("overallRating"),
+                                        field("playerName")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("lowScore", 35),
+                                        field("overallRating", "Good"),
+                                        field("playerName", "Jon Doe")
                                 )
                         )
                 )
@@ -662,36 +667,36 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void wherePromotionTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"overallRating==\\\"Good\\\",lowScore<\\\"45\\\"\""),
-                                        GraphQLDSL.argument("sort", "\"lowScore\"")
+                                arguments(
+                                        argument("filter", "\"overallRating==\\\"Good\\\",lowScore<\\\"45\\\"\""),
+                                        argument("sort", "\"lowScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("overallRating"),
-                                        GraphQLDSL.field("playerName")
+                                selections(
+                                        field("lowScore"),
+                                        field("overallRating"),
+                                        field("playerName")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("lowScore", 35),
+                                        field("overallRating", "Good"),
+                                        field("playerName", "Jon Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 72),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("playerName", "Han")
+                                selections(
+                                        field("lowScore", 72),
+                                        field("overallRating", "Good"),
+                                        field("playerName", "Han")
                                 )
                         )
                 )
@@ -706,36 +711,36 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void havingClauseJoinTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"countryIsoCode==\\\"USA\\\",lowScore<\\\"45\\\"\""),
-                                        GraphQLDSL.argument("sort", "\"lowScore\"")
+                                arguments(
+                                        argument("filter", "\"countryIsoCode==\\\"USA\\\",lowScore<\\\"45\\\"\""),
+                                        argument("sort", "\"lowScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("countryIsoCode"),
-                                        GraphQLDSL.field("playerName")
+                                selections(
+                                        field("lowScore"),
+                                        field("countryIsoCode"),
+                                        field("playerName")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("lowScore", 35),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerName", "Jon Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 241),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerName", "Jane Doe")
+                                selections(
+                                        field("lowScore", 241),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerName", "Jane Doe")
                                 )
                         )
                 )
@@ -750,15 +755,15 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void ungroupedHavingDimensionTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"countryIsoCode==\\\"USA\\\",lowScore<\\\"45\\\"\"")
+                                arguments(
+                                        argument("filter", "\"countryIsoCode==\\\"USA\\\",lowScore<\\\"45\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore")
+                                selections(
+                                        field("lowScore")
                                 )
                         )
                 )
@@ -776,26 +781,26 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void nonAggregatedHavingMetricTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"highScore>\\\"0\\\"\"")
+                                arguments(
+                                        argument("filter", "\"highScore>\\\"0\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore")
+                                selections(
+                                        field("lowScore")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35)
+                                selections(
+                                        field("lowScore", 35)
                                 )
                         )
                 )
@@ -810,15 +815,15 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void invalidHavingClauseClassTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"country.isoCode==\\\"USA\\\",lowScore<\\\"45\\\"\"")
+                                arguments(
+                                        argument("filter", "\"country.isoCode==\\\"USA\\\",lowScore<\\\"45\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore")
+                                selections(
+                                        field("lowScore")
                                 )
                         )
                 )
@@ -832,32 +837,32 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void dimensionSortingTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"overallRating\"")
+                                arguments(
+                                        argument("sort", "\"overallRating\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("overallRating")
+                                selections(
+                                        field("lowScore"),
+                                        field("overallRating")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35),
-                                        GraphQLDSL.field("overallRating", "Good")
+                                selections(
+                                        field("lowScore", 35),
+                                        field("overallRating", "Good")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 241),
-                                        GraphQLDSL.field("overallRating", "Great")
+                                selections(
+                                        field("lowScore", 241),
+                                        field("overallRating", "Great")
                                 )
                         )
                 )
@@ -868,32 +873,32 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void metricSortingTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"-highScore\"")
+                                arguments(
+                                        argument("sort", "\"-highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("countryIsoCode")
+                                selections(
+                                        field("highScore"),
+                                        field("countryIsoCode")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("countryIsoCode", "USA")
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("countryIsoCode", "USA")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("countryIsoCode", "HKG")
+                                selections(
+                                        field("highScore", 1000),
+                                        field("countryIsoCode", "HKG")
                                 )
                         )
                 )
@@ -904,40 +909,40 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void multipleColumnsSortingTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"overallRating,playerName\"")
+                                arguments(
+                                        argument("sort", "\"overallRating,playerName\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("overallRating"),
-                                        GraphQLDSL.field("playerName")
+                                selections(
+                                        field("lowScore"),
+                                        field("overallRating"),
+                                        field("playerName")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 72),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("playerName", "Han")
+                                selections(
+                                        field("lowScore", 72),
+                                        field("overallRating", "Good"),
+                                        field("playerName", "Han")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 35),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("playerName", "Jon Doe")
+                                selections(
+                                        field("lowScore", 35),
+                                        field("overallRating", "Good"),
+                                        field("playerName", "Jon Doe")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore", 241),
-                                        GraphQLDSL.field("overallRating", "Great"),
-                                        GraphQLDSL.field("playerName", "Jane Doe")
+                                selections(
+                                        field("lowScore", 241),
+                                        field("overallRating", "Great"),
+                                        field("playerName", "Jane Doe")
                                 )
                         )
                 )
@@ -948,16 +953,16 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void idSortingTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"id\"")
+                                arguments(
+                                        argument("sort", "\"id\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("id")
+                                selections(
+                                        field("lowScore"),
+                                        field("id")
                                 )
                         )
                 )
@@ -970,15 +975,15 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void nestedDimensionNotInQuerySortingTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"-countryIsoCode,lowScore\"")
+                                arguments(
+                                        argument("sort", "\"-countryIsoCode,lowScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore")
+                                selections(
+                                        field("lowScore")
                                 )
                         )
                 )
@@ -991,16 +996,16 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void sortingOnMetricNotInQueryTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"highScore\"")
+                                arguments(
+                                        argument("sort", "\"highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("lowScore"),
-                                        GraphQLDSL.field("countryIsoCode")
+                                selections(
+                                        field("lowScore"),
+                                        field("countryIsoCode")
                                 )
                         )
                 )
@@ -1013,32 +1018,32 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void basicViewAggregationTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStatsWithView",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"highScore\"")
+                                arguments(
+                                        argument("sort", "\"highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("countryViewIsoCode")
+                                selections(
+                                        field("highScore"),
+                                        field("countryViewIsoCode")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStatsWithView",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("countryViewIsoCode", "HKG")
+                                selections(
+                                        field("highScore", 1000),
+                                        field("countryViewIsoCode", "HKG")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("countryViewIsoCode", "USA")
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("countryViewIsoCode", "USA")
                                 )
                         )
                 )
@@ -1049,33 +1054,33 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void multiTimeDimensionTest() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("recordedDate"),
-                                        GraphQLDSL.field("updatedDate")
+                                selections(
+                                        field("recordedDate"),
+                                        field("updatedDate")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("recordedDate", "2019-07-11"),
-                                        GraphQLDSL.field("updatedDate", "2020-07-12")
+                                selections(
+                                        field("recordedDate", "2019-07-11"),
+                                        field("updatedDate", "2020-07-12")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("recordedDate", "2019-07-12"),
-                                        GraphQLDSL.field("updatedDate", "2019-10-12")
+                                selections(
+                                        field("recordedDate", "2019-07-12"),
+                                        field("updatedDate", "2019-10-12")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("recordedDate", "2019-07-13"),
-                                        GraphQLDSL.field("updatedDate", "2020-01-12")
+                                selections(
+                                        field("recordedDate", "2019-07-13"),
+                                        field("updatedDate", "2020-01-12")
                                 )
                         )
                 )
@@ -1086,28 +1091,28 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testGraphqlQueryDynamicModelById() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("orderTotal")
+                                selections(
+                                        field("id"),
+                                        field("orderTotal")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "0"),
-                                        GraphQLDSL.field("orderTotal", 513.71)
+                                selections(
+                                        field("id", "0"),
+                                        field("orderTotal", 513.71)
                                 )
                         )
                 )
@@ -1198,41 +1203,41 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testGraphQLDynamicAggregationModel() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("customerRegionRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("customerRegionRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 61.43F),
-                                        GraphQLDSL.field("customerRegion", "NewYork"),
-                                        GraphQLDSL.field("customerRegionRegion", "NewYork"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("orderTotal", 61.43F),
+                                        field("customerRegion", "NewYork"),
+                                        field("customerRegionRegion", "NewYork"),
+                                        field("orderTime", "2020-08")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 113.07F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("orderTotal", 113.07F),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTime", "2020-08")
                                 )
                         )
                 )
@@ -1261,129 +1266,129 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void testGraphQLDynamicAggregationModelAllFields() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"courierName,deliveryDate,orderTotal,customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryYear=='2020';(deliveryTime>='2020-08-01';deliveryTime<'2020-12-31');(deliveryDate>='2020-09-01',orderTotal>50)\"")
+                                arguments(
+                                        argument("sort", "\"courierName,deliveryDate,orderTotal,customerRegion\""),
+                                        argument("filter", "\"deliveryYear=='2020';(deliveryTime>='2020-08-01';deliveryTime<'2020-12-31');(deliveryDate>='2020-09-01',orderTotal>50)\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName"),
-                                        GraphQLDSL.field("deliveryTime"),
-                                        GraphQLDSL.field("deliveryHour"),
-                                        GraphQLDSL.field("deliveryDate"),
-                                        GraphQLDSL.field("deliveryMonth"),
-                                        GraphQLDSL.field("deliveryYear"),
-                                        GraphQLDSL.field("deliveryDefault"),
-                                        GraphQLDSL.field("orderTime", "bySecond", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.SECOND)
+                                selections(
+                                        field("courierName"),
+                                        field("deliveryTime"),
+                                        field("deliveryHour"),
+                                        field("deliveryDate"),
+                                        field("deliveryMonth"),
+                                        field("deliveryYear"),
+                                        field("deliveryDefault"),
+                                        field("orderTime", "bySecond", arguments(
+                                                argument("grain", TimeGrain.SECOND)
                                         )),
-                                        GraphQLDSL.field("orderTime", "byDay", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.DAY)
+                                        field("orderTime", "byDay", arguments(
+                                                argument("grain", TimeGrain.DAY)
                                         )),
-                                        GraphQLDSL.field("orderTime", "byMonth", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                        field("orderTime", "byMonth", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         )),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("customerRegionRegion"),
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("zipCode"),
-                                        GraphQLDSL.field("orderId")
+                                        field("customerRegion"),
+                                        field("customerRegionRegion"),
+                                        field("orderTotal"),
+                                        field("zipCode"),
+                                        field("orderId")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "FEDEX"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-11T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-11T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-11"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-08T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-11"),
-                                        GraphQLDSL.field("byDay", "2020-09-08"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 84.11F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1b")
+                                selections(
+                                        field("courierName", "FEDEX"),
+                                        field("deliveryTime", "2020-09-11T16:30:11"),
+                                        field("deliveryHour", "2020-09-11T16"),
+                                        field("deliveryDate", "2020-09-11"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-08T16:30:11"),
+                                        field("deliveryDefault", "2020-09-11"),
+                                        field("byDay", "2020-09-08"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 84.11F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1b")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "FEDEX"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-11T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-11T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-11"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-08T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-11"),
-                                        GraphQLDSL.field("byDay", "2020-09-08"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 97.36F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1c")
+                                selections(
+                                        field("courierName", "FEDEX"),
+                                        field("deliveryTime", "2020-09-11T16:30:11"),
+                                        field("deliveryHour", "2020-09-11T16"),
+                                        field("deliveryDate", "2020-09-11"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-08T16:30:11"),
+                                        field("deliveryDefault", "2020-09-11"),
+                                        field("byDay", "2020-09-08"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 97.36F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1c")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-05T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-05T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-05"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-08-30T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-05"),
-                                        GraphQLDSL.field("byDay", "2020-08-30"),
-                                        GraphQLDSL.field("byMonth", "2020-08"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 103.72F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1a")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-05T16:30:11"),
+                                        field("deliveryHour", "2020-09-05T16"),
+                                        field("deliveryDate", "2020-09-05"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-08-30T16:30:11"),
+                                        field("deliveryDefault", "2020-09-05"),
+                                        field("byDay", "2020-08-30"),
+                                        field("byMonth", "2020-08"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 103.72F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1a")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-13T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-13T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-13"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-09T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-13"),
-                                        GraphQLDSL.field("byDay", "2020-09-09"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", (String) null, false),
-                                        GraphQLDSL.field("customerRegionRegion", (String) null, false),
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("zipCode", 0),
-                                        GraphQLDSL.field("orderId", "order-null-enum")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-13T16:30:11"),
+                                        field("deliveryHour", "2020-09-13T16"),
+                                        field("deliveryDate", "2020-09-13"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-09T16:30:11"),
+                                        field("deliveryDefault", "2020-09-13"),
+                                        field("byDay", "2020-09-09"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", (String) null, false),
+                                        field("customerRegionRegion", (String) null, false),
+                                        field("orderTotal", 78.87F),
+                                        field("zipCode", 0),
+                                        field("orderId", "order-null-enum")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-13T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-13T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-13"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-09T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-13"),
-                                        GraphQLDSL.field("byDay", "2020-09-09"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("zipCode", 20170),
-                                        GraphQLDSL.field("orderId", "order-3b")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-13T16:30:11"),
+                                        field("deliveryHour", "2020-09-13T16"),
+                                        field("deliveryDate", "2020-09-13"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-09T16:30:11"),
+                                        field("deliveryDefault", "2020-09-13"),
+                                        field("byDay", "2020-09-09"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 78.87F),
+                                        field("zipCode", 20170),
+                                        field("orderId", "order-3b")
                                 )
                         )
                 )
@@ -1399,129 +1404,129 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void testTableMaker() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails2",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"courierName,deliveryDate,orderTotal,customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryYear=='2020';(deliveryTime>='2020-08-01';deliveryTime<'2020-12-31');(deliveryDate>='2020-09-01',orderTotal>50)\"")
+                                arguments(
+                                        argument("sort", "\"courierName,deliveryDate,orderTotal,customerRegion\""),
+                                        argument("filter", "\"deliveryYear=='2020';(deliveryTime>='2020-08-01';deliveryTime<'2020-12-31');(deliveryDate>='2020-09-01',orderTotal>50)\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName"),
-                                        GraphQLDSL.field("deliveryTime"),
-                                        GraphQLDSL.field("deliveryHour"),
-                                        GraphQLDSL.field("deliveryDate"),
-                                        GraphQLDSL.field("deliveryMonth"),
-                                        GraphQLDSL.field("deliveryYear"),
-                                        GraphQLDSL.field("deliveryDefault"),
-                                        GraphQLDSL.field("orderTime", "bySecond", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.SECOND)
+                                selections(
+                                        field("courierName"),
+                                        field("deliveryTime"),
+                                        field("deliveryHour"),
+                                        field("deliveryDate"),
+                                        field("deliveryMonth"),
+                                        field("deliveryYear"),
+                                        field("deliveryDefault"),
+                                        field("orderTime", "bySecond", arguments(
+                                                argument("grain", TimeGrain.SECOND)
                                         )),
-                                        GraphQLDSL.field("orderTime", "byDay", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.DAY)
+                                        field("orderTime", "byDay", arguments(
+                                                argument("grain", TimeGrain.DAY)
                                         )),
-                                        GraphQLDSL.field("orderTime", "byMonth", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                        field("orderTime", "byMonth", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         )),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("customerRegionRegion"),
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("zipCode"),
-                                        GraphQLDSL.field("orderId")
+                                        field("customerRegion"),
+                                        field("customerRegionRegion"),
+                                        field("orderTotal"),
+                                        field("zipCode"),
+                                        field("orderId")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails2",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "FEDEX"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-11T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-11T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-11"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-08T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-11"),
-                                        GraphQLDSL.field("byDay", "2020-09-08"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 84.11F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1b")
+                                selections(
+                                        field("courierName", "FEDEX"),
+                                        field("deliveryTime", "2020-09-11T16:30:11"),
+                                        field("deliveryHour", "2020-09-11T16"),
+                                        field("deliveryDate", "2020-09-11"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-08T16:30:11"),
+                                        field("deliveryDefault", "2020-09-11"),
+                                        field("byDay", "2020-09-08"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 84.11F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1b")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "FEDEX"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-11T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-11T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-11"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-08T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-11"),
-                                        GraphQLDSL.field("byDay", "2020-09-08"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 97.36F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1c")
+                                selections(
+                                        field("courierName", "FEDEX"),
+                                        field("deliveryTime", "2020-09-11T16:30:11"),
+                                        field("deliveryHour", "2020-09-11T16"),
+                                        field("deliveryDate", "2020-09-11"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-08T16:30:11"),
+                                        field("deliveryDefault", "2020-09-11"),
+                                        field("byDay", "2020-09-08"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 97.36F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1c")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-05T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-05T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-05"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-08-30T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-05"),
-                                        GraphQLDSL.field("byDay", "2020-08-30"),
-                                        GraphQLDSL.field("byMonth", "2020-08"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 103.72F),
-                                        GraphQLDSL.field("zipCode", 20166),
-                                        GraphQLDSL.field("orderId", "order-1a")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-05T16:30:11"),
+                                        field("deliveryHour", "2020-09-05T16"),
+                                        field("deliveryDate", "2020-09-05"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-08-30T16:30:11"),
+                                        field("deliveryDefault", "2020-09-05"),
+                                        field("byDay", "2020-08-30"),
+                                        field("byMonth", "2020-08"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 103.72F),
+                                        field("zipCode", 20166),
+                                        field("orderId", "order-1a")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-13T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-13T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-13"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-09T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-13"),
-                                        GraphQLDSL.field("byDay", "2020-09-09"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", (String) null, false),
-                                        GraphQLDSL.field("customerRegionRegion", (String) null, false),
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("zipCode", 0),
-                                        GraphQLDSL.field("orderId", "order-null-enum")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-13T16:30:11"),
+                                        field("deliveryHour", "2020-09-13T16"),
+                                        field("deliveryDate", "2020-09-13"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-09T16:30:11"),
+                                        field("deliveryDefault", "2020-09-13"),
+                                        field("byDay", "2020-09-09"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", (String) null, false),
+                                        field("customerRegionRegion", (String) null, false),
+                                        field("orderTotal", 78.87F),
+                                        field("zipCode", 0),
+                                        field("orderId", "order-null-enum")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("courierName", "UPS"),
-                                        GraphQLDSL.field("deliveryTime", "2020-09-13T16:30:11"),
-                                        GraphQLDSL.field("deliveryHour", "2020-09-13T16"),
-                                        GraphQLDSL.field("deliveryDate", "2020-09-13"),
-                                        GraphQLDSL.field("deliveryMonth", "2020-09"),
-                                        GraphQLDSL.field("deliveryYear", "2020"),
-                                        GraphQLDSL.field("bySecond", "2020-09-09T16:30:11"),
-                                        GraphQLDSL.field("deliveryDefault", "2020-09-13"),
-                                        GraphQLDSL.field("byDay", "2020-09-09"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("customerRegionRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("zipCode", 20170),
-                                        GraphQLDSL.field("orderId", "order-3b")
+                                selections(
+                                        field("courierName", "UPS"),
+                                        field("deliveryTime", "2020-09-13T16:30:11"),
+                                        field("deliveryHour", "2020-09-13T16"),
+                                        field("deliveryDate", "2020-09-13"),
+                                        field("deliveryMonth", "2020-09"),
+                                        field("deliveryYear", "2020"),
+                                        field("bySecond", "2020-09-09T16:30:11"),
+                                        field("deliveryDefault", "2020-09-13"),
+                                        field("byDay", "2020-09-09"),
+                                        field("byMonth", "2020-09"),
+                                        field("customerRegion", "Virginia"),
+                                        field("customerRegionRegion", "Virginia"),
+                                        field("orderTotal", 78.87F),
+                                        field("zipCode", 20170),
+                                        field("orderId", "order-3b")
                                 )
                         )
                 )
@@ -1532,37 +1537,37 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testGraphQLDynamicAggregationModelDateTime() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"bySecond=='2020-09-08T16:30:11';(deliveryTime>='2020-01-01';deliveryTime<'2020-12-31')\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"bySecond=='2020-09-08T16:30:11';(deliveryTime>='2020-01-01';deliveryTime<'2020-12-31')\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", "byMonth", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("orderTime", "byMonth", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         )),
-                                        GraphQLDSL.field("orderTime", "bySecond", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.SECOND)
+                                        field("orderTime", "bySecond", arguments(
+                                                argument("grain", TimeGrain.SECOND)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 181.47F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("byMonth", "2020-09"),
-                                        GraphQLDSL.field("bySecond", "2020-09-08T16:30:11")
+                                selections(
+                                        field("orderTotal", 181.47F),
+                                        field("customerRegion", "Virginia"),
+                                        field("byMonth", "2020-09"),
+                                        field("bySecond", "2020-09-08T16:30:11")
                                 )
                         )
                 )
@@ -1574,19 +1579,19 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testTimeDimMismatchArgs() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"orderTime[grain:DAY]=='2020-08',orderTotal>50\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"orderTime[grain:DAY]=='2020-08',orderTotal>50\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH) // Does not match grain argument in filter
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.MONTH) // Does not match grain argument in filter
                                         ))
                                 )
                         )
@@ -1601,18 +1606,18 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testTimeDimMismatchArgsWithDefaultSelect() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"orderTime[grain:DAY]=='2020-08',orderTotal>50\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"orderTime[grain:DAY]=='2020-08',orderTotal>50\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime") //Default Grain for OrderTime is Month.
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("orderTime") //Default Grain for OrderTime is Month.
                                 )
                         )
                 )
@@ -1627,48 +1632,48 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testTimeDimMismatchArgsWithDefaultFilter() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"orderTime,customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"(orderTime=='2020-08-01',orderTotal>50);(deliveryTime>='2020-01-01';deliveryTime<'2020-12-31')\"") //No Grain Arg passed, so works based on Alias's argument in Selection.
+                                arguments(
+                                        argument("sort", "\"orderTime,customerRegion\""),
+                                        argument("filter", "\"(orderTime=='2020-08-01',orderTotal>50);(deliveryTime>='2020-01-01';deliveryTime<'2020-12-31')\"") //No Grain Arg passed, so works based on Alias's argument in Selection.
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.DAY)
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.DAY)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 103.72F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-08-30")
+                                selections(
+                                        field("orderTotal", 103.72F),
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTime", "2020-08-30")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 181.47F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-09-08")
+                                selections(
+                                        field("orderTotal", 181.47F),
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTime", "2020-09-08")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("customerRegion", (String) null, false),
-                                        GraphQLDSL.field("orderTime", "2020-09-09")
+                                selections(
+                                        field("orderTotal", 78.87F),
+                                        field("customerRegion", (String) null, false),
+                                        field("orderTime", "2020-09-09")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 78.87F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-09-09")
+                                selections(
+                                        field("orderTotal", 78.87F),
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTime", "2020-09-09")
                                 )
                         )
                 )
@@ -1680,38 +1685,38 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testAdminRole() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("orderTotal"),
+                                        field("customerRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 61.43F),
-                                        GraphQLDSL.field("customerRegion", "NewYork"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("orderTotal", 61.43F),
+                                        field("customerRegion", "NewYork"),
+                                        field("orderTime", "2020-08")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal", 113.07F),
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("orderTotal", 113.07F),
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTime", "2020-08")
                                 )
                         )
                 )
@@ -1725,35 +1730,35 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
         when(securityContextMock.isUserInRole("admin")).thenReturn(false);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("customerRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion", "NewYork"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("customerRegion", "NewYork"),
+                                        field("orderTime", "2020-08")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTime", "2020-08")
+                                selections(
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTime", "2020-08")
                                 )
                         )
                 )
@@ -1768,18 +1773,18 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
         when(securityContextMock.isUserInRole("admin")).thenReturn(false);
         when(securityContextMock.isUserInRole("operator")).thenReturn(false);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime=='2020-08'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("customerRegion"),
+                                        field("orderTime", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         ))
                                 )
                         )
@@ -1794,45 +1799,45 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testTimeDimensionAliases() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"byDay>='2019-07-12'\""),
-                                        GraphQLDSL.argument("sort", "\"byDay\"")
+                                arguments(
+                                        argument("filter", "\"byDay>='2019-07-12'\""),
+                                        argument("sort", "\"byDay\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("recordedDate", "byDay", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.DAY)
+                                selections(
+                                        field("highScore"),
+                                        field("recordedDate", "byDay", arguments(
+                                                argument("grain", TimeGrain.DAY)
                                         )),
-                                        GraphQLDSL.field("recordedDate", "byMonth", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                        field("recordedDate", "byMonth", arguments(
+                                                argument("grain", TimeGrain.MONTH)
                                         )),
-                                        GraphQLDSL.field("recordedDate", "byQuarter", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.QUARTER)
+                                        field("recordedDate", "byQuarter", arguments(
+                                                argument("grain", TimeGrain.QUARTER)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1234),
-                                        GraphQLDSL.field("byDay", "2019-07-12"),
-                                        GraphQLDSL.field("byMonth", "2019-07"),
-                                        GraphQLDSL.field("byQuarter", "2019-07")
+                                selections(
+                                        field("highScore", 1234),
+                                        field("byDay", "2019-07-12"),
+                                        field("byMonth", "2019-07"),
+                                        field("byQuarter", "2019-07")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("byDay", "2019-07-13"),
-                                        GraphQLDSL.field("byMonth", "2019-07"),
-                                        GraphQLDSL.field("byQuarter", "2019-07")
+                                selections(
+                                        field("highScore", 1000),
+                                        field("byDay", "2019-07-13"),
+                                        field("byMonth", "2019-07"),
+                                        field("byQuarter", "2019-07")
                                 )
                         )
                 )
@@ -1847,32 +1852,32 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void testJoinBeforeAggregationWithAlias() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"highScore\"")
+                                arguments(
+                                        argument("sort", "\"highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("countryIsoCode", "countryAlias", Arguments.emptyArgument())
+                                selections(
+                                        field("highScore"),
+                                        field("countryIsoCode", "countryAlias", Arguments.emptyArgument())
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("countryAlias", "HKG")
+                                selections(
+                                        field("highScore", 1000),
+                                        field("countryAlias", "HKG")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("countryAlias", "USA")
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("countryAlias", "USA")
                                 )
                         )
                 )
@@ -1889,47 +1894,47 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void testMetricsAndDimensionsWithAlias() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", "highScoreAlias", Arguments.emptyArgument()),
-                                        GraphQLDSL.field("dailyAverageScorePerPeriod", "avgScoreAlias", Arguments.emptyArgument()),
-                                        GraphQLDSL.field("overallRating", "ratingAlias", Arguments.emptyArgument()),
-                                        GraphQLDSL.field("countryIsoCode", "countryAlias", Arguments.emptyArgument()),
-                                        GraphQLDSL.field("recordedDate", "byDay", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("grain", TimeGrain.DAY)
+                                selections(
+                                        field("highScore", "highScoreAlias", Arguments.emptyArgument()),
+                                        field("dailyAverageScorePerPeriod", "avgScoreAlias", Arguments.emptyArgument()),
+                                        field("overallRating", "ratingAlias", Arguments.emptyArgument()),
+                                        field("countryIsoCode", "countryAlias", Arguments.emptyArgument()),
+                                        field("recordedDate", "byDay", arguments(
+                                                argument("grain", TimeGrain.DAY)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScoreAlias", 1000),
-                                        GraphQLDSL.field("avgScoreAlias", 1000.0),
-                                        GraphQLDSL.field("ratingAlias", "Good"),
-                                        GraphQLDSL.field("countryAlias", "HKG"),
-                                        GraphQLDSL.field("byDay", "2019-07-13")
+                                selections(
+                                        field("highScoreAlias", 1000),
+                                        field("avgScoreAlias", 1000.0),
+                                        field("ratingAlias", "Good"),
+                                        field("countryAlias", "HKG"),
+                                        field("byDay", "2019-07-13")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScoreAlias", 1234),
-                                        GraphQLDSL.field("avgScoreAlias", 1234),
-                                        GraphQLDSL.field("ratingAlias", "Good"),
-                                        GraphQLDSL.field("countryAlias", "USA"),
-                                        GraphQLDSL.field("byDay", "2019-07-12")
+                                selections(
+                                        field("highScoreAlias", 1234),
+                                        field("avgScoreAlias", 1234),
+                                        field("ratingAlias", "Good"),
+                                        field("countryAlias", "USA"),
+                                        field("byDay", "2019-07-12")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScoreAlias", 3147483647L),
-                                        GraphQLDSL.field("avgScoreAlias", 3147483647L),
-                                        GraphQLDSL.field("ratingAlias", "Great"),
-                                        GraphQLDSL.field("countryAlias", "USA"),
-                                        GraphQLDSL.field("byDay", "2019-07-11")
+                                selections(
+                                        field("highScoreAlias", 3147483647L),
+                                        field("avgScoreAlias", 3147483647L),
+                                        field("ratingAlias", "Great"),
+                                        field("countryAlias", "USA"),
+                                        field("byDay", "2019-07-11")
                                 )
                         )
                 )
@@ -1941,33 +1946,33 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testTimeDimensionArgumentsInFilter() throws Exception {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"customerRegion\""),
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime[grain:day]=='2020-09-08'\"")
+                                arguments(
+                                        argument("sort", "\"customerRegion\""),
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';orderTime[grain:day]=='2020-09-08'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion"),
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("orderTime", GraphQLDSL.arguments(
-                                                   GraphQLDSL.argument("grain", TimeGrain.MONTH)
+                                selections(
+                                        field("customerRegion"),
+                                        field("orderTotal"),
+                                        field("orderTime", arguments(
+                                                   argument("grain", TimeGrain.MONTH)
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegion", "Virginia"),
-                                        GraphQLDSL.field("orderTotal", 181.47F),
-                                        GraphQLDSL.field("orderTime", "2020-09")
+                                selections(
+                                        field("customerRegion", "Virginia"),
+                                        field("orderTotal", 181.47F),
+                                        field("orderTime", "2020-09")
                                 )
                         )
                 )
@@ -2033,17 +2038,17 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testDelete() throws IOException {
-        String graphQLRequest = GraphQLDSL.mutation(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = mutation(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "DELETE"),
-                                        GraphQLDSL.argument("ids", Arrays.asList("0"))
+                                arguments(
+                                        argument("op", "DELETE"),
+                                        argument("ids", Arrays.asList("0"))
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("overallRating")
+                                selections(
+                                        field("id"),
+                                        field("overallRating")
                                 )
                         )
                 )
@@ -2061,17 +2066,17 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
         playerStats.setId("1");
         playerStats.setHighScore(100);
 
-        String graphQLRequest = GraphQLDSL.mutation(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = mutation(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "UPDATE"),
-                                        GraphQLDSL.argument("data", playerStats)
+                                arguments(
+                                        argument("op", "UPDATE"),
+                                        argument("data", playerStats)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("overallRating")
+                                selections(
+                                        field("id"),
+                                        field("overallRating")
                                 )
                         )
                 )
@@ -2089,17 +2094,17 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
         playerStats.setId("1");
         playerStats.setHighScore(100);
 
-        String graphQLRequest = GraphQLDSL.mutation(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = mutation(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "UPSERT"),
-                                        GraphQLDSL.argument("data", playerStats)
+                                arguments(
+                                        argument("op", "UPSERT"),
+                                        argument("data", playerStats)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("overallRating")
+                                selections(
+                                        field("id"),
+                                        field("overallRating")
                                 )
                         )
                 )
@@ -2117,16 +2122,16 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
         order.put("orderId", "1");
         order.put("courierName", "foo");
 
-        String graphQLRequest = GraphQLDSL.mutation(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = mutation(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "UPSERT"),
-                                        GraphQLDSL.argument("data", order)
+                                arguments(
+                                        argument("op", "UPSERT"),
+                                        argument("data", order)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderId")
+                                selections(
+                                        field("orderId")
                                 )
                         )
                 )
@@ -2143,17 +2148,17 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
      */
     @Test
     public void missingRequiredColumnFilter() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
+        String graphQLRequest = document(
+                selection(
 
-                        GraphQLDSL.field(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderTotal"),
-                                        GraphQLDSL.field("deliveryYear")
+                                selections(
+                                        field("orderTotal"),
+                                        field("deliveryYear")
                                 )
                         )
                 )
@@ -2170,31 +2175,31 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     public void testPermissionFilters() throws IOException {
         when(securityContextMock.isUserInRole("admin.user")).thenReturn(false);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"timeSpentPerSession\"")
+                                arguments(
+                                        argument("sort", "\"timeSpentPerSession\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent"),
-                                        GraphQLDSL.field("sessions"),
-                                        GraphQLDSL.field("timeSpentPerSession")
+                                selections(
+                                        field("timeSpent"),
+                                        field("sessions"),
+                                        field("timeSpentPerSession")
                                 )
                         )
                 )
         ).toQuery();
 
         //Records for Jon Doe and Jane Doe will only be aggregated.
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent", 1070),
-                                        GraphQLDSL.field("sessions", 85),
-                                        GraphQLDSL.field("timeSpentPerSession", 12.588235)
+                                selections(
+                                        field("timeSpent", 1070),
+                                        field("sessions", 85),
+                                        field("timeSpentPerSession", 12.588235)
                                 )
                         )
                 )
@@ -2207,15 +2212,15 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
     @Test
     public void testFieldPermissions() throws IOException {
         when(securityContextMock.isUserInRole("operator")).thenReturn(false);
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "videoGame",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("timeSpent"),
-                                        GraphQLDSL.field("sessions"),
-                                        GraphQLDSL.field("timeSpentPerSession"),
-                                        GraphQLDSL.field("timeSpentPerGame")
+                                selections(
+                                        field("timeSpent"),
+                                        field("sessions"),
+                                        field("timeSpentPerSession"),
+                                        field("timeSpentPerGame")
                                 )
                         )
                 )
@@ -2229,32 +2234,32 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testEnumDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1"),
-                                        GraphQLDSL.field("customerRegionType2")
+                                selections(
+                                        field("customerRegionType1"),
+                                        field("customerRegionType2")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1", (String) null, false),
-                                        GraphQLDSL.field("customerRegionType2", (String) null, false)
+                                selections(
+                                        field("customerRegionType1", (String) null, false),
+                                        field("customerRegionType2", (String) null, false)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1", "STATE"),
-                                        GraphQLDSL.field("customerRegionType2", "STATE")
+                                selections(
+                                        field("customerRegionType1", "STATE"),
+                                        field("customerRegionType2", "STATE")
                                 )
                         )
                 )
@@ -2265,28 +2270,28 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testHjsonFilterByEnumDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';customerRegionType1==STATE;customerRegionType2==STATE\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31';customerRegionType1==STATE;customerRegionType2==STATE\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1"),
-                                        GraphQLDSL.field("customerRegionType2")
+                                selections(
+                                        field("customerRegionType1"),
+                                        field("customerRegionType2")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1", "STATE"),
-                                        GraphQLDSL.field("customerRegionType2", "STATE")
+                                selections(
+                                        field("customerRegionType1", "STATE"),
+                                        field("customerRegionType2", "STATE")
                                 )
                         )
                 )
@@ -2297,28 +2302,28 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testJavaFilterByEnumDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"placeType1==STATE;placeType2==STATE\"")
+                                arguments(
+                                        argument("filter", "\"placeType1==STATE;placeType2==STATE\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("placeType1"),
-                                        GraphQLDSL.field("placeType2")
+                                selections(
+                                        field("placeType1"),
+                                        field("placeType2")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("placeType1", "STATE"),
-                                        GraphQLDSL.field("placeType2", "STATE")
+                                selections(
+                                        field("placeType1", "STATE"),
+                                        field("placeType2", "STATE")
                                 )
                         )
                 )
@@ -2329,28 +2334,28 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testJavaSortByEnumDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"placeType1,placeType2\"")
+                                arguments(
+                                        argument("sort", "\"placeType1,placeType2\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("placeType1"),
-                                        GraphQLDSL.field("placeType2")
+                                selections(
+                                        field("placeType1"),
+                                        field("placeType2")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("placeType1", "STATE"),
-                                        GraphQLDSL.field("placeType2", "STATE")
+                                selections(
+                                        field("placeType1", "STATE"),
+                                        field("placeType2", "STATE")
                                 )
                         )
                 )
@@ -2361,33 +2366,33 @@ public class NoCacheAggregationDataStoreIntegrationTest extends AggregationDataS
 
     @Test
     public void testHjsonSortByEnumDimension() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\""),
-                                        GraphQLDSL.argument("sort", "\"customerRegionType1,customerRegionType2\"")
+                                arguments(
+                                        argument("filter", "\"deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\""),
+                                        argument("sort", "\"customerRegionType1,customerRegionType2\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1"),
-                                        GraphQLDSL.field("customerRegionType2")
+                                selections(
+                                        field("customerRegionType1"),
+                                        field("customerRegionType2")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1", (String) null, false),
-                                        GraphQLDSL.field("customerRegionType2", (String) null, false)
+                                selections(
+                                        field("customerRegionType1", (String) null, false),
+                                        field("customerRegionType2", (String) null, false)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("customerRegionType1", "STATE"),
-                                        GraphQLDSL.field("customerRegionType2", "STATE")
+                                selections(
+                                        field("customerRegionType1", "STATE"),
+                                        field("customerRegionType2", "STATE")
                                 )
                         )
                 )

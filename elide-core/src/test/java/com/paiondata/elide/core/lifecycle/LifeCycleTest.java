@@ -5,14 +5,6 @@
  */
 package com.paiondata.elide.core.lifecycle;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,6 +24,7 @@ import static org.mockito.Mockito.when;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.TransactionRegistry;
@@ -41,7 +34,6 @@ import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
@@ -54,12 +46,14 @@ import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.jsonapi.JsonApiRequestScope;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.google.common.collect.ImmutableSet;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import jakarta.validation.ConstraintViolationException;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -99,7 +93,7 @@ public class LifeCycleTest {
     public void testLifecycleError() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        ErrorTestModel mockModel = mock(ErrorTestModel.class);
+        ErrorTestModel mockModel = Mockito.mock(ErrorTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -109,9 +103,9 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(ErrorTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/errorTestModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/errorTestModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
-        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
+        Assertions.assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
         assertEquals("{\"errors\":[{\"detail\":\"Invalid\"}]}", response.getBody());
     }
 
@@ -119,7 +113,7 @@ public class LifeCycleTest {
     public void testElideCreate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -129,33 +123,33 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(HttpStatus.SC_CREATED, response.getStatus());
 
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, times(2)).classAllFieldsCallback(any(), any());
-        verify(mockModel, times(2)).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(2)).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx, times(1)).createObject(eq(mockModel), isA(RequestScope.class));
@@ -178,7 +172,7 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(LegacyTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(HttpStatus.SC_CREATED, response.getStatus());
 
@@ -213,7 +207,7 @@ public class LifeCycleTest {
     public void testElideCreateFailure() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         doThrow(RuntimeException.class).when(mockModel).setField(anyString());
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
@@ -224,7 +218,7 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, response.getStatus());
         assertEquals(
@@ -247,7 +241,7 @@ public class LifeCycleTest {
     public void testElideGet() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -256,23 +250,23 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.get(route, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
         verify(tx).preCommit(any());
         verify(tx).flush(any());
         verify(tx).commit(any());
@@ -292,7 +286,7 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.get(route, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
@@ -326,7 +320,7 @@ public class LifeCycleTest {
     public void testElideGetSparse() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -337,19 +331,19 @@ public class LifeCycleTest {
 
         Map<String, List<String>> queryParams = new LinkedHashMap<>();
         queryParams.put("fields[testModel]", List.of("field"));
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION).parameters(queryParams).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION).parameters(queryParams).build();
         ElideResponse<String> response = jsonApi.get(route, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(mockModel, never()).relationCallback(any(), any(), any());
 
@@ -372,7 +366,7 @@ public class LifeCycleTest {
         queryParams.put("INCLUDE", List.of("field")); // Valid Key is include
         queryParams.put("fields.testModel", List.of("field")); // fields is not followed by [
         queryParams.put("page.size", List.of("10")); // page is not followed by [
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION).parameters(queryParams).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION).parameters(queryParams).build();
         ElideResponse<String> response = jsonApi.get(route, null, null);
         assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
         assertEquals("{\"errors\":[{\"detail\":\"Found undefined keys in request: ?filter, Sort, INCLUDE, fields.testModel, page.size\"}]}",
@@ -383,8 +377,8 @@ public class LifeCycleTest {
     public void testElideGetRelationship() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
-        FieldTestModel child = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
+        FieldTestModel child = Mockito.mock(FieldTestModel.class);
         when(mockModel.getModels()).thenReturn(ImmutableSet.of(child));
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
@@ -394,23 +388,23 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1/relationships/models").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1/relationships/models").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.get(route, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).flush(any());
@@ -422,7 +416,7 @@ public class LifeCycleTest {
     public void testElidePatch() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -433,30 +427,30 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION)
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION)
                 .headers(getHeaders(JsonApi.MEDIA_TYPE)).build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).save(eq(mockModel), isA(RequestScope.class));
@@ -469,10 +463,10 @@ public class LifeCycleTest {
     public void testElidePatchRelationshipAddMultiple() {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel parent = mock(FieldTestModel.class);
-        FieldTestModel child1 = mock(FieldTestModel.class);
-        FieldTestModel child2 = mock(FieldTestModel.class);
-        FieldTestModel child3 = mock(FieldTestModel.class);
+        FieldTestModel parent = Mockito.mock(FieldTestModel.class);
+        FieldTestModel child1 = Mockito.mock(FieldTestModel.class);
+        FieldTestModel child2 = Mockito.mock(FieldTestModel.class);
+        FieldTestModel child3 = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -492,15 +486,15 @@ public class LifeCycleTest {
         DataStoreIterable iterable = new DataStoreIterableBuilder(List.of(child3)).build();
         when(tx.getToManyRelation(any(), any(), isA(Relationship.class), isA(RequestScope.class))).thenReturn(iterable);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION)
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION)
                 .headers(getHeaders(JsonApi.MEDIA_TYPE)).build();
 
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
 
-        verify(parent, times(1)).relationCallback(eq(UPDATE), eq(POSTCOMMIT), notNull());
+        verify(parent, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), notNull());
 
-        verify(parent, times(4)).classCallback(eq(UPDATE), any());
+        verify(parent, times(4)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
         verify(parent, never()).classAllFieldsCallback(any(), any());
         verify(parent, never()).attributeCallback(any(), any(), any());
     }
@@ -520,7 +514,7 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(NO_VERSION)
+        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(EntityDictionary.NO_VERSION)
                 .headers(getHeaders(JsonApi.MEDIA_TYPE)).build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
@@ -558,7 +552,7 @@ public class LifeCycleTest {
     public void testElideDelete() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -567,27 +561,27 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.delete(route, "", null, null);
         assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
 
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).delete(eq(mockModel), isA(RequestScope.class));
@@ -609,7 +603,7 @@ public class LifeCycleTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.loadObject(isA(EntityProjection.class), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/legacyTestModel/1").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.delete(route, "", null, null);
         assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
 
@@ -645,7 +639,7 @@ public class LifeCycleTest {
     public void testElidePatchExtensionCreate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -658,34 +652,34 @@ public class LifeCycleTest {
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
         String contentType = JsonApi.JsonPatch.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, times(2)).classAllFieldsCallback(any(), any());
-        verify(mockModel, times(2)).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(2)).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx, times(1)).createObject(eq(mockModel), isA(RequestScope.class));
@@ -710,7 +704,7 @@ public class LifeCycleTest {
         when(tx.createNewObject(eq(ClassType.of(LegacyTestModel.class)), any())).thenReturn(mockModel);
 
         String contentType = JsonApi.JsonPatch.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
@@ -746,7 +740,7 @@ public class LifeCycleTest {
     public void failElidePatchExtensionCreate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -759,7 +753,7 @@ public class LifeCycleTest {
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
 
         String contentType = JsonApi.JsonPatch.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
@@ -767,29 +761,29 @@ public class LifeCycleTest {
                 "[{\"errors\":[{\"detail\":\"Bad Request Body&#39;Patch extension requires all objects to have an assigned ID (temporary or permanent) when assigning relationships.&#39;\",\"status\":\"400\"}]}]",
                 response.getBody());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
-        verify(mockModel, never()).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, never()).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx, never()).preCommit(any());
         verify(tx, never()).createObject(eq(mockModel), isA(RequestScope.class));
@@ -802,7 +796,7 @@ public class LifeCycleTest {
     public void testElidePatchExtensionUpdate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -815,32 +809,32 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.JsonPatch.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
         assertEquals("[{\"data\":null}]", response.getBody());
 
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
-        verify(mockModel, never()).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, never()).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
 
@@ -856,7 +850,7 @@ public class LifeCycleTest {
     public void testElidePatchExtensionDelete() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -869,28 +863,28 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.JsonPatch.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         // TODO - Read should not be called for a delete.
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).delete(eq(mockModel), isA(RequestScope.class));
@@ -902,7 +896,7 @@ public class LifeCycleTest {
     public void testElidePatchFailure() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -915,7 +909,7 @@ public class LifeCycleTest {
         doThrow(ConstraintViolationException.class).when(tx).flush(any());
 
         String contentType = JsonApi.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel/1").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.patch(route, body, null, null);
         assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
@@ -923,24 +917,24 @@ public class LifeCycleTest {
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
-        verify(mockModel, never()).classCallback(eq(UPDATE), eq(PRECOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), eq(PRECOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
 
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).save(eq(mockModel), isA(RequestScope.class));
@@ -953,7 +947,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionCreate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -977,34 +971,34 @@ public class LifeCycleTest {
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, times(2)).classAllFieldsCallback(any(), any());
-        verify(mockModel, times(2)).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(2)).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx, times(1)).createObject(eq(mockModel), isA(RequestScope.class));
@@ -1017,7 +1011,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionCreateRef() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1040,34 +1034,34 @@ public class LifeCycleTest {
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, times(2)).classAllFieldsCallback(any(), any());
-        verify(mockModel, times(2)).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(2)).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx, times(1)).createObject(eq(mockModel), isA(RequestScope.class));
@@ -1080,7 +1074,7 @@ public class LifeCycleTest {
     public void failElideAtomicOperationsExtensionCreate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1105,7 +1099,7 @@ public class LifeCycleTest {
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
@@ -1113,29 +1107,29 @@ public class LifeCycleTest {
                 [{"errors":[{"detail":"Bad Request Body&#39;Atomic Operations extension requires all objects to have an assigned ID (temporary or permanent) when assigning relationships.&#39;","status":"400"}]}]""";
         assertEquals(expected, response.getBody());
 
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PRESECURITY));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PREFLUSH));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(PRECOMMIT));
-        verify(mockModel, never()).classCallback(eq(CREATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
-        verify(mockModel, never()).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, never()).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PRESECURITY), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PREFLUSH), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx, never()).preCommit(any());
         verify(tx, never()).createObject(eq(mockModel), isA(RequestScope.class));
@@ -1148,7 +1142,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionUpdate() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1174,7 +1168,7 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
@@ -1183,26 +1177,26 @@ public class LifeCycleTest {
                 {"atomic:results":[{"data":null}]}""";
         assertEquals(expected, response.getBody());
 
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
-        verify(mockModel, never()).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, never()).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
 
@@ -1218,7 +1212,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionUpdateRef() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1243,7 +1237,7 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
@@ -1252,26 +1246,26 @@ public class LifeCycleTest {
                 {"atomic:results":[{"data":null}]}""";
         assertEquals(expected, response.getBody());
 
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, never()).classCallback(eq(DELETE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), any());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
-        verify(mockModel, never()).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, never()).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRECOMMIT), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
 
@@ -1287,7 +1281,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionDelete() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1309,28 +1303,28 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         // TODO - Read should not be called for a delete.
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).delete(eq(mockModel), isA(RequestScope.class));
@@ -1343,7 +1337,7 @@ public class LifeCycleTest {
     public void testElideAtomicOperationsExtensionDeleteRef() throws Exception {
         DataStore store = mock(DataStore.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
 
         Elide elide = getElide(store, dictionary, MOCK_AUDIT_LOGGER);
         JsonApi jsonApi = new JsonApi(elide);
@@ -1364,28 +1358,28 @@ public class LifeCycleTest {
         when(tx.loadObject(any(), any(), isA(RequestScope.class))).thenReturn(mockModel);
 
         String contentType = JsonApi.AtomicOperations.MEDIA_TYPE;
-        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(NO_VERSION).headers(getHeaders(contentType))
+        Route route = Route.builder().baseUrl(baseUrl).path("/").apiVersion(EntityDictionary.NO_VERSION).headers(getHeaders(contentType))
                 .build();
         ElideResponse<String> response = jsonApi.operations(route, body, null, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
-        verify(mockModel, never()).classCallback(eq(UPDATE), any());
-        verify(mockModel, never()).classCallback(eq(CREATE), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRESECURITY));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PREFLUSH));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRECOMMIT));
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(POSTCOMMIT));
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any());
+        verify(mockModel, never()).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), any());
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
 
-        verify(mockModel, never()).attributeCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).attributeCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).attributeCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         // TODO - Read should not be called for a delete.
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, never()).relationCallback(eq(DELETE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.DELETE), any(), any());
 
         verify(tx).preCommit(any());
         verify(tx).delete(eq(mockModel), isA(RequestScope.class));
@@ -1396,7 +1390,7 @@ public class LifeCycleTest {
 
     @Test
     public void testCreate() {
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
@@ -1411,35 +1405,35 @@ public class LifeCycleTest {
         scope.runQueuedPreSecurityTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRESECURITY), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRESECURITY), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         clearInvocations(mockModel);
         scope.runQueuedPreFlushTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PREFLUSH), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PREFLUSH), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         clearInvocations(mockModel);
         scope.runQueuedPreCommitTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(PRECOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(PRECOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any());
         verify(mockModel, times(2)).classAllFieldsCallback(any(), any());
-        verify(mockModel, times(2)).classAllFieldsCallback(eq(CREATE), eq(PRECOMMIT));
+        verify(mockModel, times(2)).classAllFieldsCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
 
         clearInvocations(mockModel);
         scope.getPermissionExecutor().executeCommitChecks();
@@ -1447,16 +1441,16 @@ public class LifeCycleTest {
 
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(CREATE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(CREATE), eq(POSTCOMMIT), any());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any());
     }
 
     @Test
     public void testRead() {
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
@@ -1504,7 +1498,7 @@ public class LifeCycleTest {
 
     @Test
     public void testDelete() {
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
@@ -1513,7 +1507,7 @@ public class LifeCycleTest {
         resource.deleteResource();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
 
         verify(mockModel, never()).relationCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
@@ -1531,7 +1525,7 @@ public class LifeCycleTest {
         scope.runQueuedPreFlushTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
         verify(mockModel, never()).relationCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
         verify(mockModel, never()).attributeCallback(any(), any(), any());
@@ -1540,7 +1534,7 @@ public class LifeCycleTest {
         scope.runQueuedPreCommitTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
         verify(mockModel, never()).relationCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
         verify(mockModel, never()).attributeCallback(any(), any(), any());
@@ -1550,7 +1544,7 @@ public class LifeCycleTest {
         scope.runQueuedPostCommitTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(DELETE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.DELETE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
         verify(mockModel, never()).relationCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
         verify(mockModel, never()).attributeCallback(any(), any(), any());
@@ -1558,7 +1552,7 @@ public class LifeCycleTest {
 
     @Test
     public void testAttributeUpdate() {
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
@@ -1567,9 +1561,9 @@ public class LifeCycleTest {
         resource.updateAttribute("field", "new value");
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRESECURITY), notNull());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), notNull());
 
         verify(mockModel, never()).relationCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
@@ -1585,9 +1579,9 @@ public class LifeCycleTest {
         scope.runQueuedPreFlushTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PREFLUSH), notNull());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), notNull());
 
         clearInvocations(mockModel);
         scope.runQueuedPreCommitTriggers();
@@ -1596,9 +1590,9 @@ public class LifeCycleTest {
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(PRECOMMIT), notNull());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), notNull());
 
         clearInvocations(mockModel);
         scope.getPermissionExecutor().executeCommitChecks();
@@ -1608,19 +1602,19 @@ public class LifeCycleTest {
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
         verify(mockModel, times(1)).attributeCallback(any(), any(), any());
-        verify(mockModel, times(1)).attributeCallback(eq(UPDATE), eq(POSTCOMMIT), notNull());
+        verify(mockModel, times(1)).attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), notNull());
     }
 
     @Test
     public void testRelationshipUpdate() {
-        FieldTestModel mockModel = mock(FieldTestModel.class);
+        FieldTestModel mockModel = Mockito.mock(FieldTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(FieldTestModel.class), scope)).thenReturn(mockModel);
 
-        FieldTestModel modelToAdd = mock(FieldTestModel.class);
+        FieldTestModel modelToAdd = Mockito.mock(FieldTestModel.class);
 
         PersistentResource resource = new PersistentResource(mockModel, scope.getUUIDFor(mockModel), scope);
         PersistentResource resourceToAdd = new PersistentResource(modelToAdd, scope.getUUIDFor(mockModel), scope);
@@ -1628,10 +1622,10 @@ public class LifeCycleTest {
         resource.addRelation("models", resourceToAdd);
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRESECURITY));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY));
 
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(PRESECURITY), notNull());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), notNull());
 
         verify(mockModel, never()).attributeCallback(any(), any(), any());
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
@@ -1647,10 +1641,10 @@ public class LifeCycleTest {
         scope.runQueuedPreFlushTriggers();
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PREFLUSH));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH));
 
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(PREFLUSH), notNull());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), notNull());
 
         clearInvocations(mockModel);
         scope.runQueuedPreCommitTriggers();
@@ -1659,9 +1653,9 @@ public class LifeCycleTest {
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(PRECOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT));
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(PRECOMMIT), notNull());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), notNull());
 
         clearInvocations(mockModel);
         scope.getPermissionExecutor().executeCommitChecks();
@@ -1671,20 +1665,20 @@ public class LifeCycleTest {
         verify(mockModel, never()).classAllFieldsCallback(any(), any());
 
         verify(mockModel, times(1)).classCallback(any(), any());
-        verify(mockModel, times(1)).classCallback(eq(UPDATE), eq(POSTCOMMIT));
+        verify(mockModel, times(1)).classCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT));
         verify(mockModel, times(1)).relationCallback(any(), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(POSTCOMMIT), notNull());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), notNull());
     }
 
     @Test
     public void testAddToCollectionTrigger() {
-        PropertyTestModel mockModel = Mockito.mock(PropertyTestModel.class);
+        PropertyTestModel mockModel = mock(PropertyTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(PropertyTestModel.class), scope)).thenReturn(mockModel);
 
-        PropertyTestModel modelToAdd1 = Mockito.mock(PropertyTestModel.class);
-        PropertyTestModel modelToAdd2 = Mockito.mock(PropertyTestModel.class);
+        PropertyTestModel modelToAdd1 = mock(PropertyTestModel.class);
+        PropertyTestModel modelToAdd2 = mock(PropertyTestModel.class);
 
         //First we test adding to a newly created object.
         PersistentResource resource = PersistentResource.createObject(ClassType.of(PropertyTestModel.class), scope, Optional.of("1"));
@@ -1697,8 +1691,8 @@ public class LifeCycleTest {
         scope.runQueuedPreCommitTriggers();
         scope.runQueuedPostCommitTriggers();
 
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(CREATE), eq(POSTCOMMIT), notNull());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), notNull());
 
         //Build another resource, scope & reset the mock to do a pure update (no create):
         scope = buildRequestScope(dictionary, tx);
@@ -1711,20 +1705,20 @@ public class LifeCycleTest {
         scope.runQueuedPreCommitTriggers();
         scope.runQueuedPostCommitTriggers();
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(POSTCOMMIT), notNull());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), notNull());
     }
 
     @Test
     public void testRemoveFromCollectionTrigger() {
-        PropertyTestModel mockModel = Mockito.mock(PropertyTestModel.class);
+        PropertyTestModel mockModel = mock(PropertyTestModel.class);
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
         RequestScope scope = buildRequestScope(dictionary, tx);
         when(tx.createNewObject(ClassType.of(PropertyTestModel.class), scope)).thenReturn(mockModel);
 
-        PropertyTestModel childModel1 = Mockito.mock(PropertyTestModel.class);
-        PropertyTestModel childModel2 = Mockito.mock(PropertyTestModel.class);
-        PropertyTestModel childModel3 = Mockito.mock(PropertyTestModel.class);
+        PropertyTestModel childModel1 = mock(PropertyTestModel.class);
+        PropertyTestModel childModel2 = mock(PropertyTestModel.class);
+        PropertyTestModel childModel3 = mock(PropertyTestModel.class);
         when(childModel1.getId()).thenReturn("2");
         when(childModel2.getId()).thenReturn("3");
         when(childModel3.getId()).thenReturn("4");
@@ -1741,11 +1735,11 @@ public class LifeCycleTest {
         scope.runQueuedPreCommitTriggers();
         scope.runQueuedPostCommitTriggers();
 
-        verify(mockModel, never()).relationCallback(eq(UPDATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), any(), any());
 
         ArgumentCaptor<ChangeSpec> changes = ArgumentCaptor.forClass(ChangeSpec.class);
-        verify(mockModel, times(1)).relationCallback(eq(CREATE),
-                eq(POSTCOMMIT), changes.capture());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE),
+                eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), changes.capture());
 
         changes.getValue().getModified().equals(List.of(childModel1, childModel2));
         changes.getValue().getOriginal().equals(List.of());
@@ -1771,10 +1765,10 @@ public class LifeCycleTest {
         scope.runQueuedPreCommitTriggers();
         scope.runQueuedPostCommitTriggers();
 
-        verify(mockModel, never()).relationCallback(eq(CREATE), any(), any());
+        verify(mockModel, never()).relationCallback(eq(LifeCycleHookBinding.Operation.CREATE), any(), any());
 
         changes = ArgumentCaptor.forClass(ChangeSpec.class);
-        verify(mockModel, times(1)).relationCallback(eq(UPDATE), eq(POSTCOMMIT), changes.capture());
+        verify(mockModel, times(1)).relationCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), changes.capture());
         changes.getValue().getModified().equals(List.of(childModel1, childModel3));
         changes.getValue().getOriginal().equals(List.of(childModel1, childModel2));
     }
@@ -1782,11 +1776,11 @@ public class LifeCycleTest {
     @Test
     public void testPreCommitLifecycleHookException() {
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel testModel = mock(FieldTestModel.class);
+        FieldTestModel testModel = Mockito.mock(FieldTestModel.class);
 
         doThrow(IllegalStateException.class)
                 .when(testModel)
-                .attributeCallback(eq(UPDATE), eq(PRECOMMIT), any(ChangeSpec.class));
+                .attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRECOMMIT), any(ChangeSpec.class));
 
         RequestScope scope = buildRequestScope(dictionary, tx);
         PersistentResource resource = new PersistentResource(testModel, "1", scope);
@@ -1798,11 +1792,11 @@ public class LifeCycleTest {
     @Test
     public void testPostCommitLifecycleHookException() {
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel testModel = mock(FieldTestModel.class);
+        FieldTestModel testModel = Mockito.mock(FieldTestModel.class);
 
         doThrow(IllegalStateException.class)
                 .when(testModel)
-                .attributeCallback(eq(UPDATE), eq(POSTCOMMIT), any(ChangeSpec.class));
+                .attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT), any(ChangeSpec.class));
 
         RequestScope scope = buildRequestScope(dictionary, tx);
         PersistentResource resource = new PersistentResource(testModel, "1", scope);
@@ -1815,11 +1809,11 @@ public class LifeCycleTest {
     @Test
     public void testPreSecurityLifecycleHookException() {
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel testModel = mock(FieldTestModel.class);
+        FieldTestModel testModel = Mockito.mock(FieldTestModel.class);
 
         doThrow(IllegalStateException.class)
                 .when(testModel)
-                .attributeCallback(eq(UPDATE), eq(PRESECURITY), any(ChangeSpec.class));
+                .attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY), any(ChangeSpec.class));
 
         RequestScope scope = buildRequestScope(dictionary, tx);
         PersistentResource resource = new PersistentResource(testModel, "1", scope);
@@ -1830,11 +1824,11 @@ public class LifeCycleTest {
     @Test
     public void testPreFlushLifecycleHookException() {
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        FieldTestModel testModel = mock(FieldTestModel.class);
+        FieldTestModel testModel = Mockito.mock(FieldTestModel.class);
 
         doThrow(IllegalStateException.class)
                 .when(testModel)
-                .attributeCallback(eq(UPDATE), eq(PREFLUSH), any(ChangeSpec.class));
+                .attributeCallback(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PREFLUSH), any(ChangeSpec.class));
 
         RequestScope scope = buildRequestScope(dictionary, tx);
         PersistentResource resource = new PersistentResource(testModel, "1", scope);
@@ -1862,7 +1856,7 @@ public class LifeCycleTest {
 
     private RequestScope buildRequestScope(EntityDictionary dict, DataStoreTransaction tx) {
         User user = new TestUser("1");
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         ElideSettings elideSettings = getElideSettings(null, dict, MOCK_AUDIT_LOGGER);
         return JsonApiRequestScope.builder().route(route).dataStoreTransaction(tx).user(user)
                 .requestId(UUID.randomUUID()).elideSettings(elideSettings).build();

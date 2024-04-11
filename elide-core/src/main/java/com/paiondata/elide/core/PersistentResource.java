@@ -12,6 +12,7 @@ import static com.paiondata.elide.core.dictionary.EntityBinding.EMPTY_BINDING;
 import static com.paiondata.elide.core.dictionary.EntityDictionary.getType;
 import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
 
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.annotation.Audit;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
@@ -46,7 +47,6 @@ import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.security.visitors.CanPaginateVisitor;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.paiondata.elide.jsonapi.document.processors.WithMetadata;

@@ -8,6 +8,8 @@ package com.paiondata.elide.datastores.hibernate.hql;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
+import com.paiondata.elide.datastores.jpql.query.RelationshipImpl;
+import com.paiondata.elide.datastores.jpql.query.SubCollectionPageTotalsQueryBuilder;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
@@ -17,9 +19,6 @@ import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.datastores.jpql.query.RelationshipImpl;
-import com.paiondata.elide.datastores.jpql.query.SubCollectionPageTotalsQueryBuilder;
-
 import example.Author;
 import example.Book;
 import example.Chapter;

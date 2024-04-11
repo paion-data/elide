@@ -6,9 +6,17 @@
 package com.paiondata.elide.datastores.aggregation.integration;
 
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.allOf;
@@ -17,14 +25,11 @@ import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
-import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
-import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.framework.RedisAggregationDataStoreTestHarness;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -94,12 +99,12 @@ public class RedisAggregationDataStoreIntegrationTest extends AggregationDataSto
             .get("/SalesNamespace_orderDetails?filter=deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'&fields[SalesNamespace_orderDetails]=orderRatio")
             .then()
             .body(equalTo(
-                JsonApiDSL.data(
-                    JsonApiDSL.resource(
-                        JsonApiDSL.type("SalesNamespace_orderDetails"),
-                        JsonApiDSL.id("0"),
-                        JsonApiDSL.attributes(
-                            JsonApiDSL.attr("orderRatio", new BigDecimal("1.0000000000000000000000000000000000000000"))
+                data(
+                    resource(
+                        type("SalesNamespace_orderDetails"),
+                        id("0"),
+                        attributes(
+                            attr("orderRatio", new BigDecimal("1.0000000000000000000000000000000000000000"))
                         )
                     )
                 ).toJSON())
@@ -109,29 +114,29 @@ public class RedisAggregationDataStoreIntegrationTest extends AggregationDataSto
 
     @Test
     public void parameterizedGraphQLFilterNoAliasTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"orderRatio[numerator:orderMax][denominator:orderMax]>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"orderRatio[numerator:orderMax][denominator:orderMax]>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0)
+                                selections(
+                                        field("ratio1", 1.0)
                                 )
                         )
                 )
@@ -146,29 +151,29 @@ public class RedisAggregationDataStoreIntegrationTest extends AggregationDataSto
 
     @Test
     public void parameterizedGraphQLFilterWithAliasTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"ratio1>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
+                                arguments(
+                                        argument("filter", "\"ratio1>=.5;deliveryTime>='2020-01-01';deliveryTime<'2020-12-31'\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("orderRatio", "ratio1", GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("numerator", "\"orderMax\""),
-                                                GraphQLDSL.argument("denominator", "\"orderMax\"")
+                                selections(
+                                        field("orderRatio", "ratio1", arguments(
+                                                argument("numerator", "\"orderMax\""),
+                                                argument("denominator", "\"orderMax\"")
                                         ))
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "SalesNamespace_orderDetails",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("ratio1", 1.0)
+                                selections(
+                                        field("ratio1", 1.0)
                                 )
                         )
                 )
@@ -184,44 +189,44 @@ public class RedisAggregationDataStoreIntegrationTest extends AggregationDataSto
     // Use Non Dynamic Model for caching
     @Test
     public void basicAggregationTest() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("sort", "\"highScore\"")
+                                arguments(
+                                        argument("sort", "\"highScore\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore"),
-                                        GraphQLDSL.field("overallRating"),
-                                        GraphQLDSL.field("countryIsoCode"),
-                                        GraphQLDSL.field("playerRank")
+                                selections(
+                                        field("highScore"),
+                                        field("overallRating"),
+                                        field("countryIsoCode"),
+                                        field("playerRank")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "playerStats",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1000),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("countryIsoCode", "HKG"),
-                                        GraphQLDSL.field("playerRank", 3)
+                                selections(
+                                        field("highScore", 1000),
+                                        field("overallRating", "Good"),
+                                        field("countryIsoCode", "HKG"),
+                                        field("playerRank", 3)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 1234),
-                                        GraphQLDSL.field("overallRating", "Good"),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerRank", 1)
+                                selections(
+                                        field("highScore", 1234),
+                                        field("overallRating", "Good"),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerRank", 1)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("highScore", 3147483647L),
-                                        GraphQLDSL.field("overallRating", "Great"),
-                                        GraphQLDSL.field("countryIsoCode", "USA"),
-                                        GraphQLDSL.field("playerRank", 2)
+                                selections(
+                                        field("highScore", 3147483647L),
+                                        field("overallRating", "Great"),
+                                        field("countryIsoCode", "USA"),
+                                        field("playerRank", 2)
                                 )
                         )
                 )

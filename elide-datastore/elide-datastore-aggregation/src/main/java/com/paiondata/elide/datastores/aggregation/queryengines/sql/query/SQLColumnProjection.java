@@ -20,7 +20,6 @@ import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Jo
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.PhysicalReference;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Reference;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ReferenceExtractor;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

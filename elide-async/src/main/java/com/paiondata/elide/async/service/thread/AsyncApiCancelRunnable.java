@@ -5,22 +5,21 @@
  */
 package com.paiondata.elide.async.service.thread;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.async.models.QueryStatus;
-import com.paiondata.elide.async.service.dao.AsyncApiDao;
-import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.TransactionRegistry;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.predicates.InPredicate;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.jsonapi.JsonApiRequestScope;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.async.service.dao.AsyncApiDao;
 import com.google.common.collect.Sets;
 
 import lombok.Data;
@@ -75,7 +74,7 @@ public class AsyncApiCancelRunnable implements Runnable {
             Set<UUID> runningTransactionUUIDs = runningTransactionMap.keySet();
 
             //Construct filter expression
-            PathElement statusPathElement = new PathElement(type, QueryStatus.class, "status");
+            Path.PathElement statusPathElement = new Path.PathElement(type, QueryStatus.class, "status");
             FilterExpression fltStatusExpression =
                     new InPredicate(statusPathElement, QueryStatus.CANCELLED, QueryStatus.PROCESSING,
                             QueryStatus.QUEUED);
@@ -109,7 +108,7 @@ public class AsyncApiCancelRunnable implements Runnable {
                 if (runningTransaction != null) {
                     JsonApiDocument jsonApiDoc = new JsonApiDocument();
                     Map<String, List<String>> queryParams = new LinkedHashMap<>();
-                    Route route = Route.builder().path("query").apiVersion(NO_VERSION).parameters(queryParams).build();
+                    Route route = Route.builder().path("query").apiVersion(EntityDictionary.NO_VERSION).parameters(queryParams).build();
                     RequestScope scope = JsonApiRequestScope.builder().route(route)
                             .dataStoreTransaction(runningTransaction).requestId(uuid)
                             .elideSettings(elide.getElideSettings()).jsonApiDocument(jsonApiDoc).build();
@@ -119,7 +118,7 @@ public class AsyncApiCancelRunnable implements Runnable {
 
             //Change queryStatus for cancelled queries
             if (!queryIDsToCancel.isEmpty()) {
-                PathElement idPathElement = new PathElement(type, String.class, "id");
+                Path.PathElement idPathElement = new Path.PathElement(type, String.class, "id");
                 FilterExpression fltIdExpression =
                         new InPredicate(idPathElement, queryIDsToCancel);
                 asyncApiDao.updateStatusAsyncApiByFilter(fltIdExpression, QueryStatus.CANCEL_COMPLETE,

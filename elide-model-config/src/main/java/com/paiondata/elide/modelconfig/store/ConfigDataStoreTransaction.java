@@ -6,13 +6,15 @@
 
 package com.paiondata.elide.modelconfig.store;
 
+import static com.paiondata.elide.modelconfig.store.ConfigDataStore.VALIDATE_ONLY_HEADER;
+
+import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.core.request.EntityProjection;
-import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 import com.paiondata.elide.modelconfig.validator.Validator;
 
@@ -115,7 +117,7 @@ public class ConfigDataStoreTransaction implements DataStoreTransaction {
 
     @Override
     public void commit(RequestScope scope) {
-        boolean validateOnly = scope.getRoute().getHeaders().get(ConfigDataStore.VALIDATE_ONLY_HEADER) != null;
+        boolean validateOnly = scope.getRoute().getHeaders().get(VALIDATE_ONLY_HEADER) != null;
 
         if (! validateOnly) {
             for (Runnable runnable : todo) {

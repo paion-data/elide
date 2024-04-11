@@ -5,7 +5,7 @@
  */
 package com.paiondata.elide.core.request.route;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class MediaTypeParameterRouteResolver implements RouteResolver {
                 }
             }
         }
-        return Route.builder().apiVersion(EntityDictionary.NO_VERSION).baseUrl(baseUrl).path(path).headers(headers)
+        return Route.builder().apiVersion(NO_VERSION).baseUrl(baseUrl).path(path).headers(headers)
                 .parameters(parameters).build();
     }
 

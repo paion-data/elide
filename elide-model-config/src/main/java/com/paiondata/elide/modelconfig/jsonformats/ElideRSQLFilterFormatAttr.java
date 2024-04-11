@@ -5,13 +5,14 @@
  */
 package com.paiondata.elide.modelconfig.jsonformats;
 
+import static com.paiondata.elide.core.filter.dialect.RSQLFilterDialect.getDefaultOperatorsWithIsnull;
+
 import com.github.fge.jackson.NodeType;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.format.AbstractFormatAttribute;
 import com.github.fge.jsonschema.processors.data.FullData;
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.RSQLParserException;
@@ -39,7 +40,7 @@ public class ElideRSQLFilterFormatAttr extends AbstractFormatAttribute {
         final String input = data.getInstance().getNode().textValue();
 
         try {
-            new RSQLParser(RSQLFilterDialect.getDefaultOperatorsWithIsnull()).parse(input);
+            new RSQLParser(getDefaultOperatorsWithIsnull()).parse(input);
         } catch (RSQLParserException e) {
             report.error(newMsg(data, bundle, FORMAT_KEY).putArgument("value", input));
         }

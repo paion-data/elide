@@ -5,18 +5,17 @@
  */
 package com.paiondata.elide.core.utils.coerce;
 
-import com.paiondata.elide.core.exceptions.InvalidAttributeException;
-import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.TypeHelper;
+import com.paiondata.elide.core.utils.coerce.converters.ToEnumConverter;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.utils.coerce.converters.FromMapConverter;
 import com.paiondata.elide.core.utils.coerce.converters.Serde;
-import com.paiondata.elide.core.utils.coerce.converters.ToEnumConverter;
 import com.paiondata.elide.core.utils.coerce.converters.ToUUIDConverter;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.MapMaker;
-import com.paiondata.elide.core.utils.TypeHelper;
-
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.ConvertUtils;

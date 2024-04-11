@@ -5,12 +5,22 @@
  */
 package com.paiondata.elide.async.integration.tests;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,29 +29,26 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.async.resources.ExportApiEndpoint;
+import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
 import com.paiondata.elide.async.models.QueryType;
 import com.paiondata.elide.async.models.ResultType;
-import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.paiondata.elide.jsonapi.resources.SecurityContextUser;
 import com.paiondata.elide.test.graphql.EnumFieldSerializer;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.paiondata.elide.async.resources.ExportApiEndpoint;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.Test;
@@ -111,16 +118,16 @@ public class TableExportIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-d80075cf830a"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "0"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("edc4a871-dff2-4054-804e-d80075cf830a"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "0"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())
@@ -173,16 +180,16 @@ public class TableExportIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-d80075cf831a"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "7"),
-                                                JsonApiDSL.attr("resultType", "JSON")
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("edc4a871-dff2-4054-804e-d80075cf831a"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "7"),
+                                                attr("resultType", "JSON")
                                         )
                                 )
                         ).toJSON())
@@ -224,20 +231,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setStatus("QUEUED");
         queryObj.setResultType("CSV");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -287,21 +294,21 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setStatus("QUEUED");
         queryObj.setResultType("JSON");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("status"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("status"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -361,20 +368,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setStatus("QUEUED");
         queryObj.setResultType("CSV");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { bookName:title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -424,21 +431,21 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setStatus("QUEUED");
         queryObj.setResultType("JSON");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { bookName:title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("status"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("status"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -496,20 +503,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setStatus("PROCESSING");
         queryObj.setResultType("CSV");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { id title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "tableExport",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", queryObj, UNQUOTED_VALUE)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("query"),
-                                                GraphQLDSL.field("queryType"),
-                                                GraphQLDSL.field("status")
+                                        selections(
+                                                field("id"),
+                                                field("query"),
+                                                field("queryType"),
+                                                field("status")
                                         )
                                 )
                         )
@@ -542,20 +549,20 @@ public class TableExportIT extends AsyncApiIT {
         // XLS is not supported.
         queryObj.setResultType("XLS");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { id title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "tableExport",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", queryObj, UNQUOTED_VALUE)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("query"),
-                                                GraphQLDSL.field("queryType"),
-                                                GraphQLDSL.field("status")
+                                        selections(
+                                                field("id"),
+                                                field("query"),
+                                                field("queryType"),
+                                                field("status")
                                         )
                                 )
                         )
@@ -583,17 +590,17 @@ public class TableExportIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("ba31ca4e-ed8f-4be0-a0f3-12088fa9263b"),
-                                        JsonApiDSL.attributes(
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("ba31ca4e-ed8f-4be0-a0f3-12088fa9263b"),
+                                        attributes(
                                                 // entity "group" does not exist.
-                                                JsonApiDSL.attr("query", "/group?sort=genre&fields%5Bgroup%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                                                attr("query", "/group?sort=genre&fields%5Bgroup%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())
@@ -628,17 +635,17 @@ public class TableExportIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("ba31ca5e-ed8f-4be0-a0f3-12088fa9263b"),
-                                        JsonApiDSL.attributes(
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("ba31ca5e-ed8f-4be0-a0f3-12088fa9263b"),
+                                        attributes(
                                                 // %5Bgroup%5B instead of 5Bgroup%5D
-                                                JsonApiDSL.attr("query", "/group?sort=genre&fields%5Bgroup%5B=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                                                attr("query", "/group?sort=genre&fields%5Bgroup%5B=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())
@@ -677,21 +684,21 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setResultType("CSV");
         // entity "group" does not exist.
         queryObj.setQuery("{\"query\":\"{ group { edges { node { title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "tableExport",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", queryObj, UNQUOTED_VALUE)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("query"),
-                                                GraphQLDSL.field("queryType"),
-                                                GraphQLDSL.field("status"),
-                                                GraphQLDSL.field("resultType")
+                                        selections(
+                                                field("id"),
+                                                field("query"),
+                                                field("queryType"),
+                                                field("status"),
+                                                field("resultType")
                                         )
                                 )
                         )
@@ -779,17 +786,17 @@ public class TableExportIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("0b0dd4e6-9cdc-4bbc-8db2-5c1491c5ee1e"),
-                                        JsonApiDSL.attributes(
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("0b0dd4e6-9cdc-4bbc-8db2-5c1491c5ee1e"),
+                                        attributes(
                                                 // Fetching Book with all fields including relationships.
-                                                JsonApiDSL.attr("query", "/book"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                                                attr("query", "/book"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())
@@ -829,20 +836,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setResultType("CSV");
         // Query missing }
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -886,20 +893,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setResultType("CSV");
         // book and author queried from single query
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title } } } author { edges { node { name } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -943,20 +950,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setResultType("CSV");
         // 2 Separate Queries for book and author
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title } } } } { author { edges { node { name } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -1000,20 +1007,20 @@ public class TableExportIT extends AsyncApiIT {
         queryObj.setResultType("CSV");
         // Fetching relationship "authors"
         queryObj.setQuery("{\"query\":\"{ book { edges { node { title authors {edges { node { name } } } } } } }\", \"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "tableExport",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("resultType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("resultType")
                                          )
                                  )
                          )
@@ -1050,10 +1057,10 @@ public class TableExportIT extends AsyncApiIT {
      */
     @Test
     public void noReadEntityTests() throws InterruptedException, IOException {
-        Resource noRead = JsonApiDSL.resource(
-                JsonApiDSL.type("noread"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("field", "No Read")
+        Resource noRead = resource(
+                type("noread"),
+                attributes(
+                        attr("field", "No Read")
                 )
         );
 
@@ -1061,7 +1068,7 @@ public class TableExportIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(noRead).toJSON()
+                        datum(noRead).toJSON()
                 )
                 .post("/noread")
                 .then()
@@ -1071,16 +1078,16 @@ public class TableExportIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("0b0dd4e7-9cdc-4bbc-8db2-5c1491c5ee1e"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/noread?fields%5Bnoread%5D=field"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("0b0dd4e7-9cdc-4bbc-8db2-5c1491c5ee1e"),
+                                        attributes(
+                                                attr("query", "/noread?fields%5Bnoread%5D=field"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())
@@ -1139,7 +1146,7 @@ public class TableExportIT extends AsyncApiIT {
 
         Elide elide = new Elide(ElideSettings.builder().dataStore(dataStore)
                         .entityDictionary(dictionary)
-                        .settings(JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary))
+                        .settings(JsonApiSettingsBuilder.withDefaults(dictionary))
                         .auditLogger(new TestAuditLogger()).build());
         JsonApi jsonApi = new JsonApi(elide);
         User ownerUser = new User(() -> "owner-user");
@@ -1182,7 +1189,7 @@ public class TableExportIT extends AsyncApiIT {
 
         String baseUrl = "/";
         // Principal is Owner
-        Route route = Route.builder().baseUrl(baseUrl).path("/tableExport/" + id).apiVersion(EntityDictionary.NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/tableExport/" + id).apiVersion(NO_VERSION).build();
         response = jsonApi.get(route, ownerUser, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
@@ -1209,16 +1216,16 @@ public class TableExportIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("tableExport"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-e80075cf831f"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "70"),
-                                                JsonApiDSL.attr("resultType", "CSV")
+                        data(
+                                resource(
+                                        type("tableExport"),
+                                        id("edc4a871-dff2-4054-804e-e80075cf831f"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "70"),
+                                                attr("resultType", "CSV")
                                         )
                                 )
                         ).toJSON())

@@ -16,6 +16,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.GraphQLTest;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.DataStore;
@@ -25,22 +34,11 @@ import com.paiondata.elide.core.dictionary.ArgumentType;
 import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.graphql.GraphQLTest;
-import com.paiondata.elide.graphql.serialization.GraphQLModule;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
-import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-
 import example.Author;
 import example.Book;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,7 +99,7 @@ public class SubscriptionWebSocketTest extends GraphQLTest {
         session = mock(Session.class);
         remote = mock(RemoteEndpoint.Async.class);
 
-        JsonApiSettings.JsonApiSettingsBuilder jsonApiSettings = JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary)
+        JsonApiSettingsBuilder jsonApiSettings = JsonApiSettingsBuilder.withDefaults(dictionary)
                 .joinFilterDialect(RSQLFilterDialect.builder().dictionary(dictionary).build())
                 .subqueryFilterDialect(RSQLFilterDialect.builder().dictionary(dictionary).build());
         GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettings.GraphQLSettingsBuilder.withDefaults(dictionary);

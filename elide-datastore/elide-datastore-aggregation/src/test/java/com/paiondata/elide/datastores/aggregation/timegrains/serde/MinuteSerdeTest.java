@@ -8,9 +8,8 @@ package com.paiondata.elide.datastores.aggregation.timegrains.serde;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import com.paiondata.elide.datastores.aggregation.timegrains.Minute;
-
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;

@@ -5,9 +5,6 @@
  */
 package com.paiondata.elide.datastores.aggregation.framework;
 
-import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
-import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
 import com.paiondata.elide.datastores.aggregation.core.Slf4jQueryLogger;
@@ -19,8 +16,10 @@ import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLD
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
 import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
-
 import org.hibernate.Session;
 
 import jakarta.persistence.EntityManager;

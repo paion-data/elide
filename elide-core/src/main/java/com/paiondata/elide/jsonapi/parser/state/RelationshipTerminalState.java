@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.jsonapi.parser.state;
 
-import com.paiondata.elide.annotation.UpdatePermission;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.dictionary.RelationshipType;
@@ -13,14 +12,14 @@ import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
 import com.paiondata.elide.core.request.EntityProjection;
-import com.paiondata.elide.jsonapi.document.processors.DocumentProcessor;
 import com.paiondata.elide.jsonapi.document.processors.IncludedProcessor;
 import com.paiondata.elide.jsonapi.document.processors.PopulateMetaProcessor;
 import com.paiondata.elide.jsonapi.models.Data;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import com.paiondata.elide.jsonapi.models.Relationship;
 import com.paiondata.elide.jsonapi.models.Resource;
-
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.jsonapi.document.processors.DocumentProcessor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 

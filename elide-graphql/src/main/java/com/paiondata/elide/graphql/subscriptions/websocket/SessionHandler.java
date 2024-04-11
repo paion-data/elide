@@ -14,10 +14,10 @@ import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSo
 import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MULTIPLE_INIT;
 import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.UNAUTHORIZED;
 
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionAck;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionAck;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.MessageType;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Pong;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;

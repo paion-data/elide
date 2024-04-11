@@ -13,7 +13,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 import com.paiondata.elide.ElideResponse;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

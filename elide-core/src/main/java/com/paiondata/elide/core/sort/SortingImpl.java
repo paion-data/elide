@@ -6,12 +6,12 @@
 package com.paiondata.elide.core.sort;
 
 import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.type.Type;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

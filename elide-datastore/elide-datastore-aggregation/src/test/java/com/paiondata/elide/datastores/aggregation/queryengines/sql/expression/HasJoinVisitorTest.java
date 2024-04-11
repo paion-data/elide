@@ -13,7 +13,6 @@ import static org.mockito.Mockito.mock;
 import com.paiondata.elide.datastores.aggregation.core.JoinPath;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
-
 import org.junit.jupiter.api.Test;
 
 public class HasJoinVisitorTest {

@@ -5,12 +5,12 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
+import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
-import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

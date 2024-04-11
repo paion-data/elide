@@ -10,20 +10,20 @@ import static com.paiondata.elide.core.request.Argument.getArgumentMapFromString
 import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.mergedArgumentMap;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.request.Argument;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.core.JoinPath;
+import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.type.Type;
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.google.common.base.Preconditions;
-import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
 
 import java.io.IOException;
 import java.util.ArrayList;

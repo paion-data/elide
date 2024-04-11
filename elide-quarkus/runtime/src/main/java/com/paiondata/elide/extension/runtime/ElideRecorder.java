@@ -6,15 +6,14 @@
 
 package com.paiondata.elide.extension.runtime;
 
-import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.annotation.SecurityCheck;
 import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import org.jboss.logging.Logger;
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.annotations.Recorder;

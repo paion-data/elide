@@ -5,11 +5,11 @@
  */
 package com.paiondata.elide.graphql.containers;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.graphql.Entity;
 import com.paiondata.elide.graphql.Environment;
 import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
 
 import java.util.Collection;
 import java.util.HashMap;

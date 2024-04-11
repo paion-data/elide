@@ -6,8 +6,8 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata;
 
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
+import com.paiondata.elide.core.type.Type;
 
 import lombok.Builder;
 import lombok.Value;

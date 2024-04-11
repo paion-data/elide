@@ -6,16 +6,16 @@
 package com.paiondata.elide.datastores.jpa;
 
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
+import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.exceptions.HttpStatus;
-import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import example.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,10 +49,10 @@ public class EntityManagerLifeCycleHookIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("bookCatalog"),
-                                        JsonApiDSL.id("123")
+                        datum(
+                                resource(
+                                        type("bookCatalog"),
+                                        id("123")
                                 )
                         )
                 )

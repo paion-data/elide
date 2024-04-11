@@ -7,9 +7,9 @@
 package com.paiondata.elide.datastores.jms.websocket;
 
 import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
-import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.MessageType;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Next;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
@@ -116,7 +116,7 @@ public class SubscriptionWebSocketTestClient {
                 break;
             }
             case ERROR: {
-                Error error = mapper.readValue(text, Error.class);
+                com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error error = mapper.readValue(text, Error.class);
                 log.error("ERROR: {}", error.getPayload());
                 sessionLatch.countDown();
                 break;

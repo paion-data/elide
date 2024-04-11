@@ -35,11 +35,11 @@ public class ClassScannerCache {
         ElideTypeConverter.class.getCanonicalName(),
 
         //GraphQL annotations.  Strings here to avoid dependency.
-        "com.yahoo.elide.graphql.subscriptions.annotations.Subscription",
+        "com.paiondata.elide.graphql.subscriptions.annotations.Subscription",
 
         //Aggregation Store Annotations.  Strings here to avoid dependency.
-        "com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable",
-        "com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery",
+        "com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable",
+        "com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery",
         "org.hibernate.annotations.Subselect",
 
         //JPA

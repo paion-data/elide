@@ -6,6 +6,7 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
@@ -14,7 +15,6 @@ import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.HasJoinVisitor;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Reference;

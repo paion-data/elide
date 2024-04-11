@@ -9,8 +9,7 @@ package com.paiondata.elide.extension.runtime;
 import com.paiondata.elide.graphql.GraphQLEndpoint;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
-//import com.yahoo.elide.swagger.resources.DocEndpoint;
-
+//import com.paiondata.elide.swagger.resources.DocEndpoint;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.resteasy.spi.metadata.ResourceBuilder;

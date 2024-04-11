@@ -8,8 +8,8 @@ package com.paiondata.elide.endpoints;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.generated.parsers.CoreBaseVisitor;
 import com.paiondata.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.generated.parsers.CoreBaseVisitor;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;

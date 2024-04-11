@@ -6,8 +6,9 @@
 
 package com.paiondata.elide.datastores.jms.websocket;
 
-import static com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
-
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.ElideSettingsBuilderCustomizer;
@@ -16,10 +17,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.Injector;
 import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.datastores.jms.JMSDataStore;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.paiondata.elide.graphql.serialization.GraphQLModule;
-import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -67,7 +64,7 @@ public class SubscriptionWebSocketConfigurator extends ServerEndpointConfig.Conf
     private int maxMessageSize = 10000;
 
     @Builder.Default
-    protected SubscriptionWebSocket.UserFactory userFactory = DEFAULT_USER_FACTORY;
+    protected SubscriptionWebSocket.UserFactory userFactory = SubscriptionWebSocket.DEFAULT_USER_FACTORY;
 
     @Builder.Default
     protected boolean sendPingOnSubscribe = false;
@@ -142,7 +139,7 @@ public class SubscriptionWebSocketConfigurator extends ServerEndpointConfig.Conf
     }
 
     protected ElideSettings.ElideSettingsBuilder getElideSettingsBuilder(EntityDictionary dictionary) {
-        GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettingsBuilder.withDefaults(dictionary);
+        GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettings.GraphQLSettingsBuilder.withDefaults(dictionary);
 
         ElideSettings.ElideSettingsBuilder builder = ElideSettings.builder()
                 .baseUrl(baseUrl)

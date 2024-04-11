@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.security.permissions;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.ElideSettings;
@@ -15,13 +14,12 @@ import com.paiondata.elide.annotation.UpdatePermission;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.security.checks.prefab.Role;
 import com.paiondata.elide.core.security.permissions.expressions.Expression;
-
+import com.paiondata.elide.core.dictionary.TestDictionary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -127,7 +125,7 @@ public class PermissionExpressionBuilderTest {
      }
 
     public <T> PersistentResource newResource(T obj, Class<T> cls) {
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         RequestScope requestScope = RequestScope.builder().route(route).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
         return new PersistentResource<>(obj, requestScope.getUUIDFor(obj), requestScope);

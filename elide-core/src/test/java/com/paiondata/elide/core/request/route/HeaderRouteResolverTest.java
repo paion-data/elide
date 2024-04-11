@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ class HeaderRouteResolverTest {
         Map<String, List<String>> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         headers.putAll(Map.of("Test", Arrays.asList("1")));
         Route route = resolver.resolve(null, null, null, headers, Collections.emptyMap());
-        assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
+        Assertions.assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
         assertSame(headers, route.getHeaders());
     }
 }

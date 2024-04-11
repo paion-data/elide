@@ -22,6 +22,10 @@ import static com.paiondata.elide.modelconfig.model.Type.MONEY;
 import static com.paiondata.elide.modelconfig.model.Type.TEXT;
 import static com.paiondata.elide.modelconfig.model.Type.TIME;
 
+import com.paiondata.elide.datastores.aggregation.annotation.*;
+import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
 import com.paiondata.elide.annotation.Exclude;
@@ -33,30 +37,21 @@ import com.paiondata.elide.core.type.Field;
 import com.paiondata.elide.core.type.Method;
 import com.paiondata.elide.core.type.Package;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.datastores.aggregation.annotation.ArgumentDefinition;
-import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
-import com.paiondata.elide.datastores.aggregation.annotation.ColumnMeta;
 import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
 import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
-import com.paiondata.elide.datastores.aggregation.annotation.Join;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
-import com.paiondata.elide.datastores.aggregation.annotation.TableMeta;
 import com.paiondata.elide.datastores.aggregation.annotation.TableSource;
 import com.paiondata.elide.datastores.aggregation.annotation.Temporal;
-import com.paiondata.elide.datastores.aggregation.annotation.TimeGrainDefinition;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
-import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
-import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
 import com.paiondata.elide.modelconfig.model.Argument;
 import com.paiondata.elide.modelconfig.model.Dimension;
 import com.paiondata.elide.modelconfig.model.Grain;
+import com.paiondata.elide.modelconfig.model.Join;
 import com.paiondata.elide.modelconfig.model.Measure;
 import com.paiondata.elide.modelconfig.model.Table;
-
 import org.apache.commons.lang3.StringUtils;
 
 import jakarta.persistence.EnumType;
@@ -247,7 +242,7 @@ public class TableType implements Type<DynamicModelInstance> {
         });
     }
 
-    private static Map<Class<? extends Annotation>, Annotation> buildAnnotations(com.paiondata.elide.modelconfig.model.Join join) {
+    private static Map<Class<? extends Annotation>, Annotation> buildAnnotations(Join join) {
         Map<Class<? extends Annotation>, Annotation> annotations = new HashMap<>();
         annotations.put(Join.class,
                 new Join() {
@@ -271,7 +266,7 @@ public class TableType implements Type<DynamicModelInstance> {
 
                     @Override
                     public boolean toOne() {
-                        return join.getKind() == com.paiondata.elide.modelconfig.model.Join.Kind.TOONE;
+                        return join.getKind() == Join.Kind.TOONE;
                     }
                 });
         return annotations;

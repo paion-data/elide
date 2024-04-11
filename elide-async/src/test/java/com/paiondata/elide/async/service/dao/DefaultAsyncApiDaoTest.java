@@ -27,6 +27,7 @@ import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,8 +77,8 @@ public class DefaultAsyncApiDaoTest {
 
     @Test
     public void testAsyncQueryCleanerThreadSet() {
-        assertEquals(elide.getElideSettings(), asyncApiDao.getElideSettings());
-        assertEquals(dataStore, asyncApiDao.getDataStore());
+        Assertions.assertEquals(elide.getElideSettings(), asyncApiDao.getElideSettings());
+        Assertions.assertEquals(dataStore, asyncApiDao.getDataStore());
     }
 
     @Test

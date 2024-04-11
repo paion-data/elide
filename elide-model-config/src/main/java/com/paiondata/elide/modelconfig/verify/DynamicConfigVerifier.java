@@ -161,7 +161,7 @@ public class DynamicConfigVerifier {
     private static void printHelp(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
-                "java -cp <Jar File> com.yahoo.elide.contrib.dynamicconfighelpers.verify.DynamicConfigVerifier",
+                "java -cp <Jar File> com.paiondata.elide.contrib.dynamicconfighelpers.verify.DynamicConfigVerifier",
                 options);
     }
 }

@@ -7,11 +7,6 @@ package com.paiondata.elide.parsers.expression;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.paiondata.elide.annotation.CreatePermission;
-import com.paiondata.elide.annotation.DeletePermission;
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.annotation.ReadPermission;
-import com.paiondata.elide.annotation.UpdatePermission;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.security.ChangeSpec;
@@ -26,8 +21,13 @@ import com.paiondata.elide.core.security.permissions.expressions.ExpressionVisit
 import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
-
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,39 +61,39 @@ public class PermissionExpressionVisitorTest {
     @Test
     public void testAndExpression() {
         Expression expression = getExpressionForPermission(ReadPermission.class);
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     @Test
     public void testOrExpression() {
         Expression expression = getExpressionForPermission(UpdatePermission.class);
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     @Test
     public void testNotExpression() {
         Expression expression = getExpressionForPermission(DeletePermission.class);
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     @Test
     public void testComplexExpression() {
         Expression expression = getExpressionForPermission(UpdatePermission.class);
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     @Test
     public void testComplexModelCreate() {
         Expression expression = getExpressionForPermission(CreatePermission.class, ClassType.of(ComplexEntity.class));
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     @Test
     public void testNamesWithSpaces() {
         Expression expression = getExpressionForPermission(DeletePermission.class, ClassType.of(ComplexEntity.class));
         Expression expression2 = getExpressionForPermission(UpdatePermission.class, ClassType.of(ComplexEntity.class));
-        assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
-        assertEquals(ExpressionResult.PASS, expression2.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression.evaluate(Expression.EvaluationMode.ALL_CHECKS));
+        Assertions.assertEquals(ExpressionResult.PASS, expression2.evaluate(Expression.EvaluationMode.ALL_CHECKS));
     }
 
     private Expression getExpressionForPermission(Class<? extends Annotation> permission) {

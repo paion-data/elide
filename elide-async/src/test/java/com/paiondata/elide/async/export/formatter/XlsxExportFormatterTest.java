@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.async.models.Export;
 import com.paiondata.elide.async.models.QueryType;
 import com.paiondata.elide.async.models.ResultType;
 import com.paiondata.elide.async.models.TableExport;
@@ -27,7 +26,7 @@ import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.jsonapi.models.Resource;
-
+import com.paiondata.elide.async.models.Export;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;

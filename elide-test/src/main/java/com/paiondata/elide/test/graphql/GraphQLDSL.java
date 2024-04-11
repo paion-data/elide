@@ -5,19 +5,19 @@
  */
 package com.paiondata.elide.test.graphql;
 
+import com.paiondata.elide.test.graphql.elements.Document;
+import com.paiondata.elide.test.graphql.elements.Selection;
+import com.paiondata.elide.test.graphql.elements.SelectionSet;
+import com.paiondata.elide.test.graphql.elements.VariableDefinitions;
 import com.paiondata.elide.test.graphql.elements.Argument;
 import com.paiondata.elide.test.graphql.elements.Arguments;
 import com.paiondata.elide.test.graphql.elements.Definition;
-import com.paiondata.elide.test.graphql.elements.Document;
 import com.paiondata.elide.test.graphql.elements.Edges;
 import com.paiondata.elide.test.graphql.elements.Field;
 import com.paiondata.elide.test.graphql.elements.Mutation;
 import com.paiondata.elide.test.graphql.elements.Node;
 import com.paiondata.elide.test.graphql.elements.Query;
-import com.paiondata.elide.test.graphql.elements.Selection;
-import com.paiondata.elide.test.graphql.elements.SelectionSet;
 import com.paiondata.elide.test.graphql.elements.VariableDefinition;
-import com.paiondata.elide.test.graphql.elements.VariableDefinitions;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

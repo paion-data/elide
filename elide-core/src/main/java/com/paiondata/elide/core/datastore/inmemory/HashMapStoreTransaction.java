@@ -9,13 +9,13 @@ import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.exceptions.TransactionException;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ObjectCloner;
 import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.TransactionException;
 
 import jakarta.persistence.GeneratedValue;
 

@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.jsonapi.models.JsonApiError;
+import com.paiondata.elide.jsonapi.models.JsonApiErrors;
 import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.exceptions.InvalidApiVersionException;
@@ -19,8 +21,6 @@ import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
 import com.paiondata.elide.core.exceptions.JsonApiAtomicOperationsException;
 import com.paiondata.elide.core.exceptions.JsonPatchExtensionException;
 import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
-import com.paiondata.elide.jsonapi.models.JsonApiError;
-import com.paiondata.elide.jsonapi.models.JsonApiErrors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;

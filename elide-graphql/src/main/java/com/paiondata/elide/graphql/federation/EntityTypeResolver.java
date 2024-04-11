@@ -5,9 +5,9 @@
  */
 package com.paiondata.elide.graphql.federation;
 
-import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.graphql.GraphQLNameUtils;
 import com.paiondata.elide.graphql.containers.PersistentResourceContainer;
+import com.paiondata.elide.core.type.ClassType;
 
 import graphql.TypeResolutionEnvironment;
 import graphql.schema.GraphQLObjectType;

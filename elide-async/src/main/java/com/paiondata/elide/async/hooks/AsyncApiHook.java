@@ -5,20 +5,15 @@
  */
 package com.paiondata.elide.async.hooks;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
-
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
-import com.paiondata.elide.async.models.AsyncApi;
-import com.paiondata.elide.async.models.AsyncApiResult;
-import com.paiondata.elide.async.models.QueryStatus;
-import com.paiondata.elide.async.service.AsyncExecutorService;
 import com.paiondata.elide.core.exceptions.InvalidOperationException;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.lifecycle.LifeCycleHook;
 import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.AsyncApiResult;
+import com.paiondata.elide.async.models.QueryStatus;
+import com.paiondata.elide.async.service.AsyncExecutorService;
 
 import lombok.Data;
 
@@ -60,18 +55,18 @@ public abstract class AsyncApiHook<T extends AsyncApi> implements LifeCycleHook<
      * @throws InvalidOperationException InvalidOperationException
      */
     protected void executeHook(LifeCycleHookBinding.Operation operation, LifeCycleHookBinding.TransactionPhase phase,
-            AsyncApi query, RequestScope requestScope, Callable<AsyncApiResult> queryWorker) {
-        if (operation.equals(CREATE)) {
-            if (phase.equals(PREFLUSH)) {
+                               AsyncApi query, RequestScope requestScope, Callable<AsyncApiResult> queryWorker) {
+        if (operation.equals(LifeCycleHookBinding.Operation.CREATE)) {
+            if (phase.equals(LifeCycleHookBinding.TransactionPhase.PREFLUSH)) {
                 validateOptions(query, requestScope);
                 executeAsync(query, queryWorker);
                 return;
             }
-            if (phase.equals(POSTCOMMIT)) {
+            if (phase.equals(LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)) {
                 completeAsync(query, requestScope);
                 return;
             }
-            if (phase.equals(PRESECURITY)) {
+            if (phase.equals(LifeCycleHookBinding.TransactionPhase.PRESECURITY)) {
                 updatePrincipalName(query, requestScope);
                 return;
             }

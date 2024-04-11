@@ -46,6 +46,7 @@ import example.Publisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -270,7 +271,7 @@ public class InMemoryStoreTransactionTest {
 
         ArgumentCaptor<Relationship> relationshipArgument = ArgumentCaptor.forClass(Relationship.class);
 
-        when(scope.getNewPersistentResources()).thenReturn(Sets.newHashSet(mock(PersistentResource.class)));
+        when(scope.getNewPersistentResources()).thenReturn(Sets.newHashSet(Mockito.mock(PersistentResource.class)));
 
         when(wrappedTransaction.getToManyRelation(eq(inMemoryStoreTransaction), eq(author1), any(), eq(scope)))
                 .thenReturn(new DataStoreIterableBuilder<>(books).build());

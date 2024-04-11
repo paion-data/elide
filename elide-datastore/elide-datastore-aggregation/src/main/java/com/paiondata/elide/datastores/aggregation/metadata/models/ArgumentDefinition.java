@@ -5,10 +5,10 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import com.paiondata.elide.annotation.Exclude;
-import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueSourceType;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.modelconfig.model.Named;
 
 import jakarta.persistence.Id;

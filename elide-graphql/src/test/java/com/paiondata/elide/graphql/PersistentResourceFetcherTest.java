@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
+import com.paiondata.elide.graphql.parser.GraphQLEntityProjectionMaker;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
@@ -23,14 +24,12 @@ import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.graphql.parser.GraphQLEntityProjectionMaker;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import example.Author;
 import example.Book;
 import example.Price;

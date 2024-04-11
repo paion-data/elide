@@ -5,7 +5,15 @@
  */
 package com.paiondata.elide.core.filter.dialect;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
+import static com.paiondata.elide.core.request.Argument.ARGUMENTS_PATTERN;
+import static com.paiondata.elide.core.request.Argument.getArgumentsFromString;
+
 import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.TypeHelper;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.core.dictionary.ArgumentType;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
@@ -26,13 +34,8 @@ import com.paiondata.elide.core.filter.predicates.NotEmptyPredicate;
 import com.paiondata.elide.core.filter.predicates.NotNullPredicate;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.Attribute;
-import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.jsonapi.parser.JsonApiParser;
 import com.google.common.collect.ImmutableMap;
-import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.utils.TypeHelper;
-
 import org.apache.commons.collections4.CollectionUtils;
 
 import cz.jirutka.rsql.parser.RSQLParser;
@@ -69,7 +72,7 @@ public class RSQLFilterDialect implements FilterDialect, SubqueryFilterDialect, 
     private static final Pattern TYPED_FILTER_PATTERN = Pattern.compile("filter\\[([^\\]]+)\\]");
     // field name followed by zero or more filter arguments
     // eg: name, orderDate[grain:month] , title[foo:bar][blah:Encoded+Value]
-    private static final Pattern FILTER_SELECTOR_PATTERN = Pattern.compile("(\\w+)(" + Argument.ARGUMENTS_PATTERN + ")*$");
+    private static final Pattern FILTER_SELECTOR_PATTERN = Pattern.compile("(\\w+)(" + ARGUMENTS_PATTERN + ")*$");
     private static final ComparisonOperator INI = new ComparisonOperator("=ini=", true);
     private static final ComparisonOperator NOT_INI = new ComparisonOperator("=outi=", true);
     private static final ComparisonOperator ISNULL_OP = new ComparisonOperator("=isnull=", false);
@@ -359,7 +362,7 @@ public class RSQLFilterDialect implements FilterDialect, SubqueryFilterDialect, 
 
                 // if the association name is "id", replaced it with real id field name
                 // id field name can be "id" or other string, but non-id field can't have name "id".
-                if (associationName.equals(EntityDictionary.REGULAR_ID_NAME)) {
+                if (associationName.equals(REGULAR_ID_NAME)) {
                     associationName = dictionary.getIdFieldName(entityType);
                 }
 
@@ -367,7 +370,7 @@ public class RSQLFilterDialect implements FilterDialect, SubqueryFilterDialect, 
                 int argsIndex = associationName.indexOf('[');
                 if (argsIndex > 0) {
                     try {
-                        arguments = Argument.getArgumentsFromString(associationName.substring(argsIndex));
+                        arguments = getArgumentsFromString(associationName.substring(argsIndex));
                     } catch (UnsupportedEncodingException | IllegalArgumentException e) {
                         throw new RSQLParseException(
                                         String.format("Filter expression is not in expected format at: %s. %s",

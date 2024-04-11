@@ -7,6 +7,8 @@ package com.paiondata.elide.swagger;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
+import com.paiondata.elide.swagger.models.media.Datum;
+import com.paiondata.elide.swagger.models.media.Relationship;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
 import com.paiondata.elide.annotation.Exclude;
@@ -22,8 +24,6 @@ import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.swagger.converter.JsonApiModelResolver;
 import com.paiondata.elide.swagger.models.media.Data;
-import com.paiondata.elide.swagger.models.media.Datum;
-import com.paiondata.elide.swagger.models.media.Relationship;
 import com.google.common.collect.Sets;
 
 import org.antlr.v4.runtime.tree.ParseTree;

@@ -10,7 +10,7 @@ import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.async.models.QueryStatus;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
-import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
@@ -56,7 +56,7 @@ public class AsyncApiCleanerRunnable implements Runnable {
 
         try {
             Date cleanupDate = Date.from(Instant.now(clock).plus(queryRetentionDuration));
-            PathElement createdOnPathElement = new PathElement(type, Long.class, "createdOn");
+            Path.PathElement createdOnPathElement = new Path.PathElement(type, Long.class, "createdOn");
             FilterExpression fltDeleteExp = new LEPredicate(createdOnPathElement, cleanupDate);
             asyncApiDao.deleteAsyncApiAndResultByFilter(fltDeleteExp, type);
         } catch (Exception e) {
@@ -73,8 +73,8 @@ public class AsyncApiCleanerRunnable implements Runnable {
 
         try {
             Date filterDate = Date.from(Instant.now(clock).plus(queryMaxRunTime));
-            PathElement createdOnPathElement = new PathElement(type, Long.class, "createdOn");
-            PathElement statusPathElement = new PathElement(type, String.class, "status");
+            Path.PathElement createdOnPathElement = new Path.PathElement(type, Long.class, "createdOn");
+            Path.PathElement statusPathElement = new Path.PathElement(type, String.class, "status");
             FilterPredicate inPredicate = new InPredicate(statusPathElement, QueryStatus.PROCESSING,
                     QueryStatus.QUEUED);
             FilterPredicate lePredicate = new LEPredicate(createdOnPathElement, filterDate);

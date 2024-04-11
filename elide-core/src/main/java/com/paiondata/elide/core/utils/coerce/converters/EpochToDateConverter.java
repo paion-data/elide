@@ -6,7 +6,6 @@
 package com.paiondata.elide.core.utils.coerce.converters;
 
 import com.paiondata.elide.core.exceptions.InvalidAttributeException;
-
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang3.ClassUtils;
 

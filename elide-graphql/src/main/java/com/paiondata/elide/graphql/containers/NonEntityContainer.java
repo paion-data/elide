@@ -5,10 +5,10 @@
  */
 package com.paiondata.elide.graphql.containers;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.graphql.Environment;
 import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

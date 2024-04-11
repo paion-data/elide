@@ -5,9 +5,6 @@
  */
 package com.paiondata.elide.core;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -25,11 +22,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.paiondata.elide.annotation.Audit;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.audit.LogMessage;
-import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.exceptions.InvalidAttributeException;
 import com.paiondata.elide.core.exceptions.InvalidObjectIdentifierException;
@@ -42,7 +40,6 @@ import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.TestUser;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.jsonapi.extensions.JsonApiJsonPatchRequestScope;
@@ -50,6 +47,8 @@ import com.paiondata.elide.jsonapi.models.Data;
 import com.paiondata.elide.jsonapi.models.Relationship;
 import com.paiondata.elide.jsonapi.models.Resource;
 import com.paiondata.elide.jsonapi.models.ResourceIdentifier;
+import com.paiondata.elide.core.audit.TestAuditLogger;
+import com.paiondata.elide.core.security.TestUser;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -84,6 +83,7 @@ import example.nontransferable.StrictNoTransfer;
 import example.nontransferable.Untransferable;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -91,6 +91,7 @@ import org.mockito.ArgumentCaptor;
 
 import io.reactivex.Observable;
 import nocreate.NoCreateEntity;
+import org.mockito.ArgumentMatchers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -347,7 +348,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
 
         assertThrows(
                 ForbiddenAccessException.class,
-                () -> createObject(
+                () -> PersistentResource.createObject(
                         ClassType.of(NoCreateEntity.class), goodScope, Optional.of("1"))); // should throw here
     }
 
@@ -411,7 +412,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
                     Observable.fromArray(child1Resource, child2Resource, child3Resource, child4Resource);
 
             Set<PersistentResource> results =
-                    filter(
+                    PersistentResource.filter(
                             ReadPermission.class,
                             Optional.empty(), ALL_FIELDS, resources).toList(LinkedHashSet::new).blockingGet();
 
@@ -430,7 +431,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
             Observable<PersistentResource> resources =
                     Observable.fromArray(child1Resource, child2Resource, child3Resource, child4Resource);
 
-            Set<PersistentResource> results = filter(ReadPermission.class,
+            Set<PersistentResource> results = PersistentResource.filter(ReadPermission.class,
                     Optional.empty(), ALL_FIELDS, resources).toList(LinkedHashSet::new).blockingGet();
 
             assertEquals(0, results.size(), "No children are readable by an invalid user");
@@ -469,7 +470,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         assertEquals("test2", computedTest2);
         assertEquals("test3", computedTest3);
 
-        assertThrows(
+        Assertions.assertThrows(
                 InvalidAttributeException.class,
                 () -> getValue(computedBean, "NonComputedWithScope", getRequestScope()),
                 "Getting a bad relation should throw an InvalidAttributeException.");
@@ -906,7 +907,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         @SuppressWarnings("resource")
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
 
-        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
 
@@ -1438,7 +1439,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
 
         child.setReadNoAccess(secret);
 
-        when(tx.getToOneRelation(any(), eq(fun), eq(com.paiondata.elide.core.request.Relationship.builder()
+        when(tx.getToOneRelation(any(), eq(fun), ArgumentMatchers.eq(com.paiondata.elide.core.request.Relationship.builder()
                 .name("relation3")
                 .alias("relation3")
                 .projection(EntityProjection.builder()
@@ -1446,7 +1447,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
                         .build())
                 .build()), any())).thenReturn(child);
 
-        when(tx.getToManyRelation(any(), eq(fun), eq(com.paiondata.elide.core.request.Relationship.builder()
+        when(tx.getToManyRelation(any(), eq(fun), ArgumentMatchers.eq(com.paiondata.elide.core.request.Relationship.builder()
                 .name("relation1")
                 .alias("relation1")
                 .projection(EntityProjection.builder()
@@ -1454,7 +1455,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
                         .build())
                 .build()), any())).thenReturn(new DataStoreIterableBuilder(children1).build());
 
-        when(tx.getToManyRelation(any(), eq(parent), eq(com.paiondata.elide.core.request.Relationship.builder()
+        when(tx.getToManyRelation(any(), eq(parent), ArgumentMatchers.eq(com.paiondata.elide.core.request.Relationship.builder()
                 .name("children")
                 .alias("children")
                 .projection(EntityProjection.builder()
@@ -1462,7 +1463,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
                         .build())
                 .build()), any())).thenReturn(new DataStoreIterableBuilder(children2).build());
 
-        when(tx.getToOneRelation(any(), eq(child), eq(com.paiondata.elide.core.request.Relationship.builder()
+        when(tx.getToOneRelation(any(), eq(child), ArgumentMatchers.eq(com.paiondata.elide.core.request.Relationship.builder()
                 .name("readNoAccess")
                 .alias("readNoAccess")
                 .projection(EntityProjection.builder()
@@ -1868,11 +1869,11 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         verify(tx, times(1)).save(book, goodScope);
 
         ArgumentCaptor<CRUDEvent> eventCapture = ArgumentCaptor.forClass(CRUDEvent.class);
-        verify(bookUpdatePrice, times(1)).execute(eq(UPDATE), eq(PRESECURITY),
+        verify(bookUpdatePrice, times(1)).execute(eq(LifeCycleHookBinding.Operation.UPDATE), eq(LifeCycleHookBinding.TransactionPhase.PRESECURITY),
                 eventCapture.capture());
 
-        assertEquals(originalPrice, eventCapture.getValue().getChanges().get().getOriginal());
-        assertEquals(book.getPrice(), eventCapture.getValue().getChanges().get().getModified());
+        Assertions.assertEquals(originalPrice, eventCapture.getValue().getChanges().get().getOriginal());
+        Assertions.assertEquals(book.getPrice(), eventCapture.getValue().getChanges().get().getModified());
     }
 
     @Test
@@ -2134,7 +2135,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         RequestScope goodScope = buildRequestScope(tx, goodUser);
         goodScope.setEntityProjection(collection);
 
-        Set<PersistentResource> loaded = loadRecords(EntityProjection.builder()
+        Set<PersistentResource> loaded = PersistentResource.loadRecords(EntityProjection.builder()
                 .type(Child.class)
                 .build(), new ArrayList<>(), goodScope).toList(LinkedHashSet::new).blockingGet();
 
@@ -2163,7 +2164,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
 
         RequestScope goodScope = buildRequestScope(tx, goodUser);
         goodScope.setEntityProjection(collection);
-        PersistentResource<Child> loaded = loadRecord(EntityProjection.builder()
+        PersistentResource<Child> loaded = PersistentResource.loadRecord(EntityProjection.builder()
                 .type(Child.class)
                 .build(), "1", goodScope);
 
@@ -2183,7 +2184,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         goodScope.setEntityProjection(collection);
         assertThrows(
                 InvalidObjectIdentifierException.class,
-                () -> loadRecord(EntityProjection.builder()
+                () -> PersistentResource.loadRecord(EntityProjection.builder()
 
                         .type(Child.class)
                         .build(), "1", goodScope));
@@ -2205,7 +2206,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
 
         assertThrows(
                 ForbiddenAccessException.class,
-                () -> loadRecord(EntityProjection.builder().type(NoReadEntity.class).build(),
+                () -> PersistentResource.loadRecord(EntityProjection.builder().type(NoReadEntity.class).build(),
                         "1", goodScope));
     }
 
@@ -2215,7 +2216,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         RequestScope goodScope = buildRequestScope(tx, goodUser);
         when(tx.createNewObject(ClassType.of(Parent.class), goodScope)).thenReturn(parent);
 
-        PersistentResource<Parent> created = createObject(ClassType.of(Parent.class), goodScope, Optional.of("uuid"));
+        PersistentResource<Parent> created = PersistentResource.createObject(ClassType.of(Parent.class), goodScope, Optional.of("uuid"));
 
         parent.setChildren(new HashSet<>());
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
@@ -2235,7 +2236,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         final RequestScope goodScope = buildRequestScope(tx, new TestUser("1"));
         when(tx.createNewObject(ClassType.of(Job.class), goodScope)).thenReturn(job);
 
-        PersistentResource<Job> created = createObject(ClassType.of(Job.class), goodScope, Optional.empty());
+        PersistentResource<Job> created = PersistentResource.createObject(ClassType.of(Job.class), goodScope, Optional.empty());
 
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
 
@@ -2244,7 +2245,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         );
         assertNull(created.getObject().getJobId(), "The create function should not override the ID");
 
-        created = createObject(ClassType.of(Job.class), goodScope, Optional.of("1234"));
+        created = PersistentResource.createObject(ClassType.of(Job.class), goodScope, Optional.of("1234"));
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
 
         assertEquals("day job", created.getObject().getTitle(),
@@ -2264,7 +2265,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> {
-                    PersistentResource<NoCreateEntity> created = createObject(
+                    PersistentResource<NoCreateEntity> created = PersistentResource.createObject(
                             ClassType.of(NoCreateEntity.class),
                             goodScope, Optional.of("1"));
                     created.getRequestScope().getPermissionExecutor().executeCommitChecks();
@@ -2846,7 +2847,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
     @Test
     public void testPatchRequestScope() {
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
-        Route route = Route.builder().path("/book").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().path("/book").apiVersion(EntityDictionary.NO_VERSION).build();
         JsonApiJsonPatchRequestScope parentScope = new JsonApiJsonPatchRequestScope(
                 route,
                 tx,
@@ -2856,8 +2857,8 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         JsonApiJsonPatchRequestScope scope = new JsonApiJsonPatchRequestScope(
                 parentScope.getRoute().getPath(), parentScope.getJsonApiDocument(), parentScope);
         // verify wrap works
-        assertEquals(parentScope.getUpdateStatusCode(), scope.getUpdateStatusCode());
-        assertEquals(parentScope.getObjectEntityCache(), scope.getObjectEntityCache());
+        Assertions.assertEquals(parentScope.getUpdateStatusCode(), scope.getUpdateStatusCode());
+        Assertions.assertEquals(parentScope.getObjectEntityCache(), scope.getObjectEntityCache());
 
         Parent parent = newParent(7);
 
@@ -2886,7 +2887,7 @@ public class PersistentResourceTest extends PersistenceResourceTestSetup {
         FilterPredicate predicate = (FilterPredicate) filter.get();
         assertEquals("name", predicate.getField());
         assertEquals("name", predicate.getFieldPath());
-        assertEquals(Operator.INFIX, predicate.getOperator());
+        Assertions.assertEquals(Operator.INFIX, predicate.getOperator());
         assertEquals(Arrays.asList("Hemingway"), predicate.getValues());
         assertEquals("[Author].name", predicate.getPath().toString());
     }

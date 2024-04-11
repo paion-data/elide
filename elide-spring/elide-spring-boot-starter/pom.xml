@@ -6,7 +6,7 @@
     <description>Elide Spring Boot Starter</description>
     <url>https://github.com/yahoo/elide</url>
     <parent>
-        <groupId>com.yahoo.elide</groupId>
+        <groupId>com.paiondata.elide</groupId>
         <artifactId>elide-spring-parent-pom</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -42,49 +42,49 @@
         <!-- Compile Dependencies -->
         <!-- Elide dependencies -->
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-graphql</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-jpa</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-aggregation</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-jms</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-swagger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-async</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-spring-boot-autoconfigure</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

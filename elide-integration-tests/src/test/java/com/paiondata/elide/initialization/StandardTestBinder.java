@@ -7,17 +7,17 @@ package com.paiondata.elide.initialization;
 
 import static org.mockito.Mockito.mock;
 
+import com.paiondata.elide.graphql.GraphQLSettings;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.async.AsyncSettings;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
 import com.paiondata.elide.core.audit.AuditLogger;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
-
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 import example.TestCheckMappings;
 import example.models.triggers.services.BillingService;
@@ -63,13 +63,13 @@ public class StandardTestBinder extends AbstractBinder {
                         Arrays.asList(rsqlFilterStrategy, defaultFilterStrategy)
                 );
 
-                JsonApiSettings.JsonApiSettingsBuilder jsonApiSettings = JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary)
+                JsonApiSettingsBuilder jsonApiSettings = JsonApiSettingsBuilder.withDefaults(dictionary)
                         .joinFilterDialect(multipleFilterStrategy)
                         .subqueryFilterDialect(multipleFilterStrategy);
 
                 GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettings.GraphQLSettingsBuilder.withDefaults(dictionary);
 
-                AsyncSettings.AsyncSettingsBuilder asyncSettings = AsyncSettings.builder();
+                AsyncSettingsBuilder asyncSettings = AsyncSettings.builder();
 
                 Elide elide = new Elide(ElideSettings.builder().dataStore(IntegrationTest.getDataStore())
                         .auditLogger(auditLogger)

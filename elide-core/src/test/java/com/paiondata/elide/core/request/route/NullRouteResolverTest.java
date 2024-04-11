@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -22,6 +23,6 @@ class NullRouteResolverTest {
         Route route = routeResolver.resolve("", "baseUrl", "path", null, null);
         assertEquals("baseUrl", route.getBaseUrl());
         assertEquals("path", route.getPath());
-        assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
+        Assertions.assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
     }
 }

@@ -4,7 +4,7 @@
     <artifactId>elide-datastore-noop</artifactId>
     <name>Elide Data Store: No-Operation Library</name>
     <parent>
-        <groupId>com.yahoo.elide</groupId>
+        <groupId>com.paiondata.elide</groupId>
         <artifactId>elide-datastore-parent-pom</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -33,7 +33,7 @@
     <dependencies>
         <!-- Elide dependencies (include test dependencies) -->
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-core</artifactId>
         </dependency>
         <!-- Jackson data-binder -->

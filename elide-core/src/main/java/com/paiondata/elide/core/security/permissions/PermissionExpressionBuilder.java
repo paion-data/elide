@@ -5,27 +5,24 @@
  */
 package com.paiondata.elide.core.security.permissions;
 
-import static com.paiondata.elide.core.security.permissions.expressions.Expression.Results.FAILURE;
-
-import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.checks.Check;
-import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
 import com.paiondata.elide.core.security.permissions.expressions.AnyFieldExpression;
-import com.paiondata.elide.core.security.permissions.expressions.CheckExpression;
 import com.paiondata.elide.core.security.permissions.expressions.Expression;
-import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
 import com.paiondata.elide.core.security.permissions.expressions.SpecificFieldExpression;
 import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
 import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
 import com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
 import com.paiondata.elide.core.type.Type;
-
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
+import com.paiondata.elide.core.security.permissions.expressions.CheckExpression;
+import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.lang.annotation.Annotation;
@@ -301,7 +298,7 @@ public class PermissionExpressionBuilder {
         ParseTree classPermissions = entityDictionary.getPermissionsForClass(resourceClass, annotationClass);
         Expression entityExpression = normalizedExpressionFromParseTree(classPermissions, checkFn);
 
-        OrExpression allFieldsExpression = new OrExpression(FAILURE, null);
+        OrExpression allFieldsExpression = new OrExpression(Expression.Results.FAILURE, null);
         List<String> fields = entityDictionary.getAllExposedFields(resourceClass);
 
         boolean entityExpressionUsed = false;
@@ -361,7 +358,7 @@ public class PermissionExpressionBuilder {
         Type<?> resourceClass = condition.getEntityClass();
         Class<? extends Annotation> annotationClass = condition.getPermission();
 
-        OrExpression allFieldsExpression = new OrExpression(FAILURE, null);
+        OrExpression allFieldsExpression = new OrExpression(Expression.Results.FAILURE, null);
         List<String> fields = entityDictionary.getAllExposedFields(resourceClass);
 
         boolean fieldExpressionUsed = false;

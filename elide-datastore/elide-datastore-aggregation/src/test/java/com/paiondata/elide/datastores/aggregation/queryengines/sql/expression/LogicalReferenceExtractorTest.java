@@ -10,16 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import example.Player;
 import example.PlayerRanking;
 import example.PlayerStats;

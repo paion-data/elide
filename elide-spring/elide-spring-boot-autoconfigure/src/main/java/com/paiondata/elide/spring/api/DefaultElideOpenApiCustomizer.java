@@ -8,8 +8,8 @@ package com.paiondata.elide.spring.api;
 import com.paiondata.elide.RefreshableElide;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.spring.config.ElideConfigProperties;
 import com.paiondata.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
 
 import io.swagger.v3.oas.models.OpenAPI;
 

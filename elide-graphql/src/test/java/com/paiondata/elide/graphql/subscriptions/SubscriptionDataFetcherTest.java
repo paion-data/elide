@@ -14,6 +14,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.graphql.GraphQLRequestScope;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.GraphQLTest;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
+import com.paiondata.elide.graphql.parser.SubscriptionEntityProjectionMaker;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
@@ -26,17 +33,9 @@ import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.graphql.GraphQLRequestScope;
-import com.paiondata.elide.graphql.GraphQLTest;
-import com.paiondata.elide.graphql.NonEntityDictionary;
-import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
-import com.paiondata.elide.graphql.parser.SubscriptionEntityProjectionMaker;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-
 import example.Address;
 import example.Author;
 import example.Book;
@@ -95,7 +94,7 @@ public class SubscriptionDataFetcherTest extends GraphQLTest {
                 .type(ClassType.of(TopicType.class))
                 .build());
 
-        JsonApiSettings.JsonApiSettingsBuilder jsonApiSettings = JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary)
+        JsonApiSettingsBuilder jsonApiSettings = JsonApiSettingsBuilder.withDefaults(dictionary)
                 .joinFilterDialect(filterDialect)
                 .subqueryFilterDialect(filterDialect);
         GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettings.GraphQLSettingsBuilder.withDefaults(dictionary);

@@ -5,13 +5,12 @@
  */
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects;
 
-import com.paiondata.elide.core.filter.Operator;
 import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedOperation;
 import com.paiondata.elide.datastores.aggregation.timegrains.Time;
 import com.paiondata.elide.datastores.jpql.filter.JPQLPredicateGenerator;
-
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.sql.SqlDialect;
 

@@ -16,10 +16,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.Argument;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 

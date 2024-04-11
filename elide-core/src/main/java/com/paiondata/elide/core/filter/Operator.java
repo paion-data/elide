@@ -10,12 +10,11 @@ import static java.util.Map.entry;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
-import com.paiondata.elide.core.exceptions.BadRequestException;
-import com.paiondata.elide.core.exceptions.InvalidOperatorNegationException;
+import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.core.type.ClassType;
-
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.InvalidOperatorNegationException;
 import org.apache.commons.collections4.CollectionUtils;
 
 import lombok.Getter;

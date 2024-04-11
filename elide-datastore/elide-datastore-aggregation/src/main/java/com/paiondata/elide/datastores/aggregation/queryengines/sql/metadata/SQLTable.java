@@ -7,14 +7,19 @@ package com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata;
 
 import static java.util.Collections.emptyMap;
 
+import com.paiondata.elide.datastores.aggregation.annotation.Join;
+import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLDimensionProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLTimeDimensionProjection;
 import com.paiondata.elide.core.dictionary.EntityBinding;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.datastores.aggregation.annotation.Join;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
 import com.paiondata.elide.datastores.aggregation.metadata.models.ArgumentDefinition;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Column;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
@@ -30,14 +35,8 @@ import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
 import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
 import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLDimensionProjection;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLTimeDimensionProjection;
-import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
-
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Subselect;
 

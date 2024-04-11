@@ -5,53 +5,55 @@
  */
 package com.paiondata.elide.fieldLevelTest;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 public class FieldLevelParentClassIdIT extends IntegrationTest {
     @Test
     public void testResponseCodeOnUpdate() {
-        Resource original = JsonApiDSL.resource(
-                JsonApiDSL.type("fieldLevelChild"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("childField", "someValue"),
-                        JsonApiDSL.attr("parentField", "parentValue")
+        Resource original = resource(
+                type("fieldLevelChild"),
+                id("1"),
+                attributes(
+                        attr("childField", "someValue"),
+                        attr("parentField", "parentValue")
                 )
         );
 
-        Resource modified = JsonApiDSL.resource(
-                JsonApiDSL.type("fieldLevelChild"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("childField", "someOtherValue"),
-                        JsonApiDSL.attr("parentField", "aNewParentValue")
+        Resource modified = resource(
+                type("fieldLevelChild"),
+                id("1"),
+                attributes(
+                        attr("childField", "someOtherValue"),
+                        attr("parentField", "aNewParentValue")
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(original))
+                .body(datum(original))
                 .post("/fieldLevelChild")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(original).toJSON()));
+                .body(equalTo(datum(original).toJSON()));
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(modified))
+                .body(datum(modified))
                 .patch("/fieldLevelChild/1")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);

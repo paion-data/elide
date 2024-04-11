@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.filter.dialect;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,7 +49,7 @@ public class DefaultFilterDialectTest {
                 "filter[author.homeAddress.street1][infix]", "State"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/author", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("author.homeAddress.street1 INFIX [State]", expression.toString());
     }
@@ -69,7 +68,7 @@ public class DefaultFilterDialectTest {
                 "Hemingway"
         );
 
-        FilterExpression filterExpression = dialect.parseGlobalExpression("/author", queryParams, NO_VERSION);
+        FilterExpression filterExpression = dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "(author.books.title IN [foo, bar, baz] AND author.name INFIX [Hemingway])",
@@ -86,7 +85,7 @@ public class DefaultFilterDialectTest {
                 "State"
         );
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(1, expressionMap.size());
         assertEquals(
@@ -120,7 +119,7 @@ public class DefaultFilterDialectTest {
                 "foo,bar,baz"
         );
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(2, expressionMap.size());
         assertEquals("(book.title IN [foo, bar, baz] AND book.genre IN [scifi])", expressionMap.get("book").toString());
@@ -137,7 +136,7 @@ public class DefaultFilterDialectTest {
                 "foo,bar,baz"
         );
 
-        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/invalid", queryParams, NO_VERSION));
+        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/invalid", queryParams, EntityDictionary.NO_VERSION));
     }
 
     @Test
@@ -149,7 +148,7 @@ public class DefaultFilterDialectTest {
                 "foo,bar,baz"
         );
 
-        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/book", queryParams, NO_VERSION));
+        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION));
     }
 
     @Test
@@ -162,7 +161,7 @@ public class DefaultFilterDialectTest {
                 "foo,bar,baz"
         );
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(1, expressionMap.size());
         assertEquals("author.books.title IN [foo, bar, baz]", expressionMap.get("author").toString());
@@ -177,7 +176,7 @@ public class DefaultFilterDialectTest {
                 "10,20"
         );
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(1, expressionMap.size());
         assertEquals("author.books.id BETWEEN [10, 20]", expressionMap.get("author").toString());
@@ -193,7 +192,7 @@ public class DefaultFilterDialectTest {
         );
 
         assertThrows(ParseException.class,
-                () -> dialect.parseTypedExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION));
     }
 
     @Test
@@ -206,7 +205,7 @@ public class DefaultFilterDialectTest {
 
         assertEquals(
                 "{book=book.awards HASNOMEMBER [awards1]}",
-                dialect.parseTypedExpression("/book", queryParams, NO_VERSION).toString()
+                dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION).toString()
         );
     }
 
@@ -220,7 +219,7 @@ public class DefaultFilterDialectTest {
         );
 
         Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/book", queryParams,
-                NO_VERSION);
+                EntityDictionary.NO_VERSION);
 
         assertEquals(1, expressionMap.size());
         assertEquals("book.authors.name HASMEMBER [name]", expressionMap.get("book").toString());
@@ -235,7 +234,7 @@ public class DefaultFilterDialectTest {
         );
 
         ParseException e = assertThrows(ParseException.class,
-                () -> dialect.parseTypedExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION));
 
         assertEquals("Invalid Path: Last Path Element has to be a collection type", e.getMessage());
     }
@@ -251,7 +250,7 @@ public class DefaultFilterDialectTest {
         );
 
         ParseException e = assertThrows(ParseException.class,
-                () -> dialect.parseTypedExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION));
 
         assertEquals("Invalid Path: Last Path Element cannot be a collection type", e.getMessage());
     }

@@ -13,6 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.datastores.jpa.transaction.AbstractJpaTransaction;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
@@ -21,8 +22,6 @@ import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.datastores.jpa.transaction.AbstractJpaTransaction;
-
 import example.Author;
 import example.Book;
 import org.hibernate.collection.spi.PersistentSet;

@@ -5,9 +5,8 @@
  */
 package com.paiondata.elide.spring.config;
 
-import com.paiondata.elide.core.request.Pagination;
-
 import com.paiondata.elide.annotation.Paginate;
+import com.paiondata.elide.core.request.Pagination;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;

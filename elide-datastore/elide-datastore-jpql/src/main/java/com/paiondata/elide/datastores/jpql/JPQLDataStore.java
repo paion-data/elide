@@ -10,7 +10,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.jpql.annotations.JPQLFilterFragment;
 import com.paiondata.elide.datastores.jpql.filter.FilterTranslator;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

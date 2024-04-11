@@ -6,16 +6,16 @@
 
 package com.paiondata.elide.graphql.subscriptions.websocket;
 
+import com.paiondata.elide.graphql.GraphQLRequestScope;
+import com.paiondata.elide.graphql.QueryRunner;
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
+import com.paiondata.elide.graphql.parser.SubscriptionEntityProjectionMaker;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.request.route.Route;
-import com.paiondata.elide.graphql.GraphQLRequestScope;
-import com.paiondata.elide.graphql.QueryRunner;
-import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
-import com.paiondata.elide.graphql.parser.SubscriptionEntityProjectionMaker;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Next;
@@ -23,7 +23,6 @@ import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Ping;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

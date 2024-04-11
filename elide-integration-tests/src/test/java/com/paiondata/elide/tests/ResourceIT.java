@@ -6,10 +6,19 @@
 package com.paiondata.elide.tests;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.document;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.include;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.elements.Relation.TO_ONE;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
@@ -23,12 +32,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.core.audit.TestAuditLogger;
+import com.paiondata.elide.core.utils.JsonParser;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.RequestScope;
-import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
@@ -38,17 +48,13 @@ import com.paiondata.elide.core.filter.predicates.PrefixPredicate;
 import com.paiondata.elide.core.pagination.PaginationImpl;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.route.Route;
-import com.paiondata.elide.core.utils.JsonParser;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import com.paiondata.elide.test.jsonapi.elements.Data;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.google.common.collect.Sets;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-import com.paiondata.elide.test.jsonapi.elements.Relation;
-
 import example.Address;
 import example.Book;
 import example.Child;
@@ -82,132 +88,132 @@ import java.util.stream.Stream;
  * The type Config resource test.
  */
 public class ResourceIT extends IntegrationTest {
-    private static final Resource COMPANY = JsonApiDSL.resource(
-            JsonApiDSL.type("company"),
-            JsonApiDSL.id("abc"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("address", buildAddress("street1", null, Map.of("foo", "bar"))),
-                    JsonApiDSL.attr("description", "ABC")
+    private static final Resource COMPANY = resource(
+            type("company"),
+            id("abc"),
+            attributes(
+                    attr("address", buildAddress("street1", null, Map.of("foo", "bar"))),
+                    attr("description", "ABC")
             )
     );
-    private static final Resource PARENT1 = JsonApiDSL.resource(
-            JsonApiDSL.type("parent"),
-            JsonApiDSL.id("1"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("firstName", null)
+    private static final Resource PARENT1 = resource(
+            type("parent"),
+            id("1"),
+            attributes(
+                    attr("firstName", null)
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("children",
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("1"))
+            relationships(
+                    relation("children",
+                            linkage(type("child"), id("1"))
                     ),
-                    JsonApiDSL.relation("spouses")
+                    relation("spouses")
             )
     );
-    private static final Resource PARENT2 = JsonApiDSL.resource(
-            JsonApiDSL.type("parent"),
-            JsonApiDSL.id("2"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("firstName", "John")
+    private static final Resource PARENT2 = resource(
+            type("parent"),
+            id("2"),
+            attributes(
+                    attr("firstName", "John")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("children",
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2")),
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("3"))
+            relationships(
+                    relation("children",
+                            linkage(type("child"), id("2")),
+                            linkage(type("child"), id("3"))
                     ),
-                    JsonApiDSL.relation("spouses")
+                    relation("spouses")
             )
     );
-    private static final Resource PARENT3 = JsonApiDSL.resource(
-            JsonApiDSL.type("parent"),
-            JsonApiDSL.id("3"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("firstName", "Link")
+    private static final Resource PARENT3 = resource(
+            type("parent"),
+            id("3"),
+            attributes(
+                    attr("firstName", "Link")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("children",
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4")),
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("5"))
+            relationships(
+                    relation("children",
+                            linkage(type("child"), id("4")),
+                            linkage(type("child"), id("5"))
                     ),
-                    JsonApiDSL.relation("spouses")
+                    relation("spouses")
             )
     );
-    private static final Resource PARENT4 = JsonApiDSL.resource(
-            JsonApiDSL.type("parent"),
-            JsonApiDSL.id("4"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("firstName", "Unknown")
+    private static final Resource PARENT4 = resource(
+            type("parent"),
+            id("4"),
+            attributes(
+                    attr("firstName", "Unknown")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("children"),
-                    JsonApiDSL.relation("spouses",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+            relationships(
+                    relation("children"),
+                    relation("spouses",
+                            linkage(type("parent"), id("3"))
                     )
             )
     );
-    private static final Resource CHILD1 = JsonApiDSL.resource(
-            JsonApiDSL.type("child"),
-            JsonApiDSL.id("1"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", null)
+    private static final Resource CHILD1 = resource(
+            type("child"),
+            id("1"),
+            attributes(
+                    attr("name", null)
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("friends"),
-                    JsonApiDSL.relation("parents",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1"))
+            relationships(
+                    relation("friends"),
+                    relation("parents",
+                            linkage(type("parent"), id("1"))
                     )
             )
     );
-    private static final Resource CHILD2 = JsonApiDSL.resource(
-            JsonApiDSL.type("child"),
-            JsonApiDSL.id("2"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", "Child-ID2")
+    private static final Resource CHILD2 = resource(
+            type("child"),
+            id("2"),
+            attributes(
+                    attr("name", "Child-ID2")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("friends",
-                            JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("3"))
+            relationships(
+                    relation("friends",
+                            linkage(type("child"), id("3"))
                     ),
-                    JsonApiDSL.relation("parents",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("2"))
+                    relation("parents",
+                            linkage(type("parent"), id("2"))
                     )
             )
     );
-    private static final Resource CHILD3 = JsonApiDSL.resource(
-            JsonApiDSL.type("child"),
-            JsonApiDSL.id("3"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", "Child-ID3")
+    private static final Resource CHILD3 = resource(
+            type("child"),
+            id("3"),
+            attributes(
+                    attr("name", "Child-ID3")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("friends"),
-                    JsonApiDSL.relation("parents",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("2"))
+            relationships(
+                    relation("friends"),
+                    relation("parents",
+                            linkage(type("parent"), id("2"))
                     )
             )
     );
-    private static final Resource CHILD4 = JsonApiDSL.resource(
-            JsonApiDSL.type("child"),
-            JsonApiDSL.id("4"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", null)
+    private static final Resource CHILD4 = resource(
+            type("child"),
+            id("4"),
+            attributes(
+                    attr("name", null)
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("friends"),
-                    JsonApiDSL.relation("parents",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+            relationships(
+                    relation("friends"),
+                    relation("parents",
+                            linkage(type("parent"), id("3"))
                     )
             )
     );
-    private static final Resource CHILD5 = JsonApiDSL.resource(
-            JsonApiDSL.type("child"),
-            JsonApiDSL.id("5"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("name", null)
+    private static final Resource CHILD5 = resource(
+            type("child"),
+            id("5"),
+            attributes(
+                    attr("name", null)
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation("friends"),
-                    JsonApiDSL.relation("parents",
-                            JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+            relationships(
+                    relation("friends"),
+                    relation("parents",
+                            linkage(type("parent"), id("3"))
                     )
             )
     );
@@ -375,11 +381,11 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("filterExpressionCheckObj"),
-                                        JsonApiDSL.id(null),
-                                        JsonApiDSL.attributes(JsonApiDSL.attr("name", "obj1"))
+                        data(
+                                resource(
+                                        type("filterExpressionCheckObj"),
+                                        id(null),
+                                        attributes(attr("name", "obj1"))
                                 )
                         )
                 )
@@ -390,11 +396,11 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("filterExpressionCheckObj"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(JsonApiDSL.attr("name", "obj2"))
+                        data(
+                                resource(
+                                        type("filterExpressionCheckObj"),
+                                        id("2"),
+                                        attributes(attr("name", "obj2"))
                                 )
                         )
                 )
@@ -405,11 +411,11 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("filterExpressionCheckObj"),
-                                        JsonApiDSL.id("3"),
-                                        JsonApiDSL.attributes(JsonApiDSL.attr("name", "obj3"))
+                        data(
+                                resource(
+                                        type("filterExpressionCheckObj"),
+                                        id("3"),
+                                        attributes(attr("name", "obj3"))
                                 )
                         )
                 )
@@ -420,17 +426,17 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("anotherFilterExpressionCheckObj"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("anotherName", "anotherObj1"),
-                                                JsonApiDSL.attr("createDate", "1999")
+                        data(
+                                resource(
+                                        type("anotherFilterExpressionCheckObj"),
+                                        id("1"),
+                                        attributes(
+                                                attr("anotherName", "anotherObj1"),
+                                                attr("createDate", "1999")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("linkToParent",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("filterExpressionCheckObj"), JsonApiDSL.id("1"))
+                                        relationships(
+                                                relation("linkToParent",
+                                                        linkage(type("filterExpressionCheckObj"), id("1"))
                                                 )
                                         )
                                 )
@@ -443,12 +449,12 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("anotherFilterExpressionCheckObj"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("anotherName", "anotherObj2"),
-                                                JsonApiDSL.attr("createDate", "2000")
+                        data(
+                                resource(
+                                        type("anotherFilterExpressionCheckObj"),
+                                        attributes(
+                                                attr("anotherName", "anotherObj2"),
+                                                attr("createDate", "2000")
                                         )
                                 )
                         )
@@ -526,7 +532,7 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(PARENT1).toJSON()));
+                        datum(PARENT1).toJSON()));
     }
 
     @Test
@@ -534,13 +540,13 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .when().get("/parent/1/relationships/children").then().statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("1"))).toJSON()));
+                        data(linkage(type("child"), id("1"))).toJSON()));
     }
 
     @Test
     public void testChild() throws Exception {
         given().when().get("/parent/1/children/1").then().statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(CHILD1).toJSON()));
+                .body(equalTo(datum(CHILD1).toJSON()));
     }
 
     @Test
@@ -548,7 +554,7 @@ public class ResourceIT extends IntegrationTest {
         given().when().get("/parent/1/children/1/relationships/parents").then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1"))).toJSON()));
+                        data(linkage(type("parent"), id("1"))).toJSON()));
     }
 
     @Test
@@ -603,12 +609,12 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("firstName", "syzygy")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(
+                                                attr("firstName", "syzygy")
                                         )
                                 )
                         )
@@ -626,19 +632,19 @@ public class ResourceIT extends IntegrationTest {
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("firstName", "syzygy")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(
+                                                attr("firstName", "syzygy")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2")),
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("3"))
+                                        relationships(
+                                                relation("children",
+                                                        linkage(type("child"), id("2")),
+                                                        linkage(type("child"), id("3"))
                                                 ),
-                                                JsonApiDSL.relation("spouses")
+                                                relation("spouses")
                                         )
                                 )
                         ).toJSON()
@@ -657,12 +663,12 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("company"),
-                                        JsonApiDSL.id("abc"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("address", update)
+                        datum(
+                                resource(
+                                        type("company"),
+                                        id("abc"),
+                                        attributes(
+                                                attr("address", update)
                                         )
                                 )
                         )
@@ -679,7 +685,7 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(JsonApi.MEDIA_TYPE)
-                .body(equalTo(JsonApiDSL.datum(COMPANY).toJSON()
+                .body(equalTo(datum(COMPANY).toJSON()
                 ));
     }
 
@@ -719,15 +725,15 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("4"),
-                                        JsonApiDSL.attributes(),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4")),
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("5"))
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("4"),
+                                        attributes(),
+                                        relationships(
+                                                relation("children",
+                                                        linkage(type("child"), id("4")),
+                                                        linkage(type("child"), id("5"))
                                                 )
                                         )
                                 )
@@ -746,20 +752,20 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("4"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("firstName", "Unknown")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("4"),
+                                        attributes(
+                                                attr("firstName", "Unknown")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4")),
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("5"))
+                                        relationships(
+                                                relation("children",
+                                                        linkage(type("child"), id("4")),
+                                                        linkage(type("child"), id("5"))
                                                 ),
-                                                JsonApiDSL.relation("spouses",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+                                                relation("spouses",
+                                                        linkage(type("parent"), id("3"))
                                                 )
                                         )
                                 )
@@ -773,14 +779,14 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(),
+                                        relationships(
+                                                relation("children",
+                                                        linkage(type("child"), id("2"))
                                                 )
                                         )
                                 )
@@ -799,18 +805,18 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("firstName", "John")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(
+                                                attr("firstName", "John")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                                        relationships(
+                                                relation("children",
+                                                        linkage(type("child"), id("2"))
                                                 ),
-                                                JsonApiDSL.relation("spouses")
+                                                relation("spouses")
                                         )
                                 )
                         ).toJSON()
@@ -823,7 +829,7 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(PARENT2))
+                .body(datum(PARENT2))
                 .patch("/parent/2")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
@@ -835,7 +841,7 @@ public class ResourceIT extends IntegrationTest {
                 .get("/parent/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(PARENT2).toJSON()
+                .body(equalTo(datum(PARENT2).toJSON()
                 ));
     }
 
@@ -845,13 +851,13 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(),
+                                        relationships(
+                                                relation("children")
                                         )
                                 )
                         )
@@ -868,16 +874,16 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("parent"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("firstName", "John")
+                        datum(
+                                resource(
+                                        type("parent"),
+                                        id("2"),
+                                        attributes(
+                                                attr("firstName", "John")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("children"),
-                                                JsonApiDSL.relation("spouses")
+                                        relationships(
+                                                relation("children"),
+                                                relation("spouses")
                                         )
                                 )
                         ).toJSON()
@@ -886,9 +892,9 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testGetNestedSingleInclude() throws Exception {
-        String expected = JsonApiDSL.document(
-                JsonApiDSL.datum(PARENT2),
-                JsonApiDSL.include(CHILD2, CHILD3)).toJSON();
+        String expected = document(
+                datum(PARENT2),
+                include(CHILD2, CHILD3)).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -902,9 +908,9 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testGetSingleIncludeOnCollection() throws Exception {
 
-        String expected = JsonApiDSL.document(
-                JsonApiDSL.data(PARENT1, PARENT2, PARENT3, PARENT4),
-                JsonApiDSL.include(CHILD1, CHILD2, CHILD3, CHILD4, CHILD5)).toJSON();
+        String expected = document(
+                data(PARENT1, PARENT2, PARENT3, PARENT4),
+                include(CHILD1, CHILD2, CHILD3, CHILD4, CHILD5)).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -917,9 +923,9 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testGetMultipleIncludeOnCollection() throws Exception {
-        String expected = JsonApiDSL.document(
-                JsonApiDSL.data(PARENT1, PARENT2, PARENT3, PARENT4),
-                JsonApiDSL.include(CHILD1, CHILD2, CHILD3, CHILD4, CHILD5, PARENT3)).toJSON();
+        String expected = document(
+                data(PARENT1, PARENT2, PARENT3, PARENT4),
+                include(CHILD1, CHILD2, CHILD3, CHILD4, CHILD5, PARENT3)).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -932,9 +938,9 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testGetSingleIncludeOnRelationship() {
-        String expected = JsonApiDSL.document(
-                JsonApiDSL.data(JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("1"))),
-                JsonApiDSL.include(CHILD1)).toJSON();
+        String expected = document(
+                data(linkage(type("child"), id("1"))),
+                include(CHILD1)).toJSON();
 
         given()
                 .when().get("/parent/1/relationships/children?include=children").then().statusCode(HttpStatus.SC_OK)
@@ -982,7 +988,7 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testGetSortCollection() throws Exception {
 
-        String expected = JsonApiDSL.data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON();
+        String expected = data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -996,7 +1002,7 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testGetReverseSortCollection() throws Exception {
 
-        String expected = JsonApiDSL.data(PARENT4, PARENT3, PARENT2, PARENT1).toJSON();
+        String expected = data(PARENT4, PARENT3, PARENT2, PARENT1).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -1009,7 +1015,7 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testGetRelEmptyColl() {
-        String expected = JsonApiDSL.data((Resource[]) null).toJSON();
+        String expected = data((Resource[]) null).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -1022,7 +1028,7 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testGetWithTrailingSlash() {
-        String expected = JsonApiDSL.data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON();
+        String expected = data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON();
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -1036,9 +1042,9 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testPatchRelSetDirect() throws Exception {
 
-        Data relationships = JsonApiDSL.data(
-                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4")),
-                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("5"))
+        Data relationships = data(
+                linkage(type("child"), id("4")),
+                linkage(type("child"), id("5"))
         );
 
         given()
@@ -1116,16 +1122,16 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void createParentNoRels() throws Exception {
 
-        Data parent = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("5"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "I'm new here")
+        Data parent = datum(
+                resource(
+                        type("parent"),
+                        id("5"),
+                        attributes(
+                                attr("firstName", "I'm new here")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("spouses"),
-                                JsonApiDSL.relation("children")
+                        relationships(
+                                relation("spouses"),
+                                relation("children")
                         )
                 )
         );
@@ -1143,33 +1149,33 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void createParentWithRels() throws Exception {
 
-        Data parentInput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("required"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "omg. I have kidz.")
+        Data parentInput = datum(
+                resource(
+                        type("parent"),
+                        id("required"),
+                        attributes(
+                                attr("firstName", "omg. I have kidz.")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("2"))
                                 )
                         )
                 )
         );
 
-        Data parentOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("5"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "omg. I have kidz.")
+        Data parentOutput = datum(
+                resource(
+                        type("parent"),
+                        id("5"),
+                        attributes(
+                                attr("firstName", "omg. I have kidz.")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("2"))
                                 ),
-                                JsonApiDSL.relation("spouses")
+                                relation("spouses")
                         )
                 )
         );
@@ -1202,49 +1208,49 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void createChild() throws Exception {
 
-        Data childInput = JsonApiDSL.data(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id("required"),
-                        JsonApiDSL.attributes(),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("parents",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1"))
+        Data childInput = data(
+                resource(
+                        type("child"),
+                        id("required"),
+                        attributes(),
+                        relationships(
+                                relation("parents",
+                                        linkage(type("parent"), id("1"))
                                 )
                         )
                 )
         );
 
-        Data childOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id("6"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", null)
+        Data childOutput = datum(
+                resource(
+                        type("child"),
+                        id("6"),
+                        attributes(
+                                attr("name", null)
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("parents",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1")),
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("4"))
+                        relationships(
+                                relation("parents",
+                                        linkage(type("parent"), id("1")),
+                                        linkage(type("parent"), id("4"))
                                 ),
-                                JsonApiDSL.relation("friends")
+                                relation("friends")
                         )
                 )
         );
 
-        Data parentOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("4"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "Unknown")
+        Data parentOutput = datum(
+                resource(
+                        type("parent"),
+                        id("4"),
+                        attributes(
+                                attr("firstName", "Unknown")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("6"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("6"))
                                 ),
-                                JsonApiDSL.relation("spouses",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+                                relation("spouses",
+                                        linkage(type("parent"), id("3"))
                                 )
                         )
                 )
@@ -1271,12 +1277,12 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void createParentBadUri() {
 
-        Data parentInput = JsonApiDSL.data(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("required"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "I should not be created :x")
+        Data parentInput = data(
+                resource(
+                        type("parent"),
+                        id("required"),
+                        attributes(
+                                attr("firstName", "I should not be created :x")
                         )
                 )
         );
@@ -1292,12 +1298,12 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void createChildNonRootable() {
-        Data childInput = JsonApiDSL.data(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id("required"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "I should not be created :x")
+        Data childInput = data(
+                resource(
+                        type("child"),
+                        id("required"),
+                        attributes(
+                                attr("firstName", "I should not be created :x")
                         )
                 )
         );
@@ -1313,37 +1319,37 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testAddAndRemoveOneToOneRelationship() throws Exception {
 
-        Data funInput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("fun"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("relation3", Relation.TO_ONE,
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+        Data funInput = datum(
+                resource(
+                        type("fun"),
+                        id("1"),
+                        attributes(),
+                        relationships(
+                                relation("relation3", TO_ONE,
+                                        linkage(type("child"), id("2"))
                                 )
                         )
                 )
         );
 
-        Data funOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("fun"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("field2", null),
-                                JsonApiDSL.attr("field3", null),
-                                JsonApiDSL.attr("field4", null),
-                                JsonApiDSL.attr("field5", null),
-                                JsonApiDSL.attr("field6", null),
-                                JsonApiDSL.attr("field8", null)
+        Data funOutput = datum(
+                resource(
+                        type("fun"),
+                        id("1"),
+                        attributes(
+                                attr("field2", null),
+                                attr("field3", null),
+                                attr("field4", null),
+                                attr("field5", null),
+                                attr("field6", null),
+                                attr("field8", null)
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("relation3", Relation.TO_ONE,
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("relation3", TO_ONE,
+                                        linkage(type("child"), id("2"))
                                 ),
-                                JsonApiDSL.relation("relation1"),
-                                JsonApiDSL.relation("relation2")
+                                relation("relation1"),
+                                relation("relation2")
                         )
                 )
         );
@@ -1359,33 +1365,33 @@ public class ResourceIT extends IntegrationTest {
 
         given().when().get("/fun/1").then().statusCode(HttpStatus.SC_OK).body(jsonEquals(funOutput, true));
 
-        funInput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("fun"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("relation3", Relation.TO_ONE)
+        funInput = datum(
+                resource(
+                        type("fun"),
+                        id("1"),
+                        attributes(),
+                        relationships(
+                                relation("relation3", TO_ONE)
                         )
                 )
         );
 
-        funOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("fun"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("field2", null),
-                                JsonApiDSL.attr("field3", null),
-                                JsonApiDSL.attr("field4", null),
-                                JsonApiDSL.attr("field5", null),
-                                JsonApiDSL.attr("field6", null),
-                                JsonApiDSL.attr("field8", null)
+        funOutput = datum(
+                resource(
+                        type("fun"),
+                        id("1"),
+                        attributes(
+                                attr("field2", null),
+                                attr("field3", null),
+                                attr("field4", null),
+                                attr("field5", null),
+                                attr("field6", null),
+                                attr("field8", null)
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("relation3", Relation.TO_ONE),
-                                JsonApiDSL.relation("relation1"),
-                                JsonApiDSL.relation("relation2")
+                        relationships(
+                                relation("relation3", TO_ONE),
+                                relation("relation1"),
+                                relation("relation2")
                         )
                 )
         );
@@ -1660,18 +1666,18 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void addRelationshipChild() throws Exception {
-        Data expected = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", null)
+        Data expected = datum(
+                resource(
+                        type("child"),
+                        id("1"),
+                        attributes(
+                                attr("name", null)
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("friends"),
-                                JsonApiDSL.relation("parents",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1")),
-                                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("friends"),
+                                relation("parents",
+                                        linkage(type("parent"), id("1")),
+                                        linkage(type("parent"), id("2"))
                                 )
                         )
                 )
@@ -1681,8 +1687,8 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("2"))
+                        datum(
+                                linkage(type("parent"), id("2"))
                         )
                 )
                 .post("/parent/1/children/1/relationships/parents")
@@ -1700,16 +1706,16 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void removeRelationshipChild() {
-        Data expected = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("child"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", null)
+        Data expected = datum(
+                resource(
+                        type("child"),
+                        id("1"),
+                        attributes(
+                                attr("name", null)
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("friends"),
-                                JsonApiDSL.relation("parents")
+                        relationships(
+                                relation("friends"),
+                                relation("parents")
                         )
                 )
         );
@@ -1717,8 +1723,8 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(
-                        JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("1"))
+                .body(datum(
+                        linkage(type("parent"), id("1"))
                 ))
                 .delete("/parent/1/children/1/relationships/parents")
                 .then()
@@ -1831,33 +1837,33 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void createParentWithoutId() {
-        Data newParent = JsonApiDSL.data(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "omg. I have kidz.")
+        Data newParent = data(
+                resource(
+                        type("parent"),
+                        attributes(
+                                attr("firstName", "omg. I have kidz.")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("2"))
                                 ),
-                                JsonApiDSL.relation("spouses")
+                                relation("spouses")
                         )
                 )
         );
 
         Data expected = new Data(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("5"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "omg. I have kidz.")
+                resource(
+                        type("parent"),
+                        id("5"),
+                        attributes(
+                                attr("firstName", "omg. I have kidz.")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("2"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("2"))
                                 ),
-                                JsonApiDSL.relation("spouses")
+                                relation("spouses")
                         )
                 )
         );
@@ -1875,12 +1881,12 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testOneToOneRelationshipAdding() {
 
-        Data oneToOneRoot = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneRoot"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", "test123")
+        Data oneToOneRoot = datum(
+                resource(
+                        type("oneToOneRoot"),
+                        id("1"),
+                        attributes(
+                                attr("name", "test123")
                         )
                 )
         );
@@ -1902,12 +1908,12 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK);
 
-        Data oneToOneNonRoot = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneNonRoot"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("test", "Other object")
+        Data oneToOneNonRoot = datum(
+                resource(
+                        type("oneToOneNonRoot"),
+                        id("1"),
+                        attributes(
+                                attr("test", "Other object")
                         )
                 )
         );
@@ -1928,16 +1934,16 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("oneToOneRoot"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "test123")
+                        datum(
+                                resource(
+                                        type("oneToOneRoot"),
+                                        id("1"),
+                                        attributes(
+                                                attr("name", "test123")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("otherObject", Relation.TO_ONE,
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("oneToOneNonRoot"), JsonApiDSL.id("1"))
+                                        relationships(
+                                                relation("otherObject", TO_ONE,
+                                                        linkage(type("oneToOneNonRoot"), id("1"))
                                                 )
                                         )
                                 )
@@ -1951,16 +1957,16 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("oneToOneNonRoot"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("test", "Other object")
+                        datum(
+                                resource(
+                                        type("oneToOneNonRoot"),
+                                        id("1"),
+                                        attributes(
+                                                attr("test", "Other object")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("root", Relation.TO_ONE,
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("oneToOneRoot"), JsonApiDSL.id("1"))
+                                        relationships(
+                                                relation("root", TO_ONE,
+                                                        linkage(type("oneToOneRoot"), id("1"))
                                                 )
                                         )
                                 )
@@ -1970,18 +1976,18 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testReadPermissionDefaultOverride() throws Exception {
-        Resource obj = JsonApiDSL.resource(
-                JsonApiDSL.type("yetAnotherPermission"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("youShouldBeAbleToRead", "this!")
+        Resource obj = resource(
+                type("yetAnotherPermission"),
+                id("1"),
+                attributes(
+                        attr("youShouldBeAbleToRead", "this!")
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(obj))
+                .body(datum(obj))
                 .post("/yetAnotherPermission")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
@@ -1993,17 +1999,17 @@ public class ResourceIT extends IntegrationTest {
                 .get("/yetAnotherPermission")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(jsonEquals(JsonApiDSL.data(obj), true));
+                .body(jsonEquals(data(obj), true));
     }
 
     @Test
     public void testUpdateToOneCollection() throws Exception {
-        Data oneToOneRoot = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneRoot"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", "test123")
+        Data oneToOneRoot = datum(
+                resource(
+                        type("oneToOneRoot"),
+                        id("1"),
+                        attributes(
+                                attr("name", "test123")
                         )
                 )
         );
@@ -2016,12 +2022,12 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
 
-        Data oneToOneNonRoot = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneNonRoot"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("test", "Other object")
+        Data oneToOneNonRoot = datum(
+                resource(
+                        type("oneToOneNonRoot"),
+                        id("1"),
+                        attributes(
+                                attr("test", "Other object")
                         )
                 )
         );
@@ -2043,29 +2049,29 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("oneToOneRoot"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "test123")
+                        datum(
+                                resource(
+                                        type("oneToOneRoot"),
+                                        id("1"),
+                                        attributes(
+                                                attr("name", "test123")
 
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("otherObject", Relation.TO_ONE,
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("oneToOneNonRoot"), JsonApiDSL.id("1"))
+                                        relationships(
+                                                relation("otherObject", TO_ONE,
+                                                        linkage(type("oneToOneNonRoot"), id("1"))
                                                 )
                                         )
                                 )
                         ).toJSON()
                 ));
 
-        Data updated = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneNonRoot"),
-                        JsonApiDSL.id("2"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("test", "Another object")
+        Data updated = datum(
+                resource(
+                        type("oneToOneNonRoot"),
+                        id("2"),
+                        attributes(
+                                attr("test", "Another object")
                         )
                 )
         );
@@ -2087,17 +2093,17 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("oneToOneRoot"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "test123")
+                        datum(
+                                resource(
+                                        type("oneToOneRoot"),
+                                        id("1"),
+                                        attributes(
+                                                attr("name", "test123")
 
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("otherObject", Relation.TO_ONE,
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("oneToOneNonRoot"), JsonApiDSL.id("2"))
+                                        relationships(
+                                                relation("otherObject", TO_ONE,
+                                                        linkage(type("oneToOneNonRoot"), id("2"))
                                                 )
                                         )
                                 )
@@ -2107,12 +2113,12 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testPostToRecord() {
-        Data oneToOneRoot = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("oneToOneRoot"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", "test123")
+        Data oneToOneRoot = datum(
+                resource(
+                        type("oneToOneRoot"),
+                        id("1"),
+                        attributes(
+                                attr("name", "test123")
                         )
                 )
         );
@@ -2143,8 +2149,8 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(
-                                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("3"))
+                        data(
+                                linkage(type("child"), id("3"))
                         ).toJSON()));
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
@@ -2153,23 +2159,23 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.document(
-                                JsonApiDSL.datum(
-                                        JsonApiDSL.resource(
-                                                JsonApiDSL.type("parent"),
-                                                JsonApiDSL.id("2"),
-                                                JsonApiDSL.attributes(
-                                                        JsonApiDSL.attr("firstName", "John")
+                        document(
+                                datum(
+                                        resource(
+                                                type("parent"),
+                                                id("2"),
+                                                attributes(
+                                                        attr("firstName", "John")
                                                 ),
-                                                JsonApiDSL.relationships(
-                                                        JsonApiDSL.relation("children",
-                                                                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("3"))
+                                                relationships(
+                                                        relation("children",
+                                                                linkage(type("child"), id("3"))
                                                         ),
-                                                        JsonApiDSL.relation("spouses")
+                                                        relation("spouses")
                                                 )
                                         )
                                 ),
-                                JsonApiDSL.include(CHILD3)
+                                include(CHILD3)
                         ).toJSON()
                 ));
         given()
@@ -2179,62 +2185,62 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.document(
-                                JsonApiDSL.data(
-                                        JsonApiDSL.resource(
-                                                JsonApiDSL.type("parent"),
-                                                JsonApiDSL.id("1"),
-                                                JsonApiDSL.attributes(
-                                                        JsonApiDSL.attr("firstName", null)
+                        document(
+                                data(
+                                        resource(
+                                                type("parent"),
+                                                id("1"),
+                                                attributes(
+                                                        attr("firstName", null)
                                                 ),
-                                                JsonApiDSL.relationships(
-                                                        JsonApiDSL.relation("children"),
-                                                        JsonApiDSL.relation("spouses")
+                                                relationships(
+                                                        relation("children"),
+                                                        relation("spouses")
                                                 )
 
                                         ),
-                                        JsonApiDSL.resource(
-                                                JsonApiDSL.type("parent"),
-                                                JsonApiDSL.id("2"),
-                                                JsonApiDSL.attributes(
-                                                        JsonApiDSL.attr("firstName", "John")
+                                        resource(
+                                                type("parent"),
+                                                id("2"),
+                                                attributes(
+                                                        attr("firstName", "John")
                                                 ),
-                                                JsonApiDSL.relationships(
-                                                        JsonApiDSL.relation("children"),
-                                                        JsonApiDSL.relation("spouses")
+                                                relationships(
+                                                        relation("children"),
+                                                        relation("spouses")
                                                 )
 
                                         ),
-                                        JsonApiDSL.resource(
-                                                JsonApiDSL.type("parent"),
-                                                JsonApiDSL.id("3"),
-                                                JsonApiDSL.attributes(
-                                                        JsonApiDSL.attr("firstName", "Link")
+                                        resource(
+                                                type("parent"),
+                                                id("3"),
+                                                attributes(
+                                                        attr("firstName", "Link")
                                                 ),
-                                                JsonApiDSL.relationships(
-                                                        JsonApiDSL.relation("children",
-                                                                JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4"))
+                                                relationships(
+                                                        relation("children",
+                                                                linkage(type("child"), id("4"))
                                                         ),
-                                                        JsonApiDSL.relation("spouses")
+                                                        relation("spouses")
                                                 )
 
                                         ),
-                                        JsonApiDSL.resource(
-                                                JsonApiDSL.type("parent"),
-                                                JsonApiDSL.id("4"),
-                                                JsonApiDSL.attributes(
-                                                        JsonApiDSL.attr("firstName", "Unknown")
+                                        resource(
+                                                type("parent"),
+                                                id("4"),
+                                                attributes(
+                                                        attr("firstName", "Unknown")
                                                 ),
-                                                JsonApiDSL.relationships(
-                                                        JsonApiDSL.relation("children"),
-                                                        JsonApiDSL.relation("spouses",
-                                                                JsonApiDSL.linkage(JsonApiDSL.type("parent"), JsonApiDSL.id("3"))
+                                                relationships(
+                                                        relation("children"),
+                                                        relation("spouses",
+                                                                linkage(type("parent"), id("3"))
                                                         )
                                                 )
 
                                         )
                                 ),
-                                JsonApiDSL.include(CHILD4)
+                                include(CHILD4)
                         ).toJSON()));
     }
 
@@ -2298,17 +2304,17 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testUserNoShare() {
-        Resource noShareBid1 = JsonApiDSL.resource(
-                JsonApiDSL.type("noShareBid"),
-                JsonApiDSL.id("1")
+        Resource noShareBid1 = resource(
+                type("noShareBid"),
+                id("1")
         );
 
-        Resource noShareBid2 = JsonApiDSL.resource(
-                JsonApiDSL.type("noShareBid"),
-                JsonApiDSL.id("2"),
-                JsonApiDSL.relationships(
-                        JsonApiDSL.relation("other", Relation.TO_ONE,
-                                JsonApiDSL.linkage(JsonApiDSL.type("noShareBid"), JsonApiDSL.id("1"))
+        Resource noShareBid2 = resource(
+                type("noShareBid"),
+                id("2"),
+                relationships(
+                        relation("other", TO_ONE,
+                                linkage(type("noShareBid"), id("1"))
                         )
                 )
         );
@@ -2316,18 +2322,18 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(noShareBid1))
+                .body(datum(noShareBid1))
                 .post("/noShareBid")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(noShareBid2))
+                .body(datum(noShareBid2))
                 .post("/noShareBid/1/other")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(noShareBid2).toJSON()));
+                .body(equalTo(datum(noShareBid2).toJSON()));
     }
 
     @Test
@@ -2345,18 +2351,18 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testInverseDeleteFromCollection() {
-        Data parentOutput = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("parent"),
-                        JsonApiDSL.id("5"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("firstName", "omg. I have kidz.")
+        Data parentOutput = datum(
+                resource(
+                        type("parent"),
+                        id("5"),
+                        attributes(
+                                attr("firstName", "omg. I have kidz.")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("children",
-                                        JsonApiDSL.linkage(JsonApiDSL.type("child"), JsonApiDSL.id("4"))
+                        relationships(
+                                relation("children",
+                                        linkage(type("child"), id("4"))
                                 ),
-                                JsonApiDSL.relation("spouses")
+                                relation("spouses")
                         )
                 )
         );
@@ -2387,15 +2393,15 @@ public class ResourceIT extends IntegrationTest {
     public void testPostInvalidRelationship() {
         // Note: This tests the correct response when POSTing a resource with a not "include" relationship. The server
         // should returns UnknownEntityException rather than NPE.
-        Resource invalid = JsonApiDSL.resource(
-                JsonApiDSL.type("resourceWithInvalidRelationship"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("name", "test123")
+        Resource invalid = resource(
+                type("resourceWithInvalidRelationship"),
+                id("1"),
+                attributes(
+                        attr("name", "test123")
                 ),
-                JsonApiDSL.relationships(
-                        JsonApiDSL.relation("notIncludedResource",
-                                JsonApiDSL.linkage(JsonApiDSL.type("notIncludedResource"), JsonApiDSL.id("1"))
+                relationships(
+                        relation("notIncludedResource",
+                                linkage(type("notIncludedResource"), id("1"))
                         )
                 )
         );
@@ -2403,7 +2409,7 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(invalid))
+                .body(datum(invalid))
                 .post("resourceWithInvalidRelationship")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
@@ -2415,13 +2421,13 @@ public class ResourceIT extends IntegrationTest {
                 .accept(JsonApi.MEDIA_TYPE)
                 .get("/parent?sort=id")
                 .then()
-                .body(equalTo(JsonApiDSL.data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON()));
+                .body(equalTo(data(PARENT1, PARENT2, PARENT3, PARENT4).toJSON()));
 
         given()
                 .accept(JsonApi.MEDIA_TYPE)
                 .get("/parent?sort=-id")
                 .then()
-                .body(equalTo(JsonApiDSL.data(PARENT4, PARENT3, PARENT2, PARENT1).toJSON()));
+                .body(equalTo(data(PARENT4, PARENT3, PARENT2, PARENT1).toJSON()));
     }
 
     @Test
@@ -2430,13 +2436,13 @@ public class ResourceIT extends IntegrationTest {
                 .accept(JsonApi.MEDIA_TYPE)
                 .get("/parent/2/children?sort=id")
                 .then()
-                .body(equalTo(JsonApiDSL.data(CHILD2, CHILD3).toJSON()));
+                .body(equalTo(data(CHILD2, CHILD3).toJSON()));
 
         given()
                 .accept(JsonApi.MEDIA_TYPE)
                 .get("/parent/2/children?sort=-id")
                 .then()
-                .body(equalTo(JsonApiDSL.data(CHILD3, CHILD2).toJSON()));
+                .body(equalTo(data(CHILD3, CHILD2).toJSON()));
     }
 
     @Test
@@ -2452,11 +2458,11 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void assignedIdString() {
 
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("assignedIdString"),
-                JsonApiDSL.id("user1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("value", 22)
+        Resource resource = resource(
+                type("assignedIdString"),
+                id("user1"),
+                attributes(
+                        attr("value", 22)
                 )
         );
 
@@ -2464,11 +2470,11 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(resource))
+                .body(datum(resource))
                 .post("/assignedIdString")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
         //Fetch newly created user
         given()
@@ -2477,20 +2483,20 @@ public class ResourceIT extends IntegrationTest {
                 .get("/assignedIdString/user1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
-        Resource modified = JsonApiDSL.resource(
-                JsonApiDSL.type("assignedIdString"),
-                JsonApiDSL.id("user2"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("value", 22)
+        Resource modified = resource(
+                type("assignedIdString"),
+                id("user2"),
+                attributes(
+                        attr("value", 22)
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(modified))
+                .body(datum(modified))
                 .patch("/assignedIdString/user1")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
@@ -2499,11 +2505,11 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void assignedIdLong() {
 
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("assignedIdLong"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("value", 22)
+        Resource resource = resource(
+                type("assignedIdLong"),
+                id("1"),
+                attributes(
+                        attr("value", 22)
                 )
         );
 
@@ -2511,11 +2517,11 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(resource))
+                .body(datum(resource))
                 .post("/assignedIdLong")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
         //Fetch newly created user
         given()
@@ -2524,20 +2530,20 @@ public class ResourceIT extends IntegrationTest {
                 .get("/assignedIdLong/1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
-        Resource modified = JsonApiDSL.resource(
-                JsonApiDSL.type("assignedIdLong"),
-                JsonApiDSL.id("2"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("value", 22)
+        Resource modified = resource(
+                type("assignedIdLong"),
+                id("2"),
+                attributes(
+                        attr("value", 22)
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(modified))
+                .body(datum(modified))
                 .patch("/assignedIdLong/1")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
@@ -2545,17 +2551,17 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void assignedIdWithoutProvidedId() {
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("assignedIdString"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("value", 22)
+        Resource resource = resource(
+                type("assignedIdString"),
+                attributes(
+                        attr("value", 22)
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(resource))
+                .body(datum(resource))
                 .post("/assignedIdString")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
@@ -2567,7 +2573,7 @@ public class ResourceIT extends IntegrationTest {
         Elide elide = new Elide(ElideSettings.builder().dataStore(dataStore)
                 .entityDictionary(entityDictionary)
                 .auditLogger(new TestAuditLogger())
-                .settings(JsonApiSettings.JsonApiSettingsBuilder.withDefaults(entityDictionary))
+                .settings(JsonApiSettingsBuilder.withDefaults(entityDictionary))
                 .build());
 
         elide.doScans();
@@ -2582,51 +2588,51 @@ public class ResourceIT extends IntegrationTest {
 
     @Test
     public void testComputedAttribute() throws Exception {
-        Resource patched = JsonApiDSL.resource(
-                JsonApiDSL.type("user"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("password", "god")
+        Resource patched = resource(
+                type("user"),
+                id("1"),
+                attributes(
+                        attr("password", "god")
                 )
         );
 
-        Resource returned = JsonApiDSL.resource(
-                JsonApiDSL.type("user"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("password", ""),
-                        JsonApiDSL.attr("reversedPassword", "dog"),
-                        JsonApiDSL.attr("role", 0)
+        Resource returned = resource(
+                type("user"),
+                id("1"),
+                attributes(
+                        attr("password", ""),
+                        attr("reversedPassword", "dog"),
+                        attr("role", 0)
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(patched))
+                .body(datum(patched))
                 .patch("/user/1")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
                 .header(HttpHeaders.CONTENT_LENGTH, nullValue());
 
         given().when().get("/user/1").then().statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(returned).toJSON()));
+                .body(equalTo(datum(returned).toJSON()));
     }
 
     @Test
     public void testPrivilegeEscalation() throws Exception {
-        Resource patched = JsonApiDSL.resource(
-                JsonApiDSL.type("user"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("role", 1)
+        Resource patched = resource(
+                type("user"),
+                id("1"),
+                attributes(
+                        attr("role", 1)
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(patched))
+                .body(datum(patched))
                 .patch("/user/1")
                 .then()
                 .statusCode(HttpStatus.SC_FORBIDDEN);
@@ -2636,32 +2642,32 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testUpdateDeferredOnCreate() {
 
-        Resource expected = JsonApiDSL.resource(
-                JsonApiDSL.type("createButNoUpdate"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("cannotModify", "unmodified"),
-                        JsonApiDSL.attr("textValue", "new value")
+        Resource expected = resource(
+                type("createButNoUpdate"),
+                id("1"),
+                attributes(
+                        attr("cannotModify", "unmodified"),
+                        attr("textValue", "new value")
                 ),
-                JsonApiDSL.relationships(
-                        JsonApiDSL.relation("toOneRelation", true)
+                relationships(
+                        relation("toOneRelation", true)
                 )
         );
 
-        Resource badRequest = JsonApiDSL.resource(
-                JsonApiDSL.type("createButNoUpdate"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("cannotModify", "This should fail this whole create"),
-                        JsonApiDSL.attr("textValue", "test")
+        Resource badRequest = resource(
+                type("createButNoUpdate"),
+                id("1"),
+                attributes(
+                        attr("cannotModify", "This should fail this whole create"),
+                        attr("textValue", "test")
                 )
         );
 
-        Resource validRequest = JsonApiDSL.resource(
-                JsonApiDSL.type("createButNoUpdate"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("textValue", "new value")
+        Resource validRequest = resource(
+                type("createButNoUpdate"),
+                id("1"),
+                attributes(
+                        attr("textValue", "new value")
                 )
         );
 
@@ -2669,7 +2675,7 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(badRequest))
+                .body(datum(badRequest))
                 .post("/createButNoUpdate")
                 .then()
                 .statusCode(HttpStatus.SC_FORBIDDEN);
@@ -2678,17 +2684,17 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(validRequest))
+                .body(datum(validRequest))
                 .post("/createButNoUpdate")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(expected).toJSON()));
+                .body(equalTo(datum(expected).toJSON()));
 
         // Ensure we cannot update that newly created object
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(validRequest))
+                .body(datum(validRequest))
                 .patch("/createButNoUpdate/1")
                 .then()
                 .statusCode(HttpStatus.SC_FORBIDDEN);
@@ -2697,29 +2703,29 @@ public class ResourceIT extends IntegrationTest {
     @Test
     public void testUpdatingExistingResourceWithoutPermissionsIsForbidden() {
 
-        Resource entity1 = JsonApiDSL.resource(
-                JsonApiDSL.type("createButNoUpdate"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("textValue", "new value")
+        Resource entity1 = resource(
+                type("createButNoUpdate"),
+                id("1"),
+                attributes(
+                        attr("textValue", "new value")
                 )
         );
 
-        Resource entity2 = JsonApiDSL.resource(
-                JsonApiDSL.type("createButNoUpdate"),
-                JsonApiDSL.id("2"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("textValue", "new value")
+        Resource entity2 = resource(
+                type("createButNoUpdate"),
+                id("2"),
+                attributes(
+                        attr("textValue", "new value")
                 ),
-                JsonApiDSL.relationships(
-                        JsonApiDSL.relation("toOneRelation", JsonApiDSL.linkage(JsonApiDSL.type("createButNoUpdate"), JsonApiDSL.id("1")))
+                relationships(
+                        relation("toOneRelation", linkage(type("createButNoUpdate"), id("1")))
                 )
         );
 
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(entity1))
+                .body(datum(entity1))
                 .post("/createButNoUpdate")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
@@ -2727,14 +2733,14 @@ public class ResourceIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(entity2))
+                .body(datum(entity2))
                 .post("/createButNoUpdate")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
 
 
-        Data relationships = JsonApiDSL.data(
-                JsonApiDSL.linkage(JsonApiDSL.type("createButNoUpdate"), JsonApiDSL.id("1"))
+        Data relationships = data(
+                linkage(type("createButNoUpdate"), id("1"))
         );
 
         given()
@@ -2850,19 +2856,19 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "titlewith%percentage")
+                        data(
+                                resource(
+                                        type("book"),
+                                        id("1"),
+                                        attributes(
+                                                attr("name", "titlewith%percentage")
                                         )
                                 ),
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "titlewithoutpercentage")
+                                resource(
+                                        type("book"),
+                                        id("2"),
+                                        attributes(
+                                                attr("name", "titlewithoutpercentage")
                                         )
                                 )
                         ).toJSON()
@@ -2875,19 +2881,19 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("title", "titlewith%percentage")
+                        data(
+                                resource(
+                                        type("book"),
+                                        id("1"),
+                                        attributes(
+                                                attr("title", "titlewith%percentage")
                                         )
                                 ),
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("title", "titlewithoutpercentage")
+                                resource(
+                                        type("book"),
+                                        id("2"),
+                                        attributes(
+                                                attr("title", "titlewithoutpercentage")
                                         )
                                 )
                         ).toJSON()
@@ -2903,12 +2909,12 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "A new book."),
-                                                JsonApiDSL.attr("publishDate", 1123)
+                        data(
+                                resource(
+                                        type("book"),
+                                        attributes(
+                                                attr("name", "A new book."),
+                                                attr("publishDate", 1123)
                                         )
                                 )
                         )
@@ -2918,13 +2924,13 @@ public class ResourceIT extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body(equalTo(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("3"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "A new book."),
-                                                JsonApiDSL.attr("publishDate", 1123)
+                        datum(
+                                resource(
+                                        type("book"),
+                                        id("3"),
+                                        attributes(
+                                                attr("name", "A new book."),
+                                                attr("publishDate", 1123)
                                         )
                                 )
                         ).toJSON()
@@ -2940,12 +2946,12 @@ public class ResourceIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "A new book.")
+                        datum(
+                                resource(
+                                        type("book"),
+                                        id("2"),
+                                        attributes(
+                                                attr("name", "A new book.")
                                         )
                                 )
                         )

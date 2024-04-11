@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.Path.PathElement;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.filter.predicates.InPredicate;
 import example.Author;
@@ -33,22 +32,22 @@ public class ExpressionScopingVisitorTest {
     @Test
     public void testExpressionCopy() throws Exception {
         Path p1Path = new Path(Arrays.asList(
-                new PathElement(Book.class, Author.class, "authors"),
-                new PathElement(Author.class, String.class, NAME)
+                new Path.PathElement(Book.class, Author.class, "authors"),
+                new Path.PathElement(Author.class, String.class, NAME)
         ));
         FilterPredicate p1 = new InPredicate(p1Path, "foo", "bar");
 
-        FilterPredicate p2 = new InPredicate(new PathElement(Book.class, String.class, NAME), "blah%");
-        FilterPredicate p3 = new InPredicate(new PathElement(Book.class, String.class, GENRE), SCIFI);
+        FilterPredicate p2 = new InPredicate(new Path.PathElement(Book.class, String.class, NAME), "blah%");
+        FilterPredicate p3 = new InPredicate(new Path.PathElement(Book.class, String.class, GENRE), SCIFI);
         //P4 is a duplicate of P3
-        FilterPredicate p4 = new InPredicate(new PathElement(Book.class, String.class, GENRE), SCIFI);
+        FilterPredicate p4 = new InPredicate(new Path.PathElement(Book.class, String.class, GENRE), SCIFI);
 
         OrFilterExpression or = new OrFilterExpression(p2, p3);
         AndFilterExpression and1 = new AndFilterExpression(or, p1);
         AndFilterExpression and2 = new AndFilterExpression(and1, p4);
         NotFilterExpression not = new NotFilterExpression(and2);
 
-        PathElement scope = new PathElement(Author.class, String.class, NAME);
+        Path.PathElement scope = new Path.PathElement(Author.class, String.class, NAME);
         ExpressionScopingVisitor scopingVisitor = new ExpressionScopingVisitor(scope);
         FilterExpression copy = not.accept(scopingVisitor);
 

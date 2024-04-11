@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -48,6 +49,6 @@ class MediaTypeParameterRouteResolverTest {
             return null;
         });
         Route route = resolver.resolve("application/json", null, null, headers, null);
-        assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
+        Assertions.assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
     }
 }

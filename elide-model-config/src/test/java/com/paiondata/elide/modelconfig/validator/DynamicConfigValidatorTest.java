@@ -18,7 +18,6 @@ import com.paiondata.elide.modelconfig.model.Argument;
 import com.paiondata.elide.modelconfig.model.Table;
 import com.paiondata.elide.modelconfig.model.Type;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

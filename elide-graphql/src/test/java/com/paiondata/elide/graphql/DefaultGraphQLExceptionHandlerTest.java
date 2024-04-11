@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.paiondata.elide.graphql.models.GraphQLErrors;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
 import com.paiondata.elide.core.exceptions.InvalidApiVersionException;
 import com.paiondata.elide.core.exceptions.InvalidConstraintException;
 import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
 import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
-import com.paiondata.elide.graphql.models.GraphQLErrors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;

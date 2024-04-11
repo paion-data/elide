@@ -5,6 +5,7 @@
  */
 package com.paiondata.elide.swagger;
 
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.audit.Slf4jLogger;
@@ -15,8 +16,6 @@ import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.request.Pagination;
 import com.paiondata.elide.core.utils.coerce.converters.TimeZoneSerde;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
-
 import example.models.Author;
 import example.models.Book;
 import example.models.Publisher;

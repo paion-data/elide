@@ -7,14 +7,13 @@ package com.paiondata.elide.core.filter.predicates;
 
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.RequestScope;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.RelationshipType;
 import com.paiondata.elide.core.filter.Operator;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
 import com.google.common.collect.Lists;
-
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.AllArgsConstructor;

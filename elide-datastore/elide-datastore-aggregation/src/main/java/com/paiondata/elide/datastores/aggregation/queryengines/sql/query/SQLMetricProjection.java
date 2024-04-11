@@ -6,11 +6,11 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
 import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
 import com.paiondata.elide.datastores.aggregation.query.Query;
@@ -20,7 +20,6 @@ import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.Calci
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.CalciteOuterAggregationExtractor;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.CalciteUtils;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.sql.SqlDialect;
 import org.apache.calcite.sql.SqlNode;

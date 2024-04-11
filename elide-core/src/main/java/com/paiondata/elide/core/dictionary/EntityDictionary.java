@@ -6,14 +6,25 @@
  */
 package com.paiondata.elide.core.dictionary;
 
-import static com.paiondata.elide.core.security.checks.prefab.Role.ALL_ROLE;
-import static com.paiondata.elide.core.security.checks.prefab.Role.NONE_ROLE;
-
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.PermissionExecutor;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.Package;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import com.paiondata.elide.annotation.ApiVersion;
 import com.paiondata.elide.annotation.ComputedAttribute;
 import com.paiondata.elide.annotation.ComputedRelationship;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
 import com.paiondata.elide.annotation.NonTransferable;
 import com.paiondata.elide.annotation.OnCreatePostCommit;
 import com.paiondata.elide.annotation.OnCreatePreCommit;
@@ -25,37 +36,21 @@ import com.paiondata.elide.annotation.OnUpdatePostCommit;
 import com.paiondata.elide.annotation.OnUpdatePreCommit;
 import com.paiondata.elide.annotation.OnUpdatePreSecurity;
 import com.paiondata.elide.annotation.SecurityCheck;
-import com.paiondata.elide.core.PersistentResource;
-import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.exceptions.HttpStatusException;
 import com.paiondata.elide.core.exceptions.InternalServerErrorException;
 import com.paiondata.elide.core.exceptions.InvalidAttributeException;
-import com.paiondata.elide.core.lifecycle.LifeCycleHook;
-import com.paiondata.elide.core.security.PermissionExecutor;
-import com.paiondata.elide.core.security.checks.Check;
-import com.paiondata.elide.core.security.checks.UserCheck;
-import com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly;
-import com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly;
-import com.paiondata.elide.core.security.checks.prefab.Role;
 import com.paiondata.elide.core.type.AccessibleObject;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Dynamic;
 import com.paiondata.elide.core.type.Field;
 import com.paiondata.elide.core.type.Method;
-import com.paiondata.elide.core.type.Package;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
-
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -105,7 +100,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("static-method")
 public class EntityDictionary {
 
-    public static final String ELIDE_PACKAGE_PREFIX = "com.yahoo.elide";
+    public static final String ELIDE_PACKAGE_PREFIX = "com.paiondata.elide";
     public static final String NO_VERSION = "";
 
     public static final Injector DEFAULT_INJECTOR = (noop) -> {
@@ -172,12 +167,12 @@ public class EntityDictionary {
         UserCheck none = new Role.NONE();
 
         addRoleCheck("Prefab.Role.All", all);
-        addRoleCheck(ALL_ROLE, all);
+        addRoleCheck(Role.ALL_ROLE, all);
         addRoleCheck("Prefab.Role.None", none);
-        addRoleCheck(NONE_ROLE, none);
+        addRoleCheck(Role.NONE_ROLE, none);
 
-        addPrefabCheck("Prefab.Collections.AppendOnly", AppendOnly.class);
-        addPrefabCheck("Prefab.Collections.RemoveOnly", RemoveOnly.class);
+        addPrefabCheck("Prefab.Collections.AppendOnly", com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly.class);
+        addPrefabCheck("Prefab.Collections.RemoveOnly", com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly.class);
     }
 
 
@@ -1139,15 +1134,15 @@ public class EntityDictionary {
     }
 
     public Collection<LifeCycleHook> getTriggers(Type<?> cls,
-                                                 LifeCycleHookBinding.Operation op,
-                                                 LifeCycleHookBinding.TransactionPhase phase,
+                                                 Operation op,
+                                                 TransactionPhase phase,
                                                  String fieldName) {
         return getEntityBinding(cls).getTriggers(op, phase, fieldName);
     }
 
     public Collection<LifeCycleHook> getTriggers(Type<?> cls,
-            LifeCycleHookBinding.Operation op,
-            LifeCycleHookBinding.TransactionPhase phase) {
+            Operation op,
+            TransactionPhase phase) {
         return getEntityBinding(cls).getTriggers(op, phase);
     }
 
@@ -1566,8 +1561,8 @@ public class EntityDictionary {
      */
     public void bindTrigger(Class<?> entityClass,
             String fieldOrMethodName,
-            LifeCycleHookBinding.Operation operation,
-            LifeCycleHookBinding.TransactionPhase phase,
+            Operation operation,
+            TransactionPhase phase,
             LifeCycleHook hook) {
         bindTrigger(ClassType.of(entityClass), fieldOrMethodName, operation, phase, hook);
     }
@@ -1583,8 +1578,8 @@ public class EntityDictionary {
      */
     public void bindTrigger(Type<?> entityClass,
             String fieldOrMethodName,
-            LifeCycleHookBinding.Operation operation,
-            LifeCycleHookBinding.TransactionPhase phase,
+            Operation operation,
+            TransactionPhase phase,
             LifeCycleHook hook) {
         bindIfUnbound(entityClass);
 
@@ -1605,8 +1600,8 @@ public class EntityDictionary {
      *                                 CRUD actions on the same model.
      */
     public void bindTrigger(Class<?> entityClass,
-            LifeCycleHookBinding.Operation operation,
-            LifeCycleHookBinding.TransactionPhase phase,
+            Operation operation,
+            TransactionPhase phase,
             LifeCycleHook hook,
             boolean allowMultipleInvocations) {
         bindTrigger(ClassType.of(entityClass), operation, phase, hook, allowMultipleInvocations);
@@ -1626,8 +1621,8 @@ public class EntityDictionary {
      *                                 CRUD actions on the same model.
      */
     public void bindTrigger(Type<?> entityClass,
-            LifeCycleHookBinding.Operation operation,
-            LifeCycleHookBinding.TransactionPhase phase,
+            Operation operation,
+            TransactionPhase phase,
             LifeCycleHook hook,
             boolean allowMultipleInvocations) {
         bindIfUnbound(entityClass);
@@ -2109,36 +2104,36 @@ public class EntityDictionary {
                 .forEach(method -> {
                     if (method.isAnnotationPresent(OnCreatePostCommit.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnCreatePostCommit.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, LifeCycleHookBinding.Operation.CREATE);
+                                TransactionPhase.POSTCOMMIT, Operation.CREATE);
                     }
                     if (method.isAnnotationPresent(OnCreatePreCommit.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnCreatePreCommit.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.PRECOMMIT, LifeCycleHookBinding.Operation.CREATE);
+                                TransactionPhase.PRECOMMIT, Operation.CREATE);
                     }
                     if (method.isAnnotationPresent(OnCreatePreSecurity.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnCreatePreSecurity.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.PRESECURITY, LifeCycleHookBinding.Operation.CREATE);
+                                TransactionPhase.PRESECURITY, Operation.CREATE);
                     }
                     if (method.isAnnotationPresent(OnUpdatePostCommit.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnUpdatePostCommit.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, LifeCycleHookBinding.Operation.UPDATE);
+                                TransactionPhase.POSTCOMMIT, Operation.UPDATE);
                     }
                     if (method.isAnnotationPresent(OnUpdatePreCommit.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnUpdatePreCommit.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.PRECOMMIT, LifeCycleHookBinding.Operation.UPDATE);
+                                TransactionPhase.PRECOMMIT, Operation.UPDATE);
                     }
                     if (method.isAnnotationPresent(OnUpdatePreSecurity.class)) {
                         bindHookMethod(binding, method, method.getAnnotation(OnUpdatePreSecurity.class).value(),
-                                LifeCycleHookBinding.TransactionPhase.PRESECURITY, LifeCycleHookBinding.Operation.UPDATE);
+                                TransactionPhase.PRESECURITY, Operation.UPDATE);
                     }
                     if (method.isAnnotationPresent(OnDeletePostCommit.class)) {
-                        bindHookMethod(binding, method, null, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, LifeCycleHookBinding.Operation.DELETE);
+                        bindHookMethod(binding, method, null, TransactionPhase.POSTCOMMIT, Operation.DELETE);
                     }
                     if (method.isAnnotationPresent(OnDeletePreCommit.class)) {
-                        bindHookMethod(binding, method, null, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, LifeCycleHookBinding.Operation.DELETE);
+                        bindHookMethod(binding, method, null, TransactionPhase.PRECOMMIT, Operation.DELETE);
                     }
                     if (method.isAnnotationPresent(OnDeletePreSecurity.class)) {
-                        bindHookMethod(binding, method, null, LifeCycleHookBinding.TransactionPhase.PRESECURITY, LifeCycleHookBinding.Operation.DELETE);
+                        bindHookMethod(binding, method, null, TransactionPhase.PRESECURITY, Operation.DELETE);
                     }
                 });
     }
@@ -2165,8 +2160,8 @@ public class EntityDictionary {
             EntityBinding binding,
             Method method,
             String annotationField,
-            LifeCycleHookBinding.TransactionPhase phase,
-            LifeCycleHookBinding.Operation operation) {
+            TransactionPhase phase,
+            Operation operation) {
 
         if (StringUtils.isEmpty(annotationField)) {
             bindTrigger(binding.entityClass, operation, phase, generateHook(method), false);

@@ -6,6 +6,10 @@
 
 package com.paiondata.elide.test.jsonapi;
 
+import com.paiondata.elide.test.jsonapi.elements.PatchOperation;
+import com.paiondata.elide.test.jsonapi.elements.PatchOperationType;
+import com.paiondata.elide.test.jsonapi.elements.Resource;
+import com.paiondata.elide.test.jsonapi.elements.Type;
 import com.paiondata.elide.test.jsonapi.elements.AtomicOperation;
 import com.paiondata.elide.test.jsonapi.elements.AtomicOperationCode;
 import com.paiondata.elide.test.jsonapi.elements.AtomicOperations;
@@ -17,16 +21,12 @@ import com.paiondata.elide.test.jsonapi.elements.Id;
 import com.paiondata.elide.test.jsonapi.elements.Include;
 import com.paiondata.elide.test.jsonapi.elements.Lid;
 import com.paiondata.elide.test.jsonapi.elements.Links;
-import com.paiondata.elide.test.jsonapi.elements.PatchOperation;
-import com.paiondata.elide.test.jsonapi.elements.PatchOperationType;
 import com.paiondata.elide.test.jsonapi.elements.PatchSet;
 import com.paiondata.elide.test.jsonapi.elements.Ref;
 import com.paiondata.elide.test.jsonapi.elements.Relation;
 import com.paiondata.elide.test.jsonapi.elements.Relationship;
 import com.paiondata.elide.test.jsonapi.elements.Relationships;
-import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.paiondata.elide.test.jsonapi.elements.ResourceLinkage;
-import com.paiondata.elide.test.jsonapi.elements.Type;
 
 /**
  * Adds helper functions for creating Json API style data.

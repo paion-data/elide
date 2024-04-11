@@ -6,11 +6,16 @@
 
 package com.paiondata.elide.datastores.jms;
 
-import static com.paiondata.elide.datastores.jms.TestBinder.EMBEDDED_JMS_URL;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,8 +26,6 @@ import com.paiondata.elide.graphql.GraphQLEndpoint;
 import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.apache.activemq.artemis.core.config.Configuration;
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.JournalType;
@@ -62,7 +65,7 @@ public class JMSDataStoreIntegrationTest {
         //Startup up an embedded active MQ.
         embedded = new EmbeddedActiveMQ();
         Configuration configuration = new ConfigurationImpl();
-        configuration.addAcceptorConfiguration("default", EMBEDDED_JMS_URL);
+        configuration.addAcceptorConfiguration("default", TestBinder.EMBEDDED_JMS_URL);
         configuration.setPersistenceEnabled(false);
         configuration.setSecurityEnabled(false);
         configuration.setJournalType(JournalType.NIO);
@@ -117,7 +120,7 @@ public class JMSDataStoreIntegrationTest {
                     .create(SubscriptionWebSocket.class, "/subscription")
                     .configurator(SubscriptionWebSocketConfigurator.builder()
                             .baseUrl("/subscription")
-                            .connectionFactory(new ActiveMQConnectionFactory(EMBEDDED_JMS_URL))
+                            .connectionFactory(new ActiveMQConnectionFactory(TestBinder.EMBEDDED_JMS_URL))
                             .sendPingOnSubscribe(true)
                             .build())
                     .build());
@@ -135,11 +138,11 @@ public class JMSDataStoreIntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id("2"),
-                                        JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo"))
+                        data(
+                                resource(
+                                        type("book"),
+                                        id("2"),
+                                        attributes(attr("title", "foo"))
                                 )
                         )
                 )
@@ -177,11 +180,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("1"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("1"),
+                                            attributes(attr("title", "foo"))
                                     )
                             )
                     )
@@ -210,11 +213,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("14"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("14"),
+                                            attributes(attr("title", "foo"))
                                     )
                             )
                     )
@@ -245,11 +248,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("10"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "bar"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("10"),
+                                            attributes(attr("title", "bar"))
                                     )
                             )
                     )
@@ -260,11 +263,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("11"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("11"),
+                                            attributes(attr("title", "foo"))
                                     )
                             )
                     )
@@ -293,11 +296,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("1000"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "bar"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("1000"),
+                                            attributes(attr("title", "bar"))
                                     )
                             )
                     )
@@ -308,11 +311,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("99"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo"))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("99"),
+                                            attributes(attr("title", "foo"))
                                     )
                             )
                     )
@@ -345,11 +348,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("publisher"),
-                                            JsonApiDSL.id("1"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("name", "Some Company"))
+                            data(
+                                    resource(
+                                            type("publisher"),
+                                            id("1"),
+                                            attributes(attr("name", "Some Company"))
                                     )
                             )
                     )
@@ -360,11 +363,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("author"),
-                                            JsonApiDSL.id("1"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("name", "Jane Doe"))
+                            data(
+                                    resource(
+                                            type("author"),
+                                            id("1"),
+                                            attributes(attr("name", "Jane Doe"))
                                     )
                             )
                     )
@@ -375,14 +378,14 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("3"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "foo")),
-                                            JsonApiDSL.relationships(
-                                                    JsonApiDSL.relation("authors", JsonApiDSL.linkage(JsonApiDSL.type("author"), JsonApiDSL.id("1"))),
-                                                    JsonApiDSL.relation("publisher", JsonApiDSL.linkage(JsonApiDSL.type("publisher"), JsonApiDSL.id("1")))
+                            data(
+                                    resource(
+                                            type("book"),
+                                            id("3"),
+                                            attributes(attr("title", "foo")),
+                                            relationships(
+                                                    relation("authors", linkage(type("author"), id("1"))),
+                                                    relation("publisher", linkage(type("publisher"), id("1")))
                                             )
                                     )
                             )
@@ -394,11 +397,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.datum(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("book"),
-                                            JsonApiDSL.id("3"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("title", "new title"))
+                            datum(
+                                    resource(
+                                            type("book"),
+                                            id("3"),
+                                            attributes(attr("title", "new title"))
                                     )
                             )
                     )
@@ -409,10 +412,10 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("publisher"),
-                                            JsonApiDSL.id("1")
+                            data(
+                                    resource(
+                                            type("publisher"),
+                                            id("1")
                                     )
                             )
                     )
@@ -451,11 +454,11 @@ public class JMSDataStoreIntegrationTest {
                     .contentType(JsonApi.MEDIA_TYPE)
                     .accept(JsonApi.MEDIA_TYPE)
                     .body(
-                            JsonApiDSL.data(
-                                    JsonApiDSL.resource(
-                                            JsonApiDSL.type("chatBot"),
-                                            JsonApiDSL.id("1"),
-                                            JsonApiDSL.attributes(JsonApiDSL.attr("name", "SocialBot"))
+                            data(
+                                    resource(
+                                            type("chatBot"),
+                                            id("1"),
+                                            attributes(attr("name", "SocialBot"))
                                     )
                             )
                     )

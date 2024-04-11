@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.paiondata.elide.datastores.jpql.query.RelationshipImpl;
+import com.paiondata.elide.datastores.jpql.query.SubCollectionFetchQueryBuilder;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
@@ -21,9 +23,6 @@ import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.sort.SortingImpl;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.datastores.jpql.query.RelationshipImpl;
-import com.paiondata.elide.datastores.jpql.query.SubCollectionFetchQueryBuilder;
-
 import example.Author;
 import example.Book;
 import example.Chapter;

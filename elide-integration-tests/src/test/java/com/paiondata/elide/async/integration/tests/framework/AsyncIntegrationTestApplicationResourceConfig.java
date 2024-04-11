@@ -5,9 +5,19 @@
  */
 package com.paiondata.elide.async.integration.tests.framework;
 
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
+
+import com.paiondata.elide.core.audit.InMemoryLogger;
+import com.paiondata.elide.graphql.GraphQLSettings;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.async.AsyncSettings;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
 import com.paiondata.elide.async.export.formatter.CsvExportFormatter;
 import com.paiondata.elide.async.export.formatter.JsonExportFormatter;
 import com.paiondata.elide.async.export.formatter.TableExportFormatter;
@@ -19,23 +29,19 @@ import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.async.models.ResultType;
 import com.paiondata.elide.async.models.TableExport;
 import com.paiondata.elide.async.models.security.AsyncApiInlineChecks;
+import com.paiondata.elide.async.resources.ExportApiEndpoint.ExportApiProperties;
 import com.paiondata.elide.async.service.AsyncCleanerService;
 import com.paiondata.elide.async.service.AsyncExecutorService;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
 import com.paiondata.elide.async.service.dao.DefaultAsyncApiDao;
 import com.paiondata.elide.async.service.storageengine.FileResultStorageEngine;
 import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
-import com.paiondata.elide.core.audit.InMemoryLogger;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
 import com.paiondata.elide.core.security.checks.Check;
-
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
-import com.paiondata.elide.async.resources.ExportApiEndpoint;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 import example.TestCheckMappings;
 import example.models.triggers.Invoice;
@@ -101,12 +107,12 @@ public class AsyncIntegrationTestApplicationResourceConfig extends ResourceConfi
                         Arrays.asList(rsqlFilterStrategy, defaultFilterStrategy)
                 );
 
-                JsonApiSettings.JsonApiSettingsBuilder jsonApiSettings = JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary).joinFilterDialect(multipleFilterStrategy)
+                JsonApiSettingsBuilder jsonApiSettings = JsonApiSettingsBuilder.withDefaults(dictionary).joinFilterDialect(multipleFilterStrategy)
                         .subqueryFilterDialect(multipleFilterStrategy);
 
                 GraphQLSettings.GraphQLSettingsBuilder graphqlSettings = GraphQLSettings.GraphQLSettingsBuilder.withDefaults(dictionary).path("/graphQL");
 
-                AsyncSettings.AsyncSettingsBuilder asyncSettings = AsyncSettings.builder().export(export -> export.enabled(true).path("/export"));
+                AsyncSettingsBuilder asyncSettings = AsyncSettings.builder().export(export -> export.enabled(true).path("/export"));
 
                 Elide elide = new Elide(ElideSettings.builder().dataStore(AsyncIT.getDataStore())
                         .auditLogger(LOGGER)
@@ -141,12 +147,12 @@ public class AsyncIntegrationTestApplicationResourceConfig extends ResourceConfi
                     // Binding TableExport LifeCycleHook
                     TableExportHook tableExportHook = new TableExportHook(asyncExecutorService, Duration.ofSeconds(10L),
                             supportedFormatters, resultStorageEngine, null);
-                    dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PREFLUSH, tableExportHook, false);
-                    dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, tableExportHook, false);
-                    dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, tableExportHook, false);
+                    dictionary.bindTrigger(TableExport.class, CREATE, PREFLUSH, tableExportHook, false);
+                    dictionary.bindTrigger(TableExport.class, CREATE, POSTCOMMIT, tableExportHook, false);
+                    dictionary.bindTrigger(TableExport.class, CREATE, PRESECURITY, tableExportHook, false);
 
-                    ExportApiEndpoint.ExportApiProperties exportApiProperties = new ExportApiEndpoint.ExportApiProperties(executorService, Duration.ofSeconds(10L));
-                    bind(exportApiProperties).to(ExportApiEndpoint.ExportApiProperties.class).named("exportApiProperties");
+                    ExportApiProperties exportApiProperties = new ExportApiProperties(executorService, Duration.ofSeconds(10L));
+                    bind(exportApiProperties).to(ExportApiProperties.class).named("exportApiProperties");
                 }
 
                 BillingService billingService = new BillingService() {
@@ -163,11 +169,11 @@ public class AsyncIntegrationTestApplicationResourceConfig extends ResourceConfi
 
                 InvoiceCompletionHook invoiceCompletionHook = new InvoiceCompletionHook(billingService);
 
-                dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PREFLUSH, asyncQueryHook, false);
-                dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, asyncQueryHook, false);
-                dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, asyncQueryHook, false);
-                dictionary.bindTrigger(Invoice.class, "complete", LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, invoiceCompletionHook);
-                dictionary.bindTrigger(Invoice.class, "complete", LifeCycleHookBinding.Operation.UPDATE, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, invoiceCompletionHook);
+                dictionary.bindTrigger(AsyncQuery.class, CREATE, PREFLUSH, asyncQueryHook, false);
+                dictionary.bindTrigger(AsyncQuery.class, CREATE, POSTCOMMIT, asyncQueryHook, false);
+                dictionary.bindTrigger(AsyncQuery.class, CREATE, PRESECURITY, asyncQueryHook, false);
+                dictionary.bindTrigger(Invoice.class, "complete", CREATE, PRECOMMIT, invoiceCompletionHook);
+                dictionary.bindTrigger(Invoice.class, "complete", UPDATE, PRECOMMIT, invoiceCompletionHook);
 
                 AsyncCleanerService.init(elide, Duration.ofSeconds(30L), Duration.ofDays(5L), Duration.ofSeconds(150L),
                         asyncAPIDao);

@@ -6,9 +6,8 @@
 package com.paiondata.elide.spring.orm.jpa.config;
 
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
-
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

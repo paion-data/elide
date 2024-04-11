@@ -14,14 +14,13 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.query.Optimizer;
 import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
-
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

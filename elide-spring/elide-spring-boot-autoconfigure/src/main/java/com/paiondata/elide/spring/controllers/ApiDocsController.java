@@ -5,12 +5,11 @@
  */
 package com.paiondata.elide.spring.controllers;
 
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.spring.config.ElideConfigProperties;
 import com.paiondata.elide.swagger.OpenApiDocument;
-
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;

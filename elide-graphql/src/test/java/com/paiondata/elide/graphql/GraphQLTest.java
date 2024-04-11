@@ -10,13 +10,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.core.security.checks.prefab.Role;
 import com.paiondata.elide.core.dictionary.ArgumentType;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.Injector;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.security.checks.prefab.Role;
-
 import example.Address;
 import example.Author;
 import example.Book;

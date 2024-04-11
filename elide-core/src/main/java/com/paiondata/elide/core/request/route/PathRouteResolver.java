@@ -5,7 +5,7 @@
  */
 package com.paiondata.elide.core.request.route;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class PathRouteResolver implements RouteResolver {
             Map<String, List<String>> headers, Map<String, List<String>> parameters) {
         String baseRoute = baseUrl == null ? "" : baseUrl;
         String route = path;
-        String apiVersion = EntityDictionary.NO_VERSION;
+        String apiVersion = NO_VERSION;
 
         String apiVersionString = "";
         int versionStart = -1;
@@ -77,7 +77,7 @@ public class PathRouteResolver implements RouteResolver {
 
         if (!apiVersion.isEmpty()) {
             if (!apiVersionValidator.isValidApiVersion(apiVersion)) { // sanity check version
-                apiVersion = EntityDictionary.NO_VERSION;
+                apiVersion = NO_VERSION;
                 pathStart = 0;
                 pathEnd = path.length();
                 apiVersionString = "";

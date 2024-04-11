@@ -5,11 +5,13 @@
  */
 package com.paiondata.elide.async.hooks;
 
-import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
-import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.async.AsyncSettings;
 import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
 import com.paiondata.elide.async.export.formatter.TableExportFormatter;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncApiResult;
 import com.paiondata.elide.async.models.QueryType;
@@ -18,9 +20,6 @@ import com.paiondata.elide.async.operation.GraphQLTableExportOperation;
 import com.paiondata.elide.async.operation.JsonApiTableExportOperation;
 import com.paiondata.elide.async.service.AsyncExecutorService;
 import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
-import com.paiondata.elide.core.exceptions.InvalidOperationException;
-import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.RequestScope;
 
 import lombok.EqualsAndHashCode;
 
@@ -48,8 +47,8 @@ public class TableExportHook extends AsyncApiHook<TableExport> {
     }
 
     @Override
-    public void execute(Operation operation, TransactionPhase phase, TableExport export, RequestScope requestScope,
-            Optional<ChangeSpec> changes) {
+    public void execute(LifeCycleHookBinding.Operation operation, LifeCycleHookBinding.TransactionPhase phase, TableExport export, RequestScope requestScope,
+                        Optional<ChangeSpec> changes) {
         Callable<AsyncApiResult> callable = getOperation(export, requestScope);
         executeHook(operation, phase, export, requestScope, callable);
     }

@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.async.service;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -36,15 +35,11 @@ import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import org.apache.hc.core5.http.NoHttpResponseException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
 
 import graphql.execution.DataFetcherExceptionHandler;
 import graphql.execution.SimpleDataFetcherExceptionHandler;
+import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,7 +120,7 @@ public class AsyncExecutorServiceTest {
         when(queryObj.getRequestId()).thenReturn(id);
         when(queryObj.getQueryType()).thenReturn(QueryType.JSONAPI_V1_0);
         when(queryObj.getAsyncAfterSeconds()).thenReturn(10);
-        when(scope.getRoute()).thenReturn(Route.builder().apiVersion(NO_VERSION).build());
+        when(scope.getRoute()).thenReturn(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build());
         when(scope.getUser()).thenReturn(testUser);
         JsonApiAsyncQueryOperation jsonOperation = new JsonApiAsyncQueryOperation(service, queryObj, scope);
         service.executeQuery(queryObj, jsonOperation);

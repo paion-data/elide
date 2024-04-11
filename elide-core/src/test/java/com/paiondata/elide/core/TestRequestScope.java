@@ -6,8 +6,6 @@
 
 package com.paiondata.elide.core;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
@@ -31,7 +29,7 @@ public class TestRequestScope extends JsonApiRequestScope {
     private Map<String, List<String>> queryParamOverrides = null;
 
     public TestRequestScope(String baseURL, DataStoreTransaction transaction, User user, EntityDictionary dictionary) {
-        super(Route.builder().baseUrl(baseURL).apiVersion(NO_VERSION).build(), transaction, user, UUID.randomUUID(),
+        super(Route.builder().baseUrl(baseURL).apiVersion(EntityDictionary.NO_VERSION).build(), transaction, user, UUID.randomUUID(),
                 ElideSettings.builder().dataStore(null).entityDictionary(dictionary)
                         .settings(JsonApiSettings.builder().path("/json")
                                 .links(links -> links.enabled(true).jsonApiLinks(new DefaultJsonApiLinks())))
@@ -40,13 +38,13 @@ public class TestRequestScope extends JsonApiRequestScope {
     }
 
     public TestRequestScope(DataStoreTransaction transaction, User user, EntityDictionary dictionary) {
-        super(Route.builder().apiVersion(NO_VERSION).build(), transaction, user, UUID.randomUUID(), ElideSettings
+        super(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build(), transaction, user, UUID.randomUUID(), ElideSettings
                 .builder().dataStore(null).entityDictionary(dictionary).settings(JsonApiSettings.builder()).build(),
                 null, new JsonApiDocument());
     }
 
     public TestRequestScope(EntityDictionary dictionary, String path, Map<String, List<String>> queryParams) {
-        super(Route.builder().path(path).apiVersion(NO_VERSION).parameters(queryParams).build(), null, null,
+        super(Route.builder().path(path).apiVersion(EntityDictionary.NO_VERSION).parameters(queryParams).build(), null, null,
                 UUID.randomUUID(), ElideSettings.builder().dataStore(null).entityDictionary(dictionary)
                         .settings(JsonApiSettings.builder()).build(),
                 null, new JsonApiDocument());

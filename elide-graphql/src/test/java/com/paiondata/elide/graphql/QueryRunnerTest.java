@@ -17,6 +17,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.graphql.models.GraphQLErrors;
+import com.paiondata.elide.graphql.serialization.GraphQLErrorDeserializer;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
@@ -27,8 +29,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.ExceptionMappers;
 import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.graphql.models.GraphQLErrors;
-import com.paiondata.elide.graphql.serialization.GraphQLErrorDeserializer;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -37,7 +37,6 @@ import example.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.ArgumentMatchers;
 
 import graphql.GraphQLError;
 
@@ -103,7 +102,7 @@ public class QueryRunnerTest extends GraphQLTest {
         ConstraintViolationException e = new ConstraintViolationException("message", violations);
         Book mockModel = mock(Book.class);
         when(store.beginTransaction()).thenReturn(tx);
-        when(tx.createNewObject(ArgumentMatchers.eq(ClassType.of(Book.class)), any())).thenReturn(mockModel);
+        when(tx.createNewObject(eq(ClassType.of(Book.class)), any())).thenReturn(mockModel);
         doThrow(e).when(tx).preCommit(any());
 
         ElideResponse<String> response = queryRunner.run("", body, null);

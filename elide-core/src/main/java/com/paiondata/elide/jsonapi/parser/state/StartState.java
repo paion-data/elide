@@ -10,11 +10,11 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidCollectionException;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.type.Type;
-import com.yahoo.elide.generated.parsers.CoreParser.EntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.EntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
 
 import java.util.Optional;
 

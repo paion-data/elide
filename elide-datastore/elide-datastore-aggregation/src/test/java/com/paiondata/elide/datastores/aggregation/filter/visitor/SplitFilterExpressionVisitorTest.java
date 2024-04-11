@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.Operator;
@@ -19,11 +23,6 @@ import com.paiondata.elide.core.filter.expression.NotFilterExpression;
 import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
-import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
-
 import example.Player;
 import example.PlayerStats;
 import example.dimensions.Country;

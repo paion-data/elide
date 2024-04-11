@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.datastores.aggregation.query;
 
-import com.paiondata.elide.core.request.Pagination;
 import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.core.request.Pagination;
 
 import lombok.Builder;
 import lombok.NonNull;

@@ -5,8 +5,12 @@
  */
 package com.paiondata.elide.tests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -14,8 +18,6 @@ import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -32,21 +34,21 @@ class MapEnumIT extends IntegrationTest {
         colorMap.put("Red", "Circle");
 
         // Create MapColorShape using Post
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("mapColorShape"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("colorShapeMap", colorMap)
+        Resource resource = resource(
+                type("mapColorShape"),
+                id("1"),
+                attributes(
+                        attr("colorShapeMap", colorMap)
                 )
         );
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(resource))
+                .body(datum(resource))
                 .post("/mapColorShape")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
         colorMap.clear();
         colorMap.put("Blue", "Square");
@@ -55,7 +57,7 @@ class MapEnumIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(resource))
+                .body(datum(resource))
                 .patch("/mapColorShape/1")
                 .then().statusCode(HttpStatus.SC_NO_CONTENT);
 
@@ -64,7 +66,7 @@ class MapEnumIT extends IntegrationTest {
                 .get("/mapColorShape/1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
     }
 
     @Test
@@ -73,11 +75,11 @@ class MapEnumIT extends IntegrationTest {
         colorMap.put("Blue", "Triangle");
 
         // Create MapColorShape using Post
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("mapColorShape"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("colorShapeMap", colorMap)
+        Resource resource = resource(
+                type("mapColorShape"),
+                id("1"),
+                attributes(
+                        attr("colorShapeMap", colorMap)
                 )
         );
         // Create MapColorShape using Patch extension
@@ -108,7 +110,7 @@ class MapEnumIT extends IntegrationTest {
                 .get("/mapColorShape/1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+                .body(equalTo(datum(resource).toJSON()));
 
     }
 }

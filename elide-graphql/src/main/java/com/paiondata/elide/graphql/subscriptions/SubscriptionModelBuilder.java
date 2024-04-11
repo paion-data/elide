@@ -10,16 +10,16 @@ import static graphql.schema.GraphQLEnumType.newEnum;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLObjectType.newObject;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.RelationshipType;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.graphql.GraphQLConversionUtils;
 import com.paiondata.elide.graphql.GraphQLNameUtils;
 import com.paiondata.elide.graphql.GraphQLScalars;
 import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
 import com.paiondata.elide.graphql.subscriptions.annotations.SubscriptionField;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.google.common.collect.Sets;
 
 import graphql.Scalars;

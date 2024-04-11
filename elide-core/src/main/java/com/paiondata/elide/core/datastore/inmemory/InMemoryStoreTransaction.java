@@ -15,13 +15,12 @@ import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterPredicatePushdownExtractor;
 import com.paiondata.elide.core.filter.expression.InMemoryExecutionVerifier;
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Pagination;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.Sorting;
-import com.paiondata.elide.core.type.Type;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;

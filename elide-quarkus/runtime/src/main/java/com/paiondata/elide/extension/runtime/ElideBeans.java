@@ -6,23 +6,22 @@
 
 package com.paiondata.elide.extension.runtime;
 
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.swagger.OpenApiDocument;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.audit.Slf4jLogger;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.Injector;
-import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.core.security.checks.prefab.Collections;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
 import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.paiondata.elide.graphql.GraphQLSettings;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.paiondata.elide.swagger.OpenApiBuilder;
-import com.paiondata.elide.swagger.OpenApiDocument;
 import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;

@@ -6,6 +6,7 @@
 
 package com.paiondata.elide.datastores.jms;
 
+import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.audit.AuditLogger;
@@ -13,7 +14,6 @@ import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
-import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import example.Author;

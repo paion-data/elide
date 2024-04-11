@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import com.paiondata.elide.graphql.federation.FederationVersion;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
@@ -27,9 +28,7 @@ import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.graphql.federation.FederationVersion;
 import com.apollographql.federation.graphqljava.FederationDirectives;
-
 import example.Address;
 import example.Author;
 import example.Book;

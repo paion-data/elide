@@ -9,15 +9,14 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 
 import com.paiondata.elide.ElideMapper;
 import com.paiondata.elide.ElideSettingsBuilderCustomizer;
+import com.paiondata.elide.Serdes;
+import com.paiondata.elide.Settings;
 import com.paiondata.elide.core.audit.AuditLogger;
 import com.paiondata.elide.core.dictionary.Injector;
 import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
 import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfiguratorBuilderCustomizer;
 import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
-
-import com.paiondata.elide.Serdes;
-import com.paiondata.elide.Settings;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

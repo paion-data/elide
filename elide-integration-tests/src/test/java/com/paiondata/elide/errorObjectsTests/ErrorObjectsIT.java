@@ -6,7 +6,9 @@
 package com.paiondata.elide.errorObjectsTests;
 
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,8 +16,6 @@ import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
@@ -33,10 +33,10 @@ public class ErrorObjectsIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                    JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("nocreate"),
-                                JsonApiDSL.id("1")
+                    datum(
+                        resource(
+                                type("nocreate"),
+                                id("1")
                         )
                     )
                 )

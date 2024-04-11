@@ -5,7 +5,7 @@
  */
 package com.paiondata.elide.core.request.route;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ParameterRouteResolver implements RouteResolver {
                         .parameters(result).build();
             }
         }
-        return Route.builder().apiVersion(EntityDictionary.NO_VERSION).baseUrl(baseUrl).path(path).headers(headers).parameters(result)
+        return Route.builder().apiVersion(NO_VERSION).baseUrl(baseUrl).path(path).headers(headers).parameters(result)
                 .build();
     }
 }

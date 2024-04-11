@@ -11,20 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.datastores.aggregation.QueryEngine;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
 import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimension;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-
 import example.Player;
 import example.PlayerRanking;
 import example.PlayerStats;

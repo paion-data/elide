@@ -9,7 +9,6 @@ package com.paiondata.elide.datastores.aggregation.queryengines.sql;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
 import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

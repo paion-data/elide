@@ -7,7 +7,6 @@
 package com.paiondata.elide.spring.security;
 
 import com.paiondata.elide.core.security.User;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

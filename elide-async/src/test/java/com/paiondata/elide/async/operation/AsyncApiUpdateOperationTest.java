@@ -15,8 +15,6 @@ import com.paiondata.elide.Elide;
 import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncApiResult;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +42,7 @@ public class AsyncApiUpdateOperationTest {
         assertEquals(elide, updateThread.getElide());
         assertEquals(task, updateThread.getTask());
         assertEquals(queryObj, updateThread.getQueryObj());
-        Assertions.assertEquals(asyncApiDao, updateThread.getAsyncApiDao());
+        assertEquals(asyncApiDao, updateThread.getAsyncApiDao());
     }
 
     public void testUpdateQuery() {

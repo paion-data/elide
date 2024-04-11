@@ -11,9 +11,6 @@ import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.
 import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import com.paiondata.elide.core.Path.PathElement;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
 import com.paiondata.elide.datastores.aggregation.core.JoinPath;
 import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
@@ -24,6 +21,9 @@ import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
 
 import java.util.LinkedHashSet;
 import java.util.List;

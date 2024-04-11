@@ -8,6 +8,8 @@ package com.paiondata.elide.extension.deployment;
 
 import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 
+import com.paiondata.elide.graphql.DeferredId;
+import com.paiondata.elide.graphql.GraphQLEndpoint;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.annotation.SecurityCheck;
@@ -17,8 +19,6 @@ import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
 import com.paiondata.elide.extension.runtime.ElideConfig;
 import com.paiondata.elide.extension.runtime.ElideRecorder;
 import com.paiondata.elide.extension.runtime.ElideResourceBuilder;
-import com.paiondata.elide.graphql.DeferredId;
-import com.paiondata.elide.graphql.GraphQLEndpoint;
 import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import com.paiondata.elide.jsonapi.serialization.DataDeserializer;
@@ -70,7 +70,7 @@ class ElideExtensionProcessor {
 
     @BuildStep
     public void indexDependencies(BuildProducer<IndexDependencyBuildItem> dependencies) {
-        dependencies.produce(new IndexDependencyBuildItem("com.yahoo.elide", "elide-core"));
+        dependencies.produce(new IndexDependencyBuildItem("com.paiondata.elide", "elide-core"));
         dependencies.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-core-jakarta"));
         dependencies.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models-jakarta"));
 

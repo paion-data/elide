@@ -9,9 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
 import com.paiondata.elide.datastores.aggregation.query.Query;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
-
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

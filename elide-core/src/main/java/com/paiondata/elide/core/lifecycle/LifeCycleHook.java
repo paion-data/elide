@@ -5,9 +5,9 @@
  */
 package com.paiondata.elide.core.lifecycle;
 
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
 
 import java.util.Optional;
 

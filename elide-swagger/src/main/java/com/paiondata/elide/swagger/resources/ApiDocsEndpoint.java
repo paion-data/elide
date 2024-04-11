@@ -7,6 +7,7 @@ package com.paiondata.elide.swagger.resources;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
+import com.paiondata.elide.swagger.OpenApiDocument;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
@@ -14,8 +15,6 @@ import com.paiondata.elide.core.request.route.FlexibleRouteResolver;
 import com.paiondata.elide.core.request.route.NullRouteResolver;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.request.route.RouteResolver;
-import com.paiondata.elide.swagger.OpenApiDocument;
-import com.paiondata.elide.swagger.OpenApiDocument.MediaType;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -100,27 +99,27 @@ public class ApiDocsEndpoint {
 
     @GET
     @Path("{path:.*}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(OpenApiDocument.MediaType.APPLICATION_JSON)
     public Response listJson(
             @PathParam("path") String path,
             @Context UriInfo uriInfo,
             @Context HttpHeaders headers
             ) {
-        Route route = routeResolver.resolve(MediaType.APPLICATION_JSON, "", path, headers.getRequestHeaders(),
+        Route route = routeResolver.resolve(OpenApiDocument.MediaType.APPLICATION_JSON, "", path, headers.getRequestHeaders(),
                 uriInfo.getQueryParameters());
         String name = route.getPath();
         if (name.startsWith("/")) {
             name = name.substring(1);
         }
         if (name.isBlank()) {
-            return list(route.getApiVersion(), MediaType.APPLICATION_JSON);
+            return list(route.getApiVersion(), OpenApiDocument.MediaType.APPLICATION_JSON);
         } else {
-            return get(route.getApiVersion(), name, MediaType.APPLICATION_JSON);
+            return get(route.getApiVersion(), name, OpenApiDocument.MediaType.APPLICATION_JSON);
         }
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(OpenApiDocument.MediaType.APPLICATION_JSON)
     public Response listJson(
             @Context UriInfo uriInfo,
             @Context HttpHeaders headers
@@ -130,27 +129,27 @@ public class ApiDocsEndpoint {
 
     @GET
     @Path("{path:.*}")
-    @Produces(MediaType.APPLICATION_YAML)
+    @Produces(OpenApiDocument.MediaType.APPLICATION_YAML)
     public Response listYaml(
             @PathParam("path") String path,
             @Context UriInfo uriInfo,
             @Context HttpHeaders headers
     ) {
-        Route route = routeResolver.resolve(MediaType.APPLICATION_YAML, "", path, headers.getRequestHeaders(),
+        Route route = routeResolver.resolve(OpenApiDocument.MediaType.APPLICATION_YAML, "", path, headers.getRequestHeaders(),
                 uriInfo.getQueryParameters());
         String name = route.getPath();
         if (name.startsWith("/")) {
             name = name.substring(1);
         }
         if (name.isBlank()) {
-            return list(route.getApiVersion(), MediaType.APPLICATION_YAML);
+            return list(route.getApiVersion(), OpenApiDocument.MediaType.APPLICATION_YAML);
         } else {
-            return get(route.getApiVersion(), name, MediaType.APPLICATION_YAML);
+            return get(route.getApiVersion(), name, OpenApiDocument.MediaType.APPLICATION_YAML);
         }
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_YAML)
+    @Produces(OpenApiDocument.MediaType.APPLICATION_YAML)
     public Response listYaml(
             @Context UriInfo uriInfo,
             @Context HttpHeaders headers

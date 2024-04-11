@@ -7,11 +7,11 @@
 package com.paiondata.elide.datastores.jms;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.paiondata.elide.datastores.jms.TestBinder.EMBEDDED_JMS_URL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
@@ -21,7 +21,6 @@ import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
 import example.Author;
@@ -59,7 +58,7 @@ public class JMSDataStoreTest {
     public void init() throws Exception {
         embedded = new EmbeddedActiveMQ();
         Configuration configuration = new ConfigurationImpl();
-        configuration.addAcceptorConfiguration("default", EMBEDDED_JMS_URL);
+        configuration.addAcceptorConfiguration("default", TestBinder.EMBEDDED_JMS_URL);
         configuration.setPersistenceEnabled(false);
         configuration.setSecurityEnabled(false);
         configuration.setJournalType(JournalType.NIO);
@@ -67,7 +66,7 @@ public class JMSDataStoreTest {
         embedded.setConfiguration(configuration);
         embedded.start();
 
-        connectionFactory = new ActiveMQConnectionFactory(EMBEDDED_JMS_URL);
+        connectionFactory = new ActiveMQConnectionFactory(TestBinder.EMBEDDED_JMS_URL);
         dictionary = EntityDictionary.builder().build();
 
         store = new JMSDataStore(Sets.newHashSet(ClassType.of(Book.class), ClassType.of(Author.class),

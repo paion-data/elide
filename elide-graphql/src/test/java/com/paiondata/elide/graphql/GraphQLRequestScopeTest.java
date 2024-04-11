@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 
 
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.User;
-import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import org.junit.jupiter.api.Test;

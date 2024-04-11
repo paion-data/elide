@@ -5,9 +5,16 @@
  */
 package com.paiondata.elide.tests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.elements.Relation.TO_ONE;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -17,9 +24,6 @@ import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.google.common.collect.ImmutableSet;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-import com.paiondata.elide.test.jsonapi.elements.Relation;
-
 import example.Embedded;
 import example.Left;
 import example.Right;
@@ -57,30 +61,30 @@ public class EmbeddedIT extends IntegrationTest {
 
     @Test
     void testEmbedded() {
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("embedded"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.attributes(
-                        JsonApiDSL.attr("segmentIds", new int[]{3, 4, 5})
+        Resource resource = resource(
+                type("embedded"),
+                id("1"),
+                attributes(
+                        attr("segmentIds", new int[]{3, 4, 5})
                 )
         );
 
-        given().when().get("/embedded/1").then().statusCode(HttpStatus.SC_OK).body(equalTo(JsonApiDSL.datum(resource).toJSON()));
+        given().when().get("/embedded/1").then().statusCode(HttpStatus.SC_OK).body(equalTo(datum(resource).toJSON()));
     }
 
     @Test
     void testOne2One() throws Exception {
-        Resource resource = JsonApiDSL.resource(
-                JsonApiDSL.type("right"),
-                JsonApiDSL.id("1"),
-                JsonApiDSL.relationships(
-                        JsonApiDSL.relation("noUpdate"),
-                        JsonApiDSL.relation("many2one", Relation.TO_ONE),
-                        JsonApiDSL.relation("noUpdateOne2One", Relation.TO_ONE),
-                        JsonApiDSL.relation("one2one", Relation.TO_ONE,
-                                JsonApiDSL.linkage(JsonApiDSL.type("left"), JsonApiDSL.id("1"))
+        Resource resource = resource(
+                type("right"),
+                id("1"),
+                relationships(
+                        relation("noUpdate"),
+                        relation("many2one", TO_ONE),
+                        relation("noUpdateOne2One", TO_ONE),
+                        relation("one2one", TO_ONE,
+                                linkage(type("left"), id("1"))
                         ),
-                        JsonApiDSL.relation("noDelete")
+                        relation("noDelete")
                 )
         );
 
@@ -89,6 +93,6 @@ public class EmbeddedIT extends IntegrationTest {
                 .get("/right/1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(jsonEquals(JsonApiDSL.datum(resource), true));
+                .body(jsonEquals(datum(resource), true));
     }
 }

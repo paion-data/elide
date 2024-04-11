@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.filter.dialect;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -13,6 +12,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
@@ -61,13 +61,13 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        when(dialect1.parseGlobalExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException(""));
-        when(dialect2.parseGlobalExpression("/author", queryParams, NO_VERSION)).thenReturn(filterExpression);
+        when(dialect1.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException(""));
+        when(dialect2.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenReturn(filterExpression);
 
-        FilterExpression returnExpression = dialect.parseGlobalExpression("/author", queryParams, NO_VERSION);
+        FilterExpression returnExpression = dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
-        verify(dialect1, times(1)).parseGlobalExpression("/author", queryParams, NO_VERSION);
-        verify(dialect2, times(1)).parseGlobalExpression("/author", queryParams, NO_VERSION);
+        verify(dialect1, times(1)).parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
+        verify(dialect2, times(1)).parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(returnExpression, filterExpression);
     }
@@ -98,13 +98,13 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        when(dialect1.parseTypedExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException(""));
-        when(dialect2.parseTypedExpression("/author", queryParams, NO_VERSION)).thenReturn(expressionMap);
+        when(dialect1.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException(""));
+        when(dialect2.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenReturn(expressionMap);
 
-        Map<String, FilterExpression> returnMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> returnMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
-        verify(dialect1, times(1)).parseTypedExpression("/author", queryParams, NO_VERSION);
-        verify(dialect2, times(1)).parseTypedExpression("/author", queryParams, NO_VERSION);
+        verify(dialect1, times(1)).parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
+        verify(dialect2, times(1)).parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(returnMap, expressionMap);
     }
@@ -132,7 +132,7 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/author", queryParams, NO_VERSION));
+        assertThrows(ParseException.class, () -> dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION));
     }
 
     /**
@@ -158,7 +158,7 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        assertThrows(ParseException.class, () -> dialect.parseGlobalExpression("/author", queryParams, NO_VERSION));
+        assertThrows(ParseException.class, () -> dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION));
     }
 
     /**
@@ -186,11 +186,11 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        when(dialect1.parseGlobalExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException("one"));
-        when(dialect2.parseGlobalExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException("two"));
+        when(dialect1.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException("one"));
+        when(dialect2.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException("two"));
 
         try {
-            dialect.parseGlobalExpression("/author", queryParams, NO_VERSION);
+            dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
         } catch (ParseException e) {
             assertEquals("two\none", e.getMessage());
         }
@@ -221,11 +221,11 @@ public class MultipleFilterDialectTest {
                 "Hemingway"
         );
 
-        when(dialect1.parseTypedExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException("one"));
-        when(dialect2.parseTypedExpression("/author", queryParams, NO_VERSION)).thenThrow(new ParseException("two"));
+        when(dialect1.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException("one"));
+        when(dialect2.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION)).thenThrow(new ParseException("two"));
 
         try {
-            dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+            dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
         } catch (ParseException e) {
             assertEquals("two\none", e.getMessage());
         }

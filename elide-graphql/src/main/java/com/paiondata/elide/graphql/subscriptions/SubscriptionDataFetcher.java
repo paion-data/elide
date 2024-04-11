@@ -6,13 +6,13 @@
 
 package com.paiondata.elide.graphql.subscriptions;
 
-import com.paiondata.elide.core.PersistentResource;
-import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
-import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.graphql.Environment;
 import com.paiondata.elide.graphql.NonEntityDictionary;
 import com.paiondata.elide.graphql.QueryLogger;
 import com.paiondata.elide.graphql.RelationshipOp;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.graphql.subscriptions.containers.SubscriptionNodeContainer;
 
 import graphql.language.OperationDefinition;

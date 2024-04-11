@@ -6,8 +6,12 @@
 
 package com.paiondata.elide.triggers;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -16,8 +20,6 @@ import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.initialization.LifeCycleIntegrationTestApplicationResourceConfig;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -35,13 +37,13 @@ public class LifeCycleHookIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("customerInvoice"),
-                                        JsonApiDSL.id("123"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("complete", true),
-                                                JsonApiDSL.attr("total", 1000)
+                        datum(
+                                resource(
+                                        type("customerInvoice"),
+                                        id("123"),
+                                        attributes(
+                                                attr("complete", true),
+                                                attr("total", 1000)
                                         )
                                 )
                         )

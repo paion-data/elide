@@ -5,11 +5,9 @@
  */
 package com.paiondata.elide.graphql;
 
-import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-
 /**
- * Used to customize the mutable {@link GraphQLSettingsBuilder}.
+ * Used to customize the mutable {@link GraphQLSettings.GraphQLSettingsBuilder}.
  */
 public interface GraphQLSettingsBuilderCustomizer {
-    public void customize(GraphQLSettingsBuilder builder);
+    public void customize(GraphQLSettings.GraphQLSettingsBuilder builder);
 }

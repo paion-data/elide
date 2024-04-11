@@ -7,12 +7,6 @@ package com.paiondata.elide.spring.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.paiondata.elide.ElideErrorResponse;
-import com.paiondata.elide.ElideErrors;
-import com.paiondata.elide.ElideResponse;
-import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.RefreshableElide;
-import com.paiondata.elide.SerdesBuilderCustomizer;
 import com.paiondata.elide.core.exceptions.ErrorContext;
 import com.paiondata.elide.core.exceptions.ExceptionMapper;
 import com.paiondata.elide.core.exceptions.ExceptionMapperRegistration;
@@ -28,7 +22,14 @@ import com.paiondata.elide.jsonapi.JsonApiExceptionHandler;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.paiondata.elide.jsonapi.models.JsonApiError;
 import com.paiondata.elide.jsonapi.models.JsonApiErrors;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.SerdesBuilderCustomizer;
 
+import org.assertj.core.api.Assertions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -213,7 +214,7 @@ class ElideAutoConfigurationTest {
         .withConfiguration(UserConfigurations.of(UserSerdesConfiguration.class)).run(context -> {
             ElideSettings.ElideSettingsBuilder builder = context.getBean(ElideSettings.ElideSettingsBuilder.class);
             ElideSettings elideSettings = builder.build();
-            assertThat(elideSettings.getSerdes()).isEmpty();
+            Assertions.assertThat(elideSettings.getSerdes()).isEmpty();
         });
     }
 
@@ -222,7 +223,7 @@ class ElideAutoConfigurationTest {
         contextRunner.withPropertyValues("spring.cloud.refresh.enabled=false").run(context -> {
             ElideSettings.ElideSettingsBuilder builder = context.getBean(ElideSettings.ElideSettingsBuilder.class);
             ElideSettings elideSettings = builder.build();
-            assertThat(elideSettings.getSerdes()).hasSize(8);
+            Assertions.assertThat(elideSettings.getSerdes()).hasSize(8);
         });
     }
 

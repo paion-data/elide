@@ -5,8 +5,11 @@
  */
 package com.paiondata.elide.async.hooks;
 
-import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
-import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.graphql.QueryRunner;
 import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncApiResult;
 import com.paiondata.elide.async.models.AsyncQuery;
@@ -14,10 +17,6 @@ import com.paiondata.elide.async.models.QueryType;
 import com.paiondata.elide.async.operation.GraphQLAsyncQueryOperation;
 import com.paiondata.elide.async.operation.JsonApiAsyncQueryOperation;
 import com.paiondata.elide.async.service.AsyncExecutorService;
-import com.paiondata.elide.core.exceptions.InvalidOperationException;
-import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.RequestScope;
-import com.paiondata.elide.graphql.QueryRunner;
 
 import java.time.Duration;
 import java.util.Optional;
@@ -33,8 +32,8 @@ public class AsyncQueryHook extends AsyncApiHook<AsyncQuery> {
     }
 
     @Override
-    public void execute(Operation operation, TransactionPhase phase, AsyncQuery query, RequestScope requestScope,
-            Optional<ChangeSpec> changes) {
+    public void execute(LifeCycleHookBinding.Operation operation, LifeCycleHookBinding.TransactionPhase phase, AsyncQuery query, RequestScope requestScope,
+                        Optional<ChangeSpec> changes) {
         Callable<AsyncApiResult> callable = getOperation(query, requestScope);
         executeHook(operation, phase, query, requestScope, callable);
     }

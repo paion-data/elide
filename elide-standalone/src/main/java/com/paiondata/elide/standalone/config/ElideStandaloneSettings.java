@@ -5,9 +5,33 @@
  */
 package com.paiondata.elide.standalone.config;
 
+import com.paiondata.elide.annotation.Paginate;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.cache.Cache;
+import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
+import com.paiondata.elide.datastores.aggregation.core.Slf4jQueryLogger;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.DataSourceConfiguration;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
+import com.paiondata.elide.datastores.aggregation.validator.TemplateConfigValidator;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
+import com.paiondata.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.graphql.*;
+import com.paiondata.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
 import com.paiondata.elide.Serdes;
+import com.paiondata.elide.Serdes.SerdesBuilder;
 import com.paiondata.elide.async.AsyncSettings;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.async.models.TableExport;
 import com.paiondata.elide.core.audit.AuditLogger;
@@ -28,23 +52,6 @@ import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
-import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
-import com.paiondata.elide.datastores.aggregation.QueryEngine;
-import com.paiondata.elide.datastores.aggregation.cache.Cache;
-import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
-import com.paiondata.elide.datastores.aggregation.core.Slf4jQueryLogger;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.DataSourceConfiguration;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
-import com.paiondata.elide.datastores.aggregation.validator.TemplateConfigValidator;
-import com.paiondata.elide.datastores.jpa.JpaDataStore;
-import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.paiondata.elide.datastores.multiplex.MultiplexManager;
 import com.paiondata.elide.graphql.DefaultGraphQLErrorMapper;
 import com.paiondata.elide.graphql.DefaultGraphQLExceptionHandler;
 import com.paiondata.elide.graphql.GraphQLErrorMapper;
@@ -54,18 +61,14 @@ import com.paiondata.elide.jsonapi.DefaultJsonApiExceptionHandler;
 import com.paiondata.elide.jsonapi.JsonApiErrorMapper;
 import com.paiondata.elide.jsonapi.JsonApiExceptionHandler;
 import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.paiondata.elide.modelconfig.DBPasswordExtractor;
 import com.paiondata.elide.modelconfig.DynamicConfiguration;
 import com.paiondata.elide.modelconfig.store.ConfigDataStore;
 import com.paiondata.elide.modelconfig.store.models.ConfigChecks;
 import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
-import com.paiondata.elide.swagger.OpenApiBuilder;
-import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.annotation.Paginate;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
@@ -165,14 +168,14 @@ public interface ElideStandaloneSettings {
     }
 
     /**
-     * Override this to customize the {@link JsonApiSettings.JsonApiSettingsBuilder}.
+     * Override this to customize the {@link JsonApiSettingsBuilder}.
      *
      * @param dictionary the dictionary
      * @param mapper the mapper
      * @return the JsonApiSettingsBuilder
      */
-    default JsonApiSettings.JsonApiSettingsBuilder getJsonApiSettingsBuilder(EntityDictionary dictionary, JsonApiMapper mapper) {
-        return JsonApiSettings.JsonApiSettingsBuilder.withDefaults(dictionary)
+    default JsonApiSettingsBuilder getJsonApiSettingsBuilder(EntityDictionary dictionary, JsonApiMapper mapper) {
+        return JsonApiSettingsBuilder.withDefaults(dictionary)
                 .path(getJsonApiPathSpec().replace("/*", ""))
                 .joinFilterDialect(RSQLFilterDialect.builder().dictionary(dictionary).build())
                 .subqueryFilterDialect(RSQLFilterDialect.builder().dictionary(dictionary).build())
@@ -193,20 +196,20 @@ public interface ElideStandaloneSettings {
     }
 
     /**
-     * Override this to customize the {@link AsyncSettings.AsyncSettingsBuilder}.
+     * Override this to customize the {@link AsyncSettingsBuilder}.
      *
      * @return the AsyncSettingsBuilder
      */
-    default AsyncSettings.AsyncSettingsBuilder getAsyncSettingsBuilder() {
+    default AsyncSettingsBuilder getAsyncSettingsBuilder() {
         return AsyncSettings.builder().export(export -> export
                 .enabled(getAsyncProperties().enableExport())
                 .path(getAsyncProperties().getExportApiPathSpec().replace("/*", "")));
     }
 
     /**
-     * Override this to customize the {@link ElideSettings.ElideSettingsBuilder}.
+     * Override this to customize the {@link ElideSettingsBuilder}.
      * <p>
-     * The following example only customizes the {@link ElideSettings.ElideSettingsBuilder#maxPageSize}.
+     * The following example only customizes the {@link ElideSettingsBuilder#maxPageSize}.
      *
      * <pre>
      * public ElideSettingsBuilder getElideSettingsBuilder(EntityDictionary dictionary, DataStore dataStore,
@@ -225,9 +228,9 @@ public interface ElideStandaloneSettings {
      * @see #getGraphQLSettingsBuilder(EntityDictionary)
      * @see #getAsyncSettingsBuilder()
      */
-    default ElideSettings.ElideSettingsBuilder getElideSettingsBuilder(EntityDictionary dictionary, DataStore dataStore,
-                                                                       JsonApiMapper mapper) {
-        ElideSettings.ElideSettingsBuilder builder = ElideSettings.builder().dataStore(dataStore)
+    default ElideSettingsBuilder getElideSettingsBuilder(EntityDictionary dictionary, DataStore dataStore,
+            JsonApiMapper mapper) {
+        ElideSettingsBuilder builder = ElideSettings.builder().dataStore(dataStore)
                 .entityDictionary(dictionary)
                 .baseUrl(getBaseUrl())
                 .objectMapper(mapper.getObjectMapper())
@@ -261,12 +264,12 @@ public interface ElideStandaloneSettings {
     }
 
     /**
-     * Override this to customize the {@link Serdes.SerdesBuilder}.
+     * Override this to customize the {@link SerdesBuilder}.
      *
      * @return the SerdesBuilder
      */
-    default Serdes.SerdesBuilder getSerdesBuilder() {
-        Serdes.SerdesBuilder serdesBuilder = Serdes.builder().withDefaults();
+    default SerdesBuilder getSerdesBuilder() {
+        SerdesBuilder serdesBuilder = Serdes.builder().withDefaults();
         if (enableISO8601Dates()) {
             serdesBuilder.withISO8601Dates("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"));
         }
@@ -291,7 +294,7 @@ public interface ElideStandaloneSettings {
      * @see #getElideSettingsBuilder(EntityDictionary, DataStore, JsonApiMapper)
      */
     default ElideSettings getElideSettings(EntityDictionary dictionary, DataStore dataStore, JsonApiMapper mapper) {
-        ElideSettings.ElideSettingsBuilder builder = getElideSettingsBuilder(dictionary, dataStore, mapper);
+        ElideSettingsBuilder builder = getElideSettingsBuilder(dictionary, dataStore, mapper);
         return builder.build();
     }
 

@@ -5,11 +5,11 @@
  */
 package com.paiondata.elide.datastores.aggregation.timegrains;
 
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
 import com.paiondata.elide.core.utils.coerce.converters.Serde;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

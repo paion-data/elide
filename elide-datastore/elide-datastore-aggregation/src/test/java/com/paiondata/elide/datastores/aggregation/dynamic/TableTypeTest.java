@@ -12,6 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.datastores.aggregation.annotation.*;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.type.Field;
@@ -21,10 +26,6 @@ import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
 import com.paiondata.elide.datastores.aggregation.annotation.TableMeta;
 import com.paiondata.elide.datastores.aggregation.annotation.Temporal;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
 import com.paiondata.elide.modelconfig.model.Dimension;
 import com.paiondata.elide.modelconfig.model.Grain;
 import com.paiondata.elide.modelconfig.model.Join;
@@ -32,8 +33,6 @@ import com.paiondata.elide.modelconfig.model.Measure;
 import com.paiondata.elide.modelconfig.model.Table;
 import com.paiondata.elide.modelconfig.model.TableSource;
 import com.paiondata.elide.modelconfig.model.Type;
-import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -362,7 +361,7 @@ public class TableTypeTest {
         assertEquals("some sql", temporal.grains()[0].expression());
         assertEquals("some other sql", temporal.grains()[1].expression());
         Assertions.assertEquals(TimeGrain.DAY, temporal.grains()[0].grain());
-        Assertions.assertEquals(TimeGrain.YEAR, temporal.grains()[1].grain());
+        assertEquals(TimeGrain.YEAR, temporal.grains()[1].grain());
     }
 
     @Test

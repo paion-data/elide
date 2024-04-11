@@ -7,7 +7,12 @@ package com.paiondata.elide.datastores.aggregation.metadata;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static com.paiondata.elide.core.utils.TypeHelper.getClassType;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.EMPTY;
 
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
 import com.paiondata.elide.annotation.ApiVersion;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.core.Path;
@@ -19,7 +24,6 @@ import com.paiondata.elide.core.exceptions.DuplicateMappingException;
 import com.paiondata.elide.core.exceptions.InternalServerErrorException;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
 import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
 import com.paiondata.elide.datastores.aggregation.dynamic.TableType;
@@ -35,8 +39,6 @@ import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimensionG
 import com.paiondata.elide.datastores.aggregation.metadata.models.Versioned;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-import com.paiondata.elide.modelconfig.model.NamespaceConfig;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.annotations.Subselect;
 
@@ -123,12 +125,12 @@ public class MetaDataStore implements DataStore {
             Pair<String, String> registration = Pair.of(table.getNamespace(), NO_VERSION);
 
             if (! namespacesToBind.containsKey(registration)) {
-                if (table.getNamespace() != NamespacePackage.DEFAULT) {
+                if (table.getNamespace() != DEFAULT) {
                     throw new IllegalStateException("No matching namespace found: " + table.getNamespace());
                 }
 
-                registration = Pair.of(NamespacePackage.EMPTY, NO_VERSION);
-                namespacesToBind.put(registration, NamespacePackage.DEFAULT_NAMESPACE);
+                registration = Pair.of(EMPTY, NO_VERSION);
+                namespacesToBind.put(registration, DEFAULT_NAMESPACE);
             }
 
             TableType tableType = new TableType(table, namespacesToBind.get(registration));
@@ -218,9 +220,9 @@ public class MetaDataStore implements DataStore {
 
             //Register all the default namespaces.
             if (include == null) {
-                Pair<String, String> registration = Pair.of(NamespacePackage.EMPTY, version);
+                Pair<String, String> registration = Pair.of(EMPTY, version);
                 namespacesToBind.put(registration,
-                        new NamespacePackage(NamespacePackage.EMPTY, "Default Namespace", NamespacePackage.DEFAULT, version));
+                        new NamespacePackage(EMPTY, "Default Namespace", DEFAULT, version));
             } else {
                 Pair<String, String> registration = Pair.of(include.name(), version);
                 namespacesToBind.put(registration,
@@ -309,7 +311,7 @@ public class MetaDataStore implements DataStore {
         if (include != null && ! include.name().isEmpty()) {
             namespaceName = include.name();
         } else {
-            namespaceName = NamespacePackage.DEFAULT;
+            namespaceName = DEFAULT;
         }
 
         return namespaces

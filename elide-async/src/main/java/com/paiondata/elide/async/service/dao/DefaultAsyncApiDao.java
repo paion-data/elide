@@ -5,8 +5,6 @@
  */
 package com.paiondata.elide.async.service.dao;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.async.models.AsyncApi;
 import com.paiondata.elide.async.models.AsyncApiResult;
@@ -14,6 +12,7 @@ import com.paiondata.elide.async.models.QueryStatus;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.route.Route;
@@ -66,7 +65,7 @@ public class DefaultAsyncApiDao implements AsyncApiDao {
 
     @Override
     public <T extends AsyncApi> Iterable<T> updateStatusAsyncApiByFilter(FilterExpression filterExpression,
-            QueryStatus status, Class<T> type) {
+                                                                         QueryStatus status, Class<T> type) {
         return updateAsyncApiIterable(filterExpression, asyncApi -> asyncApi.setStatus(status), type);
     }
 
@@ -164,7 +163,7 @@ public class DefaultAsyncApiDao implements AsyncApiDao {
         Object result = null;
         try (DataStoreTransaction tx = dataStore.beginTransaction()) {
             JsonApiDocument jsonApiDoc = new JsonApiDocument();
-            Route route = Route.builder().path("query").apiVersion(NO_VERSION).build();
+            Route route = Route.builder().path("query").apiVersion(EntityDictionary.NO_VERSION).build();
             RequestScope scope = JsonApiRequestScope.builder().route(route).dataStoreTransaction(tx)
                     .requestId(UUID.randomUUID()).elideSettings(elideSettings).jsonApiDocument(jsonApiDoc).build();
             result = action.execute(tx, scope);

@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
+import com.paiondata.elide.datastores.search.models.Item;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
@@ -30,7 +31,6 @@ import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.core.utils.coerce.converters.ISO8601DateSerde;
-import com.paiondata.elide.datastores.search.models.Item;
 import org.h2.store.fs.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

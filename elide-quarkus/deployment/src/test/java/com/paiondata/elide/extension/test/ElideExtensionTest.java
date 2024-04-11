@@ -7,20 +7,25 @@
 package com.paiondata.elide.extension.test;
 
 //import static com.paiondata.elide.Elide.JSONAPI_CONTENT_TYPE;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import com.paiondata.elide.Elide;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.Injector;
+
 import com.paiondata.elide.extension.test.models.Book;
 import com.paiondata.elide.extension.test.models.DenyCheck;
 import com.paiondata.elide.extension.test.models.Supplier;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
 import org.apache.http.HttpStatus;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -60,12 +65,12 @@ public class ElideExtensionTest {
                 .contentType(JSONAPI_CONTENT_TYPE)
                 .accept(JSONAPI_CONTENT_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("book"),
-                                        JsonApiDSL.id(1),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("title", "foo")
+                        data(
+                                resource(
+                                        type("book"),
+                                        id(1),
+                                        attributes(
+                                                attr("title", "foo")
                                         )
                                 )
                         )
@@ -79,13 +84,13 @@ public class ElideExtensionTest {
 
     @Test
     public void testBookGraphqlEndpoint() {
-        String query = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String query = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -109,12 +114,12 @@ public class ElideExtensionTest {
                 .contentType(JSONAPI_CONTENT_TYPE)
                 .accept(JSONAPI_CONTENT_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("supplier"),
-                                        JsonApiDSL.id(1),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "foo")
+                        data(
+                                resource(
+                                        type("supplier"),
+                                        id(1),
+                                        attributes(
+                                                attr("name", "foo")
                                         )
                                 )
                         )

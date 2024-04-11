@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-
 import example.Book;
 import example.Editor;
 import org.junit.jupiter.api.Test;

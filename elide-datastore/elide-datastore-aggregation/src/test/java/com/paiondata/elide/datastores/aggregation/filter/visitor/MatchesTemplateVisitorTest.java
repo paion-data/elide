@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 import com.paiondata.elide.core.dictionary.ArgumentType;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
@@ -18,8 +19,6 @@ import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
-
 import example.Player;
 import example.PlayerStats;
 import org.junit.jupiter.api.BeforeEach;

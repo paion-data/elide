@@ -13,7 +13,6 @@ import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

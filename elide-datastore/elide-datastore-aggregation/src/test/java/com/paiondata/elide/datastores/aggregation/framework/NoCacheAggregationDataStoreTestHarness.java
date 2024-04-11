@@ -5,12 +5,12 @@
  */
 package com.paiondata.elide.datastores.aggregation.framework;
 
-import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
 import com.paiondata.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
 
 import jakarta.persistence.EntityManagerFactory;

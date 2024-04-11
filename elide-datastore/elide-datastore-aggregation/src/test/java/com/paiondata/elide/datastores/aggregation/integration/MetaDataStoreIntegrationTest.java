@@ -6,6 +6,9 @@
 
 package com.paiondata.elide.datastores.aggregation.integration;
 
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.VALIDATOR;
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDBPasswordExtractor;
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDataSource;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -17,6 +20,13 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 
+import com.paiondata.elide.datastores.aggregation.checks.OperatorCheck;
+import com.paiondata.elide.datastores.aggregation.checks.VideoGameFilterCheck;
+import com.paiondata.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
@@ -27,13 +37,6 @@ import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.security.checks.prefab.Role;
-import com.paiondata.elide.datastores.aggregation.checks.OperatorCheck;
-import com.paiondata.elide.datastores.aggregation.checks.VideoGameFilterCheck;
-import com.paiondata.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import com.zaxxer.hikari.HikariConfig;
@@ -70,7 +73,7 @@ public class MetaDataStoreIntegrationTest extends IntegrationTest {
                     map.put(VideoGameFilterCheck.NAME_FILTER, VideoGameFilterCheck.class);
                     EntityDictionary dictionary = EntityDictionary.builder().checks(map).build();
 
-                    AggregationDataStoreIntegrationTest.VALIDATOR.getElideSecurityConfig().getRoles().forEach(role ->
+                    VALIDATOR.getElideSecurityConfig().getRoles().forEach(role ->
                             dictionary.addRoleCheck(role, new Role.RoleMemberCheck(role))
                     );
 
@@ -121,13 +124,13 @@ public class MetaDataStoreIntegrationTest extends IntegrationTest {
         // Add an entry for "mycon" connection which is not from hjson
         connectionDetailsMap.put("mycon", defaultConnectionDetails);
         // Add connection details fetched from hjson
-        AggregationDataStoreIntegrationTest.VALIDATOR.getElideSQLDBConfig().getDbconfigs().forEach(dbConfig ->
+        VALIDATOR.getElideSQLDBConfig().getDbconfigs().forEach(dbConfig ->
             connectionDetailsMap.put(dbConfig.getName(),
-                            new ConnectionDetails(AggregationDataStoreIntegrationTest.getDataSource(dbConfig, AggregationDataStoreIntegrationTest.getDBPasswordExtractor()),
+                            new ConnectionDetails(getDataSource(dbConfig, getDBPasswordExtractor()),
                                             SQLDialectFactory.getDialect(dbConfig.getDialect())))
         );
 
-        return new NoCacheAggregationDataStoreTestHarness(emf, defaultConnectionDetails, connectionDetailsMap, AggregationDataStoreIntegrationTest.VALIDATOR);
+        return new NoCacheAggregationDataStoreTestHarness(emf, defaultConnectionDetails, connectionDetailsMap, VALIDATOR);
     }
 
     @Test

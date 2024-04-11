@@ -6,7 +6,6 @@
 
 package com.paiondata.elide.core.type;
 
-import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.spy;
@@ -14,14 +13,13 @@ import static org.mockito.Mockito.spy;
 import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
 import com.paiondata.elide.core.request.Attribute;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class ParameterizedModelTest {
 
     @Test
     public void testInvoke() {
-        ParameterizedModel testModel = Mockito.spy(ParameterizedModel.class);
-        Attribute testAttribute = Attribute.builder().type(STRING_TYPE).name("foo").build();
+        ParameterizedModel testModel = spy(ParameterizedModel.class);
+        Attribute testAttribute = Attribute.builder().type(ClassType.STRING_TYPE).name("foo").build();
         String testValue = "bar";
 
         testModel.addAttributeValue(testAttribute, testValue);
@@ -31,8 +29,8 @@ public class ParameterizedModelTest {
 
     @Test
     public void testInvokeException() {
-        ParameterizedModel testModel = Mockito.spy(ParameterizedModel.class);
-        Attribute testAttribute = Attribute.builder().type(STRING_TYPE).name("foo").build();
+        ParameterizedModel testModel = spy(ParameterizedModel.class);
+        Attribute testAttribute = Attribute.builder().type(ClassType.STRING_TYPE).name("foo").build();
 
         Exception exception = assertThrows(InvalidParameterizedAttributeException.class,
                 () -> testModel.invoke(testAttribute));
@@ -43,8 +41,8 @@ public class ParameterizedModelTest {
 
     @Test
     public void testFetch() {
-        ParameterizedModel testModel = Mockito.spy(ParameterizedModel.class);
-        Attribute testAttribute = Attribute.builder().type(STRING_TYPE).name("foo").build();
+        ParameterizedModel testModel = spy(ParameterizedModel.class);
+        Attribute testAttribute = Attribute.builder().type(ClassType.STRING_TYPE).name("foo").build();
         String testValue = "bar";
 
         testModel.addAttributeValue(testAttribute, testValue);
@@ -54,8 +52,8 @@ public class ParameterizedModelTest {
 
     @Test
     public void testFetchDefault() {
-        ParameterizedModel testModel = Mockito.spy(ParameterizedModel.class);
-        Attribute testAttribute = Attribute.builder().type(STRING_TYPE).name("foo").build();
+        ParameterizedModel testModel = spy(ParameterizedModel.class);
+        Attribute testAttribute = Attribute.builder().type(ClassType.STRING_TYPE).name("foo").build();
         String testValue = "blah";
 
         assertEquals(testValue, testModel.fetch(testAttribute.getAlias(), testValue));

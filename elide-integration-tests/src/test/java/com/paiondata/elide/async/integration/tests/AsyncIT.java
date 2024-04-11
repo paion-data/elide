@@ -5,11 +5,21 @@
  */
 package com.paiondata.elide.async.integration.tests;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,26 +27,23 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.paiondata.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
+import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideResponse;
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
 import com.paiondata.elide.async.models.QueryType;
-import com.paiondata.elide.core.audit.TestAuditLogger;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.paiondata.elide.jsonapi.resources.SecurityContextUser;
 import com.paiondata.elide.test.graphql.EnumFieldSerializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -86,15 +93,15 @@ public class AsyncIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("asyncQuery"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-d80075cf830e"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "0")
+                        data(
+                                resource(
+                                        type("asyncQuery"),
+                                        id("edc4a871-dff2-4054-804e-d80075cf830e"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "0")
                                         )
                                 )
                         ).toJSON())
@@ -141,15 +148,15 @@ public class AsyncIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("asyncQuery"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-d80075cf831f"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "7")
+                        data(
+                                resource(
+                                        type("asyncQuery"),
+                                        id("edc4a871-dff2-4054-804e-d80075cf831f"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "7")
                                         )
                                 )
                         ).toJSON())
@@ -184,19 +191,19 @@ public class AsyncIT extends AsyncApiIT {
         queryObj.setQueryType("GRAPHQL_V1_0");
         queryObj.setStatus("QUEUED");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { id title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "asyncQuery",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType")
                                          )
                                  )
                          )
@@ -241,20 +248,20 @@ public class AsyncIT extends AsyncApiIT {
         queryObj.setQueryType("GRAPHQL_V1_0");
         queryObj.setStatus("QUEUED");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { id title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                 GraphQLDSL.mutation(
-                         GraphQLDSL.selection(
-                                 GraphQLDSL.field(
+        String graphQLRequest = document(
+                 mutation(
+                         selection(
+                                 field(
                                          "asyncQuery",
-                                         GraphQLDSL.arguments(
-                                                 GraphQLDSL.argument("op", "UPSERT"),
-                                                 GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                         arguments(
+                                                 argument("op", "UPSERT"),
+                                                 argument("data", queryObj, UNQUOTED_VALUE)
                                          ),
-                                         GraphQLDSL.selections(
-                                                 GraphQLDSL.field("id"),
-                                                 GraphQLDSL.field("query"),
-                                                 GraphQLDSL.field("queryType"),
-                                                 GraphQLDSL.field("status")
+                                         selections(
+                                                 field("id"),
+                                                 field("query"),
+                                                 field("queryType"),
+                                                 field("status")
                                          )
                                  )
                          )
@@ -305,20 +312,20 @@ public class AsyncIT extends AsyncApiIT {
         queryObj.setQueryType("GRAPHQL_V1_0");
         queryObj.setStatus("PROCESSING");
         queryObj.setQuery("{\"query\":\"{ book { edges { node { id title } } } }\",\"variables\":null}");
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "asyncQuery",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", queryObj, GraphQLDSL.UNQUOTED_VALUE)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", queryObj, UNQUOTED_VALUE)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("query"),
-                                                GraphQLDSL.field("queryType"),
-                                                GraphQLDSL.field("status")
+                                        selections(
+                                                field("id"),
+                                                field("query"),
+                                                field("queryType"),
+                                                field("status")
                                         )
                                 )
                         )
@@ -346,15 +353,15 @@ public class AsyncIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("asyncQuery"),
-                                        JsonApiDSL.id("ba31ca4e-ed8f-4be0-a0f3-12088fa9263b"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/group?sort=genre&fields%5Bgroup%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10")
+                        data(
+                                resource(
+                                        type("asyncQuery"),
+                                        id("ba31ca4e-ed8f-4be0-a0f3-12088fa9263b"),
+                                        attributes(
+                                                attr("query", "/group?sort=genre&fields%5Bgroup%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10")
                                         )
                                 )
                         ).toJSON())
@@ -428,15 +435,15 @@ public class AsyncIT extends AsyncApiIT {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("asyncQuery"),
-                                        JsonApiDSL.id("0b0dd4e7-9cdc-4bbc-8db2-5c1491c5ee1e"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/noread"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "10")
+                        data(
+                                resource(
+                                        type("asyncQuery"),
+                                        id("0b0dd4e7-9cdc-4bbc-8db2-5c1491c5ee1e"),
+                                        attributes(
+                                                attr("query", "/noread"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "10")
                                         )
                                 )
                         ).toJSON())
@@ -492,7 +499,7 @@ public class AsyncIT extends AsyncApiIT {
 
         Elide elide = new Elide(ElideSettings.builder().dataStore(dataStore).entityDictionary(entityDictionary)
                 .auditLogger(new TestAuditLogger())
-                .settings(JsonApiSettings.JsonApiSettingsBuilder.withDefaults(entityDictionary))
+                .settings(JsonApiSettingsBuilder.withDefaults(entityDictionary))
                 .build());
 
         elide.doScans();
@@ -538,7 +545,7 @@ public class AsyncIT extends AsyncApiIT {
 
         String baseUrl = "/";
         // Principal is Owner
-        Route route = Route.builder().baseUrl(baseUrl).path("/asyncQuery/" + id).apiVersion(EntityDictionary.NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/asyncQuery/" + id).apiVersion(NO_VERSION).build();
         response = jsonApi.get(route, ownerUser, null);
         assertEquals(HttpStatus.SC_OK, response.getStatus());
 
@@ -565,15 +572,15 @@ public class AsyncIT extends AsyncApiIT {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .header("sleep", "1000")
                 .body(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("asyncQuery"),
-                                        JsonApiDSL.id("edc4a871-dff2-4054-804e-e80075cf831f"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
-                                                JsonApiDSL.attr("queryType", "JSONAPI_V1_0"),
-                                                JsonApiDSL.attr("status", "QUEUED"),
-                                                JsonApiDSL.attr("asyncAfterSeconds", "70")
+                        data(
+                                resource(
+                                        type("asyncQuery"),
+                                        id("edc4a871-dff2-4054-804e-e80075cf831f"),
+                                        attributes(
+                                                attr("query", "/book?sort=genre&fields%5Bbook%5D=title"),
+                                                attr("queryType", "JSONAPI_V1_0"),
+                                                attr("status", "QUEUED"),
+                                                attr("asyncAfterSeconds", "70")
                                         )
                                 )
                         ).toJSON())

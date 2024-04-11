@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.filter.dialect;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +25,6 @@ import example.Job;
 import example.PrimitiveId;
 import example.Publisher;
 import example.StringId;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -75,7 +73,7 @@ public class RSQLFilterDialectTest {
                 "homeAddress.street1==*State*"
         );
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(1, expressionMap.size());
         assertEquals(
@@ -99,7 +97,7 @@ public class RSQLFilterDialectTest {
         );
 
 
-        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        Map<String, FilterExpression> expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(2, expressionMap.size());
         assertEquals(
@@ -120,7 +118,7 @@ public class RSQLFilterDialectTest {
         );
 
         // Case Insensitive
-        expressionMap = dialect.parseTypedExpression("/author", queryParams, NO_VERSION);
+        expressionMap = dialect.parseTypedExpression("/author", queryParams, EntityDictionary.NO_VERSION);
         assertEquals(1, expressionMap.size());
         assertEquals(
                 "author.books.title IN_INSENSITIVE [foo, bar, baz]",
@@ -136,7 +134,7 @@ public class RSQLFilterDialectTest {
                 "filter", "homeAddress.street1==*State*"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/author", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/author", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("author.homeAddress.street1 INFIX [State]", expression.toString());
     }
@@ -150,7 +148,7 @@ public class RSQLFilterDialectTest {
                 "title==*foo*;authors.name=ini=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "(book.title INFIX [foo] AND book.authors.name IN_INSENSITIVE [Hemingway])",
@@ -167,7 +165,7 @@ public class RSQLFilterDialectTest {
                 "title==Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title IN [Hemingway]", expression.toString());
     }
@@ -181,7 +179,7 @@ public class RSQLFilterDialectTest {
                 "title!=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("NOT (book.title IN [Hemingway])", expression.toString());
     }
@@ -195,7 +193,7 @@ public class RSQLFilterDialectTest {
                 "title=in=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title IN [Hemingway]", expression.toString());
     }
@@ -209,7 +207,7 @@ public class RSQLFilterDialectTest {
                 "title=ini=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title IN_INSENSITIVE [Hemingway]", expression.toString());
     }
@@ -223,7 +221,7 @@ public class RSQLFilterDialectTest {
                 "title=out=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("NOT (book.title IN [Hemingway])", expression.toString());
     }
@@ -237,7 +235,7 @@ public class RSQLFilterDialectTest {
                 "title=outi=Hemingway"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("NOT (book.title IN_INSENSITIVE [Hemingway])", expression.toString());
     }
@@ -253,7 +251,7 @@ public class RSQLFilterDialectTest {
 
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "((((book.publishDate GT [5] OR book.publishDate GE [5]) "
@@ -273,7 +271,7 @@ public class RSQLFilterDialectTest {
                 "(publishDate=notbetween=(5,10))"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "book.publishDate NOTBETWEEN [5, 10]",
@@ -290,7 +288,7 @@ public class RSQLFilterDialectTest {
                 "title==*Hemingway*,title==*Hemingway,title==Hemingway*"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "((book.title INFIX [Hemingway] "
@@ -309,7 +307,7 @@ public class RSQLFilterDialectTest {
                 "title=ini=*Hemingway*,title=ini=*Hemingway,title=ini=Hemingway*"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "((book.title INFIX_CASE_INSENSITIVE [Hemingway] "
@@ -328,7 +326,7 @@ public class RSQLFilterDialectTest {
                 "title=ini=foo;(title==bar;title==baz)"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(
                 "(book.title IN_INSENSITIVE [foo] AND (book.title IN [bar] "
@@ -346,7 +344,7 @@ public class RSQLFilterDialectTest {
                 "title=isnull=true"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title ISNULL []", expression.toString());
     }
@@ -360,7 +358,7 @@ public class RSQLFilterDialectTest {
                 "title=isnull=1"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title ISNULL []", expression.toString());
     }
@@ -374,7 +372,7 @@ public class RSQLFilterDialectTest {
                 "title=isnull=false"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title NOTNULL []", expression.toString());
     }
@@ -388,7 +386,7 @@ public class RSQLFilterDialectTest {
                 "title=isnull=0"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title NOTNULL []", expression.toString());
     }
@@ -403,7 +401,7 @@ public class RSQLFilterDialectTest {
 
         RSQLFilterDialect.RSQL2FilterExpressionVisitor visitor = dialect.new RSQL2FilterExpressionVisitor(true);
 
-        assertEquals(
+        Assertions.assertEquals(
                 "author.id INFIX [20]",
                 visitor.visit(comparisonNode, ClassType.of(Author.class)).toString()
         );
@@ -418,7 +416,7 @@ public class RSQLFilterDialectTest {
                 "id==1"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/job", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/job", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("job.jobId IN [1]", expression.toString());
     }
@@ -432,7 +430,7 @@ public class RSQLFilterDialectTest {
                 "id==*identifier*"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/stringForId", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/stringForId", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("stringId.surrogateKey INFIX [identifier]", expression.toString());
     }
@@ -446,7 +444,7 @@ public class RSQLFilterDialectTest {
                 "id==*1*"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/primitiveTypeId", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/primitiveTypeId", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals(expression.toString(),
                 "primitiveId.primitiveId INFIX [1]"
@@ -464,7 +462,7 @@ public class RSQLFilterDialectTest {
                 "title=isempty=true"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title ISEMPTY []", expression.toString());
     }
@@ -478,7 +476,7 @@ public class RSQLFilterDialectTest {
                 "authors=isempty=1"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.authors ISEMPTY []", expression.toString());
     }
@@ -492,7 +490,7 @@ public class RSQLFilterDialectTest {
                 "authors=isempty=false"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.authors NOTEMPTY []", expression.toString());
     }
@@ -506,7 +504,7 @@ public class RSQLFilterDialectTest {
                 "title=isempty=0"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.title NOTEMPTY []", expression.toString());
     }
@@ -521,7 +519,7 @@ public class RSQLFilterDialectTest {
         );
 
         assertThrows(ParseException.class,
-                () -> dialect.parseTypedExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION));
     }
 
     @Test
@@ -533,7 +531,7 @@ public class RSQLFilterDialectTest {
                 "awards=hasmember=title1"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
 
         assertEquals("book.awards HASMEMBER [title1]", expression.toString());
     }
@@ -547,7 +545,7 @@ public class RSQLFilterDialectTest {
                 "authors.name=hasmember='0'"
         );
 
-        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, NO_VERSION);
+        FilterExpression expression = dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION);
         assertEquals("book.authors.name HASMEMBER [0]", expression.toString());
     }
 
@@ -562,7 +560,7 @@ public class RSQLFilterDialectTest {
         );
 
         ParseException e = assertThrows(ParseException.class,
-                () -> dialect.parseGlobalExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION));
 
         assertEquals("Invalid Path: Last Path Element has to be a collection type", e.getMessage());
     }
@@ -578,7 +576,7 @@ public class RSQLFilterDialectTest {
         );
 
         ParseException e = assertThrows(ParseException.class,
-                () -> dialect.parseGlobalExpression("/book", queryParams, NO_VERSION));
+                () -> dialect.parseGlobalExpression("/book", queryParams, EntityDictionary.NO_VERSION));
 
         assertEquals("Invalid Path: Last Path Element cannot be a collection type", e.getMessage());
     }
@@ -591,27 +589,27 @@ public class RSQLFilterDialectTest {
 
         // Empty argument name
         exception = assertThrows(ParseException.class, () -> dialect.parse(bookType, Collections.emptySet(),
-                        "genre=in=(sci-fi,action),title[a:][x:y]==Hemingway", NO_VERSION));
+                        "genre=in=(sci-fi,action),title[a:][x:y]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("Filter expression is not in expected format at: title[a:][x:y]", exception.getMessage());
 
         // Empty argument value
         exception = assertThrows(ParseException.class, () -> dialect.parse(bookType, Collections.emptySet(),
-                        "genre=in=(sci-fi,action),title[a:b][:y]==Hemingway", NO_VERSION));
+                        "genre=in=(sci-fi,action),title[a:b][:y]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("Filter expression is not in expected format at: title[a:b][:y]", exception.getMessage());
 
         // : missing within []
         exception = assertThrows(ParseException.class, () -> dialect.parse(bookType, Collections.emptySet(),
-                        "genre=in=(sci-fi,action),title[ab][x:y]==Hemingway", NO_VERSION));
+                        "genre=in=(sci-fi,action),title[ab][x:y]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("Filter expression is not in expected format at: title[ab][x:y]", exception.getMessage());
 
         // Something found after first '[' and not within []
         exception = assertThrows(ParseException.class, () -> dialect.parse(bookType, Collections.emptySet(),
-                        "genre=in=(sci-fi,action),title[a:b]asdf[x:y]==Hemingway", NO_VERSION));
+                        "genre=in=(sci-fi,action),title[a:b]asdf[x:y]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("Filter expression is not in expected format at: title[a:b]asdf[x:y]", exception.getMessage());
 
         // Invalid encoded argument value
         exception = assertThrows(ParseException.class, () -> dialect.parse(bookType, Collections.emptySet(),
-                        "title[a:b][x:Invalid%_Encoding]==Hemingway", NO_VERSION));
+                        "title[a:b][x:Invalid%_Encoding]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("Filter expression is not in expected format at: title[a:b][x:Invalid%_Encoding]. "
                         + "URLDecoder: Illegal hex characters in escape (%) pattern - Error at index 0 in: \"_E\"",
                 exception.getMessage());
@@ -630,9 +628,9 @@ public class RSQLFilterDialectTest {
         String encodeArgValue1 = URLEncoder.encode(argValue1, "UTF-8");
         String encodeArgValue2 = URLEncoder.encode(argValue2, "UTF-8");
 
-        expr = Assertions.assertDoesNotThrow(
+        expr = assertDoesNotThrow(
                         () -> dialect.parse(bookType, Collections.emptySet(), "genre=in=(sci-fi,action),title[arg1:"
-                                        + encodeArgValue1 + "][arg2:" + encodeArgValue2 + "]==Hemingway", NO_VERSION));
+                                        + encodeArgValue1 + "][arg2:" + encodeArgValue2 + "]==Hemingway", EntityDictionary.NO_VERSION));
         assertEquals("(book.genre IN [sci-fi, action] OR book.title IN [Hemingway])", expr.toString());
 
         FilterPredicate left = (FilterPredicate) ((OrFilterExpression) expr).getLeft();
@@ -648,9 +646,9 @@ public class RSQLFilterDialectTest {
     public void testGraphQLFilterDialectWithComplexAttribute() throws Exception {
         Type<Author> authorType = ClassType.of(Author.class);
         FilterPredicate predicate = (FilterPredicate)
-                dialect.parse(authorType, Collections.emptySet(), "homeAddress.street1=in=(foo)", NO_VERSION);
+                dialect.parse(authorType, Collections.emptySet(), "homeAddress.street1=in=(foo)", EntityDictionary.NO_VERSION);
 
-        assertEquals(Operator.IN, predicate.getOperator());
+        Assertions.assertEquals(Operator.IN, predicate.getOperator());
         Path path = predicate.getPath();
         assertEquals(2, path.getPathElements().size());
         assertEquals("homeAddress", path.getPathElements().get(0).getFieldName());

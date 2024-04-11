@@ -34,7 +34,7 @@ public class AsyncCleanerService {
 
     @Inject
     private AsyncCleanerService(Elide elide, Duration queryMaxRunTime, Duration queryRetentionDuration,
-            Duration queryCancellationCheckInterval, AsyncApiDao asyncQueryDao) {
+                                Duration queryCancellationCheckInterval, AsyncApiDao asyncQueryDao) {
 
         //If query is still running for twice than maxRunTime, then interrupt did not work due to host/app crash.
         Duration queryRunTimeThreshold = Duration.ofSeconds(queryMaxRunTime.getSeconds() * 2 + 30L);

@@ -20,7 +20,6 @@ import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.type.ClassType;
-
 import example.Author;
 import example.Book;
 import example.UpdateAndCreate;
@@ -53,31 +52,31 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Create allowed based on class level expression
     @Test
     public void createPermissionCheckClassAnnotationForCreatingAnEntitySuccessCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userOneScope)).thenReturn(updateAndCreateNewObject);
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("1"));
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("1"));
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
     }
 
     //Create allowed based on field level expression
     @Test
     public void createPermissionCheckFieldAnnotationForCreatingAnEntitySuccessCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userThreeScope)).thenReturn(updateAndCreateNewObject);
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("2"));
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("2"));
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
     }
 
     //Create denied based on field level expression
     @Test
     public void createPermissionCheckFieldAnnotationForCreatingAnEntityFailureCase() {
-        RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
+        com.paiondata.elide.core.RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userFourScope)).thenReturn(updateAndCreateNewObject);
@@ -90,16 +89,16 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Expression for field inherited from class level expression
     @Test
     public void updatePermissionInheritedForAttributeSuccessCase() {
-        RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
+        com.paiondata.elide.core.RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
@@ -111,16 +110,16 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void updatePermissionInheritedForAttributeFailureCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
@@ -132,16 +131,16 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Class level expression overwritten by field level expression
     @Test
     public void updatePermissionOverwrittenForAttributeSuccessCase() {
-        RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
+        com.paiondata.elide.core.RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
@@ -153,16 +152,16 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void updatePermissionOverwrittenForAttributeFailureCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
@@ -176,27 +175,27 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Expression for relation inherited from class level expression
     @Test
     public void updatePermissionInheritedForRelationSuccessCase() {
-        RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
+        com.paiondata.elide.core.RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Book());
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
                 "1",
                 userTwoScope);
-        PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Book.class)
                         .build(),
@@ -208,27 +207,27 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void updatePermissionInheritedForRelationFailureCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Book());
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
                 "1",
                 userOneScope);
-        PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Book.class)
                         .build(),
@@ -240,7 +239,7 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Class level expression overwritten by field level expression
     @Test
     public void updatePermissionOverwrittenForRelationSuccessCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, new TestUser("3"), dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, new TestUser("3"), dictionary);
 
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
@@ -248,21 +247,21 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Author());
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
                         .build(),
                 "1",
                 userThreeScope);
-        PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Author.class)
                         .build(),
@@ -274,28 +273,28 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void updatePermissionOverwrittenForRelationFailureCase() {
-        RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
+        com.paiondata.elide.core.RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
 
         UpdateAndCreate updateAndCreateExistingObject = new UpdateAndCreate();
 
         when(tx.loadObject(any(),
                 eq(1L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(updateAndCreateExistingObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Author());
 
-        PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> loaded = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(UpdateAndCreate.class)
 
                         .build(),
                 "1",
                 userTwoScope);
-        PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Author.class)
                         .build(),
@@ -308,49 +307,49 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Expression for field inherited from class level expression
     @Test
     public void createPermissionInheritedForAttributeSuccessCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userOneScope)).thenReturn(updateAndCreateNewObject);
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("4"));
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("4"));
         created.updateAttribute("name", "");
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void createPermissionInheritedForAttributeFailureCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userThreeScope)).thenReturn(updateAndCreateNewObject);
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("5"));
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("5"));
         assertThrows(ForbiddenAccessException.class, () -> created.updateAttribute("name", ""));
     }
 
     //Class level expression overwritten by field level expression
     @Test
     public void createPermissionOverwrittenForAttributeSuccessCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userThreeScope)).thenReturn(updateAndCreateNewObject);
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("6"));
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("6"));
         created.updateAttribute("alias", "");
         created.getRequestScope().getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void createPermissionOverwrittenForAttributeFailureCase() {
-        RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
+        com.paiondata.elide.core.RequestScope userFourScope = new TestRequestScope(tx, userFour, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userFourScope)).thenReturn(updateAndCreateNewObject);
         assertThrows(
                 ForbiddenAccessException.class, () -> {
-                    PersistentResource<UpdateAndCreate> created =
+                    com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created =
                             PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userFourScope, Optional.of("7"));
                     created.updateAttribute("alias", "");
                 }
@@ -361,18 +360,18 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Expression for relation inherited from class level expression
     @Test
     public void createPermissionInheritedForRelationSuccessCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userOneScope)).thenReturn(updateAndCreateNewObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Book());
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("8"));
-        PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("8"));
+        com.paiondata.elide.core.PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Book.class)
                         .build(),
@@ -385,18 +384,18 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void createPermissionInheritedForRelationFailureCase() {
-        RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
+        com.paiondata.elide.core.RequestScope userThreeScope = new TestRequestScope(tx, userThree, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userThreeScope)).thenReturn(updateAndCreateNewObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Book());
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("9"));
-        PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userThreeScope, Optional.of("9"));
+        com.paiondata.elide.core.PersistentResource<Book> loadedBook = PersistentResource.loadRecord(
                 EntityProjection.builder()
                     .type(Book.class)
                     .build(),
@@ -408,18 +407,18 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
     //Class level expression overwritten by field level expression
     @Test
     public void createPermissionOverwrittenForRelationSuccessCase() {
-        RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
+        com.paiondata.elide.core.RequestScope userTwoScope = new TestRequestScope(tx, userTwo, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userTwoScope)).thenReturn(updateAndCreateNewObject);
 
         when(tx.loadObject(any(),
                 eq(2L),
-                any(RequestScope.class)
+                any(com.paiondata.elide.core.RequestScope.class)
         )).thenReturn(new Author());
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userTwoScope, Optional.of("10"));
-        PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userTwoScope, Optional.of("10"));
+        com.paiondata.elide.core.PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Author.class)
                         .build(),
@@ -431,7 +430,7 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
 
     @Test
     public void createPermissionOverwrittenForRelationFailureCase() {
-        RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
+        com.paiondata.elide.core.RequestScope userOneScope = new TestRequestScope(tx, userOne, dictionary);
 
         UpdateAndCreate updateAndCreateNewObject = new UpdateAndCreate();
         when(tx.createNewObject(ClassType.of(UpdateAndCreate.class), userOneScope)).thenReturn(updateAndCreateNewObject);
@@ -441,8 +440,8 @@ public class UpdateOnCreateTest extends PersistenceResourceTestSetup {
                 any(RequestScope.class)
         )).thenReturn(new Author());
 
-        PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("11"));
-        PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
+        com.paiondata.elide.core.PersistentResource<UpdateAndCreate> created = PersistentResource.createObject(ClassType.of(UpdateAndCreate.class), userOneScope, Optional.of("11"));
+        com.paiondata.elide.core.PersistentResource<Author> loadedAuthor = PersistentResource.loadRecord(
                 EntityProjection.builder()
                         .type(Author.class)
                         .build(),

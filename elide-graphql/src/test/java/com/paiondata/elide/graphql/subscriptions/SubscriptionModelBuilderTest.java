@@ -13,19 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import com.paiondata.elide.graphql.GraphQLScalars;
+import com.paiondata.elide.graphql.ModelBuilderTest;
+import com.paiondata.elide.graphql.NonEntityDictionary;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.graphql.GraphQLScalars;
-import com.paiondata.elide.graphql.NonEntityDictionary;
-import com.paiondata.elide.graphql.ModelBuilderTest;
-
 import example.Address;
 import example.Author;
 import example.Book;
 import example.Preview;
 import example.Publisher;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

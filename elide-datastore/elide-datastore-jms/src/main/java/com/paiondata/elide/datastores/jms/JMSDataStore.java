@@ -6,8 +6,9 @@
 
 package com.paiondata.elide.datastores.jms;
 
-import static com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
-
+import com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder;
+import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
@@ -16,8 +17,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.jms.ConnectionFactory;
@@ -108,7 +107,7 @@ public class JMSDataStore implements DataStore {
                 //Add topic type argument to each model.
                 dictionary.addArgumentToEntity(model, ArgumentType
                         .builder()
-                        .name(TOPIC_ARGUMENT)
+                        .name(SubscriptionModelBuilder.TOPIC_ARGUMENT)
                         .defaultValue(TopicType.ADDED)
                         .type(ClassType.of(TopicType.class))
                         .build());

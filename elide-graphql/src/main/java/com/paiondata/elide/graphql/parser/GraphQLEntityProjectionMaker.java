@@ -8,6 +8,10 @@ package com.paiondata.elide.graphql.parser;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.KeyWord;
+import com.paiondata.elide.graphql.ModelBuilder;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.dictionary.ArgumentType;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
@@ -29,13 +33,9 @@ import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.sort.SortingImpl;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.graphql.GraphQLNameUtils;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.graphql.ModelBuilder;
 
 import com.apollographql.federation.graphqljava._Entity;
 import com.apollographql.federation.graphqljava._Service;
-import com.paiondata.elide.graphql.KeyWord;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -179,7 +179,7 @@ public class GraphQLEntityProjectionMaker {
             if (_Entity.fieldName.equals(entityName)) {
                 /*
                  * query {
-                 *   _entities(representations: [{__typename: "Group", id: "com.yahoo.elide"}]) {
+                 *   _entities(representations: [{__typename: "Group", id: "com.paiondata.elide"}]) {
                  *     ... on Group {
                  *       name
                  *       commonName

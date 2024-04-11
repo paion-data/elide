@@ -5,24 +5,23 @@
  */
 package com.paiondata.elide.core.filter.visitors;
 
-import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.RelationshipType;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
-import com.paiondata.elide.core.filter.expression.NotFilterExpression;
-import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.security.PermissionExecutor;
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
-
-import com.paiondata.elide.core.Path;
 
 import io.reactivex.Observable;
 

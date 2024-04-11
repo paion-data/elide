@@ -6,14 +6,14 @@
 
 package com.paiondata.elide.core.security.executors;
 
-import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.security.permissions.expressions.Expression;
-import com.paiondata.elide.core.type.Type;
 
 import lombok.extern.slf4j.Slf4j;
 

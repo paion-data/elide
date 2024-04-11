@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
 import com.paiondata.elide.datastores.aggregation.QueryValidator;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
@@ -21,6 +19,8 @@ import com.paiondata.elide.datastores.aggregation.query.QueryPlanMerger;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.modelconfig.model.Argument;
 import com.paiondata.elide.modelconfig.model.Dimension;
 import com.paiondata.elide.modelconfig.model.Join;

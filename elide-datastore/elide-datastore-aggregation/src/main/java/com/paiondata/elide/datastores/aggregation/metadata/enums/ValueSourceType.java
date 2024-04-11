@@ -6,7 +6,6 @@
 package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
 import com.paiondata.elide.datastores.aggregation.annotation.TableSource;
-
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Set;

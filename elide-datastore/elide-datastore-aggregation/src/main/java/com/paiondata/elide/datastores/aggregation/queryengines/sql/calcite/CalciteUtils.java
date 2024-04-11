@@ -6,9 +6,7 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite;
 
-import static com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect.BACKTICK;
-import static com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect.DOUBLE_QUOTE;
-
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
 import org.apache.calcite.avatica.util.Quoting;
 import org.apache.calcite.config.CharLiteralStyle;
@@ -33,11 +31,11 @@ public class CalciteUtils {
 
         Quoting quoting;
         switch (dialect.getBeginQuote()) {
-            case BACKTICK: {
+            case AbstractSqlDialect.BACKTICK: {
                 quoting = Quoting.BACK_TICK;
                 break;
             }
-            case DOUBLE_QUOTE: {
+            case AbstractSqlDialect.DOUBLE_QUOTE: {
                 quoting = Quoting.DOUBLE_QUOTE;
                 break;
             }

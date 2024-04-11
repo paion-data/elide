@@ -70,7 +70,7 @@ public class MultiplexTransactionTest {
 
         MultiplexManager store = new MultiplexManager(store1, store2);
         DataStoreTransaction multiplexTx = store.beginReadTransaction();
-        String propertyName = "com.yahoo.elide.core.datastore.Bar";
+        String propertyName = "com.paiondata.elide.core.datastore.Bar";
 
         String result = multiplexTx.getProperty(propertyName);
 

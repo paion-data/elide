@@ -9,7 +9,6 @@ import com.paiondata.elide.ElideErrorResponse;
 import com.paiondata.elide.ElideErrors;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
-
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;

@@ -5,8 +5,11 @@
  */
 package com.paiondata.elide.async.integration.tests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -23,8 +26,6 @@ import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.BeforeEach;
 
 import io.restassured.response.Response;
@@ -41,30 +42,30 @@ public abstract class AsyncApiIT extends IntegrationTest {
     @Getter private Integer port;
     private String apiPath;
 
-    private static final Resource ENDERS_GAME = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "Ender's Game"),
-                    JsonApiDSL.attr("genre", "Science Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource ENDERS_GAME = resource(
+            type("book"),
+            attributes(
+                    attr("title", "Ender's Game"),
+                    attr("genre", "Science Fiction"),
+                    attr("language", "English")
             )
     );
 
-    private static final Resource GAME_OF_THRONES = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "Song of Ice and Fire"),
-                    JsonApiDSL.attr("genre", "Mythology Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource GAME_OF_THRONES = resource(
+            type("book"),
+            attributes(
+                    attr("title", "Song of Ice and Fire"),
+                    attr("genre", "Mythology Fiction"),
+                    attr("language", "English")
             )
     );
 
-    private static final Resource FOR_WHOM_THE_BELL_TOLLS = JsonApiDSL.resource(
-            JsonApiDSL.type("book"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("title", "For Whom the Bell Tolls"),
-                    JsonApiDSL.attr("genre", "Literary Fiction"),
-                    JsonApiDSL.attr("language", "English")
+    private static final Resource FOR_WHOM_THE_BELL_TOLLS = resource(
+            type("book"),
+            attributes(
+                    attr("title", "For Whom the Bell Tolls"),
+                    attr("genre", "Literary Fiction"),
+                    attr("language", "English")
             )
     );
 
@@ -105,7 +106,7 @@ public abstract class AsyncApiIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(ENDERS_GAME).toJSON()
+                        datum(ENDERS_GAME).toJSON()
                 )
                 .post("/book")
                 .then()
@@ -115,7 +116,7 @@ public abstract class AsyncApiIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(GAME_OF_THRONES).toJSON()
+                        datum(GAME_OF_THRONES).toJSON()
                 )
                 .post("/book")
                 .then()
@@ -125,7 +126,7 @@ public abstract class AsyncApiIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(FOR_WHOM_THE_BELL_TOLLS).toJSON()
+                        datum(FOR_WHOM_THE_BELL_TOLLS).toJSON()
                 )
                 .post("/book")
                 .then()

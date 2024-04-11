@@ -6,6 +6,7 @@
 
 package com.paiondata.elide.datastores.aggregation.cache;
 
+import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
@@ -18,7 +19,6 @@ import com.paiondata.elide.core.request.Pagination;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
-import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
 
 import java.util.Comparator;

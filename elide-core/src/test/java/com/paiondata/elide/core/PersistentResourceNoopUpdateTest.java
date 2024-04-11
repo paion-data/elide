@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -16,12 +15,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.Route;
-import com.paiondata.elide.core.security.TestUser;
 import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.TestUser;
 import example.Child;
 import example.FunWithPermissions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +33,8 @@ public class PersistentResourceNoopUpdateTest extends PersistenceResourceTestSet
     private final User goodUser;
     PersistentResourceNoopUpdateTest() {
         goodUser = new TestUser("1");
-        goodUserScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
-                .dataStoreTransaction(mock(DataStoreTransaction.class)).user(goodUser).requestId(UUID.randomUUID())
+        goodUserScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
+                .dataStoreTransaction(Mockito.mock(DataStoreTransaction.class)).user(goodUser).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
         initDictionary();
         reset(goodUserScope.getTransaction());
@@ -47,7 +48,7 @@ public class PersistentResourceNoopUpdateTest extends PersistenceResourceTestSet
 
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
 
-        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
         PersistentResource<FunWithPermissions> funResource = new PersistentResource<>(fun, "3", goodScope);
@@ -68,7 +69,7 @@ public class PersistentResourceNoopUpdateTest extends PersistenceResourceTestSet
 
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
 
-        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
         PersistentResource<FunWithPermissions> funResource = new PersistentResource<>(fun, "3", goodScope);
@@ -88,7 +89,7 @@ public class PersistentResourceNoopUpdateTest extends PersistenceResourceTestSet
 
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
 
-        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
         PersistentResource<FunWithPermissions> funResource = new PersistentResource<>(fun, "3", goodScope);
@@ -105,7 +106,7 @@ public class PersistentResourceNoopUpdateTest extends PersistenceResourceTestSet
 
         DataStoreTransaction tx = mock(DataStoreTransaction.class);
 
-        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(NO_VERSION).build())
+        RequestScope goodScope = RequestScope.builder().route(Route.builder().apiVersion(EntityDictionary.NO_VERSION).build())
                 .dataStoreTransaction(tx).user(goodUser).requestId(UUID.randomUUID()).elideSettings(elideSettings)
                 .build();
         PersistentResource<FunWithPermissions> funResource = new PersistentResource<>(fun, "3", goodScope);

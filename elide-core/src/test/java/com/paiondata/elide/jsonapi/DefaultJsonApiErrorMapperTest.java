@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.ElideError;
 import com.paiondata.elide.jsonapi.models.JsonApiError;
-import com.paiondata.elide.jsonapi.models.JsonApiError.Links;
-import com.paiondata.elide.jsonapi.models.JsonApiError.Source;
 import com.paiondata.elide.jsonapi.serialization.JsonApiModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,8 +40,8 @@ class DefaultJsonApiErrorMapperTest {
                         .attribute("status", "status")
                         .attribute("code", "code")
                         .attribute("title", "title")
-                        .attribute("source", Source.builder().header("header").build())
-                        .attribute("links", Links.builder().about("about").build())
+                        .attribute("source", JsonApiError.Source.builder().header("header").build())
+                        .attribute("links", JsonApiError.Links.builder().about("about").build())
                         .build());
         String actual = objectMapper.writeValueAsString(jsonApiError);
         String expected = """

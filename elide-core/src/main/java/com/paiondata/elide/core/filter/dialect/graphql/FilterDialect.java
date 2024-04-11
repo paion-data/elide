@@ -6,10 +6,10 @@
 
 package com.paiondata.elide.core.filter.dialect.graphql;
 
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.filter.dialect.ParseException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.Attribute;
-import com.paiondata.elide.core.type.Type;
 
 import java.util.Set;
 

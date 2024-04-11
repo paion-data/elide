@@ -49,12 +49,12 @@ public class JsonApiRequestScope extends RequestScope {
      * @param elideSettings Elide settings object
      */
     public JsonApiRequestScope(Route route,
-                        DataStoreTransaction transaction,
-                        User user,
-                        UUID requestId,
-                        ElideSettings elideSettings,
-                        Function<RequestScope, EntityProjection> entityProjection,
-                        JsonApiDocument jsonApiDocument
+                               DataStoreTransaction transaction,
+                               User user,
+                               UUID requestId,
+                               ElideSettings elideSettings,
+                               Function<RequestScope, EntityProjection> entityProjection,
+                               JsonApiDocument jsonApiDocument
                         ) {
         super(route, transaction, user, requestId, elideSettings, entityProjection);
         this.jsonApiDocument = jsonApiDocument;

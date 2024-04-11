@@ -5,10 +5,18 @@
  */
 package com.paiondata.elide.graphql;
 
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.query;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.toJson;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinition;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinitions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,8 +40,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Sets;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-
 import example.models.versioned.BookV2;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
@@ -203,17 +209,17 @@ public class GraphQLEndpointTest {
 
     @Test
     public void testValidFetch() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selections(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("title"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("name")
+                                                selection(
+                                                        field("name")
                                                 )
                                         )
                                 )
@@ -221,17 +227,17 @@ public class GraphQLEndpointTest {
                 )
         ).toQuery();
 
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "My first book"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "My first book"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("name", "Ricky Carmichael")
+                                                selection(
+                                                        field("name", "Ricky Carmichael")
                                                 )
                                         )
                                 )
@@ -245,25 +251,25 @@ public class GraphQLEndpointTest {
 
     @Test
     void testValidFetchWithVariables() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.query(
+        String graphQLRequest = document(
+                query(
                         "myQuery",
-                        GraphQLDSL.variableDefinitions(
-                                GraphQLDSL.variableDefinition("bookId", "[String]")
+                        variableDefinitions(
+                                variableDefinition("bookId", "[String]")
                         ),
-                        GraphQLDSL.selections(
-                                GraphQLDSL.field(
+                        selections(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("ids", "$bookId")
+                                        arguments(
+                                                argument("ids", "$bookId")
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field("title"),
+                                                field(
                                                         "authors",
-                                                        GraphQLDSL.selection(
-                                                                GraphQLDSL.field("name")
+                                                        selection(
+                                                                field("name")
                                                         )
                                                 )
                                         )
@@ -272,17 +278,17 @@ public class GraphQLEndpointTest {
                 )
         ).toQuery();
 
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "My first book"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "My first book"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("name", "Ricky Carmichael")
+                                                selection(
+                                                        field("name", "Ricky Carmichael")
                                                 )
                                         )
                                 )
@@ -298,23 +304,23 @@ public class GraphQLEndpointTest {
 
     @Test
     void testCanReadRestrictedFieldWithAppropriateAccess() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selection(
-                                        GraphQLDSL.field("user1SecretField")
+                                selection(
+                                        field("user1SecretField")
                                 )
                         )
                 )
         ).toQuery();
 
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selection(
-                                        GraphQLDSL.field("user1SecretField", "this is a secret for user 1 only1")
+                                selection(
+                                        field("user1SecretField", "this is a secret for user 1 only1")
                                 )
                         )
                 )
@@ -326,12 +332,12 @@ public class GraphQLEndpointTest {
 
     @Test
     void testCannotReadRestrictedField() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selection(
-                                        GraphQLDSL.field("user1SecretField")
+                                selection(
+                                        field("user1SecretField")
                                 )
                         )
                 )
@@ -347,19 +353,19 @@ public class GraphQLEndpointTest {
 
     @Test
     void testPartialResponse() throws IOException, JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selections(
+                        field(
                                 "book",
-                                GraphQLDSL.selection(
-                                        GraphQLDSL.field("user1SecretField")
+                                selection(
+                                        field("user1SecretField")
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -374,18 +380,18 @@ public class GraphQLEndpointTest {
     void testCrypticErrorOnUpsert() throws IOException, JSONException {
         Incident incident = new Incident();
 
-        String graphQLRequest = GraphQLDSL.document(
-           GraphQLDSL.mutation(
-               GraphQLDSL.selection(
-                   GraphQLDSL.field(
+        String graphQLRequest = document(
+           mutation(
+               selection(
+                   field(
                        "incidents",
-                       GraphQLDSL.arguments(
-                           GraphQLDSL.argument("op", "UPSERT"),
-                           GraphQLDSL.argument("data", incident)
+                       arguments(
+                           argument("op", "UPSERT"),
+                           argument("data", incident)
                        ),
-                       GraphQLDSL.selections(
-                           GraphQLDSL.field("id"),
-                           GraphQLDSL.field("name")
+                       selections(
+                           field("id"),
+                           field("name")
                        )
                    )
                )
@@ -410,17 +416,17 @@ public class GraphQLEndpointTest {
         book.setTitle("my new book!");
         book.setAuthors(Sets.newHashSet(author));
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "UPSERT"),
-                                        GraphQLDSL.argument("data", book)
+                                arguments(
+                                        argument("op", "UPSERT"),
+                                        argument("data", book)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -430,25 +436,25 @@ public class GraphQLEndpointTest {
         assertHasErrors(response);
         verify(dataFetcherExceptionHandler).handleException(any());
 
-        graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                               GraphQLDSL.selections(
-                                       GraphQLDSL.field("id", "1"),
-                                       GraphQLDSL.field("title", "My first book")
+                               selections(
+                                       field("id", "1"),
+                                       field("title", "My first book")
                                )
                         )
                 )
@@ -468,26 +474,26 @@ public class GraphQLEndpointTest {
         author.setName("my new author");
         author.setNoShare(noShare);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field(
                                                         "authors",
-                                                        GraphQLDSL.arguments(
-                                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                                GraphQLDSL.argument("data", author)
+                                                        arguments(
+                                                                argument("op", "UPSERT"),
+                                                                argument("data", author)
                                                         ),
-                                                        GraphQLDSL.selections(
-                                                                GraphQLDSL.field("id"),
-                                                                GraphQLDSL.field("name"),
-                                                                GraphQLDSL.field(
+                                                        selections(
+                                                                field("id"),
+                                                                field("name"),
+                                                                field(
                                                                         "noShare",
-                                                                        GraphQLDSL.selection(
-                                                                                GraphQLDSL.field("id")
+                                                                        selection(
+                                                                                field("id")
                                                                         )
                                                                 )
                                                         )
@@ -502,21 +508,21 @@ public class GraphQLEndpointTest {
 
         assertHasErrors(response);
 
-        graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id"),
-                                                        GraphQLDSL.field("name"),
-                                                        GraphQLDSL.field(
+                                                selections(
+                                                        field("id"),
+                                                        field("name"),
+                                                        field(
                                                                 "noShare",
-                                                                GraphQLDSL.selection(
-                                                                        GraphQLDSL.field("id")
+                                                                selection(
+                                                                        field("id")
                                                                 )
                                                         )
                                                 )
@@ -526,18 +532,18 @@ public class GraphQLEndpointTest {
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "1"),
-                                                        GraphQLDSL.field("name", "Ricky Carmichael"),
-                                                        GraphQLDSL.field("noShare", "", false)
+                                                selections(
+                                                        field("id", "1"),
+                                                        field("name", "Ricky Carmichael"),
+                                                        field("noShare", "", false)
                                                 )
                                         )
                                 )
@@ -560,31 +566,31 @@ public class GraphQLEndpointTest {
         book.setId(1);
         book.setTitle("my new book!");
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title")
+                                        selections(
+                                                field("id"),
+                                                field("title")
                                         )
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "my new book!")
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "my new book!")
                                 )
                         )
                 )
@@ -605,18 +611,18 @@ public class GraphQLEndpointTest {
         Book book = new Book();
         book.setTitle("my new book!");
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title")
+                                        selections(
+                                                field("id"),
+                                                field("title")
                                         )
                                 )
                         )
@@ -640,33 +646,33 @@ public class GraphQLEndpointTest {
         book.setTitle("my new book!");
         book.setAuthors(Sets.newHashSet(author));
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title"),
-                                                GraphQLDSL.field("user1SecretField")
+                                        selections(
+                                                field("id"),
+                                                field("title"),
+                                                field("user1SecretField")
                                         )
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "my new book!"),
-                                        GraphQLDSL.field("user1SecretField", "this is a secret for user 1 only1")
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "my new book!"),
+                                        field("user1SecretField", "this is a secret for user 1 only1")
                                 )
                         )
                 )
@@ -675,18 +681,18 @@ public class GraphQLEndpointTest {
         Response response = endpoint.post("", uriInfo, requestHeaders, user1, graphQLRequestToJSON(graphQLRequest));
         assert200EqualBody(response, expected);
 
-        graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("title"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id"),
-                                                        GraphQLDSL.field("name")
+                                                selections(
+                                                        field("id"),
+                                                        field("name")
                                                 )
                                         )
                                 )
@@ -694,29 +700,29 @@ public class GraphQLEndpointTest {
                 )
         ).toQuery();
 
-        expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "My first book"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "My first book"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "1"),
-                                                        GraphQLDSL.field("name", "Ricky Carmichael")
+                                                selections(
+                                                        field("id", "1"),
+                                                        field("name", "Ricky Carmichael")
                                                 )
                                         )
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "my new book!"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "my new book!"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "2"),
-                                                        GraphQLDSL.field("name", "The Silent Author")
+                                                selections(
+                                                        field("id", "2"),
+                                                        field("name", "The Silent Author")
                                                 )
                                         )
                                 )
@@ -736,18 +742,18 @@ public class GraphQLEndpointTest {
         book.setTitle("update title");
 
         // NOTE: User 3 cannot update books.
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title")
+                                        selections(
+                                                field("id"),
+                                                field("title")
                                         )
                                 )
                         )
@@ -761,17 +767,17 @@ public class GraphQLEndpointTest {
 
     @Test
     void testQueryAMap() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field(
                                                         "authors",
-                                                        GraphQLDSL.selection(
-                                                                GraphQLDSL.field("bookTitlesAndAwards {key value}")
+                                                        selection(
+                                                                field("bookTitlesAndAwards {key value}")
                                                         )
                                                 )
                                         )
@@ -788,19 +794,19 @@ public class GraphQLEndpointTest {
         second.put("key", "Bookz");
         second.put("value", "Pulitzer Prize");
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field(
+                                                selection(
+                                                        field(
                                                                 "bookTitlesAndAwards",
-                                                                GraphQLDSL.toJson(Arrays.asList(first, second)),
-                                                                GraphQLDSL.UNQUOTED_VALUE
+                                                                toJson(Arrays.asList(first, second)),
+                                                                UNQUOTED_VALUE
                                                         )
                                                 )
                                         )
@@ -815,17 +821,17 @@ public class GraphQLEndpointTest {
 
     @Test
     void testQueryAMapWithBadFields() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field(
                                                         "authors",
-                                                         GraphQLDSL.selection(
-                                                                GraphQLDSL.field("bookTitlesAndAwards {key value Bookz}")
+                                                         selection(
+                                                                field("bookTitlesAndAwards {key value Bookz}")
                                                         )
                                                 )
                                         )
@@ -842,30 +848,30 @@ public class GraphQLEndpointTest {
 
     @Test
     public void testMultipleRoot() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selections(
+                        field(
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("name"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("title")
+                                                selection(
+                                                        field("title")
                                                 )
                                         )
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("title"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("name")
+                                                selection(
+                                                        field("name")
                                                 )
                                         )
                                 )
@@ -873,37 +879,37 @@ public class GraphQLEndpointTest {
                 )
         ).toQuery();
 
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selections(
+                        field(
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "Ricky Carmichael"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "Ricky Carmichael"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("title", "My first book")
+                                                selections(
+                                                        field("title", "My first book")
                                                 )
                                         )
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("name", "The Silent Author"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field("name", "The Silent Author"),
+                                        field(
                                                 "books", "", false
                                         )
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "My first book"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "My first book"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("name", "Ricky Carmichael")
+                                                selection(
+                                                        field("name", "Ricky Carmichael")
                                                 )
                                         )
                                 )
@@ -918,60 +924,60 @@ public class GraphQLEndpointTest {
 
     @Test
     public void testMultipleQueryWithAlias() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selections(
+                        field(
                                 "AuthorBook",
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selection(
-                                                        GraphQLDSL.field("title")
+                                                selection(
+                                                        field("title")
                                                 )
                                         )
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "AuthorName",
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("id"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selections(
+                        field(
                                 "AuthorBook",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("title", "My first book")
+                                                selections(
+                                                        field("title", "My first book")
                                                 )
                                         )
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field(
                                                 "books", "", false
                                         )
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "AuthorName",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "Ricky Carmichael")
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "Ricky Carmichael")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("name", "The Silent Author")
+                                selections(
+                                        field("id", "2"),
+                                        field("name", "The Silent Author")
                                 )
                         )
                 )
@@ -984,44 +990,44 @@ public class GraphQLEndpointTest {
 
     @Test
     public void testMultipleQueryWithAliasAndArguments() throws JSONException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.query(
+        String graphQLRequest = document(
+                query(
                         "myQuery",
-                        GraphQLDSL.variableDefinitions(
-                                GraphQLDSL.variableDefinition("author1", "[String]"),
-                                GraphQLDSL.variableDefinition("author2", "[String]")
+                        variableDefinitions(
+                                variableDefinition("author1", "[String]"),
+                                variableDefinition("author2", "[String]")
                         ),
-                        GraphQLDSL.selections(
-                                GraphQLDSL.field(
+                        selections(
+                                field(
                                         "Author_1",
                                         "author",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("ids", "$author1")
+                                        arguments(
+                                                argument("ids", "$author1")
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("name"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field("name"),
+                                                field(
                                                         "books",
-                                                        GraphQLDSL.selection(
-                                                                GraphQLDSL.field("title")
+                                                        selection(
+                                                                field("title")
                                                         )
                                                 )
                                         )
                                 ),
-                                GraphQLDSL.field(
+                                field(
                                         "Author_2",
                                         "author",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("ids", "$author2")
+                                        arguments(
+                                                argument("ids", "$author2")
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("name"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field("name"),
+                                                field(
                                                         "books",
-                                                        GraphQLDSL.selection(
-                                                                GraphQLDSL.field("title")
+                                                        selection(
+                                                                field("title")
                                                         )
                                                 )
                                         )
@@ -1029,27 +1035,27 @@ public class GraphQLEndpointTest {
                         )
                 )
         ).toQuery();
-        String graphQLResponse = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLResponse = document(
+                selections(
+                        field(
                                 "Author_1",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "Ricky Carmichael"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "Ricky Carmichael"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("title", "My first book")
+                                                selections(
+                                                        field("title", "My first book")
                                                 )
                                         )
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "Author_2",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("name", "The Silent Author"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field("name", "The Silent Author"),
+                                        field(
                                                 "books", "", false
                                         )
                                 )

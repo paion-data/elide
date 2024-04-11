@@ -8,24 +8,25 @@ package com.paiondata.elide.core.dictionary;
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static com.paiondata.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
 
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.type.*;
 import com.paiondata.elide.annotation.ComputedAttribute;
 import com.paiondata.elide.annotation.ComputedRelationship;
 import com.paiondata.elide.annotation.Exclude;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
 import com.paiondata.elide.annotation.ToMany;
 import com.paiondata.elide.annotation.ToOne;
-import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.exceptions.DuplicateMappingException;
-import com.paiondata.elide.core.lifecycle.LifeCycleHook;
 import com.paiondata.elide.core.type.AccessibleObject;
 import com.paiondata.elide.core.type.Field;
 import com.paiondata.elide.core.type.Member;
 import com.paiondata.elide.core.type.Method;
 import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.core.security.RequestScope;
-import com.paiondata.elide.core.type.ClassType;
-
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.StringUtils;
@@ -112,9 +113,9 @@ public class EntityBinding {
     public final ConcurrentHashMap<String, String> relationshipToInverse = new ConcurrentHashMap<>();
     public final ConcurrentHashMap<String, CascadeType[]> relationshipToCascadeTypes = new ConcurrentHashMap<>();
     public final ConcurrentHashMap<String, AccessibleObject> fieldsToValues = new ConcurrentHashMap<>();
-    public final MultiValuedMap<Triple<String, LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase>, LifeCycleHook> fieldTriggers =
+    public final MultiValuedMap<Triple<String, Operation, TransactionPhase>, LifeCycleHook> fieldTriggers =
             new HashSetValuedHashMap<>();
-    public final MultiValuedMap<Pair<LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase>, LifeCycleHook> classTriggers =
+    public final MultiValuedMap<Pair<Operation, TransactionPhase>, LifeCycleHook> classTriggers =
             new HashSetValuedHashMap<>();
     public final ConcurrentHashMap<String, Type<?>> fieldsToTypes = new ConcurrentHashMap<>();
     public final ConcurrentHashMap<String, String> aliasesToFields = new ConcurrentHashMap<>();
@@ -562,11 +563,11 @@ public class EntityBinding {
         }
     }
 
-    public void bindTrigger(LifeCycleHookBinding.Operation operation,
-                            LifeCycleHookBinding.TransactionPhase phase,
+    public void bindTrigger(Operation operation,
+                            TransactionPhase phase,
                             String fieldOrMethodName,
                             LifeCycleHook hook) {
-        Triple<String, LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase> key =
+        Triple<String, Operation, TransactionPhase> key =
                 Triple.of(fieldOrMethodName, operation, phase);
 
         fieldTriggers.put(key, hook);
@@ -579,10 +580,10 @@ public class EntityBinding {
         bindTrigger(binding.operation(), binding.phase(), fieldOrMethodName, hook);
     }
 
-    public void bindTrigger(LifeCycleHookBinding.Operation operation,
-                            LifeCycleHookBinding.TransactionPhase phase,
+    public void bindTrigger(Operation operation,
+                            TransactionPhase phase,
                             LifeCycleHook hook) {
-        Pair<LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase> key =
+        Pair<Operation, TransactionPhase> key =
                 Pair.of(operation, phase);
 
         classTriggers.put(key, hook);
@@ -599,19 +600,19 @@ public class EntityBinding {
         bindTrigger(binding.operation(), binding.phase(), hook);
     }
 
-    public Collection<LifeCycleHook> getTriggers(LifeCycleHookBinding.Operation op,
-                                                 LifeCycleHookBinding.TransactionPhase phase,
-                                                 String fieldName) {
-        Triple<String, LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase> key =
+    public Collection<LifeCycleHook> getTriggers(Operation op,
+            TransactionPhase phase,
+            String fieldName) {
+        Triple<String, Operation, TransactionPhase> key =
                 Triple.of(fieldName, op, phase);
         Collection<LifeCycleHook> bindings = fieldTriggers.get(key);
         return (bindings == null ? Collections.emptyList() : bindings);
     }
 
-    public Collection<LifeCycleHook> getTriggers(LifeCycleHookBinding.Operation op,
-                                                 LifeCycleHookBinding.TransactionPhase phase) {
+    public Collection<LifeCycleHook> getTriggers(Operation op,
+            TransactionPhase phase) {
 
-        Pair<LifeCycleHookBinding.Operation, LifeCycleHookBinding.TransactionPhase> key =
+        Pair<Operation, TransactionPhase> key =
                 Pair.of(op, phase);
         Collection<LifeCycleHook> bindings = classTriggers.get(key);
         return (bindings == null ? Collections.emptyList() : bindings);

@@ -6,15 +6,15 @@
 
 package com.paiondata.elide.core.security.checks;
 
-import com.paiondata.elide.annotation.FilterExpressionPath;
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.filter.visitors.FilterExpressionCheckEvaluationVisitor;
 import com.paiondata.elide.core.security.ChangeSpec;
 import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.annotation.FilterExpressionPath;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import lombok.extern.slf4j.Slf4j;
 

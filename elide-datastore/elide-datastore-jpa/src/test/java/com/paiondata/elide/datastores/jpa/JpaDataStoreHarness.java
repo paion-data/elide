@@ -6,14 +6,13 @@
 
 package com.paiondata.elide.datastores.jpa;
 
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
 import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
-
 import example.Company;
 import example.Parent;
 import example.models.generics.Manager;

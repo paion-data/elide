@@ -6,7 +6,6 @@
 
 package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
@@ -18,9 +17,9 @@ import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimensionG
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
 import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
+import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Reference;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import lombok.AllArgsConstructor;
@@ -116,7 +115,7 @@ public class SQLTimeDimensionProjection implements SQLColumnProjection, TimeDime
             String outerProjectionExpression = toPhysicalReferences(source, store);
             outerProjection = withExpression(outerProjectionExpression, inProjection);
 
-            innerProjections = SQLColumnProjection.extractPhysicalReferences(source, references, store);
+            innerProjections = extractPhysicalReferences(source, references, store);
         } else {
             outerProjection = SQLTimeDimensionProjection.builder()
                     .name(name)

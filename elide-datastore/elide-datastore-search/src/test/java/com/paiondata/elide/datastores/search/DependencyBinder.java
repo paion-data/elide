@@ -6,6 +6,8 @@
 
 package com.paiondata.elide.datastores.search;
 
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.audit.Slf4jLogger;
@@ -14,8 +16,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.request.Pagination;
-import com.paiondata.elide.datastores.jpa.JpaDataStore;
-import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;

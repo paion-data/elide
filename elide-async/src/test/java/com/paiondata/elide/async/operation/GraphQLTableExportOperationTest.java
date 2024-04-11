@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.async.operation;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
@@ -17,11 +16,6 @@ import com.paiondata.elide.async.AsyncSettings;
 import com.paiondata.elide.async.DefaultResultTypeFileExtensionMapper;
 import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
 import com.paiondata.elide.async.export.formatter.JsonExportFormatter;
-import com.paiondata.elide.async.models.ArtifactGroup;
-import com.paiondata.elide.async.models.QueryType;
-import com.paiondata.elide.async.models.ResultType;
-import com.paiondata.elide.async.models.TableExport;
-import com.paiondata.elide.async.models.TableExportResult;
 import com.paiondata.elide.async.models.security.AsyncApiInlineChecks;
 import com.paiondata.elide.async.service.AsyncExecutorService;
 import com.paiondata.elide.async.service.storageengine.FileResultStorageEngine;
@@ -36,6 +30,11 @@ import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.async.models.ArtifactGroup;
+import com.paiondata.elide.async.models.QueryType;
+import com.paiondata.elide.async.models.ResultType;
+import com.paiondata.elide.async.models.TableExport;
+import com.paiondata.elide.async.models.TableExportResult;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -86,7 +85,7 @@ public class GraphQLTableExportOperationTest {
         asyncExecutorService = mock(AsyncExecutorService.class);
         engine = new FileResultStorageEngine(tempDir.toString());
         when(asyncExecutorService.getElide()).thenReturn(elide);
-        when(requestScope.getRoute()).thenReturn(Route.builder().apiVersion(NO_VERSION).baseUrl("https://elide.io").build());
+        when(requestScope.getRoute()).thenReturn(Route.builder().apiVersion(EntityDictionary.NO_VERSION).baseUrl("https://elide.io").build());
         when(requestScope.getUser()).thenReturn(user);
         when(requestScope.getElideSettings()).thenReturn(elide.getElideSettings());
     }
@@ -219,7 +218,7 @@ public class GraphQLTableExportOperationTest {
     private void dataPrep() throws IOException {
         TableExport temp = new TableExport();
         DataStoreTransaction tx = dataStore.beginTransaction();
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         RequestScope scope = RequestScope.builder().route(route).dataStoreTransaction(tx).user(user)
                 .requestId(UUID.randomUUID()).elideSettings(elide.getElideSettings()).build();
         tx.save(temp, scope);

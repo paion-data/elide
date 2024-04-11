@@ -9,10 +9,10 @@ package com.paiondata.elide.core.utils;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Dynamic;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.google.common.collect.Sets;
 
 import java.util.List;

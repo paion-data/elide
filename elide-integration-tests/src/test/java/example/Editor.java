@@ -5,6 +5,7 @@
  */
 package example;
 
+import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.annotation.Audit;
 import com.paiondata.elide.annotation.ComputedAttribute;
 import com.paiondata.elide.annotation.ComputedRelationship;
@@ -15,7 +16,6 @@ import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.filter.predicates.NotNullPredicate;
-import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
 import com.paiondata.elide.core.type.Type;
 

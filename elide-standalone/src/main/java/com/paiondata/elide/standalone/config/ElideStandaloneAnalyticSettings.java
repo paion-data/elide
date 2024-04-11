@@ -8,7 +8,6 @@ package com.paiondata.elide.standalone.config;
 import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
 import com.paiondata.elide.modelconfig.DBPasswordExtractor;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

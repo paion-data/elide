@@ -5,18 +5,9 @@
  */
 package com.paiondata.elide.core.lifecycle;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
-
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.core.security.ChangeSpec;
-
 import com.paiondata.elide.core.security.RequestScope;
 
 import jakarta.persistence.Id;
@@ -34,20 +25,20 @@ import java.util.Set;
  * Model used to mock different lifecycle test scenarios.  This model uses fields instead of properties.
  */
 @Include(name = "testModel")
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = CREATE, phase = PRESECURITY)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = CREATE, phase = PREFLUSH)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = CREATE, phase = PRECOMMIT)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = CREATE, phase = POSTCOMMIT)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = DELETE, phase = PRESECURITY)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = DELETE, phase = PREFLUSH)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHookEverything.class, operation = CREATE,
-        phase = PRECOMMIT, oncePerRequest = false)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = DELETE, phase = PRECOMMIT)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = DELETE, phase = POSTCOMMIT)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = UPDATE, phase = PRESECURITY)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = UPDATE, phase = PREFLUSH)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = UPDATE, phase = PRECOMMIT)
-@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = UPDATE, phase = POSTCOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHookEverything.class, operation = LifeCycleHookBinding.Operation.CREATE,
+        phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT, oncePerRequest = false)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreFlushHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPreCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+@LifeCycleHookBinding(hook = FieldTestModel.ClassPostCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
 
 @EqualsAndHashCode
 public class FieldTestModel {
@@ -57,35 +48,35 @@ public class FieldTestModel {
 
     @Getter
     @Setter
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = CREATE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = CREATE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = CREATE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = CREATE, phase = POSTCOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = DELETE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = DELETE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = DELETE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = DELETE, phase = POSTCOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = UPDATE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = UPDATE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = UPDATE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = UPDATE, phase = POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreSecurityHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreFlushHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePreCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.AttributePostCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
     private String field;
 
     @Getter
     @Setter
     @OneToMany
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = CREATE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = CREATE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = CREATE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = CREATE, phase = POSTCOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = DELETE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = DELETE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = DELETE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = DELETE, phase = POSTCOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = UPDATE, phase = PRESECURITY)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = UPDATE, phase = PREFLUSH)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = UPDATE, phase = PRECOMMIT)
-    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = UPDATE, phase = POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = LifeCycleHookBinding.Operation.DELETE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreSecurityHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRESECURITY)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreFlushHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PREFLUSH)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPreCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.PRECOMMIT)
+    @LifeCycleHookBinding(hook = FieldTestModel.RelationPostCommitHook.class, operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
     private Set<FieldTestModel> models = new HashSet<>();
 
     public static class ClassPreSecurityHook implements LifeCycleHook<FieldTestModel> {
@@ -95,7 +86,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.classCallback(operation, PRESECURITY);
+            elideEntity.classCallback(operation, LifeCycleHookBinding.TransactionPhase.PRESECURITY);
         }
     }
 
@@ -106,7 +97,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.classCallback(operation, PREFLUSH);
+            elideEntity.classCallback(operation, LifeCycleHookBinding.TransactionPhase.PREFLUSH);
         }
     }
 
@@ -117,7 +108,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.classCallback(operation, PRECOMMIT);
+            elideEntity.classCallback(operation, LifeCycleHookBinding.TransactionPhase.PRECOMMIT);
         }
     }
 
@@ -128,7 +119,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.classAllFieldsCallback(operation, PRECOMMIT);
+            elideEntity.classAllFieldsCallback(operation, LifeCycleHookBinding.TransactionPhase.PRECOMMIT);
         }
     }
 
@@ -139,7 +130,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.classCallback(operation, POSTCOMMIT);
+            elideEntity.classCallback(operation, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT);
         }
     }
 
@@ -150,7 +141,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.attributeCallback(operation, PRESECURITY, changes.orElse(null));
+            elideEntity.attributeCallback(operation, LifeCycleHookBinding.TransactionPhase.PRESECURITY, changes.orElse(null));
         }
     }
 
@@ -161,7 +152,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.attributeCallback(operation, PREFLUSH, changes.orElse(null));
+            elideEntity.attributeCallback(operation, LifeCycleHookBinding.TransactionPhase.PREFLUSH, changes.orElse(null));
         }
     }
 
@@ -172,7 +163,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.attributeCallback(operation, PRECOMMIT, changes.orElse(null));
+            elideEntity.attributeCallback(operation, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, changes.orElse(null));
         }
     }
 
@@ -183,7 +174,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.attributeCallback(operation, POSTCOMMIT, changes.orElse(null));
+            elideEntity.attributeCallback(operation, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, changes.orElse(null));
         }
     }
 
@@ -194,7 +185,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.relationCallback(operation, PRESECURITY, changes.orElse(null));
+            elideEntity.relationCallback(operation, LifeCycleHookBinding.TransactionPhase.PRESECURITY, changes.orElse(null));
         }
     }
 
@@ -205,7 +196,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.relationCallback(operation, PREFLUSH, changes.orElse(null));
+            elideEntity.relationCallback(operation, LifeCycleHookBinding.TransactionPhase.PREFLUSH, changes.orElse(null));
         }
     }
 
@@ -216,7 +207,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.relationCallback(operation, PRECOMMIT, changes.orElse(null));
+            elideEntity.relationCallback(operation, LifeCycleHookBinding.TransactionPhase.PRECOMMIT, changes.orElse(null));
         }
     }
 
@@ -227,7 +218,7 @@ public class FieldTestModel {
                             FieldTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.relationCallback(operation, POSTCOMMIT, changes.orElse(null));
+            elideEntity.relationCallback(operation, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, changes.orElse(null));
         }
     }
 

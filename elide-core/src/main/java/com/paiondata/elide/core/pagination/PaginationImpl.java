@@ -6,11 +6,11 @@
 package com.paiondata.elide.core.pagination;
 
 import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.annotation.Paginate;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
 import com.paiondata.elide.core.request.Pagination;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.annotation.Paginate;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.EqualsAndHashCode;

@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.SingleResultQuery;
+import com.paiondata.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.InvalidValueException;
@@ -26,10 +29,6 @@ import com.paiondata.elide.core.request.Relationship;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.sort.SortingImpl;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.datastores.jpql.porting.Query;
-import com.paiondata.elide.datastores.jpql.porting.SingleResultQuery;
-import com.paiondata.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
-
 import example.Author;
 import example.Book;
 import example.Chapter;

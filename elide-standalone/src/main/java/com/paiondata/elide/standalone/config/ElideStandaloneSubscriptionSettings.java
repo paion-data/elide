@@ -5,14 +5,13 @@
  */
 package com.paiondata.elide.standalone.config;
 
-import com.paiondata.elide.Elide;
-import com.paiondata.elide.ElideSettingsBuilderCustomizer;
 import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
-import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
-import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
-
 import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
 import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettingsBuilderCustomizer;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Message;

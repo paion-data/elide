@@ -5,10 +5,9 @@
  */
 package com.paiondata.elide.datastores.jpa.transaction;
 
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
-
-import com.paiondata.elide.datastores.jpa.JpaDataStore;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

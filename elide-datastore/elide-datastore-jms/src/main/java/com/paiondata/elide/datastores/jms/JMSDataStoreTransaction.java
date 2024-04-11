@@ -6,8 +6,8 @@
 
 package com.paiondata.elide.datastores.jms;
 
-import static com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
-
+import com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
@@ -15,7 +15,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.EntityProjection;
-import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.jms.Destination;
@@ -125,7 +124,7 @@ public class JMSDataStoreTransaction implements DataStoreTransaction {
         Set<Argument> arguments = projection.getArguments();
 
         for (Argument argument: arguments) {
-            if (argument.getName().equals(TOPIC_ARGUMENT)) {
+            if (argument.getName().equals(SubscriptionModelBuilder.TOPIC_ARGUMENT)) {
                 return (TopicType) argument.getValue();
             }
         }

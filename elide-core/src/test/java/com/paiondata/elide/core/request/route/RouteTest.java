@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -59,7 +60,7 @@ class RouteTest {
 
     @Test
     void apiVersionDefaultShouldBeNoVersion() {
-        assertEquals(EntityDictionary.NO_VERSION, Route.builder().build().getApiVersion());
+        Assertions.assertEquals(EntityDictionary.NO_VERSION, Route.builder().build().getApiVersion());
     }
 
     @Test

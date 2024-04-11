@@ -5,9 +5,8 @@
  */
 package com.paiondata.elide.spring.config;
 
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-
 import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
 
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.boot.convert.DurationUnit;

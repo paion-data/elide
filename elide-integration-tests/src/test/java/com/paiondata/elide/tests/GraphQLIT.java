@@ -6,10 +6,17 @@
 package com.paiondata.elide.tests;
 
 import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.query;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinition;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinitions;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,8 +28,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-
 import example.Currency;
 import example.Price;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,27 +97,27 @@ public class GraphQLIT extends GraphQLIntegrationTest {
         author.setId(1L);
         author.setName("George Orwell");
 
-        String graphQLQuery = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLQuery = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field("title"),
+                                                field(
                                                         "authors",
-                                                        GraphQLDSL.arguments(
-                                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                                GraphQLDSL.argument("data", author)
+                                                        arguments(
+                                                                argument("op", "UPSERT"),
+                                                                argument("data", author)
                                                         ),
-                                                        GraphQLDSL.selections(
-                                                                GraphQLDSL.field("id"),
-                                                                GraphQLDSL.field("name")
+                                                        selections(
+                                                                field("id"),
+                                                                field("name")
                                                         )
                                                 )
                                         )
@@ -121,18 +126,18 @@ public class GraphQLIT extends GraphQLIntegrationTest {
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "1984"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "1984"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "1"),
-                                                        GraphQLDSL.field("name", "George Orwell")
+                                                selections(
+                                                        field("id", "1"),
+                                                        field("name", "George Orwell")
                                                 )
                                         )
                                 )
@@ -154,32 +159,32 @@ public class GraphQLIT extends GraphQLIntegrationTest {
         author.setId(2L);
         author.setName("$authorName");
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.mutation(
+        String graphQLRequest = document(
+                mutation(
                         "myMutation",
-                        GraphQLDSL.variableDefinitions(
-                                GraphQLDSL.variableDefinition("bookName", "String"),
-                                GraphQLDSL.variableDefinition("authorName", "String")
+                        variableDefinitions(
+                                variableDefinition("bookName", "String"),
+                                variableDefinition("authorName", "String")
                         ),
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book, GraphQLDSL.UNQUOTED_VALUE)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book, UNQUOTED_VALUE)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title"),
-                                                GraphQLDSL.field(
+                                        selections(
+                                                field("id"),
+                                                field("title"),
+                                                field(
                                                         "authors",
-                                                        GraphQLDSL.arguments(
-                                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                                GraphQLDSL.argument("data", author, GraphQLDSL.UNQUOTED_VALUE)
+                                                        arguments(
+                                                                argument("op", "UPSERT"),
+                                                                argument("data", author, UNQUOTED_VALUE)
                                                         ),
-                                                        GraphQLDSL.selections(
-                                                                GraphQLDSL.field("id"),
-                                                                GraphQLDSL.field("name")
+                                                        selections(
+                                                                field("id"),
+                                                                field("name")
                                                         )
                                                 )
                                         )
@@ -188,18 +193,18 @@ public class GraphQLIT extends GraphQLIntegrationTest {
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expected = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "Grapes of Wrath"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "Grapes of Wrath"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "2"),
-                                                        GraphQLDSL.field("name", "John Setinbeck")
+                                                selections(
+                                                        field("id", "2"),
+                                                        field("name", "John Setinbeck")
                                                 )
                                         )
                                 )
@@ -219,18 +224,18 @@ public class GraphQLIT extends GraphQLIntegrationTest {
         // create a second book
         createWithVariables();
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("title"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id"),
-                                                        GraphQLDSL.field("name")
+                                                selections(
+                                                        field("id"),
+                                                        field("name")
                                                 )
                                         )
                                 )
@@ -238,29 +243,29 @@ public class GraphQLIT extends GraphQLIntegrationTest {
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "1984"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "1984"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "1"),
-                                                        GraphQLDSL.field("name", "George Orwell")
+                                                selections(
+                                                        field("id", "1"),
+                                                        field("name", "George Orwell")
                                                 )
                                         )
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "Grapes of Wrath"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "Grapes of Wrath"),
+                                        field(
                                                 "authors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id", "2"),
-                                                        GraphQLDSL.field("name", "John Setinbeck")
+                                                selections(
+                                                        field("id", "2"),
+                                                        field("name", "John Setinbeck")
                                                 )
                                         )
                                 )
@@ -273,28 +278,28 @@ public class GraphQLIT extends GraphQLIntegrationTest {
 
     @Test
     public void testFilterByComplexAttribute() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"price.total>=5\"")
+                                arguments(
+                                        argument("filter", "\"price.total>=5\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "1984")
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "1984")
                                 )
                         )
                 )
@@ -302,16 +307,16 @@ public class GraphQLIT extends GraphQLIntegrationTest {
 
         runQueryWithExpectedResult(graphQLRequest, expectedResponse);
 
-        graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"price.total<=5\"")
+                                arguments(
+                                        argument("filter", "\"price.total<=5\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -324,28 +329,28 @@ public class GraphQLIT extends GraphQLIntegrationTest {
 
     @Test
     public void testFilterByNestedComplexAttribute() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"price.currency.isoCode==USD\"")
+                                arguments(
+                                        argument("filter", "\"price.currency.isoCode==USD\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "1984")
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "1984")
                                 )
                         )
                 )
@@ -353,16 +358,16 @@ public class GraphQLIT extends GraphQLIntegrationTest {
 
         runQueryWithExpectedResult(graphQLRequest, expectedResponse);
 
-        graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"price.currency.isoCode==ABC\"")
+                                arguments(
+                                        argument("filter", "\"price.currency.isoCode==ABC\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -377,17 +382,17 @@ public class GraphQLIT extends GraphQLIntegrationTest {
     public void testInvalidFetch() throws IOException {
         Book book = new Book();
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("op", "FETCH"),
-                                        GraphQLDSL.argument("data", book)
+                                arguments(
+                                        argument("op", "FETCH"),
+                                        argument("data", book)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
@@ -403,31 +408,31 @@ public class GraphQLIT extends GraphQLIntegrationTest {
 
     @Test
     public void fetchRootSingle() throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.argument(
-                                        GraphQLDSL.argument(
+                                argument(
+                                        argument(
                                                 "ids",
                                                 Arrays.asList("1")
                                         )
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("title", "1984")
+                                selections(
+                                        field("id", "1"),
+                                        field("title", "1984")
                                 )
                         )
                 )
@@ -442,53 +447,53 @@ public class GraphQLIT extends GraphQLIntegrationTest {
         book.setId(2);
         book.setTitle("my book created in batch!");
 
-        String graphQLRequest1 = GraphQLDSL.document(
-                GraphQLDSL.mutation(
-                        GraphQLDSL.selection(
-                                GraphQLDSL.field(
+        String graphQLRequest1 = document(
+                mutation(
+                        selection(
+                                field(
                                         "book",
-                                        GraphQLDSL.arguments(
-                                                GraphQLDSL.argument("op", "UPSERT"),
-                                                GraphQLDSL.argument("data", book)
+                                        arguments(
+                                                argument("op", "UPSERT"),
+                                                argument("data", book)
                                         ),
-                                        GraphQLDSL.selections(
-                                                GraphQLDSL.field("id"),
-                                                GraphQLDSL.field("title")
+                                        selections(
+                                                field("id"),
+                                                field("title")
                                         )
                                 )
                         )
                 )
         ).toQuery();
 
-        String graphQLRequest2 = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest2 = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.argument(GraphQLDSL.argument("ids", "\"2\"")),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("title")
+                                argument(argument("ids", "\"2\"")),
+                                selections(
+                                        field("id"),
+                                        field("title")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "my book created in batch!")
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "my book created in batch!")
                                 )
                         )
                 ),
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+                selections(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "2"),
-                                        GraphQLDSL.field("title", "my book created in batch!")
+                                selections(
+                                        field("id", "2"),
+                                        field("title", "my book created in batch!")
                                 )
                         )
                 )
@@ -503,41 +508,41 @@ public class GraphQLIT extends GraphQLIntegrationTest {
     @Test
     public void runMultipleRequestsSameTransactionWithAliases() throws IOException {
         // This test demonstrates that multiple roots can be manipulated within a _single_ transaction
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selections(
+                        field(
                                 "firstAuthorCollection",
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("id"),
+                                        field("name")
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "secondAuthorCollection",
                                 "author",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("id"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expectedResponse = document(
+                selections(
+                        field(
                                 "firstAuthorCollection",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "George Orwell")
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "George Orwell")
                                 )
                         ),
-                        GraphQLDSL.field(
+                        field(
                                 "secondAuthorCollection",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "George Orwell")
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "George Orwell")
                                 )
                         )
                 )
@@ -553,22 +558,22 @@ public class GraphQLIT extends GraphQLIntegrationTest {
             "\"books.id=isnull=false\"",
             "\"books.title=in=(\\\"1984\\\")\""})
     public void runManyToManyFilter(String filter) throws IOException {
-        String graphQLRequest = GraphQLDSL.document(
-            GraphQLDSL.query(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+            query(
+                selections(
+                        field(
                                 "author",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", filter)
+                                arguments(
+                                        argument("filter", filter)
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name"),
-                                        GraphQLDSL.field(
+                                selections(
+                                        field("id"),
+                                        field("name"),
+                                        field(
                                                 "books",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("id"),
-                                                        GraphQLDSL.field("title")
+                                                selections(
+                                                        field("id"),
+                                                        field("title")
                                                 )
                                         )
                                         )
@@ -577,18 +582,18 @@ public class GraphQLIT extends GraphQLIntegrationTest {
             )
         ).toQuery();
 
-        String expectedResponse = GraphQLDSL.document(
-            GraphQLDSL.selection(
-                    GraphQLDSL.field(
+        String expectedResponse = document(
+            selection(
+                    field(
                             "author",
-                            GraphQLDSL.selections(
-                                    GraphQLDSL.field("id", "1"),
-                                    GraphQLDSL.field("name", "George Orwell"),
-                                    GraphQLDSL.field(
+                            selections(
+                                    field("id", "1"),
+                                    field("name", "George Orwell"),
+                                    field(
                                             "books",
-                                            GraphQLDSL.selections(
-                                                    GraphQLDSL.field("id", "1"),
-                                                    GraphQLDSL.field("title", "1984")
+                                            selections(
+                                                    field("id", "1"),
+                                                    field("title", "1984")
                                             )
                                     )
                             )
@@ -653,25 +658,25 @@ public class GraphQLIT extends GraphQLIntegrationTest {
     //broken out by class instead of a common underlying database table.
     public void fetchCollectionVersioned() throws IOException {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("id"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id", "1"),
-                                        GraphQLDSL.field("name", "1984")
+                                selections(
+                                        field("id", "1"),
+                                        field("name", "1984")
                                 )
                         )
                 )
@@ -683,13 +688,13 @@ public class GraphQLIT extends GraphQLIntegrationTest {
     @Test
     public void testInvalidApiVersion() throws IOException {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "book",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("id"),
+                                        field("name")
                                 )
                         )
                 )
@@ -714,12 +719,12 @@ public class GraphQLIT extends GraphQLIntegrationTest {
     @Test
     public void testMissingVersionedModel() throws IOException {
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "parent",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("id")
+                                selections(
+                                        field("id")
                                 )
                         )
                 )

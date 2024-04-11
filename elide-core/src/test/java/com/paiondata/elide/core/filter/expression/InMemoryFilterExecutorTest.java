@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.Path.PathElement;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.core.filter.predicates.FalsePredicate;
 import com.paiondata.elide.core.filter.predicates.GEPredicate;
 import com.paiondata.elide.core.filter.predicates.GTPredicate;
@@ -39,9 +41,6 @@ import com.paiondata.elide.core.filter.predicates.PrefixPredicate;
 import com.paiondata.elide.core.filter.predicates.SubsetOfPredicate;
 import com.paiondata.elide.core.filter.predicates.SupersetOfPredicate;
 import com.paiondata.elide.core.filter.predicates.TruePredicate;
-import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import example.Author;
 import example.Book;
 import org.junit.jupiter.api.Test;
@@ -65,10 +64,10 @@ public class InMemoryFilterExecutorTest {
     private FilterExpression expression;
     private Predicate fn;
 
-    private PathElement authorIdElement = new PathElement(Author.class, Long.class, "id");
-    private PathElement authorNameElement = new PathElement(Author.class, String.class, "name");
-    private PathElement authorBooksElement = new PathElement(Author.class, Book.class, "books");
-    private PathElement authorAwardsElement = new PathElement(Author.class, String.class, "awards");
+    private Path.PathElement authorIdElement = new Path.PathElement(Author.class, Long.class, "id");
+    private Path.PathElement authorNameElement = new Path.PathElement(Author.class, String.class, "name");
+    private Path.PathElement authorBooksElement = new Path.PathElement(Author.class, Book.class, "books");
+    private Path.PathElement authorAwardsElement = new Path.PathElement(Author.class, String.class, "awards");
     private List<Object> listNine = Collections.singletonList("9");
     private List<Object> listTen = Collections.singletonList("10");
     private List<Object> listEleven = Collections.singletonList("11");
@@ -285,7 +284,7 @@ public class InMemoryFilterExecutorTest {
         book2.setLanguage("de");
         author.getBooks().add(book2);
 
-        PathElement bookLanguageElement = new PathElement(Book.class, String.class, "language");
+        Path.PathElement bookLanguageElement = new Path.PathElement(Book.class, String.class, "language");
         Path paths = new Path(List.of(authorBooksElement, bookLanguageElement));
 
         expression = new HasMemberPredicate(paths, null);
@@ -434,7 +433,7 @@ public class InMemoryFilterExecutorTest {
     public void negativeTests() throws Exception {
         author = new Author();
         author.setId(10L);
-        PathElement pathElement = new PathElement(Author.class, Long.class, "id");
+        Path.PathElement pathElement = new Path.PathElement(Author.class, Long.class, "id");
 
         expression = new NotFilterExpression(new LTPredicate(pathElement, listEleven));
         fn = expression.accept(visitor);

@@ -17,13 +17,13 @@ public class ElideModules {
     private static final boolean ASYNC_PRESENT;
 
     static {
-        GRAPHQL_PRESENT = isPresent("com.yahoo.elide.graphql.GraphQLSettings", ElideModules.class.getClassLoader());
+        GRAPHQL_PRESENT = isPresent("com.paiondata.elide.graphql.GraphQLSettings", ElideModules.class.getClassLoader());
         JSON_API_PRESENT = isPresent("jsonapi.com.paiondata.elide.JsonApiSettings", ElideModules.class.getClassLoader());
-        ASYNC_PRESENT = isPresent("com.yahoo.elide.async.AsyncSettings", ElideModules.class.getClassLoader());
+        ASYNC_PRESENT = isPresent("com.paiondata.elide.async.AsyncSettings", ElideModules.class.getClassLoader());
     }
 
     /**
-     * Checks if com.yahoo.elide.graphql is present.
+     * Checks if com.paiondata.elide.graphql is present.
      *
      * @return true if the GraphQL module is present
      */
@@ -32,7 +32,7 @@ public class ElideModules {
     }
 
     /**
-     * Checks if com.yahoo.elide.jsonapi is present.
+     * Checks if com.paiondata.elide.jsonapi is present.
      *
      * @return true if the JsonApi module is present
      */
@@ -41,7 +41,7 @@ public class ElideModules {
     }
 
     /**
-     * Checks if com.yahoo.elide.async is present.
+     * Checks if com.paiondata.elide.async is present.
      *
      * @return true if the Async module is present
      */

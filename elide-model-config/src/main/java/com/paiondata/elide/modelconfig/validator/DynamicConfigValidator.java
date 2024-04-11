@@ -5,9 +5,15 @@
  */
 package com.paiondata.elide.modelconfig.validator;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
+import com.paiondata.elide.modelconfig.Config;
+import com.paiondata.elide.modelconfig.DynamicConfigHelpers;
+import com.paiondata.elide.modelconfig.DynamicConfigSchemaValidator;
+import com.paiondata.elide.modelconfig.DynamicConfiguration;
+import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.SecurityCheck;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
@@ -19,11 +25,6 @@ import com.paiondata.elide.core.security.checks.UserCheck;
 import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.modelconfig.Config;
-import com.paiondata.elide.modelconfig.DynamicConfigHelpers;
-import com.paiondata.elide.modelconfig.DynamicConfigSchemaValidator;
-import com.paiondata.elide.modelconfig.DynamicConfiguration;
-import com.paiondata.elide.modelconfig.io.FileLoader;
 import com.paiondata.elide.modelconfig.model.Argument;
 import com.paiondata.elide.modelconfig.model.DBConfig;
 import com.paiondata.elide.modelconfig.model.Dimension;
@@ -39,7 +40,6 @@ import com.paiondata.elide.modelconfig.model.NamespaceConfig;
 import com.paiondata.elide.modelconfig.model.Table;
 import com.paiondata.elide.modelconfig.model.TableSource;
 import com.paiondata.elide.modelconfig.store.models.ConfigFile;
-
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -558,7 +558,7 @@ public class DynamicConfigValidator implements DynamicConfiguration, Validator {
             validateSql(table.getSql());
             validateArguments(table, table.getArguments(), table.getFilterTemplate());
             //TODO - once tables support versions - replace NO_VERSION with apiVersion
-            validateNamespaceExists(table.getNamespace(), EntityDictionary.NO_VERSION);
+            validateNamespaceExists(table.getNamespace(), NO_VERSION);
             Set<String> tableFields = new HashSet<>();
 
             table.getDimensions().forEach(dim -> {
@@ -581,7 +581,7 @@ public class DynamicConfigValidator implements DynamicConfiguration, Validator {
                 validateSql(join.getDefinition());
                 validateModelExists(join.getTo());
                 //TODO - once tables support versions - replace NO_VERSION with apiVersion
-                validateNamespaceExists(join.getNamespace(), EntityDictionary.NO_VERSION);
+                validateNamespaceExists(join.getNamespace(), NO_VERSION);
             });
 
             extractChecksFromExpr(table.getReadAccess(), extractedTableChecks, visitor);
@@ -707,8 +707,8 @@ public class DynamicConfigValidator implements DynamicConfiguration, Validator {
         }
 
         //TODO - once tables support versions - replace NO_VERSION with apiVersion
-        if (hasStaticModel(modelName, EntityDictionary.NO_VERSION)) {
-            if (!hasStaticField(modelName, EntityDictionary.NO_VERSION, tableSource.getColumn())) {
+        if (hasStaticModel(modelName, NO_VERSION)) {
+            if (!hasStaticField(modelName, NO_VERSION, tableSource.getColumn())) {
                 throw new IllegalStateException("Invalid tableSource : " + tableSource
                         + " . Field : " + tableSource.getColumn()
                         + " is undefined for non-hjson model: " + tableSource.getTable());
@@ -795,7 +795,7 @@ public class DynamicConfigValidator implements DynamicConfiguration, Validator {
     }
 
     private void validateModelExists(String name) {
-        if (!(elideTableConfig.hasTable(name) || hasStaticModel(name, EntityDictionary.NO_VERSION))) {
+        if (!(elideTableConfig.hasTable(name) || hasStaticModel(name, NO_VERSION))) {
             throw new IllegalStateException(
                             "Model: " + name + " is neither included in dynamic models nor in static models");
         }

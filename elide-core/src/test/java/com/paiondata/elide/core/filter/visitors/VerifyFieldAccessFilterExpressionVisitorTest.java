@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.Path.PathElement;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
@@ -38,6 +37,7 @@ import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.type.ClassType;
 import example.Author;
 import example.Book;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,24 +75,24 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
     @Test
     public void testAccept() throws Exception {
         Path p1Path = new Path(Arrays.asList(
-                new PathElement(Book.class, Author.class, AUTHORS),
-                new PathElement(Author.class, String.class, NAME)
+                new Path.PathElement(Book.class, Author.class, AUTHORS),
+                new Path.PathElement(Author.class, String.class, NAME)
         ));
         FilterPredicate p1 = new InPredicate(p1Path, "foo", "bar");
 
         Path p2Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, NAME)
+                new Path.PathElement(Book.class, String.class, NAME)
         ));
         FilterPredicate p2 = new InPredicate(p2Path, "blah");
 
         Path p3Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, GENRE)
+                new Path.PathElement(Book.class, String.class, GENRE)
         ));
         FilterPredicate p3 = new InPredicate(p3Path, SCIFI);
 
         //P4 is a duplicate of P3
         Path p4Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, GENRE)
+                new Path.PathElement(Book.class, String.class, GENRE)
         ));
         FilterPredicate p4 = new InPredicate(p4Path, SCIFI);
 
@@ -110,14 +110,14 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // unrestricted fields
-        assertTrue(not.accept(visitor));
-        assertTrue(and1.accept(visitor));
-        assertTrue(and2.accept(visitor));
-        assertTrue(or.accept(visitor));
-        assertTrue(p1.accept(visitor));
-        assertTrue(p2.accept(visitor));
-        assertTrue(p3.accept(visitor));
-        assertTrue(p4.accept(visitor));
+        Assertions.assertTrue(not.accept(visitor));
+        Assertions.assertTrue(and1.accept(visitor));
+        Assertions.assertTrue(and2.accept(visitor));
+        Assertions.assertTrue(or.accept(visitor));
+        Assertions.assertTrue(p1.accept(visitor));
+        Assertions.assertTrue(p2.accept(visitor));
+        Assertions.assertTrue(p3.accept(visitor));
+        Assertions.assertTrue(p4.accept(visitor));
 
         PermissionExecutor permissionExecutor = scope.getPermissionExecutor();
         verify(permissionExecutor, times(17)).evaluateFilterJoinUserChecks(any(), any());
@@ -129,24 +129,24 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
     @Test
     public void testReject() {
         Path p1Path = new Path(Arrays.asList(
-                new PathElement(Book.class, Author.class, AUTHORS),
-                new PathElement(Author.class, String.class, NAME)
+                new Path.PathElement(Book.class, Author.class, AUTHORS),
+                new Path.PathElement(Author.class, String.class, NAME)
         ));
         FilterPredicate p1 = new InPredicate(p1Path, "foo", "bar");
 
         Path p2Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, HOME)
+                new Path.PathElement(Book.class, String.class, HOME)
         ));
         FilterPredicate p2 = new InPredicate(p2Path, "blah");
 
         Path p3Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, GENRE)
+                new Path.PathElement(Book.class, String.class, GENRE)
         ));
         FilterPredicate p3 = new InPredicate(p3Path, SCIFI);
 
         //P4 is a duplicate of P3
         Path p4Path = new Path(Arrays.asList(
-                new PathElement(Book.class, String.class, GENRE)
+                new Path.PathElement(Book.class, String.class, GENRE)
         ));
         FilterPredicate p4 = new InPredicate(p4Path, SCIFI);
 
@@ -167,16 +167,16 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertFalse(not.accept(visitor));
-        assertFalse(and1.accept(visitor));
-        assertFalse(and2.accept(visitor));
-        assertFalse(or.accept(visitor));
-        assertFalse(p2.accept(visitor));
+        Assertions.assertFalse(not.accept(visitor));
+        Assertions.assertFalse(and1.accept(visitor));
+        Assertions.assertFalse(and2.accept(visitor));
+        Assertions.assertFalse(or.accept(visitor));
+        Assertions.assertFalse(p2.accept(visitor));
 
         // unrestricted fields
-        assertTrue(p1.accept(visitor));
-        assertTrue(p3.accept(visitor));
-        assertTrue(p4.accept(visitor));
+        Assertions.assertTrue(p1.accept(visitor));
+        Assertions.assertTrue(p3.accept(visitor));
+        Assertions.assertTrue(p4.accept(visitor));
 
         verify(permissionExecutor, times(8)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(5)).checkSpecificFieldPermissions(resource, null, ReadPermission.class, HOME);
@@ -200,7 +200,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertFalse(expression.accept(visitor));
+        Assertions.assertFalse(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkUserPermissions(ClassType.of(Book.class), ReadPermission.class, GENRE);
@@ -232,7 +232,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertFalse(expression.accept(visitor));
+        Assertions.assertFalse(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkUserPermissions(ClassType.of(Book.class), ReadPermission.class, AUTHORS);
@@ -263,7 +263,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertFalse(expression.accept(visitor));
+        Assertions.assertFalse(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkUserPermissions(ClassType.of(Book.class), ReadPermission.class, GENRE);
@@ -291,7 +291,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertTrue(expression.accept(visitor));
+        Assertions.assertTrue(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkUserPermissions(ClassType.of(Book.class), ReadPermission.class, AUTHORS);
@@ -335,7 +335,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertFalse(expression.accept(visitor));
+        Assertions.assertFalse(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkUserPermissions(ClassType.of(Book.class), ReadPermission.class, AUTHORS);
@@ -363,7 +363,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertTrue(expression.accept(visitor));
+        Assertions.assertTrue(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, never()).checkSpecificFieldPermissions(any(), any(), any(), any());
@@ -392,10 +392,10 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
         when(permissionExecutor.evaluateFilterJoinUserChecks(any(), any())).thenReturn(ExpressionResult.DEFERRED);
         when(permissionExecutor.handleFilterJoinReject(any(), any(), any())).thenAnswer(invocation -> {
             FilterPredicate filterPredicate = invocation.getArgument(0);
-            PathElement pathElement = invocation.getArgument(1);
+            Path.PathElement pathElement = invocation.getArgument(1);
             ForbiddenAccessException reason = invocation.getArgument(2);
 
-            assertEquals("Book", pathElement.getType().getSimpleName());
+            Assertions.assertEquals("Book", pathElement.getType().getSimpleName());
             assertEquals(GENRE, filterPredicate.getField());
             assertEquals("book.genre IN [foo]", filterPredicate.toString());
 
@@ -409,7 +409,7 @@ public class VerifyFieldAccessFilterExpressionVisitorTest {
 
         VerifyFieldAccessFilterExpressionVisitor visitor = new VerifyFieldAccessFilterExpressionVisitor(resource);
         // restricted HOME field
-        assertTrue(expression.accept(visitor));
+        Assertions.assertTrue(expression.accept(visitor));
 
         verify(permissionExecutor, times(1)).evaluateFilterJoinUserChecks(any(), any());
         verify(permissionExecutor, times(1)).checkSpecificFieldPermissions(resource, null, ReadPermission.class, GENRE);

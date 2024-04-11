@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.paiondata.elide.swagger.models.media.Data;
+import com.paiondata.elide.swagger.models.media.Datum;
+import com.paiondata.elide.swagger.models.media.Relationship;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
 import com.paiondata.elide.annotation.Exclude;
@@ -27,9 +30,6 @@ import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.coerce.converters.EpochToDateConverter;
 import com.paiondata.elide.core.utils.coerce.converters.TimeZoneSerde;
 import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.swagger.models.media.Data;
-import com.paiondata.elide.swagger.models.media.Datum;
-import com.paiondata.elide.swagger.models.media.Relationship;
 
 import example.models.Agent;
 import example.models.Author;

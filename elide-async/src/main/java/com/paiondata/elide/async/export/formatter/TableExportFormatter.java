@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.async.export.formatter;
 
-import com.paiondata.elide.async.models.TableExport;
 import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.async.models.TableExport;
 
 import java.io.OutputStream;
 

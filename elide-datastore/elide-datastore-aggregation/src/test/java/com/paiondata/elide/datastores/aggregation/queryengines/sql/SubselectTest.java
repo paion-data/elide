@@ -8,12 +8,11 @@ package com.paiondata.elide.datastores.aggregation.queryengines.sql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.paiondata.elide.core.request.Sorting;
-import com.paiondata.elide.core.sort.SortingImpl;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
 import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
 import com.google.common.collect.ImmutableList;
-
 import example.PlayerStats;
 import example.dimensions.SubCountry;
 import org.junit.jupiter.api.BeforeAll;

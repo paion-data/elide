@@ -6,17 +6,19 @@
 
 package com.paiondata.elide.datastores.search;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 
-import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.initialization.AbstractApiResourceInitializer;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.paiondata.elide.jsonapi.JsonApi;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -44,13 +46,13 @@ public class SearchDataStoreITTest extends AbstractApiResourceInitializer {
        given()
            .contentType(JsonApi.MEDIA_TYPE)
            .body(
-                   JsonApiDSL.data(
-                       JsonApiDSL.resource(
-                          JsonApiDSL.type("item"),
-                          JsonApiDSL.id(1000),
-                          JsonApiDSL.attributes(
-                                  JsonApiDSL.attr("name", "Another Drum"),
-                                  JsonApiDSL.attr("description", "Onyx Timpani Drum")
+                   data(
+                       resource(
+                          type("item"),
+                          id(1000),
+                          attributes(
+                                  attr("name", "Another Drum"),
+                                  attr("description", "Onyx Timpani Drum")
                           )
                        )
                    ).toJSON())

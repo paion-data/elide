@@ -14,7 +14,6 @@ import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
 import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
 import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import lombok.AccessLevel;

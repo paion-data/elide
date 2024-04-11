@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide;
 
-import com.paiondata.elide.ElideErrors.ElideErrorsBuilder;
 import com.paiondata.elide.core.exceptions.HttpStatus;
 
 import java.util.function.Consumer;
@@ -119,7 +118,7 @@ public class ElideErrorResponse<T> extends ElideResponse<T> {
          * @param errors to customize
          * @return the response
          */
-        public ElideErrorResponse<ElideErrors> errors(Consumer<ElideErrorsBuilder> errors) {
+        public ElideErrorResponse<ElideErrors> errors(Consumer<ElideErrors.ElideErrorsBuilder> errors) {
             ElideErrors.ElideErrorsBuilder builder = ElideErrors.builder();
             errors.accept(builder);
             return body(builder.build());

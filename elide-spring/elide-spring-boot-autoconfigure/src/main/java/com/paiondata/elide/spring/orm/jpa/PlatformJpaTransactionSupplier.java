@@ -5,9 +5,8 @@
  */
 package com.paiondata.elide.spring.orm.jpa;
 
-import com.paiondata.elide.datastores.jpa.transaction.JpaTransaction;
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
-
+import com.paiondata.elide.datastores.jpa.transaction.JpaTransaction;
 import org.hibernate.Session;
 
 import org.springframework.transaction.PlatformTransactionManager;

@@ -5,6 +5,8 @@
  */
 package com.paiondata.elide.core.security.permissions.expressions;
 
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.PASS;
+
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.security.permissions.PermissionCondition;
 
@@ -34,7 +36,7 @@ public class SpecificFieldExpression implements Expression {
     @Override
     public ExpressionResult evaluate(EvaluationMode mode) {
         if (!fieldExpression.isPresent()) {
-            return (entityExpression == null) ? ExpressionResult.PASS : entityExpression.evaluate(mode);
+            return (entityExpression == null) ? PASS : entityExpression.evaluate(mode);
         }
         return fieldExpression.get().evaluate(mode);
     }

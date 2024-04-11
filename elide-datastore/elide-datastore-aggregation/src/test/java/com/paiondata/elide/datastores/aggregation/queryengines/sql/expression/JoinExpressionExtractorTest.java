@@ -10,11 +10,6 @@ import static java.util.Collections.emptyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.request.Argument;
-import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.datastores.aggregation.annotation.ArgumentDefinition;
 import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
 import com.paiondata.elide.datastores.aggregation.annotation.Join;
@@ -28,7 +23,11 @@ import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.Fr
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLDimensionProjection;
-
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import org.junit.jupiter.api.Test;
 
 import jakarta.persistence.Id;

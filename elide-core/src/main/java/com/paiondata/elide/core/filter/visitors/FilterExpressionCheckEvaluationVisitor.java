@@ -6,11 +6,11 @@
 
 package com.paiondata.elide.core.filter.visitors;
 
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
-import com.paiondata.elide.core.filter.expression.NotFilterExpression;
-import com.paiondata.elide.core.filter.expression.OrFilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.FilterExpressionCheck;

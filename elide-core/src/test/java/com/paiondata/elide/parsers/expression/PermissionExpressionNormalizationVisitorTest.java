@@ -6,8 +6,6 @@
 
 package com.paiondata.elide.parsers.expression;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
@@ -18,7 +16,6 @@ import com.paiondata.elide.core.security.permissions.expressions.CheckExpression
 import com.paiondata.elide.core.security.permissions.expressions.Expression;
 import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
 import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
-
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +36,7 @@ public class PermissionExpressionNormalizationVisitorTest {
         ElideSettings elideSettings = ElideSettings.builder().dataStore(null)
                 .entityDictionary(dictionary)
                 .build();
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         RequestScope requestScope = RequestScope.builder().route(route).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
 

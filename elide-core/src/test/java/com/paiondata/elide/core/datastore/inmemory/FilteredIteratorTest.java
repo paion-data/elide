@@ -6,7 +6,6 @@
 
 package com.paiondata.elide.core.datastore.inmemory;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,7 +17,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.type.ClassType;
-
 import example.Book;
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +44,7 @@ public class FilteredIteratorTest {
         RSQLFilterDialect filterDialect = RSQLFilterDialect.builder().dictionary(dictionary).build();
 
         FilterExpression expression =
-                filterDialect.parse(ClassType.of(Book.class), new HashSet<>(), "title==*bar", NO_VERSION);
+                filterDialect.parse(ClassType.of(Book.class), new HashSet<>(), "title==*bar", EntityDictionary.NO_VERSION);
 
         RequestScope scope = new TestRequestScope(null, null, dictionary);
 
@@ -70,7 +68,7 @@ public class FilteredIteratorTest {
         RSQLFilterDialect filterDialect = RSQLFilterDialect.builder().dictionary(dictionary).build();
 
         FilterExpression expression =
-                filterDialect.parse(ClassType.of(Book.class), new HashSet<>(), "title==*bar", NO_VERSION);
+                filterDialect.parse(ClassType.of(Book.class), new HashSet<>(), "title==*bar", EntityDictionary.NO_VERSION);
 
         RequestScope scope = new TestRequestScope(null, null, dictionary);
 

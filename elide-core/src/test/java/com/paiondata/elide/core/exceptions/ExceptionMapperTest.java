@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.exceptions;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,11 +16,6 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.paiondata.elide.Elide;
-import com.paiondata.elide.ElideErrorResponse;
-import com.paiondata.elide.ElideErrors;
-import com.paiondata.elide.ElideResponse;
-import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.TransactionRegistry;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
@@ -36,10 +30,15 @@ import com.paiondata.elide.jsonapi.DefaultJsonApiErrorMapper;
 import com.paiondata.elide.jsonapi.DefaultJsonApiExceptionHandler;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.ArgumentMatchers;
 
 import java.io.IOException;
 
@@ -49,7 +48,7 @@ import java.io.IOException;
 public class ExceptionMapperTest {
 
     private final String baseUrl = "http://localhost:8080/api/v1";
-    private static final ExceptionMappers MOCK_EXCEPTION_MAPPER = Mockito.mock(ExceptionMappers.class);
+    private static final ExceptionMappers MOCK_EXCEPTION_MAPPER = mock(ExceptionMappers.class);
     private static final Exception EXPECTED_EXCEPTION = new IllegalStateException("EXPECTED_EXCEPTION");
     private static final ErrorResponseException MAPPED_EXCEPTION = new ErrorResponseException(
             422,
@@ -84,10 +83,10 @@ public class ExceptionMapperTest {
         String body = "{\"data\": {\"type\":\"testModel\",\"id\":\"1\",\"attributes\": {\"field\":\"Foo\"}}}";
 
         when(store.beginTransaction()).thenReturn(tx);
-        when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
+        when(tx.createNewObject(ArgumentMatchers.eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
         doThrow(EXPECTED_EXCEPTION).when(tx).preCommit(any());
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         RuntimeException result = assertThrows(RuntimeException.class, () -> jsonApi.post(route, body, null, null));
         assertEquals(EXPECTED_EXCEPTION, result);
 
@@ -109,7 +108,7 @@ public class ExceptionMapperTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(400, response.getStatus());
         assertEquals(
@@ -134,7 +133,7 @@ public class ExceptionMapperTest {
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
         doThrow(EXPECTED_EXCEPTION).when(tx).preCommit(any());
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         RuntimeException result = assertThrows(RuntimeException.class, () -> jsonApi.post(route, body, null, null));
         assertEquals(EXPECTED_EXCEPTION, result);
 
@@ -156,7 +155,7 @@ public class ExceptionMapperTest {
         when(store.beginTransaction()).thenReturn(tx);
         when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(400, response.getStatus());
         assertEquals(
@@ -182,7 +181,7 @@ public class ExceptionMapperTest {
         doThrow(EXPECTED_EXCEPTION).when(tx).preCommit(any());
         when(MOCK_EXCEPTION_MAPPER.toErrorResponse(eq(EXPECTED_EXCEPTION), any())).thenReturn((ElideErrorResponse<Object>) MAPPED_EXCEPTION.getErrorResponse());
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(422, response.getStatus());
         assertEquals(
@@ -209,7 +208,7 @@ public class ExceptionMapperTest {
 
         when(MOCK_EXCEPTION_MAPPER.toErrorResponse(isA(IOException.class), any())).thenReturn((ElideErrorResponse<Object>) MAPPED_EXCEPTION.getErrorResponse());
 
-        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(NO_VERSION).build();
+        Route route = Route.builder().baseUrl(baseUrl).path("/testModel").apiVersion(EntityDictionary.NO_VERSION).build();
         ElideResponse<String> response = jsonApi.post(route, body, null, null);
         assertEquals(422, response.getStatus());
         assertEquals(

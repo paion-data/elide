@@ -6,7 +6,9 @@
 package com.paiondata.elide.errorEncodingTests;
 
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -14,8 +16,6 @@ import com.paiondata.elide.core.utils.JsonParser;
 import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
@@ -76,16 +76,16 @@ public class EncodedErrorObjectsIT extends IntegrationTest {
 
     @Test
     public void invalidValueException() {
-        Resource requestBody = JsonApiDSL.resource(
-                JsonApiDSL.type("invoice"),
-                JsonApiDSL.id("a")
+        Resource requestBody = resource(
+                type("invoice"),
+                id("a")
         );
 
         String expected = jsonParser.getJson("/EncodedErrorResponsesIT/invalidValueExceptionErrorObject.json");
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(requestBody))
+                .body(datum(requestBody))
                 .post("/invoice")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)

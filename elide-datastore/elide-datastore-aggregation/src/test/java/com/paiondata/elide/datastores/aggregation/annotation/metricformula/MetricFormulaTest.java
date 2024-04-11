@@ -8,13 +8,12 @@ package com.paiondata.elide.datastores.aggregation.annotation.metricformula;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.annotation.dimensionformula.DimensionFormulaTest;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.google.common.collect.Sets;
-import com.paiondata.elide.datastores.aggregation.annotation.dimensionformula.DimensionFormulaTest;
-
 import org.junit.jupiter.api.Test;
 
 public class MetricFormulaTest {

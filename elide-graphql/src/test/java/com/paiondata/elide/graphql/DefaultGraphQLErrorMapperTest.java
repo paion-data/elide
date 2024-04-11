@@ -8,9 +8,9 @@ package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.paiondata.elide.ElideError;
 import com.paiondata.elide.graphql.models.SourceLocationBuilder;
 import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.ElideError;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

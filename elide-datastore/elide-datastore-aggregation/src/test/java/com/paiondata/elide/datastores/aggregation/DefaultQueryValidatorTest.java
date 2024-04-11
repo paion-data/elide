@@ -10,18 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.paiondata.elide.datastores.aggregation.filter.visitor.FilterConstraints;
+import com.paiondata.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 import com.paiondata.elide.core.exceptions.InvalidOperationException;
 import com.paiondata.elide.core.filter.dialect.ParseException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.Sorting;
 import com.paiondata.elide.core.sort.SortingImpl;
-import com.paiondata.elide.datastores.aggregation.filter.visitor.FilterConstraints;
-import com.paiondata.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.paiondata.elide.datastores.aggregation.query.Query;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-
 import example.PlayerStats;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

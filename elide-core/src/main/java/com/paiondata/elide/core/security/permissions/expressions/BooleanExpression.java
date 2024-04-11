@@ -9,7 +9,6 @@ package com.paiondata.elide.core.security.permissions.expressions;
 import static org.fusesource.jansi.Ansi.ansi;
 
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
-
 import org.fusesource.jansi.Ansi;
 
 /**

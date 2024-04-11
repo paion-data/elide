@@ -5,6 +5,17 @@
  */
 package com.paiondata.elide.standalone.config;
 
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
+
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
@@ -13,6 +24,7 @@ import com.paiondata.elide.async.hooks.AsyncQueryHook;
 import com.paiondata.elide.async.hooks.TableExportHook;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.async.models.TableExport;
+import com.paiondata.elide.async.resources.ExportApiEndpoint.ExportApiProperties;
 import com.paiondata.elide.async.service.AsyncCleanerService;
 import com.paiondata.elide.async.service.AsyncExecutorService;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
@@ -24,20 +36,11 @@ import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
-import com.paiondata.elide.datastores.aggregation.QueryEngine;
-import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
 import com.paiondata.elide.modelconfig.DynamicConfiguration;
 import com.paiondata.elide.standalone.Util;
-import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
-import com.paiondata.elide.async.resources.ExportApiEndpoint;
-
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
@@ -157,10 +160,10 @@ public class ElideResourceConfig extends ResourceConfig {
             bind(asyncExecutorService).to(AsyncExecutorService.class);
 
             if (asyncProperties.enableExport()) {
-                ExportApiEndpoint.ExportApiProperties exportApiProperties = new ExportApiEndpoint.ExportApiProperties(
+                ExportApiProperties exportApiProperties = new ExportApiProperties(
                         asyncProperties.getExportAsyncResponseExecutor(),
                         asyncProperties.getExportAsyncResponseTimeout());
-                bind(exportApiProperties).to(ExportApiEndpoint.ExportApiProperties.class).named("exportApiProperties");
+                bind(exportApiProperties).to(ExportApiProperties.class).named("exportApiProperties");
 
                 ResultStorageEngine resultStorageEngine = asyncProperties.getResultStorageEngine();
                 if (resultStorageEngine == null) {
@@ -174,18 +177,18 @@ public class ElideResourceConfig extends ResourceConfig {
                         resultStorageEngine,
                         asyncProperties.appendFileExtension() ? asyncProperties.getResultTypeFileExtensionMapper()
                                 : null);
-                dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PREFLUSH, tableExportHook, false);
-                dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, tableExportHook, false);
-                dictionary.bindTrigger(TableExport.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, tableExportHook, false);
+                dictionary.bindTrigger(TableExport.class, CREATE, PREFLUSH, tableExportHook, false);
+                dictionary.bindTrigger(TableExport.class, CREATE, POSTCOMMIT, tableExportHook, false);
+                dictionary.bindTrigger(TableExport.class, CREATE, PRESECURITY, tableExportHook, false);
             }
 
             // Binding AsyncQuery LifeCycleHook
             AsyncQueryHook asyncQueryHook = new AsyncQueryHook(asyncExecutorService,
                     asyncProperties.getMaxAsyncAfter());
 
-            dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PREFLUSH, asyncQueryHook, false);
-            dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, asyncQueryHook, false);
-            dictionary.bindTrigger(AsyncQuery.class, LifeCycleHookBinding.Operation.CREATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, asyncQueryHook, false);
+            dictionary.bindTrigger(AsyncQuery.class, CREATE, PREFLUSH, asyncQueryHook, false);
+            dictionary.bindTrigger(AsyncQuery.class, CREATE, POSTCOMMIT, asyncQueryHook, false);
+            dictionary.bindTrigger(AsyncQuery.class, CREATE, PRESECURITY, asyncQueryHook, false);
 
             // Binding async cleanup service
             if (asyncProperties.enableCleanup()) {

@@ -5,14 +5,13 @@
  */
 package com.paiondata.elide.standalone;
 
+import com.paiondata.elide.datastores.jpa.PersistenceUnitInfoImpl;
 import com.paiondata.elide.async.models.AsyncQuery;
 import com.paiondata.elide.core.utils.ClassScanner;
-import com.paiondata.elide.datastores.jpa.PersistenceUnitInfoImpl;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.spi.PersistenceUnitInfo;
@@ -21,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
-
 import javax.sql.DataSource;
 
 /**

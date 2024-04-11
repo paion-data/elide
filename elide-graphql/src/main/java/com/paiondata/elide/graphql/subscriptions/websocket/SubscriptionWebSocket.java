@@ -6,6 +6,9 @@
 
 package com.paiondata.elide.graphql.subscriptions.websocket;
 
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.subscriptions.SubscriptionDataFetcher;
+import com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
@@ -16,9 +19,6 @@ import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
-import com.paiondata.elide.graphql.NonEntityDictionary;
-import com.paiondata.elide.graphql.subscriptions.SubscriptionDataFetcher;
-import com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder;
 import com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
 
 import graphql.GraphQL;

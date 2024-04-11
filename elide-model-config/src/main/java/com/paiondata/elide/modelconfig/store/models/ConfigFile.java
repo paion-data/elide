@@ -6,6 +6,7 @@
 
 package com.paiondata.elide.modelconfig.store.models;
 
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static com.paiondata.elide.core.security.checks.prefab.Role.NONE_ROLE;
 
 import com.paiondata.elide.annotation.ComputedAttribute;
@@ -16,8 +17,6 @@ import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.annotation.UpdatePermission;
 import com.paiondata.elide.core.exceptions.BadRequestException;
-
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -92,7 +91,7 @@ public class ConfigFile {
 
         this.path = path;
         if (version == null) {
-            this.version = EntityDictionary.NO_VERSION;
+            this.version = NO_VERSION;
         } else {
             this.version = version;
         }

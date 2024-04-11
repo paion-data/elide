@@ -6,8 +6,13 @@
 package com.paiondata.elide.tests;
 
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.elements.Relation.TO_ONE;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,9 +24,6 @@ import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-import com.paiondata.elide.test.jsonapi.elements.Relation;
-
 import example.Left;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,10 +53,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id(null)
                                 )
                         )
                 )
@@ -66,10 +68,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("untransferable"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("untransferable"),
+                                        id(null)
                                 )
                         )
                 )
@@ -81,10 +83,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("untransferable"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("untransferable"),
+                                        id("1")
                                 )
                         )
                 )
@@ -97,10 +99,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("untransferable"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("untransferable"),
+                                        id("1")
                                 )
                         )
                 )
@@ -113,10 +115,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id("1")
                                 )
                         )
                 )
@@ -129,10 +131,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id("1")
                                 )
                         )
                 )
@@ -148,10 +150,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id("1")
                                 )
                         )
                 )
@@ -164,10 +166,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("transferable"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("transferable"),
+                                        id(null)
                                 )
                         )
                 )
@@ -180,10 +182,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id("1")
                                 )
                         )
                 )
@@ -196,10 +198,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id("1")
                                 )
                         )
                 )
@@ -215,10 +217,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("container"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("container"),
+                                        id(null)
                                 )
                         )
                 )
@@ -231,10 +233,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("transferable"),
-                                        JsonApiDSL.id(null)
+                        datum(
+                                resource(
+                                        type("transferable"),
+                                        id(null)
                                 )
                         )
                 )
@@ -247,10 +249,10 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("transferable"),
-                                        JsonApiDSL.id("1")
+                        datum(
+                                resource(
+                                        type("transferable"),
+                                        id("1")
                                 )
                         )
                 )
@@ -263,15 +265,15 @@ class TransferableIT extends IntegrationTest {
                 .accept(JsonApi.MEDIA_TYPE)
                 .get("/container/1")
                 .then().statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("container"),
-                                JsonApiDSL.id("1"),
-                                JsonApiDSL.relationships(
-                                        JsonApiDSL.relation("transferables",
-                                                JsonApiDSL.linkage(JsonApiDSL.type("transferable"), JsonApiDSL.id("1"))
+                .body(equalTo(datum(
+                        resource(
+                                type("container"),
+                                id("1"),
+                                relationships(
+                                        relation("transferables",
+                                                linkage(type("transferable"), id("1"))
                                         ),
-                                        JsonApiDSL.relation("untransferables")
+                                        relation("untransferables")
                                 )
                         )).toJSON())
                 );
@@ -283,10 +285,10 @@ class TransferableIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("container"),
-                                JsonApiDSL.id(null)
+                .body(datum(
+                        resource(
+                                type("container"),
+                                id(null)
                         )
                 ))
                 .post("/container")
@@ -296,10 +298,10 @@ class TransferableIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("transferable"),
-                                JsonApiDSL.id(null)
+                .body(datum(
+                        resource(
+                                type("transferable"),
+                                id(null)
                         )
                 ))
                 .post("/transferable")
@@ -309,10 +311,10 @@ class TransferableIT extends IntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("transferable"),
-                                JsonApiDSL.id("1")
+                .body(datum(
+                        resource(
+                                type("transferable"),
+                                id("1")
                         )
                 ))
                 .patch("/container/1/relationships/transferables")
@@ -325,15 +327,15 @@ class TransferableIT extends IntegrationTest {
                 .get("/container/1")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("container"),
-                                JsonApiDSL.id("1"),
-                                JsonApiDSL.relationships(
-                                        JsonApiDSL.relation("transferables",
-                                                JsonApiDSL.linkage(JsonApiDSL.type("transferable"), JsonApiDSL.id("1"))
+                .body(equalTo(datum(
+                        resource(
+                                type("container"),
+                                id("1"),
+                                relationships(
+                                        relation("transferables",
+                                                linkage(type("transferable"), id("1"))
                                         ),
-                                        JsonApiDSL.relation("untransferables")
+                                        relation("untransferables")
                                 )
                         )).toJSON())
                 );
@@ -469,13 +471,13 @@ class TransferableIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("right"),
-                                        JsonApiDSL.id(null),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("one2one", Relation.TO_ONE,
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("left"), JsonApiDSL.id("1"))
+                        datum(
+                                resource(
+                                        type("right"),
+                                        id(null),
+                                        relationships(
+                                                relation("one2one", TO_ONE,
+                                                        linkage(type("left"), id("1"))
                                                 )
                                         )
                                 )

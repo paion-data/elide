@@ -7,23 +7,21 @@ package com.paiondata.elide.datastores.aggregation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.paiondata.elide.datastores.aggregation.filter.visitor.FilterConstraints;
+import com.paiondata.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.filter.dialect.ParseException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
-import com.paiondata.elide.datastores.aggregation.filter.visitor.FilterConstraints;
-import com.paiondata.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
 import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
-import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
-import com.paiondata.elide.datastores.aggregation.query.Query;
-import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
-
 import example.PlayerStats;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

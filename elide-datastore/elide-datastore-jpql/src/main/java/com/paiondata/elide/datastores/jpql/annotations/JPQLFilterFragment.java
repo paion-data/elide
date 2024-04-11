@@ -10,8 +10,8 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.paiondata.elide.core.filter.Operator;
 import com.paiondata.elide.datastores.jpql.filter.JPQLPredicateGenerator;
+import com.paiondata.elide.core.filter.Operator;
 
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;

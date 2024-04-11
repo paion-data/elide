@@ -12,11 +12,11 @@ import static org.mockito.Mockito.mock;
 
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.ReadPermission;
-import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.User;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
@@ -25,7 +25,7 @@ import com.paiondata.elide.core.security.checks.UserCheck;
 import com.paiondata.elide.core.security.visitors.CanPaginateVisitor;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -97,9 +97,9 @@ public class CanPaginateVisitorTest {
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
 
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
-        assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
+        Assertions.assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertFalse(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -133,7 +133,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -152,7 +152,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -172,7 +172,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -191,7 +191,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertFalse(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -210,7 +210,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -229,7 +229,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -248,7 +248,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertFalse(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -267,7 +267,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertFalse(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -289,7 +289,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertFalse(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -312,7 +312,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertTrue(CanPaginateVisitor.canPaginate(ClassType.of(Book.class), dictionary, scope, new HashSet<>()));
     }
@@ -337,7 +337,7 @@ public class CanPaginateVisitorTest {
 
         EntityDictionary dictionary = TestDictionary.getTestDictionary(checkMappings);
         dictionary.bindEntity(Book.class);
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         Set<String> sparseFields = new HashSet<>();
 

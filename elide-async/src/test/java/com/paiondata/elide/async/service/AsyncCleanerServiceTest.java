@@ -11,7 +11,6 @@ import static org.mockito.Mockito.mock;
 import com.paiondata.elide.Elide;
 import com.paiondata.elide.async.service.dao.AsyncApiDao;
 import com.paiondata.elide.async.service.dao.DefaultAsyncApiDao;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

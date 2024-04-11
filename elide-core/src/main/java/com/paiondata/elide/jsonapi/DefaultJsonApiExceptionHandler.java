@@ -43,7 +43,7 @@ public class DefaultJsonApiExceptionHandler extends ExceptionHandlerSupport<Json
     protected JsonApiErrorMapper jsonApiErrorMapper;
 
     public DefaultJsonApiExceptionHandler(ExceptionLogger exceptionLogger, ExceptionMappers exceptionMappers,
-            JsonApiErrorMapper jsonApiErrorMapper) {
+                                          JsonApiErrorMapper jsonApiErrorMapper) {
         super(exceptionLogger, exceptionMappers);
         this.jsonApiErrorMapper = jsonApiErrorMapper;
     }

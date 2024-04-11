@@ -7,13 +7,8 @@ package com.paiondata.elide.spring.config;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-import com.paiondata.elide.Elide;
-import com.paiondata.elide.ElideMapper;
-import com.paiondata.elide.ElideSettingsBuilderCustomizer;
-import com.paiondata.elide.ElideSettingsBuilderCustomizers;
-import com.paiondata.elide.RefreshableElide;
-import com.paiondata.elide.Serdes;
-import com.paiondata.elide.SerdesBuilderCustomizer;
+import com.paiondata.elide.*;
+import com.paiondata.elide.async.AsyncSettings;
 import com.paiondata.elide.async.AsyncSettingsBuilderCustomizer;
 import com.paiondata.elide.async.AsyncSettingsBuilderCustomizers;
 import com.paiondata.elide.async.models.AsyncQuery;
@@ -26,23 +21,7 @@ import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.dictionary.EntityDictionaryBuilderCustomizer;
 import com.paiondata.elide.core.dictionary.Injector;
-import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
-import com.paiondata.elide.core.exceptions.ExceptionLogger;
-import com.paiondata.elide.core.exceptions.ExceptionMapper;
-import com.paiondata.elide.core.exceptions.ExceptionMapperRegistration;
-import com.paiondata.elide.core.exceptions.ExceptionMappers;
-import com.paiondata.elide.core.exceptions.ExceptionMappersBuilderCustomizer;
-import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
 import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
-import com.paiondata.elide.core.request.route.ApiVersionValidator;
-import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
-import com.paiondata.elide.core.request.route.DelegatingRouteResolver;
-import com.paiondata.elide.core.request.route.HeaderRouteResolver;
-import com.paiondata.elide.core.request.route.MediaTypeProfileRouteResolver;
-import com.paiondata.elide.core.request.route.NullRouteResolver;
-import com.paiondata.elide.core.request.route.ParameterRouteResolver;
-import com.paiondata.elide.core.request.route.PathRouteResolver;
-import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.core.security.checks.Check;
 import com.paiondata.elide.core.security.checks.UserCheck;
 import com.paiondata.elide.core.security.checks.prefab.Role;
@@ -66,6 +45,45 @@ import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLD
 import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
 import com.paiondata.elide.datastores.aggregation.validator.TemplateConfigValidator;
 import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.graphql.*;
+import com.paiondata.elide.jsonapi.*;
+import com.paiondata.elide.jsonapi.links.DefaultJsonApiLinks;
+import com.paiondata.elide.modelconfig.DBPasswordExtractor;
+import com.paiondata.elide.modelconfig.DynamicConfiguration;
+import com.paiondata.elide.modelconfig.store.ConfigDataStore;
+import com.paiondata.elide.modelconfig.store.models.ConfigChecks;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.spring.controllers.ApiDocsController;
+import com.paiondata.elide.spring.datastore.config.DataStoreBuilder;
+import com.paiondata.elide.spring.datastore.config.DataStoreBuilderCustomizer;
+import com.paiondata.elide.spring.jackson.ObjectMapperBuilder;
+import com.paiondata.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.utils.HeaderProcessor;
+import com.paiondata.elide.utils.Headers;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideMapper;
+import com.paiondata.elide.ElideSettingsBuilderCustomizer;
+import com.paiondata.elide.ElideSettingsBuilderCustomizers;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.Serdes;
+import com.paiondata.elide.SerdesBuilderCustomizer;
+import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
+import com.paiondata.elide.core.exceptions.ExceptionLogger;
+import com.paiondata.elide.core.exceptions.ExceptionMapper;
+import com.paiondata.elide.core.exceptions.ExceptionMapperRegistration;
+import com.paiondata.elide.core.exceptions.ExceptionMappers;
+import com.paiondata.elide.core.exceptions.ExceptionMappersBuilderCustomizer;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.core.request.route.ApiVersionValidator;
+import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
+import com.paiondata.elide.core.request.route.DelegatingRouteResolver;
+import com.paiondata.elide.core.request.route.HeaderRouteResolver;
+import com.paiondata.elide.core.request.route.MediaTypeProfileRouteResolver;
+import com.paiondata.elide.core.request.route.NullRouteResolver;
+import com.paiondata.elide.core.request.route.ParameterRouteResolver;
+import com.paiondata.elide.core.request.route.PathRouteResolver;
+import com.paiondata.elide.core.request.route.RouteResolver;
 import com.paiondata.elide.graphql.DefaultGraphQLErrorMapper;
 import com.paiondata.elide.graphql.DefaultGraphQLExceptionHandler;
 import com.paiondata.elide.graphql.GraphQLErrorMapper;
@@ -81,42 +99,22 @@ import com.paiondata.elide.jsonapi.JsonApiExceptionHandler;
 import com.paiondata.elide.jsonapi.JsonApiMapper;
 import com.paiondata.elide.jsonapi.JsonApiSettingsBuilderCustomizer;
 import com.paiondata.elide.jsonapi.JsonApiSettingsBuilderCustomizers;
-import com.paiondata.elide.jsonapi.links.DefaultJsonApiLinks;
-import com.paiondata.elide.modelconfig.DBPasswordExtractor;
-import com.paiondata.elide.modelconfig.DynamicConfiguration;
-import com.paiondata.elide.modelconfig.store.ConfigDataStore;
-import com.paiondata.elide.modelconfig.store.models.ConfigChecks;
-import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
 import com.paiondata.elide.spring.api.BasicOpenApiDocumentCustomizer;
 import com.paiondata.elide.spring.api.DefaultElideGroupedOpenApiCustomizer;
 import com.paiondata.elide.spring.api.DefaultElideOpenApiCustomizer;
 import com.paiondata.elide.spring.api.ElideGroupedOpenApiCustomizer;
 import com.paiondata.elide.spring.api.ElideOpenApiCustomizer;
 import com.paiondata.elide.spring.api.OpenApiDocumentCustomizer;
-import com.paiondata.elide.spring.controllers.ApiDocsController;
-import com.paiondata.elide.spring.controllers.ApiDocsController.ApiDocsRegistration;
 import com.paiondata.elide.spring.controllers.ExportController;
 import com.paiondata.elide.spring.controllers.GraphqlController;
 import com.paiondata.elide.spring.controllers.JsonApiController;
-import com.paiondata.elide.spring.datastore.config.DataStoreBuilder;
-import com.paiondata.elide.spring.datastore.config.DataStoreBuilderCustomizer;
-import com.paiondata.elide.spring.jackson.ObjectMapperBuilder;
 import com.paiondata.elide.spring.orm.jpa.config.EnableJpaDataStore;
 import com.paiondata.elide.spring.orm.jpa.config.EnableJpaDataStores;
 import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistration;
 import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrations;
 import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilder;
 import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilderCustomizer;
-import com.paiondata.elide.swagger.OpenApiBuilder;
-import com.paiondata.elide.utils.HeaderProcessor;
-import com.paiondata.elide.utils.Headers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.ElideSettings;
-import com.paiondata.elide.Settings;
-import com.paiondata.elide.async.AsyncSettings;
-import com.paiondata.elide.graphql.GraphQLSettings;
-import com.paiondata.elide.jsonapi.JsonApiSettings;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
@@ -451,7 +449,7 @@ public class ElideAutoConfiguration {
     public JpaDataStoreRegistrationsBuilder jpaDataStoreRegistrationsBuilder(
             ApplicationContext applicationContext,
             ElideConfigProperties settings,
-            Optional<com.paiondata.elide.datastores.jpql.porting.QueryLogger> optionalQueryLogger,
+            Optional<QueryLogger> optionalQueryLogger,
             ObjectProvider<JpaDataStoreRegistrationsBuilderCustomizer> customizerProviders) {
         JpaDataStoreRegistrationsBuilder builder = new JpaDataStoreRegistrationsBuilder();
         String[] entityManagerFactoryNames = applicationContext.getBeanNamesForType(EntityManagerFactory.class);
@@ -704,8 +702,8 @@ public class ElideAutoConfiguration {
             @RefreshScope
             @ConditionalOnMissingBean
             public ApiDocsController.ApiDocsRegistrations apiDocsRegistrations(RefreshableElide elide,
-                    ElideConfigProperties settings, ServerProperties serverProperties,
-                    OpenApiDocumentCustomizer customizer) {
+                                                                               ElideConfigProperties settings, ServerProperties serverProperties,
+                                                                               OpenApiDocumentCustomizer customizer) {
                 return buildApiDocsRegistrations(elide, settings, serverProperties.getServlet().getContextPath(),
                         customizer);
             }
@@ -1109,7 +1107,7 @@ public class ElideAutoConfiguration {
 
         EntityDictionary dictionary = elide.getElide().getElideSettings().getEntityDictionary();
 
-        List<ApiDocsRegistration> registrations = new ArrayList<>();
+        List<ApiDocsController.ApiDocsRegistration> registrations = new ArrayList<>();
         dictionary.getApiVersions().stream().forEach(apiVersion -> {
             Supplier<OpenAPI> document = () -> {
                 OpenApiBuilder builder = new OpenApiBuilder(dictionary).apiVersion(apiVersion)
@@ -1149,7 +1147,7 @@ public class ElideAutoConfiguration {
                 customizer.customize(openApi);
                 return openApi;
             };
-            registrations.add(new ApiDocsRegistration("", SingletonSupplier.of(document),
+            registrations.add(new ApiDocsController.ApiDocsRegistration("", SingletonSupplier.of(document),
                     settings.getApiDocs().getVersion().getValue(), apiVersion));
         });
         return new ApiDocsController.ApiDocsRegistrations(registrations);
@@ -1224,9 +1222,9 @@ public class ElideAutoConfiguration {
      * @return the JpaDataStoreRegistration read from the application context.
      */
     private JpaDataStoreRegistration buildJpaDataStoreRegistration(ApplicationContext applicationContext,
-            String entityManagerFactoryName, String platformTransactionManagerName, ElideConfigProperties settings,
-            Optional<com.paiondata.elide.datastores.jpql.porting.QueryLogger> optionalQueryLogger,
-            Class<?>[] managedClasses) {
+                                                                   String entityManagerFactoryName, String platformTransactionManagerName, ElideConfigProperties settings,
+                                                                   Optional<QueryLogger> optionalQueryLogger,
+                                                                   Class<?>[] managedClasses) {
         PlatformTransactionManager platformTransactionManager = applicationContext
                 .getBean(platformTransactionManagerName, PlatformTransactionManager.class);
         EntityManagerFactory entityManagerFactory = applicationContext.getBean(entityManagerFactoryName,

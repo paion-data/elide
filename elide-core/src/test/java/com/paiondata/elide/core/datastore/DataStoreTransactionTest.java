@@ -6,7 +6,6 @@
 
 package com.paiondata.elide.core.datastore;
 
-import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -43,7 +42,7 @@ public class DataStoreTransactionTest implements DataStoreTransaction {
         EntityDictionary dictionary = mock(EntityDictionary.class);
 
         when(scope.getDictionary()).thenReturn(dictionary);
-        when(dictionary.getIdType(STRING_TYPE)).thenReturn(new ClassType(Long.class));
+        when(dictionary.getIdType(ClassType.STRING_TYPE)).thenReturn(new ClassType(Long.class));
         when(dictionary.getValue(ENTITY, NAME, scope)).thenReturn(3L);
         when(dictionary.getValue(ENTITY, NAME2, scope))
                 .thenReturn(new DataStoreIterableBuilder(List.of(1L, 2L, 3L)).build());

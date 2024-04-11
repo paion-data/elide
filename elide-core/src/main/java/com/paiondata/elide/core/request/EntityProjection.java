@@ -6,10 +6,10 @@
 
 package com.paiondata.elide.core.request;
 
-import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.exceptions.BadRequestException;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Streams;
 

@@ -5,8 +5,6 @@
  */
 package com.paiondata.elide.core.security;
 
-import static com.paiondata.elide.core.PersistentResource.ALL_FIELDS;
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -25,6 +23,7 @@ import com.paiondata.elide.core.security.checks.UserCheck;
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.type.ClassType;
 import example.TestCheckMappings;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.persistence.Entity;
@@ -50,10 +49,10 @@ public class PermissionExecutorTest {
         class Model implements SampleOperationModel {
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS,
-                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS,
+                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
 
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
@@ -65,8 +64,8 @@ public class PermissionExecutorTest {
         @UpdatePermission(expression = "sampleOperation AND Prefab.Role.None")
         class Model implements SampleOperationModel { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
@@ -85,11 +84,11 @@ public class PermissionExecutorTest {
             }
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
 
         // Because the object is newly created, the check is DEFERRED.
-        assertEquals(ExpressionResult.DEFERRED,
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
 
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
@@ -102,12 +101,12 @@ public class PermissionExecutorTest {
         @UpdatePermission(expression = "sampleOperation")
         class Model implements SampleOperationModel { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
 
         // Because the object is newly created, the check is DEFERRED.
-        assertEquals(ExpressionResult.DEFERRED,
-                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
+                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
 
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
@@ -119,12 +118,12 @@ public class PermissionExecutorTest {
         @UpdatePermission(expression = "sampleCommit")
         class Model implements SampleOperationModel { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
 
         // Because the check is runAtCommit, the check is DEFERRED.
-        assertEquals(ExpressionResult.DEFERRED,
-                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
+                requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
 
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
@@ -141,11 +140,11 @@ public class PermissionExecutorTest {
             }
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
 
         // Because the check is runAtCommit, the check is DEFERRED.
-        assertEquals(ExpressionResult.DEFERRED,
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
 
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
@@ -155,17 +154,17 @@ public class PermissionExecutorTest {
     public void testReadFieldAwareSuccessAllAnyField() {
         SampleBean sampleBean = new SampleBean();
         sampleBean.id = 1L;
-        PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS,
-                requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, ALL_FIELDS));
+        com.paiondata.elide.core.PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS,
+                requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testReadFieldAwareSuccessFailureAnyField() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
@@ -176,17 +175,17 @@ public class PermissionExecutorTest {
     public void testReadFieldAwareSuccessAll() {
         SampleBean sampleBean = new SampleBean();
         sampleBean.id = 1L;
-        PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS,
+        com.paiondata.elide.core.PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, new ChangeSpec(null, null, null, null), ReadPermission.class, "allVisible"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testReadFieldAwareFailureAllSpecificField() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkSpecificFieldPermissions(
@@ -196,8 +195,8 @@ public class PermissionExecutorTest {
 
     @Test
     public void testReadFieldAwareFailureAllNoOverride() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkSpecificFieldPermissions(
@@ -207,8 +206,8 @@ public class PermissionExecutorTest {
 
     @Test
     public void testReadFieldAwareFailureAll() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkSpecificFieldPermissions(
@@ -220,17 +219,17 @@ public class PermissionExecutorTest {
     public void testReadFieldAwareSuccessAny() {
         SampleBean sampleBean = new SampleBean();
         sampleBean.id = 1L;
-        PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS,
+        com.paiondata.elide.core.PersistentResource resource = newResource(sampleBean, SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, new ChangeSpec(null, null, null, null), ReadPermission.class, "mayFailInCommit"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testReadFieldAwareFailureAny() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkSpecificFieldPermissions(
@@ -242,17 +241,17 @@ public class PermissionExecutorTest {
     public void testUpdateFieldAwareSuccessAll() {
         SampleBean sampleBean = new SampleBean();
         sampleBean.id = 1L;
-        PersistentResource resource = newResource(sampleBean, SampleBean.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(sampleBean, SampleBean.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, new ChangeSpec(null, null, null, null), UpdatePermission.class, "allVisible"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testUpdateFieldAwareFailureAll() {
-        PersistentResource resource = newResource(SampleBean.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, UpdatePermission.class, "allVisible");
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
@@ -261,17 +260,17 @@ public class PermissionExecutorTest {
     public void testUpdateFieldAwareSuccessAny() {
         SampleBean sampleBean = new SampleBean();
         sampleBean.id = 1L;
-        PersistentResource resource = newResource(sampleBean, SampleBean.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(sampleBean, SampleBean.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, new ChangeSpec(null, null, null, null), UpdatePermission.class, "mayFailInCommit"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testUpdateFieldAwareFailureAny() {
-        PersistentResource resource = newResource(SampleBean.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, UpdatePermission.class, "mayFailInCommit");
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
@@ -280,17 +279,17 @@ public class PermissionExecutorTest {
     public void testReadFieldAwareEntireOpenBean() {
         OpenBean openBean = new OpenBean();
         openBean.id = 1L;
-        PersistentResource resource = newResource(openBean, OpenBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, ReadPermission.class, "open"));
+        com.paiondata.elide.core.PersistentResource resource = newResource(openBean, OpenBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, ReadPermission.class, "open"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testReadFailureFieldAwareOpenBean() {
-        PersistentResource resource = newResource(OpenBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(OpenBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkSpecificFieldPermissions(
@@ -311,9 +310,9 @@ public class PermissionExecutorTest {
             public String field = "some data";
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
@@ -331,9 +330,9 @@ public class PermissionExecutorTest {
             public String field = "some data";
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
@@ -351,9 +350,9 @@ public class PermissionExecutorTest {
             public String field = "some data";
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, UpdatePermission.class, "field"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
@@ -371,9 +370,9 @@ public class PermissionExecutorTest {
             public String field = "some data";
         }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, UpdatePermission.class, "field"));
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
@@ -385,8 +384,8 @@ public class PermissionExecutorTest {
         @UpdatePermission(expression = "privatePermission")
         class Model { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 IllegalArgumentException.class,
                 () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource));
@@ -395,19 +394,19 @@ public class PermissionExecutorTest {
 
     @Test
     public void testSpecificFieldOveriddenOperationCheckSucceed() {
-        PersistentResource resource = newResource(CheckedEntity.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(CheckedEntity.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         // Should succeed in operation check despite the commit check failure
-        assertEquals(ExpressionResult.DEFERRED,
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, null, UpdatePermission.class, "hello"));
         requestScope.getPermissionExecutor().executeCommitChecks();
     }
 
     @Test
     public void testSpecificFieldCommitCheckFailByOveriddenField() {
-        PersistentResource resource = newResource(CheckedEntity.class, true);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.DEFERRED,
+        com.paiondata.elide.core.PersistentResource resource = newResource(CheckedEntity.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.DEFERRED,
                 requestScope.getPermissionExecutor().checkSpecificFieldPermissions(resource, new ChangeSpec(null, null, null, null), UpdatePermission.class, "hello"));
         assertThrows(
                 ForbiddenAccessException.class,
@@ -421,10 +420,10 @@ public class PermissionExecutorTest {
         @ReadPermission(expression = "FailOp")
         class Model { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         requestScope.getDictionary().bindEntity(Model.class);
-        assertEquals(ExpressionResult.DEFERRED, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
+        Assertions.assertEquals(ExpressionResult.DEFERRED, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
 
@@ -435,51 +434,51 @@ public class PermissionExecutorTest {
         @DeletePermission(expression = "FailOp")
         class Model { }
 
-        PersistentResource resource = newResource(new Model(), Model.class, true);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(new Model(), Model.class, true);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         requestScope.getDictionary().bindEntity(Model.class);
-        assertEquals(ExpressionResult.DEFERRED, requestScope.getPermissionExecutor().checkPermission(DeletePermission.class, resource));
+        Assertions.assertEquals(ExpressionResult.DEFERRED, requestScope.getPermissionExecutor().checkPermission(DeletePermission.class, resource));
         assertThrows(ForbiddenAccessException.class, () -> requestScope.getPermissionExecutor().executeCommitChecks());
     }
 
     @Test
     public void testCache() {
-        PersistentResource resource = newResource(AnnotationOnlyRecord.class, false);
-        RequestScope requestScope = resource.getRequestScope();
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
+        com.paiondata.elide.core.PersistentResource resource = newResource(AnnotationOnlyRecord.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource));
     }
 
 
     @Test
     public void testNoCache() {
-        PersistentResource resource = newResource(AnnotationOnlyRecord.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(AnnotationOnlyRecord.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
-                () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
+                () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
         assertThrows(
                 ForbiddenAccessException.class,
-                () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
+                () -> requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
     }
 
     @Test
     public void testUserCheckCache() {
-        PersistentResource resource = newResource(UserCheckCacheRecord.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(UserCheckCacheRecord.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         // This should cache for updates, reads, etc.
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, ALL_FIELDS));
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, ALL_FIELDS));
-        assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(UpdatePermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
+        Assertions.assertEquals(ExpressionResult.PASS, requestScope.getPermissionExecutor().checkPermission(ReadPermission.class, resource, com.paiondata.elide.core.PersistentResource.ALL_FIELDS));
     }
 
     @Test
     public void testUserCheckOnFieldSuccess() {
         OpenBean openBean = new OpenBean();
         openBean.id = 1L;
-        PersistentResource resource = newResource(OpenBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(OpenBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         ExpressionResult result = requestScope.getPermissionExecutor().checkUserPermissions(ClassType.of(OpenBean.class),
                 ReadPermission.class,
                 "open");
@@ -489,8 +488,8 @@ public class PermissionExecutorTest {
 
     @Test
     public void testUserCheckOnFieldFailure() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
         assertThrows(
                 ForbiddenAccessException.class,
                 () -> requestScope.getPermissionExecutor().checkUserPermissions(ClassType.of(SampleBean.class),
@@ -500,8 +499,8 @@ public class PermissionExecutorTest {
 
     @Test
     public void testUserCheckOnFieldDeferred() {
-        PersistentResource resource = newResource(SampleBean.class, false);
-        RequestScope requestScope = resource.getRequestScope();
+        com.paiondata.elide.core.PersistentResource resource = newResource(SampleBean.class, false);
+        com.paiondata.elide.core.RequestScope requestScope = resource.getRequestScope();
 
         ExpressionResult result = requestScope.getPermissionExecutor().checkUserPermissions(ClassType.of(SampleBean.class),
                 ReadPermission.class,
@@ -510,13 +509,13 @@ public class PermissionExecutorTest {
         assertEquals(ExpressionResult.DEFERRED, result);
     }
 
-    public <T> PersistentResource<T> newResource(T obj, Class<T> cls, boolean markNew) {
+    public <T> com.paiondata.elide.core.PersistentResource<T> newResource(T obj, Class<T> cls, boolean markNew) {
         EntityDictionary dictionary = EntityDictionary.builder().checks(TestCheckMappings.MAPPINGS).build();
         dictionary.bindEntity(cls);
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
-        RequestScope requestScope = RequestScope.builder().route(route).requestId(UUID.randomUUID())
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
+        com.paiondata.elide.core.RequestScope requestScope = RequestScope.builder().route(route).requestId(UUID.randomUUID())
                 .elideSettings(getElideSettings(dictionary)).build();
-        PersistentResource resource = new PersistentResource<>(obj, requestScope.getUUIDFor(obj), requestScope);
+        com.paiondata.elide.core.PersistentResource resource = new com.paiondata.elide.core.PersistentResource<>(obj, requestScope.getUUIDFor(obj), requestScope);
         if (markNew) {
             requestScope.getNewPersistentResources().add(resource);
         }
@@ -540,7 +539,7 @@ public class PermissionExecutorTest {
 
     public static final class SampleOperationCheck extends OperationCheck<SampleOperationModel> {
         @Override
-        public boolean ok(SampleOperationModel model, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(SampleOperationModel model, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return model.test();
         }
     }
@@ -548,7 +547,7 @@ public class PermissionExecutorTest {
 
     public static final class SampleOperationCheckInverse extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return !changeSpec.isPresent();
         }
     }
@@ -560,7 +559,7 @@ public class PermissionExecutorTest {
         }
 
         @Override
-        public boolean ok(SampleOperationModel model, RequestScope requestScope,
+        public boolean ok(SampleOperationModel model, com.paiondata.elide.core.security.RequestScope requestScope,
                 Optional<ChangeSpec> changeSpec) {
             return model.test();
         }
@@ -634,21 +633,21 @@ public class PermissionExecutorTest {
     public static class ShouldCache extends OperationCheck<Object> {
         private static AtomicBoolean hasRun = new AtomicBoolean(false);
         @Override
-        public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return !hasRun.getAndSet(true);
         }
     }
 
     public static final class PassingOperationCheck extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return true;
         }
     }
 
     public static final class FailingOperationCheck extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return false;
         }
     }

@@ -11,9 +11,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.paiondata.elide.initialization.IntegrationTest;
 import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
 import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
-import com.paiondata.elide.initialization.IntegrationTest;
 import org.mockito.ArgumentCaptor;
 
 import java.util.List;

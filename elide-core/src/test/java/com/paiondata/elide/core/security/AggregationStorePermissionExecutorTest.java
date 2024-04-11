@@ -6,15 +6,12 @@
 
 package com.paiondata.elide.core.security;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
-
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
-import com.paiondata.elide.core.dictionary.TestDictionary;
 import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.predicates.NotNullPredicate;
@@ -26,6 +23,7 @@ import com.paiondata.elide.core.security.executors.AggregationStorePermissionExe
 import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.dictionary.TestDictionary;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -110,7 +108,7 @@ public class AggregationStorePermissionExecutorTest {
         Assertions.assertEquals(
                 ExpressionResult.PASS,
                 executor.checkSpecificFieldPermissions(
-                        new PersistentResource(new Model("dim1", 0, 1), "1", scope),
+                        new com.paiondata.elide.core.PersistentResource(new Model("dim1", 0, 1), "1", scope),
                         null, ReadPermission.class, "metric2"));
 
 
@@ -123,7 +121,7 @@ public class AggregationStorePermissionExecutorTest {
         Assertions.assertEquals(
                 ExpressionResult.PASS,
                 executor.checkPermission(ReadPermission.class,
-                        new PersistentResource(new Model("dim1", 0, 1), "1", scope),
+                        new com.paiondata.elide.core.PersistentResource(new Model("dim1", 0, 1), "1", scope),
                         new HashSet<>(Arrays.asList("filterDim", "metric"))));
 
         // evaluated expression = (user none OR null)
@@ -191,7 +189,7 @@ public class AggregationStorePermissionExecutorTest {
     private com.paiondata.elide.core.RequestScope bindAndgetRequestScope(Class clz) {
         dictionary.bindEntity(clz);
         dictionary.bindPermissionExecutor(clz, AggregationStorePermissionExecutor::new);
-        Route route = Route.builder().apiVersion(NO_VERSION).build();
+        Route route = Route.builder().apiVersion(EntityDictionary.NO_VERSION).build();
         return com.paiondata.elide.core.RequestScope.builder().route(route).requestId(UUID.randomUUID())
                 .elideSettings(elideSettings).build();
     }

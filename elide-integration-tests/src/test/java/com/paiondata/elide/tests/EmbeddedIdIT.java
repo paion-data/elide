@@ -7,12 +7,22 @@
 package com.paiondata.elide.tests;
 
 import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
 import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -23,9 +33,6 @@ import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.initialization.GraphQLIntegrationTest;
 import com.paiondata.elide.jsonapi.JsonApi;
 import com.google.common.collect.Sets;
-import com.paiondata.elide.test.graphql.GraphQLDSL;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import example.embeddedid.Address;
 import example.embeddedid.AddressSerde;
 import example.embeddedid.Building;
@@ -84,28 +91,28 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("building"),
-                                        JsonApiDSL.id(address1Id),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "Fort Knox")
+                        data(
+                                resource(
+                                        type("building"),
+                                        id(address1Id),
+                                        attributes(
+                                                attr("name", "Fort Knox")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("neighbors",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("building"), JsonApiDSL.id(address3Id))
+                                        relationships(
+                                                relation("neighbors",
+                                                        linkage(type("building"), id(address3Id))
                                                 )
                                         )
                                 ),
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("building"),
-                                        JsonApiDSL.id(address3Id),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "Assembly Hall")
+                                resource(
+                                        type("building"),
+                                        id(address3Id),
+                                        attributes(
+                                                attr("name", "Assembly Hall")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("neighbors",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("building"), JsonApiDSL.id(address1Id))
+                                        relationships(
+                                                relation("neighbors",
+                                                        linkage(type("building"), id(address1Id))
                                                 )
                                         )
                                 )
@@ -125,16 +132,16 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 .log().all()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                    JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("building"),
-                                JsonApiDSL.id(address1Id),
-                                JsonApiDSL.attributes(
-                                        JsonApiDSL.attr("name", "Fort Knox")
+                    datum(
+                        resource(
+                                type("building"),
+                                id(address1Id),
+                                attributes(
+                                        attr("name", "Fort Knox")
                                 ),
-                                JsonApiDSL.relationships(
-                                        JsonApiDSL.relation("neighbors",
-                                                JsonApiDSL.linkage(JsonApiDSL.type("building"), JsonApiDSL.id(address3Id))
+                                relationships(
+                                        relation("neighbors",
+                                                linkage(type("building"), id(address3Id))
                                         )
                                 )
                         )
@@ -153,16 +160,16 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                        JsonApiDSL.data(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("building"),
-                                        JsonApiDSL.id(address3Id),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("name", "Assembly Hall")
+                        data(
+                                resource(
+                                        type("building"),
+                                        id(address3Id),
+                                        attributes(
+                                                attr("name", "Assembly Hall")
                                         ),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation("neighbors",
-                                                        JsonApiDSL.linkage(JsonApiDSL.type("building"), JsonApiDSL.id(address1Id))
+                                        relationships(
+                                                relation("neighbors",
+                                                        linkage(type("building"), id(address1Id))
                                                 )
                                         )
                                 )
@@ -181,16 +188,16 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(
-                    JsonApiDSL.data(
-                        JsonApiDSL.resource(
-                            JsonApiDSL.type("building"),
-                            JsonApiDSL.id(address1Id),
-                            JsonApiDSL.attributes(
-                                JsonApiDSL.attr("name", "Fort Knox")
+                    data(
+                        resource(
+                            type("building"),
+                            id(address1Id),
+                            attributes(
+                                attr("name", "Fort Knox")
                             ),
-                            JsonApiDSL.relationships(
-                                JsonApiDSL.relation("neighbors",
-                                JsonApiDSL.linkage(JsonApiDSL.type("building"), JsonApiDSL.id(address3Id))
+                            relationships(
+                                relation("neighbors",
+                                linkage(type("building"), id(address3Id))
                             )
                         )
                     )
@@ -203,11 +210,11 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
         given()
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
-                .body(JsonApiDSL.data(
-                        JsonApiDSL.resource(
-                                JsonApiDSL.type("building"),
-                                JsonApiDSL.id(serde.serialize(address2)),
-                                JsonApiDSL.attributes(JsonApiDSL.attr(
+                .body(data(
+                        resource(
+                                type("building"),
+                                id(serde.serialize(address2)),
+                                attributes(attr(
                                         "name", "Altgeld Hall"
                                 ))
                         )
@@ -217,14 +224,14 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 .post("/building")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(equalTo(JsonApiDSL.datum(
-                        JsonApiDSL.resource(
-                            JsonApiDSL.type("building"),
-                            JsonApiDSL.id(serde.serialize(address2)),
-                            JsonApiDSL.attributes(JsonApiDSL.attr(
+                .body(equalTo(datum(
+                        resource(
+                            type("building"),
+                            id(serde.serialize(address2)),
+                            attributes(attr(
                                     "name", "Altgeld Hall"
                             )),
-                            JsonApiDSL.relationships(JsonApiDSL.relation("neighbors"))
+                            relationships(relation("neighbors"))
                         )).toJSON()
                 ));
     }
@@ -232,29 +239,29 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
 
     @Test
     public void testGraphQLFetchCollection() throws Exception {
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("address"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address", serde.serialize(address1)),
-                                        GraphQLDSL.field("name", "Fort Knox")
+                                selections(
+                                        field("address", serde.serialize(address1)),
+                                        field("name", "Fort Knox")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address", serde.serialize(address3)),
-                                        GraphQLDSL.field("name", "Assembly Hall")
+                                selections(
+                                        field("address", serde.serialize(address3)),
+                                        field("name", "Assembly Hall")
                                 )
                         )
                 )
@@ -267,28 +274,28 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
     public void testGraphQLFetchById() throws Exception {
         String addressId = serde.serialize(address1);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "building",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("ids", Arrays.asList(addressId))
+                                arguments(
+                                        argument("ids", Arrays.asList(addressId))
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("address"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address", addressId),
-                                        GraphQLDSL.field("name", "Fort Knox")
+                                selections(
+                                        field("address", addressId),
+                                        field("name", "Fort Knox")
                                 )
 
                         )
@@ -303,18 +310,18 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
         String address1Id = serde.serialize(address1);
         String address3Id = serde.serialize(address3);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "building",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("ids", Arrays.asList(address1Id))
+                                arguments(
+                                        argument("ids", Arrays.asList(address1Id))
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("neighbors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("name"),
-                                                        GraphQLDSL.field("address")
+                                selections(
+                                        field("neighbors",
+                                                selections(
+                                                        field("name"),
+                                                        field("address")
                                                 )
                                         )
                                 )
@@ -322,15 +329,15 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("neighbors",
-                                                GraphQLDSL.selections(
-                                                        GraphQLDSL.field("name", "Assembly Hall"),
-                                                        GraphQLDSL.field("address", address3Id)
+                                selections(
+                                        field("neighbors",
+                                                selections(
+                                                        field("name", "Assembly Hall"),
+                                                        field("address", address3Id)
                                                 )
                                         )
                                 )
@@ -345,28 +352,28 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
     public void testGraphQLFilterById() throws Exception {
         String addressId = serde.serialize(address1);
 
-        String graphQLRequest = GraphQLDSL.document(
-                GraphQLDSL.selection(
-                        GraphQLDSL.field(
+        String graphQLRequest = document(
+                selection(
+                        field(
                                 "building",
-                                GraphQLDSL.arguments(
-                                        GraphQLDSL.argument("filter", "\"id==\\\"" + addressId + "\\\"\"")
+                                arguments(
+                                        argument("filter", "\"id==\\\"" + addressId + "\\\"\"")
                                 ),
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address"),
-                                        GraphQLDSL.field("name")
+                                selections(
+                                        field("address"),
+                                        field("name")
                                 )
                         )
                 )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address", addressId),
-                                        GraphQLDSL.field("name", "Fort Knox")
+                                selections(
+                                        field("address", addressId),
+                                        field("name", "Fort Knox")
                                 )
 
                         )
@@ -390,31 +397,31 @@ public class EmbeddedIdIT extends GraphQLIntegrationTest {
         building.address = addressId;
         building.name = "Altgeld Hall";
 
-        String graphQLRequest = GraphQLDSL.document(
-            GraphQLDSL.mutation(
-                    GraphQLDSL.selection(
-                            GraphQLDSL.field(
+        String graphQLRequest = document(
+            mutation(
+                    selection(
+                            field(
                                     "building",
-                                    GraphQLDSL.arguments(
-                                            GraphQLDSL.argument("op", "UPSERT"),
-                                            GraphQLDSL.argument("data", building)
+                                    arguments(
+                                            argument("op", "UPSERT"),
+                                            argument("data", building)
                                     ),
-                                    GraphQLDSL.selections(
-                                            GraphQLDSL.field("address"),
-                                            GraphQLDSL.field("name")
+                                    selections(
+                                            field("address"),
+                                            field("name")
                                     )
                             )
                     )
             )
         ).toQuery();
 
-        String expected = GraphQLDSL.document(
-                GraphQLDSL.selections(
-                        GraphQLDSL.field(
+        String expected = document(
+                selections(
+                        field(
                                 "building",
-                                GraphQLDSL.selections(
-                                        GraphQLDSL.field("address", addressId),
-                                        GraphQLDSL.field("name", "Altgeld Hall")
+                                selections(
+                                        field("address", addressId),
+                                        field("name", "Altgeld Hall")
                                 )
 
                         )

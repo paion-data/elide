@@ -5,14 +5,9 @@
  */
 package com.paiondata.elide.core.lifecycle;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
-
 import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.annotation.LifeCycleHookBinding;
 import com.paiondata.elide.core.security.ChangeSpec;
-
 import com.paiondata.elide.core.security.RequestScope;
 
 import jakarta.persistence.Id;
@@ -38,7 +33,7 @@ public class PropertyTestModel {
                             PropertyTestModel elideEntity,
                             RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
-            elideEntity.relationCallback(operation, POSTCOMMIT, changes.orElse(null));
+            elideEntity.relationCallback(operation, LifeCycleHookBinding.TransactionPhase.POSTCOMMIT, changes.orElse(null));
         }
     }
 
@@ -53,9 +48,9 @@ public class PropertyTestModel {
 
     @ManyToMany
     @LifeCycleHookBinding(hook = PropertyTestModel.RelationPostCommitHook.class,
-            operation = CREATE, phase = POSTCOMMIT)
+            operation = LifeCycleHookBinding.Operation.CREATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
     @LifeCycleHookBinding(hook = PropertyTestModel.RelationPostCommitHook.class,
-            operation = UPDATE, phase = POSTCOMMIT)
+            operation = LifeCycleHookBinding.Operation.UPDATE, phase = LifeCycleHookBinding.TransactionPhase.POSTCOMMIT)
     public Set<PropertyTestModel> getModels() {
         return models;
     }

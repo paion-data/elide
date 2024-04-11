@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.example.beans.ExcludedBean;
+import com.paiondata.elide.example.beans.FirstBean;
+import com.paiondata.elide.example.beans.FirstChildBean;
+import com.paiondata.elide.example.beans.NonEntity;
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
@@ -20,13 +24,8 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
-import com.paiondata.elide.example.beans.ExcludedBean;
-import com.paiondata.elide.example.beans.FirstBean;
-import com.paiondata.elide.example.beans.FirstChildBean;
-import com.paiondata.elide.example.beans.NonEntity;
 import com.paiondata.elide.example.beans.SecondBean;
 import com.google.common.collect.ImmutableSet;
-
 import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

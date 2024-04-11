@@ -13,7 +13,6 @@ import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
 import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
-import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +33,7 @@ class JsonApiSettingsTest {
     @Test
     void withDefaults() {
         EntityDictionary entityDictionary = EntityDictionary.builder().build();
-        JsonApiSettings jsonApiSettings = JsonApiSettingsBuilder.withDefaults(entityDictionary).build();
+        JsonApiSettings jsonApiSettings = JsonApiSettings.JsonApiSettingsBuilder.withDefaults(entityDictionary).build();
         assertEquals(2, jsonApiSettings.getJoinFilterDialects().size());
         assertEquals(2, jsonApiSettings.getSubqueryFilterDialects().size());
     }

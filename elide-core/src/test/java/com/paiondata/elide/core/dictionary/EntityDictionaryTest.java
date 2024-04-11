@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.dictionary;
 
-import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -15,21 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.paiondata.elide.annotation.ComputedAttribute;
-import com.paiondata.elide.annotation.Exclude;
-import com.paiondata.elide.annotation.FilterExpressionPath;
-import com.paiondata.elide.annotation.Include;
-import com.paiondata.elide.annotation.LifeCycleHookBinding;
-import com.paiondata.elide.annotation.ReadPermission;
-import com.paiondata.elide.annotation.SecurityCheck;
-import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.exceptions.InvalidAttributeException;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.RequestScope;
 import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
 import com.paiondata.elide.core.security.checks.UserCheck;
-import com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly;
-import com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly;
 import com.paiondata.elide.core.security.checks.prefab.Role;
 import com.paiondata.elide.core.type.AccessibleObject;
 import com.paiondata.elide.core.type.ClassType;
@@ -37,6 +27,13 @@ import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.core.utils.coerce.converters.ISO8601DateSerde;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.FilterExpressionPath;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.SecurityCheck;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -68,6 +65,7 @@ import example.models.packageinfo.included.IncludedSubPackage;
 import example.models.versioned.BookV2;
 import example.nontransferable.NoTransferBiDirectional;
 import example.nontransferable.StrictNoTransfer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.inject.Inject;
@@ -156,8 +154,8 @@ public class EntityDictionaryTest extends EntityDictionary {
     public void testFindCheckByExpression() {
         assertEquals("user has all access", getCheckIdentifier(Role.ALL.class));
         assertEquals("Prefab.Role.None", getCheckIdentifier(Role.NONE.class));
-        assertEquals("Prefab.Collections.AppendOnly", getCheckIdentifier(AppendOnly.class));
-        assertEquals("Prefab.Collections.RemoveOnly", getCheckIdentifier(RemoveOnly.class));
+        assertEquals("Prefab.Collections.AppendOnly", getCheckIdentifier(com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly.class));
+        assertEquals("Prefab.Collections.RemoveOnly", getCheckIdentifier(com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly.class));
     }
 
     @SecurityCheck("User is Admin")
@@ -172,7 +170,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     @Test
     public void testBindingNoExcludeSet() {
 
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
         testDictionary.bindEntity(Employee.class);
         // Finds the Binding
         assertNotNull(testDictionary.entityBindings.get(ClassType.of(Employee.class)));
@@ -181,7 +179,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     @Test
     public void testCheckScan() {
 
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
         testDictionary.scanForSecurityChecks();
 
         assertEquals("User is Admin", testDictionary.getCheckIdentifier(Bar.class));
@@ -203,7 +201,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testCheckInjection() {
-        EntityDictionary testDictionary = builder()
+        EntityDictionary testDictionary = EntityDictionary.builder()
                 .injector(new Injector() {
                     @Override
                     public void inject(Object entity) {
@@ -272,7 +270,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         LifeCycleHook<Foo2> trigger = mock(LifeCycleHook.class);
 
-        bindTrigger(Foo2.class, "bar", UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger);
+        bindTrigger(Foo2.class, "bar", LifeCycleHookBinding.Operation.UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger);
         assertEquals(1, getAllExposedFields(ClassType.of(Foo2.class)).size());
     }
 
@@ -289,7 +287,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         LifeCycleHook<Foo3> trigger = mock(LifeCycleHook.class);
 
-        bindTrigger(Foo3.class, UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger, true);
+        bindTrigger(Foo3.class, LifeCycleHookBinding.Operation.UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger, true);
         assertEquals(1, getAllExposedFields(ClassType.of(Foo3.class)).size());
     }
 
@@ -306,7 +304,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         LifeCycleHook<Foo4> trigger = mock(LifeCycleHook.class);
 
-        bindTrigger(Foo4.class, UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger, false);
+        bindTrigger(Foo4.class, LifeCycleHookBinding.Operation.UPDATE, LifeCycleHookBinding.TransactionPhase.PRESECURITY, trigger, false);
         assertEquals(1, getAllExposedFields(ClassType.of(Foo4.class)).size());
     }
 
@@ -405,27 +403,27 @@ public class EntityDictionaryTest extends EntityDictionary {
         type = getParameterizedType(fun, "relation3");
         assertEquals(ClassType.of(Child.class), type, "A Child object should return Child.class");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(FieldAnnotations.class),
                 getParameterizedType(ClassType.of(FieldAnnotations.class), "children"),
                 "getParameterizedType return the type of a private field relationship");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Child.class),
                 getParameterizedType(ClassType.of(Parent.class), "children"),
                 "getParameterizedType returns the type of relationship fields");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Employee.class),
                 getParameterizedType(ClassType.of(Manager.class), "minions"),
                 "getParameterizedType returns the correct generic type of a to-many relationship");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Book.class),
                 getParameterizedType(ClassType.of(Author.class), "products"),
                 "getParameterizedType returns the correct targetEntity type of a to-many relationship");
 
-        assertEquals(ClassType.of(Manager.class), getParameterizedType(ClassType.of(Employee.class), "boss"),
+        Assertions.assertEquals(ClassType.of(Manager.class), getParameterizedType(ClassType.of(Employee.class), "boss"),
                 "getParameterizedType returns the correct generic type of a to-one relationship");
     }
 
@@ -587,80 +585,80 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testGetIdType() throws Exception {
-        assertEquals(getIdType(ClassType.of(Parent.class)), ClassType.of(long.class),
+        Assertions.assertEquals(getIdType(ClassType.of(Parent.class)), ClassType.of(long.class),
                 "getIdType returns the type of the ID field of the given class");
 
-        assertEquals(getIdType(ClassType.of(StringId.class)), ClassType.of(String.class),
+        Assertions.assertEquals(getIdType(ClassType.of(StringId.class)), ClassType.of(String.class),
                 "getIdType returns the type of the ID field of the given class");
 
-        assertNull(getIdType(ClassType.of(NoId.class)),
+        Assertions.assertNull(getIdType(ClassType.of(NoId.class)),
                 "getIdType returns null if ID field is missing");
 
-        assertEquals(getIdType(ClassType.of(Friend.class)), ClassType.of(long.class),
+        Assertions.assertEquals(getIdType(ClassType.of(Friend.class)), ClassType.of(long.class),
                 "getIdType returns the type of the ID field when defined in a super class");
     }
 
     @Test
     public void testGetType() throws Exception {
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Long.class),
                 getType(ClassType.of(FieldAnnotations.class), "id"),
                 "getType returns the type of the ID field of the given class");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(long.class),
                 getType(ClassType.of(FieldAnnotations.class), "publicField"),
                 "getType returns the type of attribute when Column annotation is on a field");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Boolean.class),
                 getType(ClassType.of(FieldAnnotations.class), "privateField"),
                 "getType returns the type of attribute when Column annotation is on a getter");
 
-        assertNull(getType(ClassType.of(FieldAnnotations.class), "missingField"),
+        Assertions.assertNull(getType(ClassType.of(FieldAnnotations.class), "missingField"),
                 "getId returns null if attribute is missing"
         );
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(FieldAnnotations.class),
                 getType(ClassType.of(FieldAnnotations.class), "parent"),
                 "getType return the type of a private field relationship");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Set.class),
                 getType(ClassType.of(FieldAnnotations.class), "children"),
                 "getType return the type of a private field relationship");
 
-        assertEquals(
+        Assertions.assertEquals(
                 ClassType.of(Set.class),
                 getType(ClassType.of(Parent.class), "children"),
                 "getType returns the type of relationship fields");
 
-        assertEquals(ClassType.of(String.class), getType(ClassType.of(Friend.class), "name"),
+        Assertions.assertEquals(ClassType.of(String.class), getType(ClassType.of(Friend.class), "name"),
                 "getType returns the type of attribute when defined in a super class");
 
-        assertEquals(ClassType.of(Object.class), getType(ClassType.of(Employee.class), "boss"),
+        Assertions.assertEquals(ClassType.of(Object.class), getType(ClassType.of(Employee.class), "boss"),
                 "getType returns the correct generic type of a to-one relationship");
 
-        assertEquals(ClassType.of(Set.class), getType(ClassType.of(Manager.class), "minions"),
+        Assertions.assertEquals(ClassType.of(Set.class), getType(ClassType.of(Manager.class), "minions"),
                 "getType returns the correct generic type of a to-many relationship");
 
         // ID is "id"
-        assertEquals(ClassType.of(long.class), getType(ClassType.of(Parent.class), "id"),
+        Assertions.assertEquals(ClassType.of(long.class), getType(ClassType.of(Parent.class), "id"),
                 "getType returns the type of surrogate key");
 
         // ID is not "id"
-        assertEquals(ClassType.of(Long.class), getType(ClassType.of(Job.class), "jobId"),
+        Assertions.assertEquals(ClassType.of(Long.class), getType(ClassType.of(Job.class), "jobId"),
                 "getType returns the type of surrogate key");
-        assertEquals(ClassType.of(Long.class), getType(ClassType.of(Job.class), "id"),
+        Assertions.assertEquals(ClassType.of(Long.class), getType(ClassType.of(Job.class), "id"),
                 "getType returns the type of surrogate key");
-        assertEquals(ClassType.of(String.class), getType(ClassType.of(StringId.class), "surrogateKey"),
+        Assertions.assertEquals(ClassType.of(String.class), getType(ClassType.of(StringId.class), "surrogateKey"),
                 "getType returns the type of surrogate key");
-        assertEquals(ClassType.of(String.class), getType(ClassType.of(StringId.class), "id"),
+        Assertions.assertEquals(ClassType.of(String.class), getType(ClassType.of(StringId.class), "id"),
                 "getType returns the type of surrogate key");
 
         // Test targetEntity on a method.
-        assertEquals(ClassType.of(Collection.class), getType(ClassType.of(Author.class), "products"));
+        Assertions.assertEquals(ClassType.of(Collection.class), getType(ClassType.of(Author.class), "products"));
     }
 
     @Test
@@ -705,15 +703,15 @@ public class EntityDictionaryTest extends EntityDictionary {
         bindEntity(SubclassBinding.class);
         bindEntity(SubsubclassBinding.class);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubsubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubsubclassBinding.class)));
 
         assertNull(getEntityClass("subclassBinding", NO_VERSION));
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityClass("superclassBinding", NO_VERSION));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityClass("superclassBinding", NO_VERSION));
 
         assertEquals("superclassBinding", getJsonAliasFor(ClassType.of(SubclassBinding.class)));
         assertEquals("superclassBinding", getJsonAliasFor(ClassType.of(SuperclassBinding.class)));
@@ -741,13 +739,13 @@ public class EntityDictionaryTest extends EntityDictionary {
         bindEntity(SuperclassBinding.class);
         bindEntity(SubsubclassBinding.class);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SubsubclassBinding.class), getEntityBinding(ClassType.of(SubsubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SubsubclassBinding.class), getEntityBinding(ClassType.of(SubsubclassBinding.class)).entityClass);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubclassBinding.class)));
-        assertEquals(ClassType.of(SubsubclassBinding.class), lookupEntityClass(ClassType.of(SubsubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SubsubclassBinding.class), lookupEntityClass(ClassType.of(SubsubclassBinding.class)));
     }
 
     @Test
@@ -761,7 +759,7 @@ public class EntityDictionaryTest extends EntityDictionary {
         bindEntity(SuperclassBinding.class);
 
         assertNull(getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupEntityClass(ClassType.of(SuperclassBinding.class)));
     }
 
     @Test
@@ -780,12 +778,12 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         bindEntity(SuperclassBinding.class);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubsubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubsubclassBinding.class)));
     }
 
     @Test
@@ -808,13 +806,13 @@ public class EntityDictionaryTest extends EntityDictionary {
         bindEntity(SuperclassBinding.class);
         bindEntity(SubsubclassBinding.class);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SubsubclassBinding.class), getEntityBinding(ClassType.of(SubsubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SubsubclassBinding.class), getEntityBinding(ClassType.of(SubsubclassBinding.class)).entityClass);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
-        assertEquals(ClassType.of(SubsubclassBinding.class), lookupIncludeClass(ClassType.of(SubsubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SubsubclassBinding.class), lookupIncludeClass(ClassType.of(SubsubclassBinding.class)));
     }
 
     @Test
@@ -835,14 +833,14 @@ public class EntityDictionaryTest extends EntityDictionary {
         bindEntity(SuperclassBinding.class);
         bindEntity(SubsubclassBinding.class);
 
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
-        assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SubclassBinding.class)).entityClass);
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), getEntityBinding(ClassType.of(SuperclassBinding.class)).entityClass);
         assertThrows(IllegalArgumentException.class, () ->
             getEntityBinding(ClassType.of(SubsubclassBinding.class))
         );
 
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
-        assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SuperclassBinding.class)));
+        Assertions.assertEquals(ClassType.of(SuperclassBinding.class), lookupIncludeClass(ClassType.of(SubclassBinding.class)));
         assertNull(lookupIncludeClass(ClassType.of(SubsubclassBinding.class)));
     }
 
@@ -900,7 +898,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testFieldIsInjected() {
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
 
         @Include(rootLevel = false)
         class FieldInject {
@@ -915,7 +913,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testInheritedFieldIsInjected() {
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
         class BaseClass {
             @Inject
             private String field;
@@ -933,7 +931,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testMethodIsInjected() {
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
 
         @Include(rootLevel = false)
         class MethodInject {
@@ -950,7 +948,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testInhertedMethodIsInjected() {
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
         class BaseClass {
             @Inject
             private void setField(String field) {
@@ -970,7 +968,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testConstructorIsInjected() {
-        EntityDictionary testDictionary = builder().build();
+        EntityDictionary testDictionary = EntityDictionary.builder().build();
 
         @Include(rootLevel = false)
         class ConstructorInject {
@@ -998,12 +996,12 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         initializeEntity(book);
 
-        RequestScope scope = mock(RequestScope.class);
+        com.paiondata.elide.core.RequestScope scope = mock(com.paiondata.elide.core.RequestScope.class);
 
         assertEquals("Book", getSimpleName(ClassType.of(Book.class)));
-        assertEquals("getEditor",
+        Assertions.assertEquals("getEditor",
                 findMethod(ClassType.of(Book.class), "getEditor").getName());
-        assertEquals("setGenre",
+        Assertions.assertEquals("setGenre",
                 findMethod(ClassType.of(Book.class), "setGenre", ClassType.of(String.class)).getName());
 
         setValue(book, "genre", "Elide");
@@ -1015,11 +1013,11 @@ public class EntityDictionaryTest extends EntityDictionary {
         assertEquals("1234", getId(book));
         assertTrue(isRoot(ClassType.of(Book.class)));
 
-        assertEquals(ClassType.of(Book.class), lookupBoundClass(ClassType.of(Book.class)));
+        Assertions.assertEquals(ClassType.of(Book.class), lookupBoundClass(ClassType.of(Book.class)));
         assertNull(lookupBoundClass(ClassType.of(String.class)));
         // check proxy lookup
         assertNotEquals(ClassType.of(Book.class), book.getClass());
-        assertEquals(ClassType.of(Book.class), lookupBoundClass(ClassType.of(Book.class)));
+        Assertions.assertEquals(ClassType.of(Book.class), lookupBoundClass(ClassType.of(Book.class)));
 
         assertFalse(isComputed(ClassType.of(Book.class), "genre"));
         assertTrue(isComputed(ClassType.of(Book.class), "editor"));
@@ -1111,7 +1109,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     @Test
     public void testGetBoundByVersion() {
         Set<Type<?>> models = getBoundClassesByVersion("1.0");
-        assertEquals(3, models.size());  //Also includes com.yahoo.elide inner classes from this file.
+        assertEquals(3, models.size());  //Also includes com.paiondata.elide inner classes from this file.
         assertTrue(models.contains(ClassType.of(BookV2.class)));
 
         models = getBoundClassesByVersion(NO_VERSION);
@@ -1205,14 +1203,14 @@ public class EntityDictionaryTest extends EntityDictionary {
 
     @Test
     public void testEntityDescription() {
-        assertEquals("A book publisher", getEntityDescription(ClassType.of(Publisher.class)));
-        assertNull(getEntityDescription(ClassType.of(Book.class)));
+        assertEquals("A book publisher", EntityDictionary.getEntityDescription(ClassType.of(Publisher.class)));
+        assertNull(EntityDictionary.getEntityDescription(ClassType.of(Book.class)));
     }
 
     @Test
     void builderRoleChecksCustomizer() {
         UserCheck userCheck = mock(UserCheck.class);
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .roleChecks(roleChecks -> roleChecks.put("test", userCheck)).build();
         assertNotNull(entityDictionary.getRoleChecks().get("test"));
     }
@@ -1220,35 +1218,35 @@ public class EntityDictionaryTest extends EntityDictionary {
     @Test
     void builderRoleChecks() {
         UserCheck userCheck = mock(UserCheck.class);
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .roleChecks(Map.of("test", userCheck)).build();
         assertNotNull(entityDictionary.getRoleChecks().get("test"));
     }
 
     @Test
     void builderChecksCustomizer() {
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .checks(checks -> checks.put("test", TestCheck.class)).build();
         assertNotNull(entityDictionary.getCheck("test"));
     }
 
     @Test
     void builderChecks() {
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .checks(Map.of("test", TestCheck.class)).build();
         assertNotNull(entityDictionary.getCheck("test"));
     }
 
     @Test
     void builderEntitiesToExcludeCustomizer() {
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .entitiesToExclude(entitiesToExclude -> entitiesToExclude.add(ClassType.of(TestCheck.class))).build();
         assertEquals(1, entityDictionary.getEntitiesToExclude().size());
     }
 
     @Test
     void builderEntitiesToExclude() {
-        EntityDictionary entityDictionary = builder()
+        EntityDictionary entityDictionary = EntityDictionary.builder()
                 .entitiesToExclude(Set.of(ClassType.of(TestCheck.class))).build();
         assertEquals(1, entityDictionary.getEntitiesToExclude().size());
     }

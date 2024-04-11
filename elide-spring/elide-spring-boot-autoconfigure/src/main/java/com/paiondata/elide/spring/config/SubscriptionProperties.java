@@ -6,7 +6,6 @@
 package com.paiondata.elide.spring.config;
 
 import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
-
 import org.springframework.boot.convert.DurationUnit;
 
 import lombok.Data;

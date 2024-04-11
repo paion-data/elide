@@ -6,6 +6,7 @@
 
 package com.paiondata.elide.graphql.subscriptions.hooks;
 
+import static com.paiondata.elide.core.PersistentResource.CLASS_NO_FIELD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -15,8 +16,6 @@ import com.paiondata.elide.core.type.ClassType;
 import com.paiondata.elide.core.utils.ClassScanner;
 import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.core.PersistentResource;
-
 import example.Author;
 import example.Book;
 import org.junit.jupiter.api.Test;
@@ -43,12 +42,12 @@ public class SubscriptionScannerTest {
         assertEquals(1, dictionary.getTriggers(ClassType.of(Book.class),
                 LifeCycleHookBinding.Operation.CREATE,
                 LifeCycleHookBinding.TransactionPhase.POSTCOMMIT,
-                PersistentResource.CLASS_NO_FIELD).size());
+                CLASS_NO_FIELD).size());
 
         assertEquals(0, dictionary.getTriggers(ClassType.of(Book.class),
                 LifeCycleHookBinding.Operation.DELETE,
                 LifeCycleHookBinding.TransactionPhase.POSTCOMMIT,
-                PersistentResource.CLASS_NO_FIELD).size());
+                CLASS_NO_FIELD).size());
 
         assertEquals(1, dictionary.getTriggers(ClassType.of(Book.class),
                 LifeCycleHookBinding.Operation.UPDATE,
@@ -78,12 +77,12 @@ public class SubscriptionScannerTest {
         assertEquals(1, dictionary.getTriggers(ClassType.of(Author.class),
                 LifeCycleHookBinding.Operation.CREATE,
                 LifeCycleHookBinding.TransactionPhase.POSTCOMMIT,
-                PersistentResource.CLASS_NO_FIELD).size());
+                CLASS_NO_FIELD).size());
 
         assertEquals(1, dictionary.getTriggers(ClassType.of(Author.class),
                 LifeCycleHookBinding.Operation.DELETE,
                 LifeCycleHookBinding.TransactionPhase.POSTCOMMIT,
-                PersistentResource.CLASS_NO_FIELD).size());
+                CLASS_NO_FIELD).size());
 
         assertEquals(1, dictionary.getTriggers(ClassType.of(Author.class),
                 LifeCycleHookBinding.Operation.UPDATE,

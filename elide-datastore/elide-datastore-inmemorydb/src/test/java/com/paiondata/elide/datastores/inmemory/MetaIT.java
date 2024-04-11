@@ -13,8 +13,8 @@ import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
 import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
 import com.paiondata.elide.jsonapi.JsonApi;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;

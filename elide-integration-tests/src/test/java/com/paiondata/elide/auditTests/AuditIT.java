@@ -5,9 +5,15 @@
  */
 package com.paiondata.elide.auditTests;
 
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,8 +25,6 @@ import com.paiondata.elide.jsonapi.JsonApi;
 import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.paiondata.elide.test.jsonapi.elements.ResourceLinkage;
-import com.paiondata.elide.test.jsonapi.JsonApiDSL;
-
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
@@ -34,45 +38,45 @@ public class AuditIT extends IntegrationTest {
         super(AuditIntegrationTestApplicationResourceConfig.class, JsonApiEndpoint.class.getPackage().getName());
     }
 
-    private static final Resource AUDIT_1 = JsonApiDSL.resource(
-            JsonApiDSL.type("auditEntity"),
-            JsonApiDSL.id("1"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("value", "test abc")
+    private static final Resource AUDIT_1 = resource(
+            type("auditEntity"),
+            id("1"),
+            attributes(
+                    attr("value", "test abc")
             )
     );
 
-    private static final Resource AUDIT_1_RELATIONSHIP = JsonApiDSL.resource(
-            JsonApiDSL.type("auditEntity"),
-            JsonApiDSL.id("1"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("value", "updated value")
+    private static final Resource AUDIT_1_RELATIONSHIP = resource(
+            type("auditEntity"),
+            id("1"),
+            attributes(
+                    attr("value", "updated value")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation(
+            relationships(
+                    relation(
                             "otherEntity",
                             true,
-                            JsonApiDSL.linkage(
-                                    JsonApiDSL.type("auditEntity"),
-                                    JsonApiDSL.id("2")
+                            linkage(
+                                    type("auditEntity"),
+                                    id("2")
                             )
                     )
             )
     );
 
-    private static final Resource AUDIT_2 = JsonApiDSL.resource(
-            JsonApiDSL.type("auditEntity"),
-            JsonApiDSL.id("2"),
-            JsonApiDSL.attributes(
-                    JsonApiDSL.attr("value", "test def")
+    private static final Resource AUDIT_2 = resource(
+            type("auditEntity"),
+            id("2"),
+            attributes(
+                    attr("value", "test def")
             ),
-            JsonApiDSL.relationships(
-                    JsonApiDSL.relation(
+            relationships(
+                    relation(
                             "otherEntity",
                             true,
-                            JsonApiDSL.linkage(
-                                    JsonApiDSL.type("auditEntity"),
-                                    JsonApiDSL.id("1")
+                            linkage(
+                                    type("auditEntity"),
+                                    id("1")
                             )
                     )
             )
@@ -80,16 +84,16 @@ public class AuditIT extends IntegrationTest {
 
     @Test
     public void testAuditOnCreate() {
-        String expected = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("auditEntity"),
-                        JsonApiDSL.id("1"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("value", "test abc")
+        String expected = datum(
+                resource(
+                        type("auditEntity"),
+                        id("1"),
+                        attributes(
+                                attr("value", "test abc")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation("otherEntity", (ResourceLinkage[]) null),
-                                JsonApiDSL.relation("inverses")
+                        relationships(
+                                relation("otherEntity", (ResourceLinkage[]) null),
+                                relation("inverses")
                         )
                 )
         ).toJSON();
@@ -105,22 +109,22 @@ public class AuditIT extends IntegrationTest {
 
     @Test
     public void testAuditOnUpdate() {
-        String expected = JsonApiDSL.datum(
-                JsonApiDSL.resource(
-                        JsonApiDSL.type("auditEntity"),
-                        JsonApiDSL.id("2"),
-                        JsonApiDSL.attributes(
-                                JsonApiDSL.attr("value", "test def")
+        String expected = datum(
+                resource(
+                        type("auditEntity"),
+                        id("2"),
+                        attributes(
+                                attr("value", "test def")
                         ),
-                        JsonApiDSL.relationships(
-                                JsonApiDSL.relation(
+                        relationships(
+                                relation(
                                         "otherEntity",
-                                        JsonApiDSL.linkage(
-                                                JsonApiDSL.type("auditEntity"),
-                                                JsonApiDSL.id("1")
+                                        linkage(
+                                                type("auditEntity"),
+                                                id("1")
                                         )
                                 ),
-                                JsonApiDSL.relation("inverses")
+                                relation("inverses")
                         )
                 )
         ).toJSON();
@@ -138,7 +142,7 @@ public class AuditIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(AUDIT_1_RELATIONSHIP).toJSON()
+                        datum(AUDIT_1_RELATIONSHIP).toJSON()
                 )
                 .patch("/auditEntity/1")
                 .then()
@@ -159,12 +163,12 @@ public class AuditIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("auditEntity"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.attributes(
-                                                JsonApiDSL.attr("value", "update id 1 through id 2")
+                        datum(
+                                resource(
+                                        type("auditEntity"),
+                                        id("1"),
+                                        attributes(
+                                                attr("value", "update id 1 through id 2")
                                         )
                                 )
                         ).toJSON()
@@ -185,7 +189,7 @@ public class AuditIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(AUDIT_1_RELATIONSHIP).toJSON()
+                        datum(AUDIT_1_RELATIONSHIP).toJSON()
                 )
                 .patch("/auditEntity/1")
                 .then()
@@ -197,16 +201,16 @@ public class AuditIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(
-                                JsonApiDSL.resource(
-                                        JsonApiDSL.type("auditEntityInverse"),
-                                        JsonApiDSL.id("1"),
-                                        JsonApiDSL.relationships(
-                                                JsonApiDSL.relation(
+                        datum(
+                                resource(
+                                        type("auditEntityInverse"),
+                                        id("1"),
+                                        relationships(
+                                                relation(
                                                         "entities",
-                                                        JsonApiDSL.linkage(
-                                                                JsonApiDSL.type("auditEntity"),
-                                                                JsonApiDSL.id("1")
+                                                        linkage(
+                                                                type("auditEntity"),
+                                                                id("1")
                                                         )
                                                 )
                                         )
@@ -243,7 +247,7 @@ public class AuditIT extends IntegrationTest {
                 .contentType(JsonApi.MEDIA_TYPE)
                 .accept(JsonApi.MEDIA_TYPE)
                 .body(
-                        JsonApiDSL.datum(auditEntity).toJSON()
+                        datum(auditEntity).toJSON()
                 )
                 .post("/auditEntity")
                 .then()

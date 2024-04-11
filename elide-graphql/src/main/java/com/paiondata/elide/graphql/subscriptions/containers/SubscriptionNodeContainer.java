@@ -5,11 +5,11 @@
  */
 package com.paiondata.elide.graphql.subscriptions.containers;
 
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.containers.NodeContainer;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.dictionary.RelationshipType;
 import com.paiondata.elide.core.request.Relationship;
-import com.paiondata.elide.graphql.Environment;
-import com.paiondata.elide.graphql.containers.NodeContainer;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

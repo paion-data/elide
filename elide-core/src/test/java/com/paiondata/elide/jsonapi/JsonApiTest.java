@@ -57,6 +57,7 @@ import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
+import org.mockito.ArgumentMatchers;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import jakarta.validation.ConstraintViolation;
@@ -608,7 +609,7 @@ public class JsonApiTest {
         ConstraintViolationException e = new ConstraintViolationException("message", violations);
 
         when(store.beginTransaction()).thenReturn(tx);
-        when(tx.createNewObject(eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
+        when(tx.createNewObject(ArgumentMatchers.eq(ClassType.of(FieldTestModel.class)), any())).thenReturn(mockModel);
         doThrow(e).when(tx).preCommit(any());
 
         Route route = Route.builder().baseUrl(BASE_URL).path("/testModel").build();

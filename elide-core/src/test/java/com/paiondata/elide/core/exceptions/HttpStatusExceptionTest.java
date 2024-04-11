@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.paiondata.elide.ElideErrorResponse;
 import com.paiondata.elide.ElideErrors;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Supplier;
@@ -21,7 +22,7 @@ class HttpStatusExceptionTest {
         String expected = "test<script>encoding";
         HttpStatusException exception =  new HttpStatusException(500, "test<script>encoding") { };
         ElideErrorResponse<?> res = exception.getErrorResponse();
-        assertEquals(expected, res.getBody(ElideErrors.class).getErrors().get(0).getMessage());
+        Assertions.assertEquals(expected, res.getBody(ElideErrors.class).getErrors().get(0).getMessage());
     }
 
     @Test

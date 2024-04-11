@@ -5,9 +5,9 @@
  */
 package com.paiondata.elide.datastores.jpql;
 
+import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.Path;
 import com.paiondata.elide.core.RequestScope;
-import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
 import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
 import com.paiondata.elide.core.datastore.DataStoreTransaction;

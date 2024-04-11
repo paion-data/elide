@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -53,6 +54,6 @@ class ParameterRouteResolverTest {
         Route route = resolver.resolve(null, null, null, Collections.emptyMap(), parameters);
         assertSame(parameters, route.getParameters());
         assertNotNull(route.getParameters().get("v"));
-        assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
+        Assertions.assertEquals(EntityDictionary.NO_VERSION, route.getApiVersion());
     }
 }

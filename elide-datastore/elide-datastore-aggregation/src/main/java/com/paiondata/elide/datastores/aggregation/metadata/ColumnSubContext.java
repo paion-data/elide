@@ -7,9 +7,9 @@
 package com.paiondata.elide.datastores.aggregation.metadata;
 
 
-import com.paiondata.elide.core.request.Argument;
 import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
 import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.core.request.Argument;
 import com.github.jknack.handlebars.HandlebarsException;
 
 import lombok.Builder;

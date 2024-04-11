@@ -5,8 +5,6 @@
  */
 package com.paiondata.elide.modelconfig.model;
 
-import static com.paiondata.elide.modelconfig.model.NamespaceConfig.DEFAULT;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -42,7 +40,7 @@ public class Join implements Named {
     private String name;
 
     @JsonProperty("namespace")
-    private String namespace = DEFAULT;
+    private String namespace = NamespaceConfig.DEFAULT;
 
     @JsonProperty("to")
     private String to;
@@ -61,7 +59,7 @@ public class Join implements Named {
      * @return The global name of the destination join table.
      */
     public String getTo() {
-        if (namespace == null || namespace.isEmpty() || namespace.equals(DEFAULT)) {
+        if (namespace == null || namespace.isEmpty() || namespace.equals(NamespaceConfig.DEFAULT)) {
             return to;
         }
 

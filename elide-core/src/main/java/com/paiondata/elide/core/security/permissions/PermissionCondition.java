@@ -6,14 +6,14 @@
 
 package com.paiondata.elide.core.security.permissions;
 
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.PersistentResource;
+import com.paiondata.elide.core.type.Type;
 import com.paiondata.elide.annotation.CreatePermission;
 import com.paiondata.elide.annotation.DeletePermission;
 import com.paiondata.elide.annotation.NonTransferable;
 import com.paiondata.elide.annotation.ReadPermission;
 import com.paiondata.elide.annotation.UpdatePermission;
-import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.PersistentResource;
-import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.Getter;

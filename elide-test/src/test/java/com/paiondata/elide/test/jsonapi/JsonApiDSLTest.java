@@ -10,12 +10,11 @@ import static com.paiondata.elide.test.jsonapi.JsonApiDSL.atomicOperation;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
 import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.paiondata.elide.test.jsonapi.elements.Relation.TO_ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.paiondata.elide.test.jsonapi.elements.AtomicOperationCode;
-
 import com.paiondata.elide.test.jsonapi.elements.PatchOperationType;
+import com.paiondata.elide.test.jsonapi.elements.Relation;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,8 +67,8 @@ public class JsonApiDSLTest {
                                 JsonApiDSL.attr("title", "title")
                         ),
                         JsonApiDSL.relationships(
-                                relation("author",
-                                        TO_ONE,
+                                JsonApiDSL.relation("author",
+                                        Relation.TO_ONE,
                                         JsonApiDSL.linkage(JsonApiDSL.type("author"), JsonApiDSL.id("1"))
                                 )
                         )
@@ -215,7 +214,7 @@ public class JsonApiDSLTest {
                                         JsonApiDSL.attr("title", "title")
                                 ),
                                 JsonApiDSL.relationships(
-                                        relation("author", TO_ONE)
+                                        JsonApiDSL.relation("author", Relation.TO_ONE)
                                 )
                         )
                 ).toJSON();

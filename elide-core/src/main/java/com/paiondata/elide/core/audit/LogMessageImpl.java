@@ -5,10 +5,10 @@
  */
 package com.paiondata.elide.core.audit;
 
-import com.paiondata.elide.annotation.Audit;
+import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.ResourceLineage;
+import com.paiondata.elide.annotation.Audit;
 import com.paiondata.elide.core.security.ChangeSpec;
-import com.paiondata.elide.core.security.PersistentResource;
 import com.paiondata.elide.core.security.User;
 
 import jakarta.el.ELContext;
@@ -51,7 +51,7 @@ public class LogMessageImpl implements LogMessage {
     private final User user;
 
     @Getter
-    private final PersistentResource persistentResource;
+    private final com.paiondata.elide.core.security.PersistentResource persistentResource;
 
     /**
      * Construct a log message that does not involve any templating.
@@ -69,7 +69,7 @@ public class LogMessageImpl implements LogMessage {
      * @param changeSpec - Change spec of modified elements (if logging object change). empty otherwise
      * @throws InvalidSyntaxException if the Audit annotation has invalid syntax.
      */
-    public LogMessageImpl(Audit audit, PersistentResource record, Optional<ChangeSpec> changeSpec)
+    public LogMessageImpl(Audit audit, com.paiondata.elide.core.security.PersistentResource record, Optional<ChangeSpec> changeSpec)
             throws InvalidSyntaxException {
         this(audit.logStatement(), record, audit.logExpressions(), audit.operation(), changeSpec);
     }
@@ -84,7 +84,7 @@ public class LogMessageImpl implements LogMessage {
      * @throws InvalidSyntaxException the invalid syntax exception
      */
     public LogMessageImpl(String template,
-                          PersistentResource record,
+                          com.paiondata.elide.core.security.PersistentResource record,
                           String[] expressions,
                           int code,
                           Optional<ChangeSpec> changeSpec) throws InvalidSyntaxException {
@@ -103,12 +103,12 @@ public class LogMessageImpl implements LogMessage {
 
         if (persistentResource != null) {
             /* Create a new lineage which includes the passed in record */
-            com.paiondata.elide.core.PersistentResource internalResource = (
-                    com.paiondata.elide.core.PersistentResource) persistentResource;
+            PersistentResource internalResource = (
+                    PersistentResource) persistentResource;
             ResourceLineage lineage = new ResourceLineage(internalResource.getLineage(), internalResource, null);
 
             for (String name : lineage.getKeys()) {
-                List<com.paiondata.elide.core.PersistentResource> values = lineage.getRecord(name);
+                List<PersistentResource> values = lineage.getRecord(name);
 
                 final ValueExpression expression;
                 final ValueExpression singleElementExpression;
@@ -116,7 +116,7 @@ public class LogMessageImpl implements LogMessage {
                     expression = EXPRESSION_FACTORY.createValueExpression(values.get(0).getObject(), Object.class);
                     singleElementExpression = expression;
                 } else {
-                    List<Object> objects = values.stream().map(PersistentResource::getObject)
+                    List<Object> objects = values.stream().map(com.paiondata.elide.core.security.PersistentResource::getObject)
                             .collect(Collectors.toList());
                     expression = EXPRESSION_FACTORY.createValueExpression(objects, List.class);
                     singleElementExpression = EXPRESSION_FACTORY.createValueExpression(values.get(values.size() - 1)

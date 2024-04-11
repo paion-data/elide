@@ -9,15 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.GraphQLRequestScope;
+import com.paiondata.elide.graphql.containers.NodeContainer;
+import com.paiondata.elide.models.Book;
 import com.paiondata.elide.ElideSettings;
 import com.paiondata.elide.core.PersistentResource;
 import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.request.route.Route;
 import com.paiondata.elide.core.type.ClassType;
-import com.paiondata.elide.graphql.GraphQLNameUtils;
-import com.paiondata.elide.graphql.GraphQLRequestScope;
-import com.paiondata.elide.graphql.containers.NodeContainer;
-import com.paiondata.elide.models.Book;
 
 import org.junit.jupiter.api.Test;
 

@@ -5,11 +5,9 @@
  */
 package com.paiondata.elide.datastores.jms.websocket;
 
-import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder;
-
 /**
- * Used to customize the mutable {@link SubscriptionWebSocketConfiguratorBuilder}.
+ * Used to customize the mutable {@link SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder}.
  */
 public interface SubscriptionWebSocketConfiguratorBuilderCustomizer {
-    public void customize(SubscriptionWebSocketConfiguratorBuilder builder);
+    public void customize(SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder builder);
 }

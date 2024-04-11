@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.get;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.paiondata.elide.graphql.GraphQLEndpoint;
 import com.paiondata.elide.core.datastore.DataStore;
 import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
 import com.paiondata.elide.core.exceptions.HttpStatus;
@@ -19,8 +20,6 @@ import com.paiondata.elide.test.jsonapi.elements.Data;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paiondata.elide.graphql.GraphQLEndpoint;
-
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;

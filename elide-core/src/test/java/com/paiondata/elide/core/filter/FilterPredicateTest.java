@@ -5,7 +5,6 @@
  */
 package com.paiondata.elide.core.filter;
 
-import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,7 +59,7 @@ public class FilterPredicateTest {
 
         Map<String, FilterExpression> expressionMap;
         try {
-            expressionMap = strategy.parseTypedExpression("/book", queryParams, NO_VERSION);
+            expressionMap = strategy.parseTypedExpression("/book", queryParams, EntityDictionary.NO_VERSION);
         } catch (ParseException e) {
             throw new BadRequestException(e.getMessage());
         }

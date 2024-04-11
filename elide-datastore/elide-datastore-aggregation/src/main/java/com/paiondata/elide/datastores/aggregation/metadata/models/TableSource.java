@@ -5,8 +5,8 @@
  */
 package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import com.paiondata.elide.annotation.Include;
 import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.annotation.Include;
 import com.google.common.base.Preconditions;
 
 import jakarta.persistence.Id;

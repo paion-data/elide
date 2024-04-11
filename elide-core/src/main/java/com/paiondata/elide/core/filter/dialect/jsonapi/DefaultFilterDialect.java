@@ -6,17 +6,16 @@
 package com.paiondata.elide.core.filter.dialect.jsonapi;
 
 import com.paiondata.elide.core.Path;
-import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import com.paiondata.elide.core.filter.dialect.ParseException;
 import com.paiondata.elide.core.filter.expression.AndFilterExpression;
 import com.paiondata.elide.core.filter.expression.FilterExpression;
 import com.paiondata.elide.core.filter.predicates.FilterPredicate;
-import com.paiondata.elide.core.type.Type;
-import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.paiondata.elide.jsonapi.parser.JsonApiParser;
-
-import com.paiondata.elide.core.type.ClassType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -227,20 +226,20 @@ public class DefaultFilterDialect implements JoinFilterDialect, SubqueryFilterDi
      */
     private void validateFilterPredicate(FilterPredicate filterPredicate) throws ParseException {
         switch (filterPredicate.getOperator()) {
-            case Operator.ISEMPTY:
-            case Operator.NOTEMPTY:
+            case ISEMPTY:
+            case NOTEMPTY:
                 emptyOperatorConditions(filterPredicate);
                 break;
-            case Operator.HASMEMBER:
-            case Operator.HASNOMEMBER:
+            case HASMEMBER:
+            case HASNOMEMBER:
                 memberOfOperatorConditions(filterPredicate);
                 break;
-            case Operator.SUBSETOF:
-            case Operator.NOTSUBSETOF:
+            case SUBSETOF:
+            case NOTSUBSETOF:
                 subsetOfOperatorConditions(filterPredicate);
                 break;
-            case Operator.SUPERSETOF:
-            case Operator.NOTSUPERSETOF:
+            case SUPERSETOF:
+            case NOTSUPERSETOF:
                 supersetOfOperatorConditions(filterPredicate);
                 break;
         }

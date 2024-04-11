@@ -8,10 +8,10 @@ package com.paiondata.elide.core.datastore.wrapped;
 
 import com.paiondata.elide.core.RequestScope;
 import com.paiondata.elide.core.datastore.DataStoreIterable;
-import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import com.paiondata.elide.core.request.Attribute;
 import com.paiondata.elide.core.request.EntityProjection;
 import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
