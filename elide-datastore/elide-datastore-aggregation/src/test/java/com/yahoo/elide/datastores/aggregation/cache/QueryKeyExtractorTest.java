@@ -4,28 +4,28 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.cache;
+package com.paiondata.elide.datastores.aggregation.cache;
 
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage;
-import com.yahoo.elide.datastores.aggregation.dynamic.TableType;
-import com.yahoo.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Namespace;
-import com.yahoo.elide.datastores.aggregation.query.ImmutablePagination;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-import com.yahoo.elide.modelconfig.model.Dimension;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
-import com.yahoo.elide.modelconfig.model.Table;
-import com.yahoo.elide.modelconfig.model.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
+import com.paiondata.elide.datastores.aggregation.dynamic.TableType;
+import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
+import com.paiondata.elide.datastores.aggregation.query.ImmutablePagination;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.modelconfig.model.Dimension;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.Type;
 import example.PlayerStats;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

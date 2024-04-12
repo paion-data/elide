@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide;
+package com.paiondata.elide;
 
-import com.yahoo.elide.ElideErrors.ElideErrorsBuilder;
-import com.yahoo.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.ElideErrors.ElideErrorsBuilder;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 
 import java.util.function.Consumer;
 

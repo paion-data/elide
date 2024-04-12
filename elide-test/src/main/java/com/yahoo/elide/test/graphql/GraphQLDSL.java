@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.test.graphql;
+package com.paiondata.elide.test.graphql;
 
-import com.yahoo.elide.test.graphql.elements.Argument;
-import com.yahoo.elide.test.graphql.elements.Arguments;
-import com.yahoo.elide.test.graphql.elements.Definition;
-import com.yahoo.elide.test.graphql.elements.Document;
-import com.yahoo.elide.test.graphql.elements.Edges;
-import com.yahoo.elide.test.graphql.elements.Field;
-import com.yahoo.elide.test.graphql.elements.Mutation;
-import com.yahoo.elide.test.graphql.elements.Node;
-import com.yahoo.elide.test.graphql.elements.Query;
-import com.yahoo.elide.test.graphql.elements.Selection;
-import com.yahoo.elide.test.graphql.elements.SelectionSet;
-import com.yahoo.elide.test.graphql.elements.VariableDefinition;
-import com.yahoo.elide.test.graphql.elements.VariableDefinitions;
+import com.paiondata.elide.test.graphql.elements.Argument;
+import com.paiondata.elide.test.graphql.elements.Arguments;
+import com.paiondata.elide.test.graphql.elements.Definition;
+import com.paiondata.elide.test.graphql.elements.Document;
+import com.paiondata.elide.test.graphql.elements.Edges;
+import com.paiondata.elide.test.graphql.elements.Field;
+import com.paiondata.elide.test.graphql.elements.Mutation;
+import com.paiondata.elide.test.graphql.elements.Node;
+import com.paiondata.elide.test.graphql.elements.Query;
+import com.paiondata.elide.test.graphql.elements.Selection;
+import com.paiondata.elide.test.graphql.elements.SelectionSet;
+import com.paiondata.elide.test.graphql.elements.VariableDefinition;
+import com.paiondata.elide.test.graphql.elements.VariableDefinitions;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

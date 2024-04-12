@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import static com.yahoo.elide.core.utils.TypeHelper.getClassType;
+import static com.paiondata.elide.core.utils.TypeHelper.getClassType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -14,13 +14,13 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.Optimizer;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.Optimizer;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

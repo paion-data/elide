@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 /**
  * Utility methods for customizing a {@link JsonApiSettingsBuilder}.

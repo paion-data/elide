@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,9 +16,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 

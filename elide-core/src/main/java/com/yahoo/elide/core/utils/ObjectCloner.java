@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils;
+package com.paiondata.elide.core.utils;
 
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 
 /**
  * Clones an object.

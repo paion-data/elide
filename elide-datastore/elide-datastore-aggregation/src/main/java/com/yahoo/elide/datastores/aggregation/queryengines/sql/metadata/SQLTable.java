@@ -3,40 +3,40 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata;
 
-import static com.yahoo.elide.datastores.aggregation.metadata.ColumnContext.PERIOD;
+import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.PERIOD;
 import static java.util.Collections.emptyMap;
 
-import com.yahoo.elide.core.dictionary.EntityBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.Join;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ColumnType;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.datastores.aggregation.metadata.models.ArgumentDefinition;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Column;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Dimension;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Namespace;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Table;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TimeDimension;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.DimensionProjection;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjection;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjectionMaker;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
-import com.yahoo.elide.datastores.aggregation.query.TableSQLMaker;
-import com.yahoo.elide.datastores.aggregation.query.TimeDimensionProjection;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.SQLDimensionProjection;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.SQLTimeDimensionProjection;
+import com.paiondata.elide.core.dictionary.EntityBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.Join;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.metadata.models.ArgumentDefinition;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Column;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimension;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.DimensionProjection;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
+import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLDimensionProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLTimeDimensionProjection;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Subselect;
 

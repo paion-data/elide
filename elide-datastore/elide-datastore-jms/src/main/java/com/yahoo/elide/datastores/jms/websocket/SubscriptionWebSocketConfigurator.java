@@ -4,22 +4,22 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms.websocket;
+package com.paiondata.elide.datastores.jms.websocket;
 
-import static com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
+import static com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.ElideSettingsBuilderCustomizer;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.datastores.jms.JMSDataStore;
-import com.yahoo.elide.graphql.GraphQLSettings;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.graphql.serialization.GraphQLModule;
-import com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.ElideSettingsBuilderCustomizer;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.datastores.jms.JMSDataStore;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

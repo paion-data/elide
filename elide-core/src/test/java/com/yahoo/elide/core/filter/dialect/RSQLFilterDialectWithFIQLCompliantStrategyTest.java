@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect;
+package com.paiondata.elide.core.filter.dialect;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
 import example.Author;
 import example.Book;
 import org.junit.jupiter.api.BeforeAll;

@@ -4,17 +4,17 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.hooks;
+package com.paiondata.elide.graphql.subscriptions.hooks;
 
-import static com.yahoo.elide.core.PersistentResource.CLASS_NO_FIELD;
+import static com.paiondata.elide.core.PersistentResource.CLASS_NO_FIELD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.Author;
 import example.Book;

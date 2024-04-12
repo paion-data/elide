@@ -3,20 +3,20 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.resources;
+package com.paiondata.elide.jsonapi.resources;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.route.BasicApiVersionValidator;
-import com.yahoo.elide.core.request.route.FlexibleRouteResolver;
-import com.yahoo.elide.core.request.route.NullRouteResolver;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.utils.HeaderProcessor;
-import com.yahoo.elide.utils.ResourceUtils;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
+import com.paiondata.elide.core.request.route.FlexibleRouteResolver;
+import com.paiondata.elide.core.request.route.NullRouteResolver;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.utils.HeaderProcessor;
+import com.paiondata.elide.utils.ResourceUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import jakarta.inject.Inject;

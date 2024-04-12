@@ -3,27 +3,27 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core;
+package com.paiondata.elide.core;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.ALL_OPERATIONS;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.ALL_OPERATIONS;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidAttributeException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.lifecycle.CRUDEvent;
-import com.yahoo.elide.core.lifecycle.LifecycleHookInvoker;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.PermissionExecutor;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.executors.ActivePermissionExecutor;
-import com.yahoo.elide.core.security.executors.MultiplexPermissionExecutor;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.lifecycle.CRUDEvent;
+import com.paiondata.elide.core.lifecycle.LifecycleHookInvoker;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.PermissionExecutor;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.executors.ActivePermissionExecutor;
+import com.paiondata.elide.core.security.executors.MultiplexPermissionExecutor;
+import com.paiondata.elide.core.type.Type;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +42,7 @@ import java.util.function.Function;
 /**
  * Request scope object for relaying request-related data to various subsystems.
  */
-public class RequestScope implements com.yahoo.elide.core.security.RequestScope {
+public class RequestScope implements com.paiondata.elide.core.security.RequestScope {
     protected Route route;
     @Getter private final DataStoreTransaction transaction;
     @Getter private final User user;
@@ -146,7 +146,7 @@ public class RequestScope implements com.yahoo.elide.core.security.RequestScope 
         }
     }
 
-    public Set<com.yahoo.elide.core.security.PersistentResource> getNewResources() {
+    public Set<com.paiondata.elide.core.security.PersistentResource> getNewResources() {
         return (Set) newPersistentResources;
     }
 

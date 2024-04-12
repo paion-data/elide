@@ -4,21 +4,21 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpressionVisitor;
-import com.yahoo.elide.core.filter.expression.NotFilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.HasJoinVisitor;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.Reference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.HasJoinVisitor;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Reference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 
 import lombok.Builder;
 import lombok.Data;

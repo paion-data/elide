@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.tests;
+package com.paiondata.elide.tests;
 
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.initialization.IntegrationTest;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.initialization.IntegrationTest;
 import example.Parent;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

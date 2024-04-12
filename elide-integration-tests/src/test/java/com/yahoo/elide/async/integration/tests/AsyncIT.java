@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.integration.tests;
+package com.paiondata.elide.async.integration.tests;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.argument;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.arguments;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.document;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.mutation;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selections;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.data;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -27,21 +27,21 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
-import com.yahoo.elide.async.models.QueryType;
-import com.yahoo.elide.core.audit.TestAuditLogger;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
-import com.yahoo.elide.jsonapi.resources.SecurityContextUser;
-import com.yahoo.elide.test.graphql.EnumFieldSerializer;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
+import com.paiondata.elide.async.models.QueryType;
+import com.paiondata.elide.core.audit.TestAuditLogger;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.jsonapi.resources.SecurityContextUser;
+import com.paiondata.elide.test.graphql.EnumFieldSerializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.junit.jupiter.api.Test;
@@ -478,7 +478,7 @@ public class AsyncIT extends AsyncApiIT {
         String id = "edc4a871-dff2-4054-804e-d80075c08959";
         String query = "test-query";
 
-        com.yahoo.elide.async.models.AsyncQuery queryObj = new com.yahoo.elide.async.models.AsyncQuery();
+        com.paiondata.elide.async.models.AsyncQuery queryObj = new com.paiondata.elide.async.models.AsyncQuery();
         queryObj.setId(id);
         queryObj.setQuery(query);
         queryObj.setQueryType(QueryType.JSONAPI_V1_0);

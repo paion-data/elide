@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.request;
+package com.paiondata.elide.core.request;
 
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Streams;
 

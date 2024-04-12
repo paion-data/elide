@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone;
+package com.paiondata.elide.standalone;
 
-import static com.yahoo.elide.standalone.config.ElideResourceConfig.ASYNC_EXECUTOR_ATTR;
-import static com.yahoo.elide.standalone.config.ElideResourceConfig.ASYNC_UPDATER_ATTR;
-import static com.yahoo.elide.standalone.config.ElideResourceConfig.ELIDE_STANDALONE_SETTINGS_ATTR;
+import static com.paiondata.elide.standalone.config.ElideResourceConfig.ASYNC_EXECUTOR_ATTR;
+import static com.paiondata.elide.standalone.config.ElideResourceConfig.ASYNC_UPDATER_ATTR;
+import static com.paiondata.elide.standalone.config.ElideResourceConfig.ELIDE_STANDALONE_SETTINGS_ATTR;
 
-import com.yahoo.elide.async.service.AsyncExecutorService;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.standalone.config.ElideResourceConfig;
-import com.yahoo.elide.standalone.config.ElideStandaloneSettings;
-import com.yahoo.elide.standalone.config.ElideStandaloneSubscriptionSettings;
+import com.paiondata.elide.async.service.AsyncExecutorService;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.standalone.config.ElideResourceConfig;
+import com.paiondata.elide.standalone.config.ElideStandaloneSettings;
+import com.paiondata.elide.standalone.config.ElideStandaloneSubscriptionSettings;
 import org.eclipse.jetty.ee10.servlet.FilterHolder;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
@@ -101,7 +101,7 @@ public class ElideStandalone {
                     elideStandaloneSettings.getJsonApiPathSpec());
             jerseyServlet.setInitOrder(0);
             jerseyServlet.setInitParameter("jersey.config.server.provider.packages",
-                    "com.yahoo.elide.jsonapi.resources");
+                    "com.paiondata.elide.jsonapi.resources");
             jerseyServlet.setInitParameter("jakarta.ws.rs.Application", ElideResourceConfig.class.getCanonicalName());
         }
 
@@ -109,7 +109,7 @@ public class ElideStandalone {
             ServletHolder jerseyServlet = context.addServlet(ServletContainer.class,
                     elideStandaloneSettings.getGraphQLApiPathSpec());
             jerseyServlet.setInitOrder(0);
-            jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "com.yahoo.elide.graphql");
+            jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "com.paiondata.elide.graphql");
             jerseyServlet.setInitParameter("jakarta.ws.rs.Application", ElideResourceConfig.class.getCanonicalName());
         }
         ElideStandaloneSubscriptionSettings subscriptionSettings = elideStandaloneSettings.getSubscriptionProperties();
@@ -128,7 +128,7 @@ public class ElideStandalone {
                     elideStandaloneSettings.getAsyncProperties().getExportApiPathSpec());
             jerseyServlet.setInitOrder(0);
             jerseyServlet.setInitParameter("jersey.config.server.provider.packages",
-                    "com.yahoo.elide.async.resources");
+                    "com.paiondata.elide.async.resources");
             jerseyServlet.setInitParameter("jakarta.ws.rs.Application", ElideResourceConfig.class.getCanonicalName());
         }
 
@@ -153,7 +153,7 @@ public class ElideStandalone {
                     elideStandaloneSettings.getApiDocsPathSpec());
             jerseyServlet.setInitOrder(0);
             jerseyServlet.setInitParameter("jersey.config.server.provider.packages",
-                    "com.yahoo.elide.swagger.resources");
+                    "com.paiondata.elide.swagger.resources");
             jerseyServlet.setInitParameter("jakarta.ws.rs.Application", ElideResourceConfig.class.getCanonicalName());
         }
 

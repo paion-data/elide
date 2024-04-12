@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.core;
+package com.paiondata.elide.datastores.aggregation.core;
 
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;

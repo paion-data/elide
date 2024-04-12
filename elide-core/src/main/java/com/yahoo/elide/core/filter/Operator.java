@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter;
+package com.paiondata.elide.core.filter;
 
-import static com.yahoo.elide.core.type.ClassType.COLLECTION_TYPE;
+import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
 import static java.util.Map.entry;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.InvalidOperatorNegationException;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.InvalidOperatorNegationException;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import org.apache.commons.collections4.CollectionUtils;
 
 import lombok.Getter;

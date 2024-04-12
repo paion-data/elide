@@ -3,42 +3,42 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata;
+package com.paiondata.elide.datastores.aggregation.metadata;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.core.utils.TypeHelper.getClassType;
-import static com.yahoo.elide.datastores.aggregation.AggregationDataStore.IS_FIELD_HIDDEN;
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.EMPTY;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.utils.TypeHelper.getClassType;
+import static com.paiondata.elide.datastores.aggregation.AggregationDataStore.IS_FIELD_HIDDEN;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.EMPTY;
 
-import com.yahoo.elide.annotation.ApiVersion;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.DuplicateMappingException;
-import com.yahoo.elide.core.exceptions.InternalServerErrorException;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.datastores.aggregation.AggregationDataStore;
-import com.yahoo.elide.datastores.aggregation.annotation.MetricFormula;
-import com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage;
-import com.yahoo.elide.datastores.aggregation.dynamic.TableType;
-import com.yahoo.elide.datastores.aggregation.metadata.models.ArgumentDefinition;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Column;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Dimension;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Namespace;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Table;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TableSource;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TimeDimension;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TimeDimensionGrain;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Versioned;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
+import com.paiondata.elide.annotation.ApiVersion;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.DuplicateMappingException;
+import com.paiondata.elide.core.exceptions.InternalServerErrorException;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
+import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
+import com.paiondata.elide.datastores.aggregation.dynamic.TableType;
+import com.paiondata.elide.datastores.aggregation.metadata.models.ArgumentDefinition;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Column;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TableSource;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimension;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimensionGrain;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Versioned;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.annotations.Subselect;
 
@@ -92,13 +92,13 @@ public class MetaDataStore implements DataStore {
 
     public MetaDataStore(
             ClassScanner scanner,
-            Collection<com.yahoo.elide.modelconfig.model.Table> tables,
+            Collection<com.paiondata.elide.modelconfig.model.Table> tables,
             boolean enableMetaDataStore) {
         this(scanner, tables, new HashSet<>(), enableMetaDataStore);
     }
 
-    public MetaDataStore(ClassScanner scanner, Collection<com.yahoo.elide.modelconfig.model.Table> tables,
-            Collection<com.yahoo.elide.modelconfig.model.NamespaceConfig> namespaceConfigs,
+    public MetaDataStore(ClassScanner scanner, Collection<com.paiondata.elide.modelconfig.model.Table> tables,
+            Collection<com.paiondata.elide.modelconfig.model.NamespaceConfig> namespaceConfigs,
             boolean enableMetaDataStore) {
         this(scanner, getClassType(getAllAnnotatedClasses(scanner)), enableMetaDataStore);
 

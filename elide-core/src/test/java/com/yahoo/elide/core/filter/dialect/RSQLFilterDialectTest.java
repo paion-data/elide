@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect;
+package com.paiondata.elide.core.filter.dialect;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import example.Author;
 import example.Book;
 import example.Job;

@@ -4,21 +4,21 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.search;
+package com.paiondata.elide.datastores.search;
 
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.data;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.initialization.AbstractApiResourceInitializer;
-import com.yahoo.elide.jsonapi.JsonApi;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.initialization.AbstractApiResourceInitializer;
+import com.paiondata.elide.jsonapi.JsonApi;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

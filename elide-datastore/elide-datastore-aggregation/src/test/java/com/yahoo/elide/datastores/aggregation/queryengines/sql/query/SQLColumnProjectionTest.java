@@ -4,27 +4,27 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.ArgumentDefinition;
-import com.yahoo.elide.datastores.aggregation.annotation.DimensionFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.Join;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.ArgumentDefinition;
+import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.Join;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 import org.junit.jupiter.api.Test;
 
 import jakarta.persistence.Id;

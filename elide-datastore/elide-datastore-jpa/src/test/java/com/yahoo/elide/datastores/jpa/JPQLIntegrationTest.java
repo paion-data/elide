@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
-import com.yahoo.elide.initialization.IntegrationTest;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.initialization.IntegrationTest;
 import org.mockito.ArgumentCaptor;
 
 import java.util.List;

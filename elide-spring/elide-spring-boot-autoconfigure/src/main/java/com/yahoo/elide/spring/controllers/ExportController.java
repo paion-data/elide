@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.controllers;
+package com.paiondata.elide.spring.controllers;
 
-import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
-import com.yahoo.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

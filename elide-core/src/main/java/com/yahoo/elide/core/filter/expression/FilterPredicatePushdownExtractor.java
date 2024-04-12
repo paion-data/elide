@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.filter.expression;
+package com.paiondata.elide.core.filter.expression;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
 
 /**
  * Examines a FilterExpression to determine if some or all of it can be pushed to the data store.

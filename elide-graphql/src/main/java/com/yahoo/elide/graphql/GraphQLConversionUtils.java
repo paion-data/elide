@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static graphql.scalars.ExtendedScalars.GraphQLBigDecimal;
 import static graphql.scalars.ExtendedScalars.GraphQLBigInteger;
@@ -15,11 +15,11 @@ import static graphql.schema.GraphQLInputObjectField.newInputObjectField;
 import static graphql.schema.GraphQLInputObjectType.newInputObject;
 import static graphql.schema.GraphQLObjectType.newObject;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.core.utils.coerce.converters.ElideTypeConverter;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
 
 import graphql.Scalars;
 import graphql.scalars.java.JavaPrimitives;

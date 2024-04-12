@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.test.jsonapi.elements;
+package com.paiondata.elide.test.jsonapi.elements;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

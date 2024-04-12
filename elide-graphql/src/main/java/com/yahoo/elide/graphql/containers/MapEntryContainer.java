@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.containers;
+package com.paiondata.elide.graphql.containers;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.graphql.Entity;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.graphql.Entity;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.NonEntityDictionary;
 
 import java.util.Collection;
 import java.util.HashMap;

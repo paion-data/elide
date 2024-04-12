@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.containers;
+package com.paiondata.elide.graphql.containers;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.NonEntityDictionary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

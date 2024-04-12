@@ -3,33 +3,33 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger;
+package com.paiondata.elide.swagger;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.EntityFieldType;
-import com.yahoo.elide.core.type.EntityMethodType;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.core.type.Method;
-import com.yahoo.elide.core.type.Package;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.converters.EpochToDateConverter;
-import com.yahoo.elide.core.utils.coerce.converters.TimeZoneSerde;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.swagger.models.media.Data;
-import com.yahoo.elide.swagger.models.media.Datum;
-import com.yahoo.elide.swagger.models.media.Relationship;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.EntityFieldType;
+import com.paiondata.elide.core.type.EntityMethodType;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.core.type.Method;
+import com.paiondata.elide.core.type.Package;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.converters.EpochToDateConverter;
+import com.paiondata.elide.core.utils.coerce.converters.TimeZoneSerde;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.swagger.models.media.Data;
+import com.paiondata.elide.swagger.models.media.Datum;
+import com.paiondata.elide.swagger.models.media.Relationship;
 
 import example.models.Agent;
 import example.models.Author;

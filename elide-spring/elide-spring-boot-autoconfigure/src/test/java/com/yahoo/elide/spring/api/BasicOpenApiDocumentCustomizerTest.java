@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.api;
+package com.paiondata.elide.spring.api;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.yahoo.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.OpenApiDocument;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;

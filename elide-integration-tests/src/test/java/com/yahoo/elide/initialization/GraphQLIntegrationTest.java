@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.initialization;
+package com.paiondata.elide.initialization;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.yahoo.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;

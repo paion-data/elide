@@ -1,4 +1,4 @@
-package com.yahoo.elide.extension.it;
+package com.paiondata.elide.extension.it;
 
 import io.quarkus.test.junit.NativeImageTest;
 

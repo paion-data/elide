@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Pagination;
 
 import lombok.Value;
 

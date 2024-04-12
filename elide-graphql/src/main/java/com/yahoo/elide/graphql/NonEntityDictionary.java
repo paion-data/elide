@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.core.dictionary.EntityBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.DuplicateMappingException;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.dictionary.EntityBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.DuplicateMappingException;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.lang3.tuple.Pair;
 

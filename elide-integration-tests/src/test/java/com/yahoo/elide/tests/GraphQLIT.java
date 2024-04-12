@@ -3,27 +3,27 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.tests;
+package com.paiondata.elide.tests;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.argument;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.arguments;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.document;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.mutation;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.query;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selections;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.variableDefinition;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.variableDefinitions;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.query;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinition;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinitions;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.initialization.GraphQLIntegrationTest;
-import com.yahoo.elide.test.graphql.VariableFieldSerializer;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.initialization.GraphQLIntegrationTest;
+import com.paiondata.elide.test.graphql.VariableFieldSerializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;

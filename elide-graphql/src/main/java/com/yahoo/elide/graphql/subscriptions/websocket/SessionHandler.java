@@ -4,24 +4,24 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket;
+package com.paiondata.elide.graphql.subscriptions.websocket;
 
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CONNECTION_TIMEOUT;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CloseCode.DUPLICATE_ID;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INTERNAL_ERROR;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INVALID_MESSAGE;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MAX_SUBSCRIPTIONS;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MULTIPLE_INIT;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.UNAUTHORIZED;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CONNECTION_TIMEOUT;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CloseCode.DUPLICATE_ID;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INTERNAL_ERROR;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INVALID_MESSAGE;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MAX_SUBSCRIPTIONS;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MULTIPLE_INIT;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.UNAUTHORIZED;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.ConnectionAck;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.MessageType;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Pong;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Subscribe;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionAck;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.MessageType;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Pong;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

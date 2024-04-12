@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.errorEncodingTests;
+package com.paiondata.elide.errorEncodingTests;
 
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.datum;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import com.yahoo.elide.core.utils.JsonParser;
-import com.yahoo.elide.initialization.IntegrationTest;
-import com.yahoo.elide.initialization.VerboseEncodedErrorResponsesTestApplicationResourceConfig;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
-import com.yahoo.elide.test.jsonapi.elements.Resource;
+import com.paiondata.elide.core.utils.JsonParser;
+import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.initialization.VerboseEncodedErrorResponsesTestApplicationResourceConfig;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.test.jsonapi.elements.Resource;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 

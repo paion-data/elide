@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
-import com.yahoo.elide.annotation.ApiVersion;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.core.type.Package;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.annotation.ApiVersion;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.type.Package;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
 
 import lombok.EqualsAndHashCode;
 

@@ -3,29 +3,29 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.parsers.expression;
+package com.paiondata.elide.parsers.expression;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.security.permissions.expressions.ExpressionVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionVisitor;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.security.permissions.expressions.ExpressionVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

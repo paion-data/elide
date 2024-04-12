@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
-import static com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
+import static com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-import com.yahoo.elide.ElideMapper;
-import com.yahoo.elide.ElideSettingsBuilderCustomizer;
-import com.yahoo.elide.Serdes.SerdesBuilder;
-import com.yahoo.elide.Settings.SettingsBuilder;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder;
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfiguratorBuilderCustomizer;
-import com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.ElideMapper;
+import com.paiondata.elide.ElideSettingsBuilderCustomizer;
+import com.paiondata.elide.Serdes.SerdesBuilder;
+import com.paiondata.elide.Settings.SettingsBuilder;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfiguratorBuilderCustomizer;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

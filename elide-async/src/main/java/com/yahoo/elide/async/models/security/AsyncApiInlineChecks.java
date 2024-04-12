@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.models.security;
+package com.paiondata.elide.async.models.security;
 
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.async.models.AsyncApi;
-import com.yahoo.elide.async.models.QueryStatus;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.QueryStatus;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 
 import java.security.Principal;
 import java.util.Collections;

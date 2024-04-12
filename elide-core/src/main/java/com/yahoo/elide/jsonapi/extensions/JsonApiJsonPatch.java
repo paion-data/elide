@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.extensions;
+package com.paiondata.elide.jsonapi.extensions;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.JsonPatchExtensionException;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.models.Data;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.models.Patch;
-import com.yahoo.elide.jsonapi.models.Resource;
-import com.yahoo.elide.jsonapi.parser.DeleteVisitor;
-import com.yahoo.elide.jsonapi.parser.JsonApiParser;
-import com.yahoo.elide.jsonapi.parser.PatchVisitor;
-import com.yahoo.elide.jsonapi.parser.PostVisitor;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.JsonPatchExtensionException;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.models.Data;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.models.Patch;
+import com.paiondata.elide.jsonapi.models.Resource;
+import com.paiondata.elide.jsonapi.parser.DeleteVisitor;
+import com.paiondata.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.jsonapi.parser.PatchVisitor;
+import com.paiondata.elide.jsonapi.parser.PostVisitor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;

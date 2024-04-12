@@ -3,27 +3,27 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata;
+package com.paiondata.elide.datastores.aggregation.metadata;
 
-import static com.yahoo.elide.core.utils.TypeHelper.getClassType;
+import static com.paiondata.elide.core.utils.TypeHelper.getClassType;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.aggregation.QueryEngine;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Dimension;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Namespace;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Table;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TimeDimension;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Namespace;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimension;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import example.Player;
 import example.PlayerRanking;
 import example.PlayerStats;

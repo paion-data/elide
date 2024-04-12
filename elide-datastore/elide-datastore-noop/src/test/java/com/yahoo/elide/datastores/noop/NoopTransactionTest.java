@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.noop;
+package com.paiondata.elide.datastores.noop;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.beans.NoopBean;
-import com.yahoo.elide.core.ObjectEntityCache;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.beans.NoopBean;
+import com.paiondata.elide.core.ObjectEntityCache;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.BeforeAll;

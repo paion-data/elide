@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.graphql.containers.GraphQLContainer;
-import com.yahoo.elide.graphql.containers.PersistentResourceContainer;
-import com.yahoo.elide.graphql.containers.RootContainer;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.graphql.containers.GraphQLContainer;
+import com.paiondata.elide.graphql.containers.PersistentResourceContainer;
+import com.paiondata.elide.graphql.containers.RootContainer;
 
 import graphql.language.Field;
 import graphql.schema.DataFetchingEnvironment;

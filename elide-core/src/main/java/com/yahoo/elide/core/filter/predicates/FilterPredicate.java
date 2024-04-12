@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.predicates;
+package com.paiondata.elide.core.filter.predicates;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.Path.PathElement;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpressionVisitor;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 

@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Streams;
 

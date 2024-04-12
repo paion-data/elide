@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security.checks.prefab;
+package com.paiondata.elide.core.security.checks.prefab;
 
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.checks.OperationCheck;
 
 import java.util.Collection;
 import java.util.Optional;

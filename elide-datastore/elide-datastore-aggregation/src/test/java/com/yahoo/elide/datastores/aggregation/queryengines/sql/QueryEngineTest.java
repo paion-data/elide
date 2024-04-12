@@ -3,29 +3,29 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql;
 
-import static com.yahoo.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
+import static com.paiondata.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.exceptions.InvalidParameterizedAttributeException;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.yahoo.elide.datastores.aggregation.query.ImmutablePagination;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.QueryResult;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.yahoo.elide.datastores.aggregation.timegrains.Day;
-import com.yahoo.elide.datastores.aggregation.timegrains.Month;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.query.ImmutablePagination;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.QueryResult;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.timegrains.Day;
+import com.paiondata.elide.datastores.aggregation.timegrains.Month;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import example.PlayerStats;

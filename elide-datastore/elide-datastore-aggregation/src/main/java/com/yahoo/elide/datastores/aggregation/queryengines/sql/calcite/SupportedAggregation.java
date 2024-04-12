@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.calcite;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite;
 
 import lombok.Builder;
 import lombok.NonNull;

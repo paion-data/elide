@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions;
+package com.paiondata.elide.graphql.subscriptions;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.NonEntityDictionary;
-import com.yahoo.elide.graphql.QueryLogger;
-import com.yahoo.elide.graphql.RelationshipOp;
-import com.yahoo.elide.graphql.subscriptions.containers.SubscriptionNodeContainer;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.QueryLogger;
+import com.paiondata.elide.graphql.RelationshipOp;
+import com.paiondata.elide.graphql.subscriptions.containers.SubscriptionNodeContainer;
 
 import graphql.language.OperationDefinition;
 import graphql.schema.DataFetcher;

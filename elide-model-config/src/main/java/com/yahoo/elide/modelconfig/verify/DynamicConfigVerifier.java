@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.verify;
+package com.paiondata.elide.modelconfig.verify;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -161,7 +161,7 @@ public class DynamicConfigVerifier {
     private static void printHelp(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
-                "java -cp <Jar File> com.yahoo.elide.contrib.dynamicconfighelpers.verify.DynamicConfigVerifier",
+                "java -cp <Jar File> com.paiondata.elide.contrib.dynamicconfighelpers.verify.DynamicConfigVerifier",
                 options);
     }
 }

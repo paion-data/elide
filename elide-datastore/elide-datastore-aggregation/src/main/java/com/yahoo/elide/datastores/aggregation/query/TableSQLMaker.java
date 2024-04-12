@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
 @FunctionalInterface
 public interface TableSQLMaker {

@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.test.models;
+package com.paiondata.elide.extension.test.models;
 
-import com.yahoo.elide.annotation.Include;
+import com.paiondata.elide.annotation.Include;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

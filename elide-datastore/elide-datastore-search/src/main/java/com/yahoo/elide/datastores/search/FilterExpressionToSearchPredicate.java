@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.search;
+package com.paiondata.elide.datastores.search;
 
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpressionVisitor;
-import com.yahoo.elide.core.filter.expression.NotFilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.type.ClassType;
 import com.google.common.base.Preconditions;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.hibernate.search.engine.search.predicate.SearchPredicate;

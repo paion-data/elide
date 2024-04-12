@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
 /**
  * Represents a projected metric column as an alias in a query.

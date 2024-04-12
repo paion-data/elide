@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils.coerce;
+package com.paiondata.elide.core.utils.coerce;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -13,10 +13,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.utils.coerce.converters.EpochToDateConverter;
-import com.yahoo.elide.core.utils.coerce.converters.ISO8601DateSerde;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.utils.coerce.converters.EpochToDateConverter;
+import com.paiondata.elide.core.utils.coerce.converters.ISO8601DateSerde;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

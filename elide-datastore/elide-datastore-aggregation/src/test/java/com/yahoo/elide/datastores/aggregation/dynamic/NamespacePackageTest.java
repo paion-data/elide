@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.yahoo.elide.annotation.ApiVersion;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.annotation.ApiVersion;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
 import org.junit.jupiter.api.Test;
 
 public class NamespacePackageTest {

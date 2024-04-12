@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.graphql.parser.GraphQLProjectionInfo;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
 
 import lombok.Getter;
 

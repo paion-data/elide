@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.service;
+package com.paiondata.elide.async.service;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.async.service.dao.AsyncApiDao;
-import com.yahoo.elide.async.service.thread.AsyncApiCancelRunnable;
-import com.yahoo.elide.async.service.thread.AsyncApiCleanerRunnable;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.async.service.dao.AsyncApiDao;
+import com.paiondata.elide.async.service.thread.AsyncApiCancelRunnable;
+import com.paiondata.elide.async.service.thread.AsyncApiCleanerRunnable;
 
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;

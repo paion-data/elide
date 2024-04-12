@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.jpa.transaction.JpaTransaction;
-import com.yahoo.elide.datastores.jpql.JPQLDataStore;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
-import com.yahoo.elide.datastores.jpql.query.DefaultQueryLogger;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.jpa.transaction.JpaTransaction;
+import com.paiondata.elide.datastores.jpql.JPQLDataStore;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.datastores.jpql.query.DefaultQueryLogger;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;

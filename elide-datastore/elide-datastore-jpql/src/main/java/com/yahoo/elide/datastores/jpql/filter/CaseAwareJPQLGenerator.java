@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpql.filter;
+package com.paiondata.elide.datastores.jpql.filter;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.type.ClassType;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 

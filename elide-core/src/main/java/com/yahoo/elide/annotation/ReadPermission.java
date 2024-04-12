@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.annotation;
+package com.paiondata.elide.annotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -28,7 +28,7 @@ public @interface ReadPermission {
      * {@code @ReadPermission(expression="Prefab.Role.All")} or
      * {@code @ReadPermission(expression="Prefab.Role.All and Prefab.Role.UpdateOnCreate")}
      *
-     * All of {@linkplain com.yahoo.elide.core.security.checks.prefab the built-in checks} are name-spaced as
+     * All of {@linkplain com.paiondata.elide.core.security.checks.prefab the built-in checks} are name-spaced as
      * {@code Prefab.CHECK} without the {@code Check} suffix
      *
      * @return the expression string to be parsed

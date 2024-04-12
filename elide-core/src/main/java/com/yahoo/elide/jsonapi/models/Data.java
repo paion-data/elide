@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.models;
+package com.paiondata.elide.jsonapi.models;
 
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.jsonapi.serialization.DataDeserializer;
-import com.yahoo.elide.jsonapi.serialization.DataSerializer;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.jsonapi.serialization.DataDeserializer;
+import com.paiondata.elide.jsonapi.serialization.DataSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

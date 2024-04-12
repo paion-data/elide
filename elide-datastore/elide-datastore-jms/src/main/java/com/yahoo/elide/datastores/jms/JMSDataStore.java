@@ -4,20 +4,20 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import static com.yahoo.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
+import static com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
-import com.yahoo.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.jms.ConnectionFactory;

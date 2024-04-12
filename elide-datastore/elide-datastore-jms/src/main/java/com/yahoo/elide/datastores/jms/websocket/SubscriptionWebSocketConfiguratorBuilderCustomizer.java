@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jms.websocket;
+package com.paiondata.elide.datastores.jms.websocket;
 
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator.SubscriptionWebSocketConfiguratorBuilder;
 
 /**
  * Used to customize the mutable {@link SubscriptionWebSocketConfiguratorBuilder}.

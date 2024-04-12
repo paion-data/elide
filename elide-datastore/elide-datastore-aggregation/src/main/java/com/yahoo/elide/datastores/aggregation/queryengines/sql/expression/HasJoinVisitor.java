@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.expression;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.expression;
 
 /**
  * Determines if the reference has at least one join.

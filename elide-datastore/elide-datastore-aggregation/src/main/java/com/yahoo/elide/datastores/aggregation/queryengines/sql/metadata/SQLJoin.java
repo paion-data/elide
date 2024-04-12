@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata;
 
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.JoinType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
 
 import lombok.Builder;
 import lombok.Value;

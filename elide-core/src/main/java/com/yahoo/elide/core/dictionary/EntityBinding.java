@@ -3,28 +3,28 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
-import static com.yahoo.elide.core.type.ClassType.OBJ_METHODS;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
+import static com.paiondata.elide.core.type.ClassType.OBJ_METHODS;
 
-import com.yahoo.elide.annotation.ComputedAttribute;
-import com.yahoo.elide.annotation.ComputedRelationship;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.Operation;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase;
-import com.yahoo.elide.annotation.ToMany;
-import com.yahoo.elide.annotation.ToOne;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.exceptions.DuplicateMappingException;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.type.AccessibleObject;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.core.type.Member;
-import com.yahoo.elide.core.type.Method;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.ComputedRelationship;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.annotation.ToMany;
+import com.paiondata.elide.annotation.ToOne;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.DuplicateMappingException;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.type.AccessibleObject;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.core.type.Member;
+import com.paiondata.elide.core.type.Method;
+import com.paiondata.elide.core.type.Type;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.StringUtils;
@@ -66,7 +66,7 @@ import java.util.stream.Stream;
 /**
  * Entity Dictionary maps JSON API Entity beans to/from Entity type names.
  *
- * @see com.yahoo.elide.annotation.Include#name
+ * @see com.paiondata.elide.annotation.Include#name
  */
 public class EntityBinding {
     public static final List<Class<? extends Annotation>> ID_ANNOTATIONS = List.of(Id.class, EmbeddedId.class);
@@ -500,7 +500,7 @@ public class EntityBinding {
      */
     public static boolean isRequestScopeableMethod(Method method) {
         return isComputedMethod(method) && method.getParameterCount() == 1
-                && com.yahoo.elide.core.security.RequestScope.class.isAssignableFrom(method.getParameterTypes()[0]);
+                && com.paiondata.elide.core.security.RequestScope.class.isAssignableFrom(method.getParameterTypes()[0]);
     }
 
     /**

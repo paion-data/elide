@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.subscriptions;
+package com.paiondata.elide.graphql.subscriptions;
 
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CONNECTION_TIMEOUT;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INVALID_MESSAGE;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MULTIPLE_INIT;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.NORMAL_CLOSE;
-import static com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.UNAUTHORIZED;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.CONNECTION_TIMEOUT;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.INVALID_MESSAGE;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.MULTIPLE_INIT;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.NORMAL_CLOSE;
+import static com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons.UNAUTHORIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -21,24 +21,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.graphql.GraphQLTest;
-import com.yahoo.elide.graphql.serialization.GraphQLModule;
-import com.yahoo.elide.graphql.subscriptions.hooks.TopicType;
-import com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Subscribe;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.graphql.GraphQLTest;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.MoreExecutors;
 import example.Author;

@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.expression;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.expression;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.datastores.aggregation.core.JoinPath;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.core.JoinPath;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
 import org.junit.jupiter.api.Test;
 
 public class HasJoinVisitorTest {

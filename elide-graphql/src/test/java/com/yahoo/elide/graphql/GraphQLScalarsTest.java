@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.core.utils.coerce.converters.ISO8601DateSerde;
-import com.yahoo.elide.core.utils.coerce.converters.OffsetDateTimeSerde;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
-import com.yahoo.elide.core.utils.coerce.converters.TimeZoneSerde;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.utils.coerce.converters.ISO8601DateSerde;
+import com.paiondata.elide.core.utils.coerce.converters.OffsetDateTimeSerde;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.utils.coerce.converters.TimeZoneSerde;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

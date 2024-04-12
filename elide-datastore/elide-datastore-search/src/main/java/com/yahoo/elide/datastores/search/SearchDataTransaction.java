@@ -4,27 +4,27 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.search;
+package com.paiondata.elide.datastores.search;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.wrapped.TransactionWrapper;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.PredicateExtractionVisitor;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.wrapped.TransactionWrapper;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.PredicateExtractionVisitor;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.base.Preconditions;
 import org.hibernate.search.engine.backend.types.Searchable;
 import org.hibernate.search.engine.backend.types.Sortable;

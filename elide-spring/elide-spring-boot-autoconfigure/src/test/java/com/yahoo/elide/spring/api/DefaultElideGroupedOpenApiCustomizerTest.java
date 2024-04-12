@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.api;
+package com.paiondata.elide.spring.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

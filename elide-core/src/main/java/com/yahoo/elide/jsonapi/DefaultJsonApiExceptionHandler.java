@@ -3,24 +3,24 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
-import com.yahoo.elide.ElideError;
-import com.yahoo.elide.ElideErrorResponse;
-import com.yahoo.elide.ElideErrors;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.ExceptionHandlerSupport;
-import com.yahoo.elide.core.exceptions.ExceptionLogger;
-import com.yahoo.elide.core.exceptions.ExceptionMappers;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InvalidURLException;
-import com.yahoo.elide.core.exceptions.JsonApiAtomicOperationsException;
-import com.yahoo.elide.core.exceptions.JsonPatchExtensionException;
-import com.yahoo.elide.core.exceptions.TransactionException;
-import com.yahoo.elide.jsonapi.models.JsonApiErrors;
+import com.paiondata.elide.ElideError;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.ExceptionHandlerSupport;
+import com.paiondata.elide.core.exceptions.ExceptionLogger;
+import com.paiondata.elide.core.exceptions.ExceptionMappers;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InvalidURLException;
+import com.paiondata.elide.core.exceptions.JsonApiAtomicOperationsException;
+import com.paiondata.elide.core.exceptions.JsonPatchExtensionException;
+import com.paiondata.elide.core.exceptions.TransactionException;
+import com.paiondata.elide.jsonapi.models.JsonApiErrors;
 
 import com.fasterxml.jackson.core.JacksonException;
 

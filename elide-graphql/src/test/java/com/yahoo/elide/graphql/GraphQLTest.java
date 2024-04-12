@@ -4,17 +4,17 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.type.ClassType;
 import example.Address;
 import example.Author;
 import example.Book;
@@ -34,7 +34,7 @@ public abstract class GraphQLTest {
 
     public GraphQLTest() {
         Map<String, Class<? extends Check>> checks = new HashMap<>();
-        checks.put("Prefab.Role.All", com.yahoo.elide.core.security.checks.prefab.Role.ALL.class);
+        checks.put("Prefab.Role.All", com.paiondata.elide.core.security.checks.prefab.Role.ALL.class);
         injector = mock(Injector.class);
         when(injector.instantiate(any())).thenCallRealMethod();
 

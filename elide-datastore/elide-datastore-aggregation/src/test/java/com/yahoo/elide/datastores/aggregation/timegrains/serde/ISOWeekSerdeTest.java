@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.timegrains.serde;
+package com.paiondata.elide.datastores.aggregation.timegrains.serde;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
-import com.yahoo.elide.datastores.aggregation.timegrains.ISOWeek;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.datastores.aggregation.timegrains.ISOWeek;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;

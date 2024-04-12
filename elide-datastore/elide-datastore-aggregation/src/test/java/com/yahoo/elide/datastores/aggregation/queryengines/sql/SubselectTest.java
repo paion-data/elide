@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.datastores.aggregation.framework.SQLUnitTest;
-import com.yahoo.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.datastores.aggregation.framework.SQLUnitTest;
+import com.paiondata.elide.datastores.aggregation.query.Query;
 import com.google.common.collect.ImmutableList;
 import example.PlayerStats;
 import example.dimensions.SubCountry;

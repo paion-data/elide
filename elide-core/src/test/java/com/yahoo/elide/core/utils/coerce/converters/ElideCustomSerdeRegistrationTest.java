@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils.coerce.converters;
+package com.paiondata.elide.core.utils.coerce.converters;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.datastore.inmemory.InMemoryDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.datastore.inmemory.InMemoryDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import org.junit.jupiter.api.Test;
 
 class Dummy {

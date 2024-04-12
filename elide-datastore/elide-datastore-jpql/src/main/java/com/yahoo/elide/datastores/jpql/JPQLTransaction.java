@@ -3,34 +3,34 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpql;
+package com.paiondata.elide.datastores.jpql;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.FalsePredicate;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.predicates.InPredicate;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.TimedFunction;
-import com.yahoo.elide.datastores.jpql.porting.Query;
-import com.yahoo.elide.datastores.jpql.porting.ScrollableIteratorBase;
-import com.yahoo.elide.datastores.jpql.porting.Session;
-import com.yahoo.elide.datastores.jpql.query.AbstractHQLQueryBuilder;
-import com.yahoo.elide.datastores.jpql.query.RelationshipImpl;
-import com.yahoo.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
-import com.yahoo.elide.datastores.jpql.query.RootCollectionPageTotalsQueryBuilder;
-import com.yahoo.elide.datastores.jpql.query.SubCollectionFetchQueryBuilder;
-import com.yahoo.elide.datastores.jpql.query.SubCollectionPageTotalsQueryBuilder;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.FalsePredicate;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.predicates.InPredicate;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.TimedFunction;
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.ScrollableIteratorBase;
+import com.paiondata.elide.datastores.jpql.porting.Session;
+import com.paiondata.elide.datastores.jpql.query.AbstractHQLQueryBuilder;
+import com.paiondata.elide.datastores.jpql.query.RelationshipImpl;
+import com.paiondata.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
+import com.paiondata.elide.datastores.jpql.query.RootCollectionPageTotalsQueryBuilder;
+import com.paiondata.elide.datastores.jpql.query.SubCollectionFetchQueryBuilder;
+import com.paiondata.elide.datastores.jpql.query.SubCollectionPageTotalsQueryBuilder;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -161,7 +161,7 @@ public abstract class JPQLTransaction implements DataStoreTransaction {
         Pagination pagination = relation.getProjection().getPagination();
 
         EntityDictionary dictionary = scope.getDictionary();
-        Iterable val = (Iterable) com.yahoo.elide.core.PersistentResource.getValue(entity, relation.getName(), scope);
+        Iterable val = (Iterable) com.paiondata.elide.core.PersistentResource.getValue(entity, relation.getName(), scope);
 
         //If the query is safe for N+1 and the value is an ORM managed, persistent collection, run a JPQL query...
         if (doInDatabase(entity) && val instanceof Collection && isPersistentCollection().test((Collection<?>) val)) {

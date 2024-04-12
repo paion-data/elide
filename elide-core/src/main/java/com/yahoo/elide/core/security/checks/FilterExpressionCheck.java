@@ -4,17 +4,17 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security.checks;
+package com.paiondata.elide.core.security.checks;
 
-import com.yahoo.elide.annotation.FilterExpressionPath;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.visitors.FilterExpressionCheckEvaluationVisitor;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.FilterExpressionPath;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.visitors.FilterExpressionCheckEvaluationVisitor;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.type.Type;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,7 +65,7 @@ public abstract class FilterExpressionCheck<T> extends OperationCheck<T> {
      */
     public boolean applyPredicateToObject(T object, FilterPredicate filterPredicate, RequestScope requestScope) {
         try {
-            com.yahoo.elide.core.RequestScope scope = coreScope(requestScope);
+            com.paiondata.elide.core.RequestScope scope = coreScope(requestScope);
             Predicate<T> fn = filterPredicate.getOperator()
                     .contextualize(filterPredicate.getPath(), filterPredicate.getValues(), scope);
             return fn.test(object);
@@ -109,7 +109,7 @@ public abstract class FilterExpressionCheck<T> extends OperationCheck<T> {
         return path;
     }
 
-    protected static com.yahoo.elide.core.RequestScope coreScope(RequestScope requestScope) {
-        return (com.yahoo.elide.core.RequestScope) requestScope;
+    protected static com.paiondata.elide.core.RequestScope coreScope(RequestScope requestScope) {
+        return (com.paiondata.elide.core.RequestScope) requestScope;
     }
 }

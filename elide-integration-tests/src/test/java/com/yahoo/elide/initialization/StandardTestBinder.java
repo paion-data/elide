@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.initialization;
+package com.paiondata.elide.initialization;
 
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.async.AsyncSettings;
-import com.yahoo.elide.async.AsyncSettings.AsyncSettingsBuilder;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.async.AsyncSettings;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 import example.TestCheckMappings;
 import example.models.triggers.services.BillingService;

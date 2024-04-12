@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.noop;
+package com.paiondata.elide.datastores.noop;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.EntityProjection;
 
 import lombok.extern.slf4j.Slf4j;
 

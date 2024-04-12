@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.runtime;
+package com.paiondata.elide.extension.runtime;
 
-import static com.yahoo.elide.extension.runtime.ElideResourceBuilder.GRAPHQL_BASE;
-import static com.yahoo.elide.extension.runtime.ElideResourceBuilder.JSONAPI_BASE;
-import static com.yahoo.elide.extension.runtime.ElideResourceBuilder.SWAGGER_BASE;
+import static com.paiondata.elide.extension.runtime.ElideResourceBuilder.GRAPHQL_BASE;
+import static com.paiondata.elide.extension.runtime.ElideResourceBuilder.JSONAPI_BASE;
+import static com.paiondata.elide.extension.runtime.ElideResourceBuilder.SWAGGER_BASE;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;

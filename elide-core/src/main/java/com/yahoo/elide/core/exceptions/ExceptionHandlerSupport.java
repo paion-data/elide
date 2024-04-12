@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.exceptions;
+package com.paiondata.elide.core.exceptions;
 
-import com.yahoo.elide.ElideErrorResponse;
-import com.yahoo.elide.ElideResponse;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideResponse;
 
 /**
  * Base implementation of an {@link ExceptionHandler}.

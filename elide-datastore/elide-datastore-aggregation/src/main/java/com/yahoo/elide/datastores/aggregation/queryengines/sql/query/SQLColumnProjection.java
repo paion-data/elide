@@ -4,22 +4,22 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.yahoo.elide.datastores.aggregation.metadata.ColumnContext;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.metadata.PhysicalRefColumnContext;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.calcite.SyntaxVerifier;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ColumnArgReference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.HasJoinVisitor;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.JoinReference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.PhysicalReference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.Reference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ReferenceExtractor;
+import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.PhysicalRefColumnContext;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SyntaxVerifier;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ColumnArgReference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.HasJoinVisitor;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.JoinReference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.PhysicalReference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.Reference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ReferenceExtractor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

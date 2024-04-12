@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.calcite;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite;
 
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
 import org.apache.calcite.sql.SqlCall;
 import org.apache.calcite.sql.SqlDataTypeSpec;
 import org.apache.calcite.sql.SqlDynamicParam;

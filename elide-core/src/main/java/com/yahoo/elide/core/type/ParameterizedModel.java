@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.type;
+package com.paiondata.elide.core.type;
 
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.core.exceptions.InvalidParameterizedAttributeException;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
 
 import java.io.Serializable;
 import java.util.HashMap;

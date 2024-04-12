@@ -4,13 +4,13 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.datastores.aggregation.timegrains.Time;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.datastores.aggregation.timegrains.Time;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

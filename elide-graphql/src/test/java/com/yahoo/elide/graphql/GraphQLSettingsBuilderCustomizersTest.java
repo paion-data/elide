@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import org.junit.jupiter.api.Test;
 

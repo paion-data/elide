@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.checks;
+package com.paiondata.elide.core.security.checks;
 /**
  * Custom security access that verifies whether a user belongs to a role.
  * Permissions are assigned as a set of checks that grant access to the permission.

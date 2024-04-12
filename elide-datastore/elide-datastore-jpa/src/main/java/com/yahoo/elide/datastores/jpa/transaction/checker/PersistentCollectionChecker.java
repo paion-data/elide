@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa.transaction.checker;
+package com.paiondata.elide.datastores.jpa.transaction.checker;
 
-import com.yahoo.elide.datastores.jpa.transaction.checker.classes.EclipseLinkPersistentCollections;
-import com.yahoo.elide.datastores.jpa.transaction.checker.classes.HibernatePersistentCollections;
+import com.paiondata.elide.datastores.jpa.transaction.checker.classes.EclipseLinkPersistentCollections;
+import com.paiondata.elide.datastores.jpa.transaction.checker.classes.HibernatePersistentCollections;
 
 import java.util.Arrays;
 import java.util.Collection;

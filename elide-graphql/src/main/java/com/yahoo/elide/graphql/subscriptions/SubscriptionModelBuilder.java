@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.subscriptions;
+package com.paiondata.elide.graphql.subscriptions;
 
 import static graphql.schema.GraphQLArgument.newArgument;
 import static graphql.schema.GraphQLEnumType.newEnum;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLObjectType.newObject;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.GraphQLConversionUtils;
-import com.yahoo.elide.graphql.GraphQLNameUtils;
-import com.yahoo.elide.graphql.GraphQLScalars;
-import com.yahoo.elide.graphql.NonEntityDictionary;
-import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
-import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
-import com.yahoo.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.GraphQLConversionUtils;
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.GraphQLScalars;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
+import com.paiondata.elide.graphql.subscriptions.annotations.SubscriptionField;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.google.common.collect.Sets;
 
 import graphql.Scalars;

@@ -3,32 +3,32 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser.state;
+package com.paiondata.elide.jsonapi.parser.state;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.InternalServerErrorException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.InvalidObjectIdentifierException;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.exceptions.UnknownEntityException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
-import com.yahoo.elide.jsonapi.document.processors.DocumentProcessor;
-import com.yahoo.elide.jsonapi.document.processors.IncludedProcessor;
-import com.yahoo.elide.jsonapi.document.processors.PopulateMetaProcessor;
-import com.yahoo.elide.jsonapi.models.Data;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.models.Meta;
-import com.yahoo.elide.jsonapi.models.Relationship;
-import com.yahoo.elide.jsonapi.models.Resource;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.InternalServerErrorException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.InvalidObjectIdentifierException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.exceptions.UnknownEntityException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.jsonapi.document.processors.DocumentProcessor;
+import com.paiondata.elide.jsonapi.document.processors.IncludedProcessor;
+import com.paiondata.elide.jsonapi.document.processors.PopulateMetaProcessor;
+import com.paiondata.elide.jsonapi.models.Data;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.models.Meta;
+import com.paiondata.elide.jsonapi.models.Relationship;
+import com.paiondata.elide.jsonapi.models.Resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Preconditions;
 import org.apache.commons.collections4.IterableUtils;

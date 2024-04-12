@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.export.validator;
+package com.paiondata.elide.async.export.validator;
 
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.EntityProjection;
 
 import java.util.Collection;
 

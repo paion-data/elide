@@ -3,58 +3,58 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core;
+package com.paiondata.elide.core;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.yahoo.elide.core.dictionary.EntityBinding.EMPTY_BINDING;
-import static com.yahoo.elide.core.dictionary.EntityDictionary.getType;
-import static com.yahoo.elide.core.type.ClassType.COLLECTION_TYPE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.core.dictionary.EntityBinding.EMPTY_BINDING;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.getType;
+import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
 
-import com.yahoo.elide.annotation.Audit;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.annotation.NonTransferable;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.audit.InvalidSyntaxException;
-import com.yahoo.elide.core.audit.LogMessage;
-import com.yahoo.elide.core.audit.LogMessageImpl;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.exceptions.InternalServerErrorException;
-import com.yahoo.elide.core.exceptions.InvalidAttributeException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.InvalidObjectIdentifierException;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.InPredicate;
-import com.yahoo.elide.core.filter.visitors.VerifyFieldAccessFilterExpressionVisitor;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.security.visitors.CanPaginateVisitor;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.jsonapi.document.processors.WithMetadata;
-import com.yahoo.elide.jsonapi.models.Data;
-import com.yahoo.elide.jsonapi.models.Meta;
-import com.yahoo.elide.jsonapi.models.Relationship;
-import com.yahoo.elide.jsonapi.models.Resource;
-import com.yahoo.elide.jsonapi.models.ResourceIdentifier;
+import com.paiondata.elide.annotation.Audit;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.NonTransferable;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.audit.InvalidSyntaxException;
+import com.paiondata.elide.core.audit.LogMessage;
+import com.paiondata.elide.core.audit.LogMessageImpl;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.exceptions.InternalServerErrorException;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.InvalidObjectIdentifierException;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.InPredicate;
+import com.paiondata.elide.core.filter.visitors.VerifyFieldAccessFilterExpressionVisitor;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.visitors.CanPaginateVisitor;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.document.processors.WithMetadata;
+import com.paiondata.elide.jsonapi.models.Data;
+import com.paiondata.elide.jsonapi.models.Meta;
+import com.paiondata.elide.jsonapi.models.Relationship;
+import com.paiondata.elide.jsonapi.models.Resource;
+import com.paiondata.elide.jsonapi.models.ResourceIdentifier;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicates;
@@ -90,7 +90,7 @@ import java.util.stream.Stream;
  *
  * @param <T> type of resource
  */
-public class PersistentResource<T> implements com.yahoo.elide.core.security.PersistentResource<T> {
+public class PersistentResource<T> implements com.paiondata.elide.core.security.PersistentResource<T> {
     public static final Set<String> ALL_FIELDS = null;
     public static final String CLASS_NO_FIELD = "";
     /**
@@ -1102,7 +1102,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * @param id           single id to lookup
      * @return The PersistentResource of the sought id or null if does not exist.
      */
-    public PersistentResource getRelation(com.yahoo.elide.core.request.Relationship relationship, String id) {
+    public PersistentResource getRelation(com.paiondata.elide.core.request.Relationship relationship, String id) {
         List<PersistentResource> resources =
                 getRelation(Collections.singletonList(id), relationship).toList().blockingGet();
 
@@ -1127,7 +1127,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * @return PersistentResource relation
      */
     public Observable<PersistentResource> getRelation(List<String> ids,
-                                                      com.yahoo.elide.core.request.Relationship relationship) {
+                                                      com.paiondata.elide.core.request.Relationship relationship) {
 
         FilterExpression filterExpression = Optional.ofNullable(relationship.getProjection().getFilterExpression())
                 .orElse(null);
@@ -1196,7 +1196,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * @return collection relation
      */
     public Observable<PersistentResource> getRelationCheckedFiltered(
-            com.yahoo.elide.core.request.Relationship relationship) {
+            com.paiondata.elide.core.request.Relationship relationship) {
         return filter(ReadPermission.class,
                 Optional.ofNullable(relationship.getProjection().getFilterExpression()),
                 relationship.getProjection().getRequestedFields(),
@@ -1205,7 +1205,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
 
     private Observable<PersistentResource> getRelationUncheckedUnfiltered(String relationName) {
         assertPropertyExists(relationName);
-        return getRelation(com.yahoo.elide.core.request.Relationship.builder()
+        return getRelation(com.paiondata.elide.core.request.Relationship.builder()
                 .name(relationName)
                 .alias(relationName)
                 .projection(EntityProjection.builder()
@@ -1220,7 +1220,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
         }
     }
 
-    private Observable<PersistentResource> getRelation(com.yahoo.elide.core.request.Relationship relationship,
+    private Observable<PersistentResource> getRelation(com.paiondata.elide.core.request.Relationship relationship,
                                                        boolean checked) {
 
         if (checked && !checkRelation(relationship)) {
@@ -1251,7 +1251,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * @param relationship The relationship to the entity
      * @return True if the relationship to the entity has valid permissions for the user
      */
-    protected boolean checkRelation(com.yahoo.elide.core.request.Relationship relationship) {
+    protected boolean checkRelation(com.paiondata.elide.core.request.Relationship relationship) {
         String relationName = relationship.getName();
 
         String realName = dictionary.getNameFromAlias(obj, relationName);
@@ -1275,7 +1275,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * @param relationship the relationship to fetch
      * @return collection relation
      */
-    public Observable<PersistentResource> getRelationChecked(com.yahoo.elide.core.request.Relationship relationship) {
+    public Observable<PersistentResource> getRelationChecked(com.paiondata.elide.core.request.Relationship relationship) {
         if (!checkRelation(relationship)) {
             return Observable.empty();
         }
@@ -1286,7 +1286,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
      * Retrieve an unchecked set of relations.
      */
     private Observable<PersistentResource> getRelationUnchecked(
-            com.yahoo.elide.core.request.Relationship relationship) {
+            com.paiondata.elide.core.request.Relationship relationship) {
         String relationName = relationship.getName();
         FilterExpression filterExpression = relationship.getProjection().getFilterExpression();
         Pagination pagination = relationship.getProjection().getPagination();
@@ -1311,7 +1311,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
             computedFilters = permissionFilter;
         }
 
-        com.yahoo.elide.core.request.Relationship modifiedRelationship = relationship.copyOf()
+        com.paiondata.elide.core.request.Relationship modifiedRelationship = relationship.copyOf()
                 .projection(relationship.getProjection().copyOf()
                         .filterExpression(computedFilters.orElse(null))
                         .sorting(sorting)
@@ -1576,7 +1576,7 @@ public class PersistentResource<T> implements com.yahoo.elide.core.security.Pers
             Optional<FilterExpression> filterExpression = requestScope.getExpressionForRelation(getResourceType(),
                     relationName);
 
-            return getRelationCheckedFiltered(com.yahoo.elide.core.request.Relationship.builder()
+            return getRelationCheckedFiltered(com.paiondata.elide.core.request.Relationship.builder()
                     .alias(relationName)
                     .name(relationName)
                     .projection(EntityProjection.builder()

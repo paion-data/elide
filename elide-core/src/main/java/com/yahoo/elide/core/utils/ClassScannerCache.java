@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils;
+package com.paiondata.elide.core.utils;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.utils.coerce.converters.ElideTypeConverter;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
@@ -35,11 +35,11 @@ public class ClassScannerCache {
         ElideTypeConverter.class.getCanonicalName(),
 
         //GraphQL annotations.  Strings here to avoid dependency.
-        "com.yahoo.elide.graphql.subscriptions.annotations.Subscription",
+        "com.paiondata.elide.graphql.subscriptions.annotations.Subscription",
 
         //Aggregation Store Annotations.  Strings here to avoid dependency.
-        "com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable",
-        "com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery",
+        "com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable",
+        "com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery",
         "org.hibernate.annotations.Subselect",
 
         //JPA

@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa.config;
+package com.paiondata.elide.spring.orm.jpa.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 /**
  * Builder used to configure registration entries for building a JpaDataStore.
  *
- * @see com.yahoo.elide.datastores.jpa.JpaDataStore
- * @see com.yahoo.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilderCustomizer
+ * @see com.paiondata.elide.datastores.jpa.JpaDataStore
+ * @see com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilderCustomizer
  */
 public class JpaDataStoreRegistrationsBuilder {
     private final List<JpaDataStoreRegistration> registrations = new ArrayList<>();

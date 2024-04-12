@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.datastore;
+package com.paiondata.elide.core.datastore;
 
-import static com.yahoo.elide.core.type.ClassType.STRING_TYPE;
+import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -14,12 +14,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.type.ClassType;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

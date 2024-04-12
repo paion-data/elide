@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
 /**
  * Test Dependency Injector.

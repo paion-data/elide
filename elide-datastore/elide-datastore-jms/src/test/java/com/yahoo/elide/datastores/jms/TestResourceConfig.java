@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import com.yahoo.elide.core.audit.Slf4jLogger;
+import com.paiondata.elide.core.audit.Slf4jLogger;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
 

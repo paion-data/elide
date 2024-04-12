@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.pagination;
+package com.paiondata.elide.core.pagination;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.Paginate;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.Paginate;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.type.ClassType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

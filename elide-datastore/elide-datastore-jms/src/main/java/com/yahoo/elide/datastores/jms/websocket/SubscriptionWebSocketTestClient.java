@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms.websocket;
+package com.paiondata.elide.datastores.jms.websocket;
 
-import com.yahoo.elide.graphql.serialization.GraphQLModule;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Error;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.MessageType;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Next;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.ConnectionInit;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.MessageType;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Next;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.store;
+package com.paiondata.elide.modelconfig.store;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.modelconfig.io.FileLoader;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
-import com.yahoo.elide.modelconfig.validator.Validator;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.modelconfig.io.FileLoader;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.validator.Validator;
 
 /**
  * Elide DataStore which loads/persists HJSON configuration files as Elide models.

@@ -3,43 +3,43 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.validator;
+package com.paiondata.elide.modelconfig.validator;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.EntityPermissions;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.modelconfig.Config;
-import com.yahoo.elide.modelconfig.DynamicConfigHelpers;
-import com.yahoo.elide.modelconfig.DynamicConfigSchemaValidator;
-import com.yahoo.elide.modelconfig.DynamicConfiguration;
-import com.yahoo.elide.modelconfig.io.FileLoader;
-import com.yahoo.elide.modelconfig.model.Argument;
-import com.yahoo.elide.modelconfig.model.DBConfig;
-import com.yahoo.elide.modelconfig.model.Dimension;
-import com.yahoo.elide.modelconfig.model.ElideDBConfig;
-import com.yahoo.elide.modelconfig.model.ElideNamespaceConfig;
-import com.yahoo.elide.modelconfig.model.ElideSQLDBConfig;
-import com.yahoo.elide.modelconfig.model.ElideSecurityConfig;
-import com.yahoo.elide.modelconfig.model.ElideTableConfig;
-import com.yahoo.elide.modelconfig.model.Join;
-import com.yahoo.elide.modelconfig.model.Measure;
-import com.yahoo.elide.modelconfig.model.Named;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
-import com.yahoo.elide.modelconfig.model.Table;
-import com.yahoo.elide.modelconfig.model.TableSource;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityPermissions;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.modelconfig.Config;
+import com.paiondata.elide.modelconfig.DynamicConfigHelpers;
+import com.paiondata.elide.modelconfig.DynamicConfigSchemaValidator;
+import com.paiondata.elide.modelconfig.DynamicConfiguration;
+import com.paiondata.elide.modelconfig.io.FileLoader;
+import com.paiondata.elide.modelconfig.model.Argument;
+import com.paiondata.elide.modelconfig.model.DBConfig;
+import com.paiondata.elide.modelconfig.model.Dimension;
+import com.paiondata.elide.modelconfig.model.ElideDBConfig;
+import com.paiondata.elide.modelconfig.model.ElideNamespaceConfig;
+import com.paiondata.elide.modelconfig.model.ElideSQLDBConfig;
+import com.paiondata.elide.modelconfig.model.ElideSecurityConfig;
+import com.paiondata.elide.modelconfig.model.ElideTableConfig;
+import com.paiondata.elide.modelconfig.model.Join;
+import com.paiondata.elide.modelconfig.model.Measure;
+import com.paiondata.elide.modelconfig.model.Named;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.TableSource;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -851,7 +851,7 @@ public class DynamicConfigValidator implements DynamicConfiguration, Validator {
     private static void printHelp(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
-                "java -cp <Jar File> com.yahoo.elide.modelconfig.validator.DynamicConfigValidator",
+                "java -cp <Jar File> com.paiondata.elide.modelconfig.validator.DynamicConfigValidator",
                 options);
     }
 

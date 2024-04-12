@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.ElideError;
-import com.yahoo.elide.graphql.models.SourceLocationBuilder;
-import com.yahoo.elide.graphql.serialization.GraphQLModule;
+import com.paiondata.elide.ElideError;
+import com.paiondata.elide.graphql.models.SourceLocationBuilder;
+import com.paiondata.elide.graphql.serialization.GraphQLModule;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

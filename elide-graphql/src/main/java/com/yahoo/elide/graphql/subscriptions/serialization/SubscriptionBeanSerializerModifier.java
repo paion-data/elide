@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.subscriptions.serialization;
+package com.paiondata.elide.graphql.subscriptions.serialization;
 
-import com.yahoo.elide.core.dictionary.EntityBinding;
-import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
+import com.paiondata.elide.core.dictionary.EntityBinding;
+import com.paiondata.elide.graphql.subscriptions.annotations.SubscriptionField;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;

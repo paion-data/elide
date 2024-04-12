@@ -3,24 +3,24 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.exceptions.BasicExceptionMappers;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.exceptions.InvalidApiVersionException;
-import com.yahoo.elide.core.exceptions.InvalidConstraintException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.JsonApiAtomicOperationsException;
-import com.yahoo.elide.core.exceptions.JsonPatchExtensionException;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.jsonapi.models.JsonApiError;
-import com.yahoo.elide.jsonapi.models.JsonApiErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.exceptions.InvalidApiVersionException;
+import com.paiondata.elide.core.exceptions.InvalidConstraintException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.JsonApiAtomicOperationsException;
+import com.paiondata.elide.core.exceptions.JsonPatchExtensionException;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.jsonapi.models.JsonApiError;
+import com.paiondata.elide.jsonapi.models.JsonApiErrors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;

@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils;
+package com.paiondata.elide.core.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.annotation.Include;
+import com.paiondata.elide.annotation.Include;
 import org.junit.jupiter.api.Test;
 
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public class ClassScannerTest {
 
     @Test
     public void testGetAllClasses() {
-        Set<Class<?>> classes = scanner.getAllClasses("com.yahoo.elide.core.utils");
+        Set<Class<?>> classes = scanner.getAllClasses("com.paiondata.elide.core.utils");
         assertEquals(44, classes.size());
         assertTrue(classes.contains(ClassScannerTest.class));
     }

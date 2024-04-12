@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket.protocol;
+package com.paiondata.elide.graphql.subscriptions.websocket.protocol;
 
 import jakarta.websocket.CloseReason;
 import lombok.Getter;

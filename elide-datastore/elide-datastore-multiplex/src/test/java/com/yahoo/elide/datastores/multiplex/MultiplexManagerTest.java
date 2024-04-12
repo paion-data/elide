@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.multiplex;
+package com.paiondata.elide.datastores.multiplex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,19 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.exceptions.TransactionException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.example.beans.ComplexAttribute;
-import com.yahoo.elide.example.beans.FirstBean;
-import com.yahoo.elide.example.other.OtherBean;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.exceptions.TransactionException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.example.beans.ComplexAttribute;
+import com.paiondata.elide.example.beans.FirstBean;
+import com.paiondata.elide.example.other.OtherBean;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.BeforeAll;

@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import static com.yahoo.elide.test.graphql.GraphQLDSL.argument;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.arguments;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.document;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.graphql.PersistentResourceFetcherTest;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.graphql.PersistentResourceFetcherTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

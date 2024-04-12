@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core;
+package com.paiondata.elide.core;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -15,10 +15,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.TestUser;
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.TestUser;
+import com.paiondata.elide.core.security.User;
 import example.Child;
 import example.FunWithPermissions;
 import org.junit.jupiter.api.Test;

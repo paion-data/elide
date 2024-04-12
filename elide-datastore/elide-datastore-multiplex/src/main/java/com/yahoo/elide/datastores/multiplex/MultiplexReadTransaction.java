@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.multiplex;
+package com.paiondata.elide.datastores.multiplex;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
 
 /**
  * Multiplex transaction handler.

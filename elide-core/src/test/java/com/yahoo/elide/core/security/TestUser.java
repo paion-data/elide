@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
 /**
  * Elide user for testing.

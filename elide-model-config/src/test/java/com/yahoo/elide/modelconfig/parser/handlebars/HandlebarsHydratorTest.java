@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.parser.handlebars;
+package com.paiondata.elide.modelconfig.parser.handlebars;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

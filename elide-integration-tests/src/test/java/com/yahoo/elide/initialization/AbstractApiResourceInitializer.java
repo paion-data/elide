@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.initialization;
+package com.paiondata.elide.initialization;
 
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;

@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 
 import graphql.language.ArrayValue;
 import graphql.language.BooleanValue;
@@ -101,7 +101,7 @@ class VariableResolver {
      * @param resolveTo the Elide type to resolve to
      * @return resolved value of given variable
      */
-    public Object resolveValue(Value value, Optional<com.yahoo.elide.core.type.Type<?>> resolveTo) {
+    public Object resolveValue(Value value, Optional<com.paiondata.elide.core.type.Type<?>> resolveTo) {
         if (value instanceof BooleanValue) {
             return ((BooleanValue) value).isValue();
         }

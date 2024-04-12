@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.ElideError;
+import com.paiondata.elide.ElideError;
 
 import graphql.ErrorClassification;
 import graphql.GraphQLError;
@@ -24,8 +24,8 @@ public class DefaultGraphQLErrorMapper implements GraphQLErrorMapper {
 
     @Override
     public GraphQLError toGraphQLError(ElideError error) {
-        com.yahoo.elide.graphql.models.GraphQLError.GraphQLErrorBuilder graphqlError =
-                com.yahoo.elide.graphql.models.GraphQLError.builder();
+        com.paiondata.elide.graphql.models.GraphQLError.GraphQLErrorBuilder graphqlError =
+                com.paiondata.elide.graphql.models.GraphQLError.builder();
         if (error.getMessage() != null) {
             graphqlError.message(error.getMessage()); // The serializer will encode the message
         }

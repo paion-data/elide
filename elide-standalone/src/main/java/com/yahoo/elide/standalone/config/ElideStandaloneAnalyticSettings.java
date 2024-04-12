@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone.config;
+package com.paiondata.elide.standalone.config;
 
-import com.yahoo.elide.datastores.aggregation.cache.CaffeineCache;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.yahoo.elide.modelconfig.DBPasswordExtractor;
+import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.modelconfig.DBPasswordExtractor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

@@ -4,55 +4,55 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import static com.yahoo.elide.core.dictionary.EntityBinding.EMPTY_BINDING;
-import static com.yahoo.elide.core.security.checks.prefab.Role.ALL_ROLE;
-import static com.yahoo.elide.core.security.checks.prefab.Role.NONE_ROLE;
-import static com.yahoo.elide.core.type.ClassType.COLLECTION_TYPE;
-import static com.yahoo.elide.core.type.ClassType.MAP_TYPE;
+import static com.paiondata.elide.core.dictionary.EntityBinding.EMPTY_BINDING;
+import static com.paiondata.elide.core.security.checks.prefab.Role.ALL_ROLE;
+import static com.paiondata.elide.core.security.checks.prefab.Role.NONE_ROLE;
+import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
+import static com.paiondata.elide.core.type.ClassType.MAP_TYPE;
 
-import com.yahoo.elide.annotation.ApiVersion;
-import com.yahoo.elide.annotation.ComputedAttribute;
-import com.yahoo.elide.annotation.ComputedRelationship;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.Operation;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase;
-import com.yahoo.elide.annotation.NonTransferable;
-import com.yahoo.elide.annotation.OnCreatePostCommit;
-import com.yahoo.elide.annotation.OnCreatePreCommit;
-import com.yahoo.elide.annotation.OnCreatePreSecurity;
-import com.yahoo.elide.annotation.OnDeletePostCommit;
-import com.yahoo.elide.annotation.OnDeletePreCommit;
-import com.yahoo.elide.annotation.OnDeletePreSecurity;
-import com.yahoo.elide.annotation.OnUpdatePostCommit;
-import com.yahoo.elide.annotation.OnUpdatePreCommit;
-import com.yahoo.elide.annotation.OnUpdatePreSecurity;
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InternalServerErrorException;
-import com.yahoo.elide.core.exceptions.InvalidAttributeException;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.security.PermissionExecutor;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.checks.prefab.Collections.AppendOnly;
-import com.yahoo.elide.core.security.checks.prefab.Collections.RemoveOnly;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.AccessibleObject;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Dynamic;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.core.type.Method;
-import com.yahoo.elide.core.type.Package;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.annotation.ApiVersion;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.ComputedRelationship;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.annotation.NonTransferable;
+import com.paiondata.elide.annotation.OnCreatePostCommit;
+import com.paiondata.elide.annotation.OnCreatePreCommit;
+import com.paiondata.elide.annotation.OnCreatePreSecurity;
+import com.paiondata.elide.annotation.OnDeletePostCommit;
+import com.paiondata.elide.annotation.OnDeletePreCommit;
+import com.paiondata.elide.annotation.OnDeletePreSecurity;
+import com.paiondata.elide.annotation.OnUpdatePostCommit;
+import com.paiondata.elide.annotation.OnUpdatePreCommit;
+import com.paiondata.elide.annotation.OnUpdatePreSecurity;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InternalServerErrorException;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.PermissionExecutor;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly;
+import com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.AccessibleObject;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Dynamic;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.core.type.Method;
+import com.paiondata.elide.core.type.Package;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.collect.BiMap;
@@ -108,7 +108,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("static-method")
 public class EntityDictionary {
 
-    public static final String ELIDE_PACKAGE_PREFIX = "com.yahoo.elide";
+    public static final String ELIDE_PACKAGE_PREFIX = "com.paiondata.elide";
     public static final String NO_VERSION = "";
 
     public static final Injector DEFAULT_INJECTOR = (noop) -> {

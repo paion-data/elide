@@ -4,17 +4,17 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
 
 import example.Book;
 

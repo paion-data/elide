@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
-import com.yahoo.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Pagination;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -64,7 +64,7 @@ public class ElideConfigProperties {
     /**
      * Default pagination size for collections if the client doesn't paginate.
      * <p>
-     * The {@link com.yahoo.elide.annotation.Paginate#defaultPageSize()} annotation
+     * The {@link com.paiondata.elide.annotation.Paginate#defaultPageSize()} annotation
      * takes precendence.
      */
     private int defaultPageSize = Pagination.DEFAULT_PAGE_SIZE;
@@ -72,7 +72,7 @@ public class ElideConfigProperties {
     /**
      * The maximum pagination size a client can request.
      * <p>
-     * The {@link com.yahoo.elide.annotation.Paginate#maxPageSize()} annotation
+     * The {@link com.paiondata.elide.annotation.Paginate#maxPageSize()} annotation
      * takes precendence.
      */
     private int maxPageSize = Pagination.MAX_PAGE_SIZE;

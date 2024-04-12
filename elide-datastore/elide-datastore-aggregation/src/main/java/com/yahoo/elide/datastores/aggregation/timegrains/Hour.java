@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.timegrains;
+package com.paiondata.elide.datastores.aggregation.timegrains;
 
-import com.yahoo.elide.core.utils.coerce.converters.ElideTypeConverter;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;

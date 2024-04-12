@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.checks;
+package com.paiondata.elide.datastores.aggregation.checks;
 
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.security.checks.prefab.Role.RoleMemberCheck;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.security.checks.prefab.Role.RoleMemberCheck;
 
 @SecurityCheck(OperatorCheck.OPERTOR_CHECK)
 public class OperatorCheck extends RoleMemberCheck {

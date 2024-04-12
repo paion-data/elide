@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.annotation;
+package com.paiondata.elide.datastores.aggregation.annotation;
 
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
 
 /**
  * The definition of TableSource.

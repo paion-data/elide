@@ -4,18 +4,18 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.validator;
+package com.paiondata.elide.datastores.aggregation.validator;
 
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.datastores.aggregation.DefaultQueryValidator;
-import com.yahoo.elide.datastores.aggregation.metadata.FormulaValidator;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
-import com.yahoo.elide.modelconfig.validator.DynamicConfigValidator;
-import com.yahoo.elide.modelconfig.validator.Validator;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
+import com.paiondata.elide.datastores.aggregation.metadata.FormulaValidator;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.modelconfig.validator.Validator;
 
 import java.util.HashSet;
 import java.util.Map;

@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa;
+package com.paiondata.elide.spring.orm.jpa;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.datastores.jpa.SupplierEntityManager;
-import com.yahoo.elide.datastores.jpa.transaction.AbstractJpaTransaction;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.datastores.jpa.SupplierEntityManager;
+import com.paiondata.elide.datastores.jpa.transaction.AbstractJpaTransaction;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 
 import org.springframework.orm.jpa.EntityManagerHolder;
 import org.springframework.transaction.PlatformTransactionManager;

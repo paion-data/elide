@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.jsonapi.document.processors;
+package com.paiondata.elide.jsonapi.document.processors;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.models.Meta;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.models.Meta;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;

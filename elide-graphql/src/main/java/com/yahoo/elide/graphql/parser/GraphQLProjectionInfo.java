@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Relationship;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Relationship;
 
 import graphql.language.SourceLocation;
 import lombok.AllArgsConstructor;

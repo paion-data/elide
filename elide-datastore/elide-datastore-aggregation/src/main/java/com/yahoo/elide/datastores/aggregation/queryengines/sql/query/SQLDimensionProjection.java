@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ColumnType;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Dimension;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.DimensionProjection;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.DimensionProjection;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -3,26 +3,26 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.integration.tests;
+package com.paiondata.elide.async.integration.tests;
 
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.datum;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.initialization.IntegrationTest;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
-import com.yahoo.elide.test.jsonapi.elements.Resource;
+import com.paiondata.elide.async.integration.tests.framework.AsyncIntegrationTestApplicationResourceConfig;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.test.jsonapi.elements.Resource;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;

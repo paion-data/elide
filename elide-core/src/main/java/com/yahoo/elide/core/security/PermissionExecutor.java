@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
-import com.yahoo.elide.core.Path.PathElement;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.visitors.VerifyFieldAccessFilterExpressionVisitor;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.visitors.VerifyFieldAccessFilterExpressionVisitor;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.type.Type;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -30,10 +30,10 @@ public interface PermissionExecutor {
      * @param <A> type parameter
      * @param annotationClass annotation class
      * @param resource resource
-     * @see com.yahoo.elide.annotation.CreatePermission
-     * @see com.yahoo.elide.annotation.ReadPermission
-     * @see com.yahoo.elide.annotation.UpdatePermission
-     * @see com.yahoo.elide.annotation.DeletePermission
+     * @see com.paiondata.elide.annotation.CreatePermission
+     * @see com.paiondata.elide.annotation.ReadPermission
+     * @see com.paiondata.elide.annotation.UpdatePermission
+     * @see com.paiondata.elide.annotation.DeletePermission
      * @return the results of evaluating the permission
      */
     default <A extends Annotation> ExpressionResult checkPermission(
@@ -50,10 +50,10 @@ public interface PermissionExecutor {
      * @param annotationClass annotation class
      * @param resource resource
      * @param requestedFields the list of requested fields
-     * @see com.yahoo.elide.annotation.CreatePermission
-     * @see com.yahoo.elide.annotation.ReadPermission
-     * @see com.yahoo.elide.annotation.UpdatePermission
-     * @see com.yahoo.elide.annotation.DeletePermission
+     * @see com.paiondata.elide.annotation.CreatePermission
+     * @see com.paiondata.elide.annotation.ReadPermission
+     * @see com.paiondata.elide.annotation.UpdatePermission
+     * @see com.paiondata.elide.annotation.DeletePermission
      * @return the results of evaluating the permission
      */
     <A extends Annotation> ExpressionResult checkPermission(

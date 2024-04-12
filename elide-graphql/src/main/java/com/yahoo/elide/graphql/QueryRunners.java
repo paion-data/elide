@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.RefreshableElide;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.RefreshableElide;
 
 import graphql.execution.DataFetcherExceptionHandler;
 

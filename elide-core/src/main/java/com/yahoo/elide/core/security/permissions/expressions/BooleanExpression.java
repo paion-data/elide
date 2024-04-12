@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security.permissions.expressions;
+package com.paiondata.elide.core.security.permissions.expressions;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
 import org.fusesource.jansi.Ansi;
 
 /**

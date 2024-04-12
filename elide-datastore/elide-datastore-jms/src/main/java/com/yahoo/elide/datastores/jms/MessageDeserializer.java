@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import com.yahoo.elide.core.exceptions.InternalServerErrorException;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.exceptions.InternalServerErrorException;
+import com.paiondata.elide.core.type.Type;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

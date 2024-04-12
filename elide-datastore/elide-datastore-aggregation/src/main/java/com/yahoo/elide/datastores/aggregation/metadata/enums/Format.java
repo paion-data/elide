@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
 /**
  * Format of a value field, e.g. decimal for numbers

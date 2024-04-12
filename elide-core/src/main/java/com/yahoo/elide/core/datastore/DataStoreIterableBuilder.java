@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.datastore;
+package com.paiondata.elide.core.datastore;
 
 import java.util.ArrayList;
 

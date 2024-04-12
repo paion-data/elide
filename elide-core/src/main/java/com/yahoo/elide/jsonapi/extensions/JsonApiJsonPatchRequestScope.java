@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.extensions;
+package com.paiondata.elide.jsonapi.extensions;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 
 import java.util.UUID;
 

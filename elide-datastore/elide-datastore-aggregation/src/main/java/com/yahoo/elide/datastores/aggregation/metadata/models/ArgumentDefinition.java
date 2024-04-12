@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.models;
+package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueSourceType;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.modelconfig.model.Named;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueSourceType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.modelconfig.model.Named;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -46,7 +46,7 @@ public class ArgumentDefinition implements Named {
     private TableSource tableSource;
 
     @Exclude
-    private com.yahoo.elide.datastores.aggregation.annotation.TableSource tableSourceDefinition;
+    private com.paiondata.elide.datastores.aggregation.annotation.TableSource tableSourceDefinition;
 
     private Object defaultValue;
 
@@ -55,7 +55,7 @@ public class ArgumentDefinition implements Named {
     }
 
     public ArgumentDefinition(String idPrefix,
-                              com.yahoo.elide.datastores.aggregation.annotation.ArgumentDefinition argument) {
+                              com.paiondata.elide.datastores.aggregation.annotation.ArgumentDefinition argument) {
         this.id = idPrefix + "." + argument.name();
         this.name = argument.name();
         this.description = argument.description();

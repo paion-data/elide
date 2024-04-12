@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide;
+package com.paiondata.elide;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.ElideSettings.ElideSettingsBuilder;
-import com.yahoo.elide.Settings.SettingsBuilder;
-import com.yahoo.elide.utils.HeaderProcessor;
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
+import com.paiondata.elide.Settings.SettingsBuilder;
+import com.paiondata.elide.utils.HeaderProcessor;
 
 import org.junit.jupiter.api.Test;
 

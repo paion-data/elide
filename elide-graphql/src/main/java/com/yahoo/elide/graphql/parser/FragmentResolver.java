@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
 
 import graphql.language.Document;
 import graphql.language.Field;

@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security.visitors;
+package com.paiondata.elide.core.security.visitors;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.permissions.expressions.AndExpression;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.security.permissions.expressions.NotExpression;
-import com.yahoo.elide.core.security.permissions.expressions.OrExpression;
-import com.yahoo.elide.generated.parsers.ExpressionBaseVisitor;
-import com.yahoo.elide.generated.parsers.ExpressionParser;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.security.permissions.expressions.NotExpression;
+import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
+import com.paiondata.elide.generated.parsers.ExpressionBaseVisitor;
+import com.paiondata.elide.generated.parsers.ExpressionParser;
 
 import java.util.function.Function;
 

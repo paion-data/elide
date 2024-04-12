@@ -4,29 +4,29 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.expression;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.expression;
 
-import static com.yahoo.elide.core.utils.TypeHelper.appendAlias;
-import static com.yahoo.elide.datastores.aggregation.metadata.ColumnContext.applyQuotes;
-import static com.yahoo.elide.datastores.aggregation.metadata.ColumnContext.mergedArgumentMap;
-import static com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable.hasSql;
-import static com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable.resolveTableOrSubselect;
+import static com.paiondata.elide.core.utils.TypeHelper.appendAlias;
+import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.applyQuotes;
+import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.mergedArgumentMap;
+import static com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable.hasSql;
+import static com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable.resolveTableOrSubselect;
 import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import com.yahoo.elide.core.Path.PathElement;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.JoinType;
-import com.yahoo.elide.datastores.aggregation.core.JoinPath;
-import com.yahoo.elide.datastores.aggregation.metadata.ColumnContext;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.metadata.TableContext;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.core.Path.PathElement;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
+import com.paiondata.elide.datastores.aggregation.core.JoinPath;
+import com.paiondata.elide.datastores.aggregation.metadata.ColumnContext;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.TableContext;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 
 import java.util.LinkedHashSet;
 import java.util.List;

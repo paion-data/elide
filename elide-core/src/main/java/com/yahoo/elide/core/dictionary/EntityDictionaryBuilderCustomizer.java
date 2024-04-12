@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary.EntityDictionaryBuilder;
+import com.paiondata.elide.core.dictionary.EntityDictionary.EntityDictionaryBuilder;
 
 /**
  * Customizer for customizing a {@link EntityDictionaryBuilder}.

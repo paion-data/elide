@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects;
 
-import com.yahoo.elide.datastores.aggregation.annotation.JoinType;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.calcite.SupportedOperation;
+import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedAggregation;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.calcite.SupportedOperation;
 
 import java.util.Arrays;
 import java.util.HashMap;

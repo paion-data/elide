@@ -4,29 +4,29 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.test.jsonapi;
+package com.paiondata.elide.test.jsonapi;
 
-import com.yahoo.elide.test.jsonapi.elements.AtomicOperation;
-import com.yahoo.elide.test.jsonapi.elements.AtomicOperationCode;
-import com.yahoo.elide.test.jsonapi.elements.AtomicOperations;
-import com.yahoo.elide.test.jsonapi.elements.Attribute;
-import com.yahoo.elide.test.jsonapi.elements.Attributes;
-import com.yahoo.elide.test.jsonapi.elements.Data;
-import com.yahoo.elide.test.jsonapi.elements.Document;
-import com.yahoo.elide.test.jsonapi.elements.Id;
-import com.yahoo.elide.test.jsonapi.elements.Include;
-import com.yahoo.elide.test.jsonapi.elements.Lid;
-import com.yahoo.elide.test.jsonapi.elements.Links;
-import com.yahoo.elide.test.jsonapi.elements.PatchOperation;
-import com.yahoo.elide.test.jsonapi.elements.PatchOperationType;
-import com.yahoo.elide.test.jsonapi.elements.PatchSet;
-import com.yahoo.elide.test.jsonapi.elements.Ref;
-import com.yahoo.elide.test.jsonapi.elements.Relation;
-import com.yahoo.elide.test.jsonapi.elements.Relationship;
-import com.yahoo.elide.test.jsonapi.elements.Relationships;
-import com.yahoo.elide.test.jsonapi.elements.Resource;
-import com.yahoo.elide.test.jsonapi.elements.ResourceLinkage;
-import com.yahoo.elide.test.jsonapi.elements.Type;
+import com.paiondata.elide.test.jsonapi.elements.AtomicOperation;
+import com.paiondata.elide.test.jsonapi.elements.AtomicOperationCode;
+import com.paiondata.elide.test.jsonapi.elements.AtomicOperations;
+import com.paiondata.elide.test.jsonapi.elements.Attribute;
+import com.paiondata.elide.test.jsonapi.elements.Attributes;
+import com.paiondata.elide.test.jsonapi.elements.Data;
+import com.paiondata.elide.test.jsonapi.elements.Document;
+import com.paiondata.elide.test.jsonapi.elements.Id;
+import com.paiondata.elide.test.jsonapi.elements.Include;
+import com.paiondata.elide.test.jsonapi.elements.Lid;
+import com.paiondata.elide.test.jsonapi.elements.Links;
+import com.paiondata.elide.test.jsonapi.elements.PatchOperation;
+import com.paiondata.elide.test.jsonapi.elements.PatchOperationType;
+import com.paiondata.elide.test.jsonapi.elements.PatchSet;
+import com.paiondata.elide.test.jsonapi.elements.Ref;
+import com.paiondata.elide.test.jsonapi.elements.Relation;
+import com.paiondata.elide.test.jsonapi.elements.Relationship;
+import com.paiondata.elide.test.jsonapi.elements.Relationships;
+import com.paiondata.elide.test.jsonapi.elements.Resource;
+import com.paiondata.elide.test.jsonapi.elements.ResourceLinkage;
+import com.paiondata.elide.test.jsonapi.elements.Type;
 
 /**
  * Adds helper functions for creating Json API style data.

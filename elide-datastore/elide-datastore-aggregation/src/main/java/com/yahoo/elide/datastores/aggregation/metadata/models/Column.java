@@ -3,26 +3,26 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.models;
+package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import static com.yahoo.elide.datastores.aggregation.metadata.enums.ColumnType.FIELD;
-import static com.yahoo.elide.datastores.aggregation.metadata.enums.ColumnType.FORMULA;
+import static com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType.FIELD;
+import static com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType.FORMULA;
 
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ToOne;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.CardinalitySize;
-import com.yahoo.elide.datastores.aggregation.annotation.ColumnMeta;
-import com.yahoo.elide.datastores.aggregation.annotation.DimensionFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.MetricFormula;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ColumnType;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueSourceType;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.modelconfig.model.Named;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ToOne;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
+import com.paiondata.elide.datastores.aggregation.annotation.ColumnMeta;
+import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ColumnType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueSourceType;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.modelconfig.model.Named;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -84,7 +84,7 @@ public abstract class Column implements Versioned, Named, RequiresFilter {
     private TableSource tableSource = null;
 
     @Exclude
-    private com.yahoo.elide.datastores.aggregation.annotation.TableSource tableSourceDefinition;
+    private com.paiondata.elide.datastores.aggregation.annotation.TableSource tableSourceDefinition;
 
     @OneToMany
     @ToString.Exclude

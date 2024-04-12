@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser.state;
+package com.paiondata.elide.jsonapi.parser.state;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.InvalidOperationException;
-import com.yahoo.elide.jsonapi.models.Data;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.models.Relationship;
-import com.yahoo.elide.jsonapi.models.Resource;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.jsonapi.models.Data;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.models.Relationship;
+import com.paiondata.elide.jsonapi.models.Resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.tuple.Pair;
 

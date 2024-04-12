@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser;
+package com.paiondata.elide.jsonapi.parser;
 
-import com.yahoo.elide.generated.parsers.CoreParser.QueryContext;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.generated.parsers.CoreParser.QueryContext;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.function.Supplier;

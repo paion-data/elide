@@ -4,17 +4,17 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.graphql.subscriptions.hooks.SubscriptionScanner;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import example.Author;
 import example.Book;

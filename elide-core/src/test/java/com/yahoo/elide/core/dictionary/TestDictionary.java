@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import example.TestCheckMappings;
 
 import jakarta.inject.Inject;

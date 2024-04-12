@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone.config;
+package com.paiondata.elide.standalone.config;
 
-import static com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
+import static com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket.DEFAULT_USER_FACTORY;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettingsBuilderCustomizer;
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.graphql.subscriptions.hooks.SubscriptionScanner;
-import com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettingsBuilderCustomizer;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Message;
@@ -56,7 +56,7 @@ public interface ElideStandaloneSubscriptionSettings {
      * Websocket sends a PING immediate after receiving a SUBSCRIBE.  Only useful for testing.
      *
      * @return Default false.
-     * @see com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient
+     * @see com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient
      */
     default boolean shouldSendPingOnSubscribe() {
         return false;

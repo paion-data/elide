@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.expression;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.expression;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.core.JoinPath;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.core.JoinPath;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLTable;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;

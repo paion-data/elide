@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa;
+package com.paiondata.elide.spring.orm.jpa;
 
-import static com.yahoo.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
+import static com.paiondata.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

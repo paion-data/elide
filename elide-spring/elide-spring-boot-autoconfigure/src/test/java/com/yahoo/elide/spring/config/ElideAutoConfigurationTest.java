@@ -3,32 +3,32 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.yahoo.elide.ElideErrorResponse;
-import com.yahoo.elide.ElideErrors;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.ElideSettings.ElideSettingsBuilder;
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.SerdesBuilderCustomizer;
-import com.yahoo.elide.core.exceptions.ErrorContext;
-import com.yahoo.elide.core.exceptions.ExceptionMapper;
-import com.yahoo.elide.core.exceptions.ExceptionMapperRegistration;
-import com.yahoo.elide.core.request.route.NullRouteResolver;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.graphql.GraphQLErrorContext;
-import com.yahoo.elide.graphql.GraphQLExceptionHandler;
-import com.yahoo.elide.graphql.GraphQLSettings;
-import com.yahoo.elide.graphql.models.GraphQLErrors;
-import com.yahoo.elide.jsonapi.JsonApiErrorContext;
-import com.yahoo.elide.jsonapi.JsonApiExceptionHandler;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.jsonapi.models.JsonApiError;
-import com.yahoo.elide.jsonapi.models.JsonApiErrors;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.SerdesBuilderCustomizer;
+import com.paiondata.elide.core.exceptions.ErrorContext;
+import com.paiondata.elide.core.exceptions.ExceptionMapper;
+import com.paiondata.elide.core.exceptions.ExceptionMapperRegistration;
+import com.paiondata.elide.core.request.route.NullRouteResolver;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.graphql.GraphQLErrorContext;
+import com.paiondata.elide.graphql.GraphQLExceptionHandler;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.models.GraphQLErrors;
+import com.paiondata.elide.jsonapi.JsonApiErrorContext;
+import com.paiondata.elide.jsonapi.JsonApiExceptionHandler;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.models.JsonApiError;
+import com.paiondata.elide.jsonapi.models.JsonApiErrors;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;

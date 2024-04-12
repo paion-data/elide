@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.controllers;
+package com.paiondata.elide.spring.controllers;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.spring.config.ElideConfigProperties;
-import com.yahoo.elide.swagger.OpenApiDocument;
-import com.yahoo.elide.swagger.OpenApiDocument.MediaType;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.OpenApiDocument.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;

@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpql.query;
+package com.paiondata.elide.datastores.jpql.query;
 
-import static com.yahoo.elide.core.utils.TypeHelper.appendAlias;
-import static com.yahoo.elide.core.utils.TypeHelper.getTypeAlias;
+import static com.paiondata.elide.core.utils.TypeHelper.appendAlias;
+import static com.paiondata.elide.core.utils.TypeHelper.getTypeAlias;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.PredicateExtractionVisitor;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.jpql.porting.Query;
-import com.yahoo.elide.datastores.jpql.porting.Session;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.PredicateExtractionVisitor;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.Session;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public abstract class AbstractHQLQueryBuilder {
      */
     public interface Relationship {
 
-        com.yahoo.elide.core.request.Relationship getRelationship();
+        com.paiondata.elide.core.request.Relationship getRelationship();
 
         Type<?> getParentType();
 

@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa.config;
+package com.paiondata.elide.spring.orm.jpa.config;
 
 
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import com.yahoo.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
-import com.yahoo.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
-import com.yahoo.elide.spring.config.ElideConfigProperties;
-import com.yahoo.elide.spring.orm.jpa.EntityManagerProxySupplier;
-import com.yahoo.elide.spring.orm.jpa.PlatformJpaTransactionSupplier;
-import com.yahoo.elide.spring.orm.jpa.config.JpaDataStoreRegistration.JpaDataStoreRegistrationBuilder;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.spring.orm.jpa.EntityManagerProxySupplier;
+import com.paiondata.elide.spring.orm.jpa.PlatformJpaTransactionSupplier;
+import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistration.JpaDataStoreRegistrationBuilder;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -46,7 +46,7 @@ public class JpaDataStoreRegistrations {
     public static JpaDataStoreRegistration buildJpaDataStoreRegistration(String entityManagerFactoryName,
             EntityManagerFactory entityManagerFactory, String platformTransactionManagerName,
             PlatformTransactionManager platformTransactionManager, ElideConfigProperties settings,
-            Optional<com.yahoo.elide.datastores.jpql.porting.QueryLogger> optionalQueryLogger,
+            Optional<com.paiondata.elide.datastores.jpql.porting.QueryLogger> optionalQueryLogger,
             Class<?>[] managedClasses) {
         DefaultTransactionDefinition writeJpaTransactionDefinition = new DefaultTransactionDefinition(
                 TransactionDefinition.PROPAGATION_REQUIRED);

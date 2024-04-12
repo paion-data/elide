@@ -4,18 +4,18 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import static com.yahoo.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
+import static com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder.TOPIC_ARGUMENT;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.graphql.subscriptions.hooks.TopicType;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.graphql.subscriptions.hooks.TopicType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.jms.Destination;

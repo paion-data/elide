@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.store.models;
+package com.paiondata.elide.modelconfig.store.models;
 
-import com.yahoo.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.security.checks.prefab.Role;
 
 /**
  * Utility class which contains a set of check labels.  Clients need to define checks for these

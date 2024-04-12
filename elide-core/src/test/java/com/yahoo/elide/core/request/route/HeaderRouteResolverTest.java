@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.request.route;
+package com.paiondata.elide.core.request.route;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 
 import org.junit.jupiter.api.Test;
 

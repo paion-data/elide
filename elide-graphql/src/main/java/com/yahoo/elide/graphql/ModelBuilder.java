@@ -4,27 +4,27 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static graphql.schema.GraphQLArgument.newArgument;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLInputObjectField.newInputObjectField;
 import static graphql.schema.GraphQLObjectType.newObject;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.federation.EntitiesDataFetcher;
-import com.yahoo.elide.graphql.federation.EntityTypeResolver;
-import com.yahoo.elide.graphql.federation.FederationSchema;
-import com.yahoo.elide.graphql.federation.FederationVersion;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.federation.EntitiesDataFetcher;
+import com.paiondata.elide.graphql.federation.EntityTypeResolver;
+import com.paiondata.elide.graphql.federation.FederationSchema;
+import com.paiondata.elide.graphql.federation.FederationVersion;
 import com.apollographql.federation.graphqljava.Federation;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.CollectionUtils;

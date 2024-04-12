@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.example.beans;
+package com.paiondata.elide.example.beans;
 
 import lombok.Data;
 

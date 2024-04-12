@@ -4,23 +4,23 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket;
+package com.paiondata.elide.graphql.subscriptions.websocket;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.graphql.GraphQLRequestScope;
-import com.yahoo.elide.graphql.QueryRunner;
-import com.yahoo.elide.graphql.parser.GraphQLProjectionInfo;
-import com.yahoo.elide.graphql.parser.SubscriptionEntityProjectionMaker;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Complete;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Error;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Next;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Ping;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.Subscribe;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.graphql.GraphQLRequestScope;
+import com.paiondata.elide.graphql.QueryRunner;
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
+import com.paiondata.elide.graphql.parser.SubscriptionEntityProjectionMaker;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Complete;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Error;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Next;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Ping;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.Subscribe;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.reactivestreams.Publisher;

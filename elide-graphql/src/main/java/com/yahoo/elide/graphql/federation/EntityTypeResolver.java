@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.federation;
+package com.paiondata.elide.graphql.federation;
 
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.graphql.GraphQLNameUtils;
-import com.yahoo.elide.graphql.containers.PersistentResourceContainer;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.containers.PersistentResourceContainer;
 
 import graphql.TypeResolutionEnvironment;
 import graphql.schema.GraphQLObjectType;

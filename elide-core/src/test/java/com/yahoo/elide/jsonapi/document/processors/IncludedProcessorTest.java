@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.document.processors;
+package com.paiondata.elide.jsonapi.document.processors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.TestRequestScope;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.security.TestUser;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.models.Resource;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.TestRequestScope;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.security.TestUser;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.models.Resource;
 import com.google.common.collect.Sets;
 import example.Child;
 import example.FunWithPermissions;

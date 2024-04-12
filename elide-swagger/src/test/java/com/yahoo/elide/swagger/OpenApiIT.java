@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger;
+package com.paiondata.elide.swagger;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.initialization.AbstractApiResourceInitializer;
-import com.yahoo.elide.swagger.OpenApiDocument.MediaType;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.initialization.AbstractApiResourceInitializer;
+import com.paiondata.elide.swagger.OpenApiDocument.MediaType;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

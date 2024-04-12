@@ -4,19 +4,19 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.store;
+package com.paiondata.elide.modelconfig.store;
 
-import static com.yahoo.elide.modelconfig.store.ConfigDataStore.VALIDATE_ONLY_HEADER;
+import static com.paiondata.elide.modelconfig.store.ConfigDataStore.VALIDATE_ONLY_HEADER;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.modelconfig.io.FileLoader;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
-import com.yahoo.elide.modelconfig.validator.Validator;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.modelconfig.io.FileLoader;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.validator.Validator;
 
 import lombok.extern.slf4j.Slf4j;
 

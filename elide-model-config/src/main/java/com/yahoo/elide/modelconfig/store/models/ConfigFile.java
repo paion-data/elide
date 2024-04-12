@@ -4,19 +4,19 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.store.models;
+package com.paiondata.elide.modelconfig.store.models;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.core.security.checks.prefab.Role.NONE_ROLE;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.security.checks.prefab.Role.NONE_ROLE;
 
-import com.yahoo.elide.annotation.ComputedAttribute;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.exceptions.BadRequestException;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

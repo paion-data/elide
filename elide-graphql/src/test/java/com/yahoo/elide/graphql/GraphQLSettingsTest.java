@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
 
 import org.junit.jupiter.api.Test;
 

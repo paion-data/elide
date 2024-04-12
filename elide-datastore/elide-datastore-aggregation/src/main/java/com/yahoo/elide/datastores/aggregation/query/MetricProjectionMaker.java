@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
 
 import java.util.Map;
 

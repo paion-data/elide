@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.ClassType;
 
 import org.junit.jupiter.api.Test;
 

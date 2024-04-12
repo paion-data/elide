@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.checks;
+package com.paiondata.elide.datastores.aggregation.checks;
 
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.PostfixPredicate;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.PostfixPredicate;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.type.Type;
 import example.VideoGame;
 
 /**

@@ -3,31 +3,31 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.core.TransactionRegistry;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.jsonapi.extensions.JsonApiAtomicOperations;
-import com.yahoo.elide.jsonapi.extensions.JsonApiAtomicOperationsRequestScope;
-import com.yahoo.elide.jsonapi.extensions.JsonApiJsonPatch;
-import com.yahoo.elide.jsonapi.extensions.JsonApiJsonPatchRequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.parser.BaseVisitor;
-import com.yahoo.elide.jsonapi.parser.DeleteVisitor;
-import com.yahoo.elide.jsonapi.parser.GetVisitor;
-import com.yahoo.elide.jsonapi.parser.JsonApiParser;
-import com.yahoo.elide.jsonapi.parser.PatchVisitor;
-import com.yahoo.elide.jsonapi.parser.PostVisitor;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.core.TransactionRegistry;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.extensions.JsonApiAtomicOperations;
+import com.paiondata.elide.jsonapi.extensions.JsonApiAtomicOperationsRequestScope;
+import com.paiondata.elide.jsonapi.extensions.JsonApiJsonPatch;
+import com.paiondata.elide.jsonapi.extensions.JsonApiJsonPatchRequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.parser.BaseVisitor;
+import com.paiondata.elide.jsonapi.parser.DeleteVisitor;
+import com.paiondata.elide.jsonapi.parser.GetVisitor;
+import com.paiondata.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.jsonapi.parser.PatchVisitor;
+import com.paiondata.elide.jsonapi.parser.PostVisitor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

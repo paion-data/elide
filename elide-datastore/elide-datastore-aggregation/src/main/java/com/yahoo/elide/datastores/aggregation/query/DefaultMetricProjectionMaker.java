@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.SQLMetricProjection;
 
 import java.util.Map;
 

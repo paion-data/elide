@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect.jsonapi;
+package com.paiondata.elide.core.filter.dialect.jsonapi;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.ParseException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.ParseException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

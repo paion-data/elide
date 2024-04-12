@@ -3,32 +3,32 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation;
+package com.paiondata.elide.datastores.aggregation;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreIterableBuilder;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InvalidOperationException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.cache.Cache;
-import com.yahoo.elide.datastores.aggregation.cache.QueryKeyExtractor;
-import com.yahoo.elide.datastores.aggregation.core.QueryLogger;
-import com.yahoo.elide.datastores.aggregation.core.QueryResponse;
-import com.yahoo.elide.datastores.aggregation.filter.visitor.MatchesTemplateVisitor;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Column;
-import com.yahoo.elide.datastores.aggregation.metadata.models.RequiresFilter;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Table;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.QueryResult;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreIterableBuilder;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.cache.Cache;
+import com.paiondata.elide.datastores.aggregation.cache.QueryKeyExtractor;
+import com.paiondata.elide.datastores.aggregation.core.QueryLogger;
+import com.paiondata.elide.datastores.aggregation.core.QueryResponse;
+import com.paiondata.elide.datastores.aggregation.filter.visitor.MatchesTemplateVisitor;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Column;
+import com.paiondata.elide.datastores.aggregation.metadata.models.RequiresFilter;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.QueryResult;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 

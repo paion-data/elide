@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.audit;
+package com.paiondata.elide.core.audit;
 
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.PersistentResource;
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.PersistentResource;
+import com.paiondata.elide.core.security.User;
 
 import java.util.Optional;
 

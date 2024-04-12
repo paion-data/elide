@@ -3,31 +3,31 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions;
+package com.paiondata.elide.core.security.permissions;
 
-import static com.yahoo.elide.core.security.permissions.expressions.Expression.Results.FAILURE;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
+import static com.paiondata.elide.core.security.permissions.expressions.Expression.Results.FAILURE;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
 
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.permissions.expressions.AndExpression;
-import com.yahoo.elide.core.security.permissions.expressions.AnyFieldExpression;
-import com.yahoo.elide.core.security.permissions.expressions.CheckExpression;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.security.permissions.expressions.OrExpression;
-import com.yahoo.elide.core.security.permissions.expressions.SpecificFieldExpression;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.permissions.expressions.AndExpression;
+import com.paiondata.elide.core.security.permissions.expressions.AnyFieldExpression;
+import com.paiondata.elide.core.security.permissions.expressions.CheckExpression;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.security.permissions.expressions.OrExpression;
+import com.paiondata.elide.core.security.permissions.expressions.SpecificFieldExpression;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
+import com.paiondata.elide.core.type.Type;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.lang.annotation.Annotation;

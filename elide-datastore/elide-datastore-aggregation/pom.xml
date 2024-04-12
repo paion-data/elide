@@ -12,7 +12,7 @@
     <description>Elide Data Store for Aggregation</description>
     <url>https://github.com/yahoo/elide/tree/master/elide-datastore/elide-datastore-aggregation</url>
     <parent>
-        <groupId>com.yahoo.elide</groupId>
+        <groupId>com.paiondata.elide</groupId>
         <artifactId>elide-datastore-parent-pom</artifactId>
         <version>7.0.4-SNAPSHOT</version>
     </parent>
@@ -43,35 +43,35 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-jpa</artifactId>
             <version>7.0.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-graphql</artifactId>
         </dependency>
         
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-multiplex</artifactId>
             <version>7.0.4-SNAPSHOT</version>
         </dependency>
         
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-model-config</artifactId>
             <version>7.0.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-test-helpers</artifactId>
             <scope>test</scope>
         </dependency>
@@ -171,7 +171,7 @@
 
         <!-- IntegrationTests -->
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-integration-tests</artifactId>
             <version>7.0.4-SNAPSHOT</version>
             <scope>test</scope>

@@ -3,20 +3,20 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect.jsonapi;
+package com.paiondata.elide.core.filter.dialect.jsonapi;
 
-import static com.yahoo.elide.core.type.ClassType.COLLECTION_TYPE;
+import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.dialect.ParseException;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.dialect.ParseException;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.jsonapi.parser.JsonApiParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

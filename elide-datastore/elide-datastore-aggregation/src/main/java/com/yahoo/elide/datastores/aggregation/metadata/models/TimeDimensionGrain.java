@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.models;
+package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.datastores.aggregation.annotation.TimeGrainDefinition;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.datastores.aggregation.annotation.TimeGrainDefinition;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
 
 import jakarta.persistence.Id;
 import lombok.Value;

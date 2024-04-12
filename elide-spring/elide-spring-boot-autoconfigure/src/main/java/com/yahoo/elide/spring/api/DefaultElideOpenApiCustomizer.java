@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.api;
+package com.paiondata.elide.spring.api;
 
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.spring.config.ElideConfigProperties;
-import com.yahoo.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.swagger.OpenApiBuilder;
 
 import io.swagger.v3.oas.models.OpenAPI;
 

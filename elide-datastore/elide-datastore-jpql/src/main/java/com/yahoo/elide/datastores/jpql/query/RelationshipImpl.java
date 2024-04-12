@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpql.query;
+package com.paiondata.elide.datastores.jpql.query;
 
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.type.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

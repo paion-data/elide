@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.validator;
+package com.paiondata.elide.modelconfig.validator;
 
-import com.yahoo.elide.generated.parsers.ExpressionBaseVisitor;
-import com.yahoo.elide.generated.parsers.ExpressionParser;
+import com.paiondata.elide.generated.parsers.ExpressionBaseVisitor;
+import com.paiondata.elide.generated.parsers.ExpressionParser;
 
 import lombok.AllArgsConstructor;
 

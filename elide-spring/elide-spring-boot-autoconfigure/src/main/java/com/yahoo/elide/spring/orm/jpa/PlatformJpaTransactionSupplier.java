@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa;
+package com.paiondata.elide.spring.orm.jpa;
 
-import static com.yahoo.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
+import static com.paiondata.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
 
-import com.yahoo.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
-import com.yahoo.elide.datastores.jpa.transaction.JpaTransaction;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
+import com.paiondata.elide.datastores.jpa.transaction.JpaTransaction;
 import org.hibernate.Session;
 
 import org.springframework.transaction.PlatformTransactionManager;

@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.ClassType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.Book;
 import org.junit.jupiter.api.Test;

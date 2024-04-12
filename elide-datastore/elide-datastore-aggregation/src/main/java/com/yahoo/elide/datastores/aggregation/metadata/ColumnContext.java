@@ -4,19 +4,19 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.metadata;
+package com.paiondata.elide.datastores.aggregation.metadata;
 
-import static com.yahoo.elide.core.request.Argument.getArgumentMapFromString;
-import static com.yahoo.elide.core.utils.TypeHelper.appendAlias;
-import static com.yahoo.elide.datastores.aggregation.query.ColumnProjection.createSafeAlias;
+import static com.paiondata.elide.core.request.Argument.getArgumentMapFromString;
+import static com.paiondata.elide.core.utils.TypeHelper.appendAlias;
+import static com.paiondata.elide.datastores.aggregation.query.ColumnProjection.createSafeAlias;
 import static java.util.Collections.emptyMap;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.metadata.SQLJoin;
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Formatter;
 import com.github.jknack.handlebars.Handlebars;
@@ -56,8 +56,8 @@ public class ColumnContext extends HashMap<String, Object> {
     private final Handlebars handlebars = new Handlebars()
             .with(EscapingStrategy.NOOP)
             .with((Formatter) (value, next) -> {
-                if (value instanceof com.yahoo.elide.core.request.Argument) {
-                    return ((com.yahoo.elide.core.request.Argument) value).getValue();
+                if (value instanceof com.paiondata.elide.core.request.Argument) {
+                    return ((com.paiondata.elide.core.request.Argument) value).getValue();
                 }
                 return next.format(value);
             })

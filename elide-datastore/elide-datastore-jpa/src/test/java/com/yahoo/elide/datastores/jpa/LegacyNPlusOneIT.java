@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
 import static io.restassured.RestAssured.given;
 import static org.mockito.Mockito.reset;
 
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
 import example.Author;
 import example.Book;
 import example.Publisher;

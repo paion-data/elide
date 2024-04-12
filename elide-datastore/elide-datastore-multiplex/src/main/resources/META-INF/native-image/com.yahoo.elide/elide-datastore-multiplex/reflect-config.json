@@ -1,6 +1,6 @@
 [
   {
-    "name": "com.yahoo.elide.datastores.multiplex.MultiplexManager",
+    "name": "com.paiondata.elide.datastores.multiplex.MultiplexManager",
     "allDeclaredMethods": true,
     "allDeclaredConstructors": true
   }

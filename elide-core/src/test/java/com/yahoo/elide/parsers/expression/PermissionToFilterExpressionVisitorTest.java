@@ -4,42 +4,42 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.parsers.expression;
+package com.paiondata.elide.parsers.expression;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
-import static com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.FALSE_USER_CHECK_EXPRESSION;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.NO_EVALUATION_EXPRESSION;
+import static com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor.TRUE_USER_CHECK_EXPRESSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.EntityPermissions;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.TestUser;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.security.permissions.ExpressionResultCache;
-import com.yahoo.elide.core.security.permissions.expressions.CheckExpression;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityPermissions;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.TestUser;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.security.permissions.ExpressionResultCache;
+import com.paiondata.elide.core.security.permissions.expressions.CheckExpression;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionToFilterExpressionVisitor;
+import com.paiondata.elide.core.type.Type;
 import example.Author;
 import example.Book;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -427,21 +427,21 @@ public class PermissionToFilterExpressionVisitorTest {
     public static class Permissions {
         public static class Succeeds extends OperationCheck<Object> {
             @Override
-            public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+            public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
                 return true;
             }
         }
 
         public static class Fails extends OperationCheck<Object> {
             @Override
-            public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+            public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
                 return false;
             }
         }
 
         public static class InFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, com.yahoo.elide.core.security.RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.IN);
             }
         }
@@ -449,21 +449,21 @@ public class PermissionToFilterExpressionVisitorTest {
         public static class NotInFilterExpression extends FilterExpressionCheck {
             @Override
             public FilterPredicate getFilterExpression(Type entityClass,
-                                                       com.yahoo.elide.core.security.RequestScope requestScope) {
+                                                       com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.NOT);
             }
         }
 
         public static class LessThanFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, com.yahoo.elide.core.security.RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.LT);
             }
         }
 
         public static class GreaterThanOrEqualFilterExpression extends FilterExpressionCheck {
             @Override
-            public FilterPredicate getFilterExpression(Type entityClass, com.yahoo.elide.core.security.RequestScope requestScope) {
+            public FilterPredicate getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
                 return createDummyPredicate(Operator.GE);
             }
         }

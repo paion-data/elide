@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.exceptions;
+package com.paiondata.elide.core.exceptions;
 
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
 
 /**
  * 400 Exception for invalid attribute parameters.

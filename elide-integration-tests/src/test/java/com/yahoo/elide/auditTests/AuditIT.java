@@ -3,28 +3,28 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.auditTests;
+package com.paiondata.elide.auditTests;
 
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.datum;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.linkage;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relation;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relationships;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.audit.InMemoryLogger;
-import com.yahoo.elide.initialization.AuditIntegrationTestApplicationResourceConfig;
-import com.yahoo.elide.initialization.IntegrationTest;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
-import com.yahoo.elide.test.jsonapi.elements.Resource;
-import com.yahoo.elide.test.jsonapi.elements.ResourceLinkage;
+import com.paiondata.elide.core.audit.InMemoryLogger;
+import com.paiondata.elide.initialization.AuditIntegrationTestApplicationResourceConfig;
+import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.test.jsonapi.elements.Resource;
+import com.paiondata.elide.test.jsonapi.elements.ResourceLinkage;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 

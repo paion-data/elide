@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.resources;
+package com.paiondata.elide.async.resources;
 
-import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
-import com.yahoo.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
+import com.paiondata.elide.core.exceptions.HttpStatus;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

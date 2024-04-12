@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.NonTransferable;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.type.AccessibleObject;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.generated.parsers.ExpressionLexer;
-import com.yahoo.elide.generated.parsers.ExpressionParser;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.NonTransferable;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.type.AccessibleObject;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.generated.parsers.ExpressionLexer;
+import com.paiondata.elide.generated.parsers.ExpressionParser;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStream;

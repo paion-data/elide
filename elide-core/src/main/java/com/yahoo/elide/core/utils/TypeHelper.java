@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.utils;
+package com.paiondata.elide.core.utils;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Dynamic;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Dynamic;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.Sets;
 
 import java.util.List;

@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.filter.visitor;
+package com.paiondata.elide.datastores.aggregation.filter.visitor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 import example.PlayerStats;
 import org.junit.jupiter.api.Test;
 

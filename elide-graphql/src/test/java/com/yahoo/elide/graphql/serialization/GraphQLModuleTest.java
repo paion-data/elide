@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.serialization;
+package com.paiondata.elide.graphql.serialization;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -4,18 +4,18 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.inmemory;
+package com.paiondata.elide.datastores.inmemory;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.datastore.wrapped.TransactionWrapper;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.example.beans.meta.Widget;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.datastore.wrapped.TransactionWrapper;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.example.beans.meta.Widget;
 
 import java.util.Set;
 

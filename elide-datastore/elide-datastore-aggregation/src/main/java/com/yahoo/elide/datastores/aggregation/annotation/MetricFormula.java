@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.annotation;
+package com.paiondata.elide.datastores.aggregation.annotation;
 
-import com.yahoo.elide.datastores.aggregation.metadata.models.Metric;
-import com.yahoo.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Metric;
+import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

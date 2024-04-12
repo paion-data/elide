@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions;
+package com.paiondata.elide.core.security.permissions;
 
-import com.yahoo.elide.core.security.PersistentResource;
-import com.yahoo.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.PersistentResource;
+import com.paiondata.elide.core.security.checks.Check;
 
 import java.util.HashMap;
 import java.util.IdentityHashMap;

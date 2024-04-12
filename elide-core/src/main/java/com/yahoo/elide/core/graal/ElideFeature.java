@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.graal;
+package com.paiondata.elide.core.graal;
 
-import com.yahoo.elide.core.utils.ClassScannerCache;
+import com.paiondata.elide.core.utils.ClassScannerCache;
 
 import org.graalvm.nativeimage.hosted.Feature;
 import org.graalvm.nativeimage.hosted.RuntimeReflection;

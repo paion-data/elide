@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.containers;
+package com.paiondata.elide.graphql.containers;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.DeferredId;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.NonEntityDictionary;
-import com.yahoo.elide.graphql.PersistentResourceFetcher;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.DeferredId;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.PersistentResourceFetcher;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

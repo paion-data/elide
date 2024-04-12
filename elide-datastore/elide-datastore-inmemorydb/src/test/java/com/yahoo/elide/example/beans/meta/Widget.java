@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.example.beans.meta;
+package com.paiondata.elide.example.beans.meta;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.jsonapi.document.processors.WithMetadata;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.jsonapi.document.processors.WithMetadata;
 
 import jakarta.persistence.Id;
 

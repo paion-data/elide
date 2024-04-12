@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.tests;
+package com.paiondata.elide.tests;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.utils.JsonParser;
-import com.yahoo.elide.initialization.IntegrationTest;
-import com.yahoo.elide.jsonapi.JsonApi;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.utils.JsonParser;
+import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.jsonapi.JsonApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.collections4.CollectionUtils;

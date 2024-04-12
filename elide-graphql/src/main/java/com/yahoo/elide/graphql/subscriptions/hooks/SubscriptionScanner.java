@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.hooks;
+package com.paiondata.elide.graphql.subscriptions.hooks;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
-import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
-import com.yahoo.elide.graphql.subscriptions.serialization.GraphQLSubscriptionModule;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
+import com.paiondata.elide.graphql.subscriptions.annotations.SubscriptionField;
+import com.paiondata.elide.graphql.subscriptions.serialization.GraphQLSubscriptionModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 

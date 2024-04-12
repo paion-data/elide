@@ -3,20 +3,20 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.graphql.parser.GraphQLProjectionInfo;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.graphql.parser.GraphQLProjectionInfo;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
 
 import org.junit.jupiter.api.Test;
 

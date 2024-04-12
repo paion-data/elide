@@ -3,32 +3,32 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.hibernate.hql;
+package com.paiondata.elide.datastores.hibernate.hql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.dialect.CaseSensitivityStrategy;
-import com.yahoo.elide.core.filter.dialect.ParseException;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.predicates.InPredicate;
-import com.yahoo.elide.core.pagination.PaginationImpl;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.datastores.jpql.porting.Query;
-import com.yahoo.elide.datastores.jpql.porting.SingleResultQuery;
-import com.yahoo.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.dialect.CaseSensitivityStrategy;
+import com.paiondata.elide.core.filter.dialect.ParseException;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.predicates.InPredicate;
+import com.paiondata.elide.core.pagination.PaginationImpl;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.SingleResultQuery;
+import com.paiondata.elide.datastores.jpql.query.RootCollectionFetchQueryBuilder;
 import example.Author;
 import example.Book;
 import example.Chapter;

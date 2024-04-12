@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.jsonapi.document.processors.WithMetadata;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.jsonapi.document.processors.WithMetadata;
 
 /**
  * The request scope interface passed to checks.

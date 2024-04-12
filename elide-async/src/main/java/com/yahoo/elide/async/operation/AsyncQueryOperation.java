@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.operation;
+package com.paiondata.elide.async.operation;
 
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.async.models.AsyncApi;
-import com.yahoo.elide.async.models.AsyncApiResult;
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.async.models.AsyncQueryResult;
-import com.yahoo.elide.async.service.AsyncExecutorService;
-import com.yahoo.elide.core.RequestScope;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.AsyncApiResult;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.async.models.AsyncQueryResult;
+import com.paiondata.elide.async.service.AsyncExecutorService;
+import com.paiondata.elide.core.RequestScope;
 import com.jayway.jsonpath.JsonPath;
 
 import lombok.Getter;

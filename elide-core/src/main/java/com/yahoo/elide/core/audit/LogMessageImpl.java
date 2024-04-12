@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.audit;
+package com.paiondata.elide.core.audit;
 
-import com.yahoo.elide.annotation.Audit;
-import com.yahoo.elide.core.ResourceLineage;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.PersistentResource;
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.annotation.Audit;
+import com.paiondata.elide.core.ResourceLineage;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.PersistentResource;
+import com.paiondata.elide.core.security.User;
 
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -103,12 +103,12 @@ public class LogMessageImpl implements LogMessage {
 
         if (persistentResource != null) {
             /* Create a new lineage which includes the passed in record */
-            com.yahoo.elide.core.PersistentResource internalResource = (
-                    com.yahoo.elide.core.PersistentResource) persistentResource;
+            com.paiondata.elide.core.PersistentResource internalResource = (
+                    com.paiondata.elide.core.PersistentResource) persistentResource;
             ResourceLineage lineage = new ResourceLineage(internalResource.getLineage(), internalResource, null);
 
             for (String name : lineage.getKeys()) {
-                List<com.yahoo.elide.core.PersistentResource> values = lineage.getRecord(name);
+                List<com.paiondata.elide.core.PersistentResource> values = lineage.getRecord(name);
 
                 final ValueExpression expression;
                 final ValueExpression singleElementExpression;

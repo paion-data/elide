@@ -4,22 +4,22 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.security.executors;
+package com.paiondata.elide.core.security.executors;
 
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.DEFERRED;
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.FAIL;
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.PASS;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.DEFERRED;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.FAIL;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.PASS;
 
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.security.PermissionExecutor;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.security.permissions.ExpressionResultCache;
-import com.yahoo.elide.core.security.permissions.PermissionExpressionBuilder;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.security.PermissionExecutor;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.ExpressionResultCache;
+import com.paiondata.elide.core.security.permissions.PermissionExpressionBuilder;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;

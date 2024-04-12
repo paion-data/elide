@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.annotation;
+package com.paiondata.elide.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  *
- * <b>NOTE: </b> The class you annotated must be a {@link com.yahoo.elide.core.security.checks.Check},
+ * <b>NOTE: </b> The class you annotated must be a {@link com.paiondata.elide.core.security.checks.Check},
  * otherwise a RuntimeException is thrown.
  *
  * @author olOwOlo
@@ -42,10 +42,10 @@ public @interface SecurityCheck {
 
     /**
      * The expression which will be used for
-     * {@link com.yahoo.elide.annotation.ReadPermission#expression()},
-     * {@link com.yahoo.elide.annotation.UpdatePermission#expression()},
-     * {@link com.yahoo.elide.annotation.CreatePermission#expression()},
-     * {@link com.yahoo.elide.annotation.DeletePermission#expression()}.
+     * {@link com.paiondata.elide.annotation.ReadPermission#expression()},
+     * {@link com.paiondata.elide.annotation.UpdatePermission#expression()},
+     * {@link com.paiondata.elide.annotation.CreatePermission#expression()},
+     * {@link com.paiondata.elide.annotation.DeletePermission#expression()}.
      * @return The expression you want to defined.
      */
     String value();

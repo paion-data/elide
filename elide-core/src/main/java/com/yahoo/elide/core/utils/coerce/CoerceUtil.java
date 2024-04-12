@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.utils.coerce;
+package com.paiondata.elide.core.utils.coerce;
 
-import static com.yahoo.elide.core.utils.TypeHelper.isNumberType;
+import static com.paiondata.elide.core.utils.TypeHelper.isNumberType;
 
-import com.yahoo.elide.core.exceptions.InvalidAttributeException;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.converters.FromMapConverter;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
-import com.yahoo.elide.core.utils.coerce.converters.ToEnumConverter;
-import com.yahoo.elide.core.utils.coerce.converters.ToUUIDConverter;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.converters.FromMapConverter;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.utils.coerce.converters.ToEnumConverter;
+import com.paiondata.elide.core.utils.coerce.converters.ToUUIDConverter;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.MapMaker;
 import org.apache.commons.beanutils.BeanUtilsBean;

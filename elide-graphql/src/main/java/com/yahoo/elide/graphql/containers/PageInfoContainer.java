@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.containers;
+package com.paiondata.elide.graphql.containers;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.KeyWord;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.KeyWord;
 
 import lombok.Getter;
 

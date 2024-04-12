@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.document.processors;
+package com.paiondata.elide.jsonapi.document.processors;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 
 import java.util.LinkedHashSet;
 import java.util.List;

@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 

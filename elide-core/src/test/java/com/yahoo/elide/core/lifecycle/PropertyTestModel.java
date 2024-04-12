@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.lifecycle;
+package com.paiondata.elide.core.lifecycle;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.security.ChangeSpec;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.security.ChangeSpec;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -34,7 +34,7 @@ public class PropertyTestModel {
         public void execute(LifeCycleHookBinding.Operation operation,
                             LifeCycleHookBinding.TransactionPhase phase,
                             PropertyTestModel elideEntity,
-                            com.yahoo.elide.core.security.RequestScope requestScope,
+                            com.paiondata.elide.core.security.RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
             elideEntity.relationCallback(operation, POSTCOMMIT, changes.orElse(null));
         }

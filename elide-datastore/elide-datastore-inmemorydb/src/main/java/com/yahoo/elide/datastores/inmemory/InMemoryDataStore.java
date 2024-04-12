@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.inmemory;
+package com.paiondata.elide.datastores.inmemory;
 
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.utils.ClassScanner;
 
 /**
  * Simple non-persistent in-memory database.  Use HashMapDataStore instead.

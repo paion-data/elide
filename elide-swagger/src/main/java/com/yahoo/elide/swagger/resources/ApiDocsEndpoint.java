@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger.resources;
+package com.paiondata.elide.swagger.resources;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.route.BasicApiVersionValidator;
-import com.yahoo.elide.core.request.route.FlexibleRouteResolver;
-import com.yahoo.elide.core.request.route.NullRouteResolver;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.swagger.OpenApiDocument;
-import com.yahoo.elide.swagger.OpenApiDocument.MediaType;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
+import com.paiondata.elide.core.request.route.FlexibleRouteResolver;
+import com.paiondata.elide.core.request.route.NullRouteResolver;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.OpenApiDocument.MediaType;
 
 import org.apache.commons.lang3.tuple.Pair;
 

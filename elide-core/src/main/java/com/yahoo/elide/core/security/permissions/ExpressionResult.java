@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions;
+package com.paiondata.elide.core.security.permissions;
 
 import static org.fusesource.jansi.Ansi.ansi;
 

@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger;
+package com.paiondata.elide.swagger;
 
 import io.swagger.v3.core.util.Json;
 import io.swagger.v3.core.util.Json31;

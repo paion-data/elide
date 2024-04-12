@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.request;
+package com.paiondata.elide.core.request;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.type.Type;
 
 import java.util.Map;
 

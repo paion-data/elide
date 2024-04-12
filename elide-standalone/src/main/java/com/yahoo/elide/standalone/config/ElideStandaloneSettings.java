@@ -3,71 +3,71 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone.config;
+package com.paiondata.elide.standalone.config;
 
-import static com.yahoo.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
+import static com.paiondata.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.ElideSettings.ElideSettingsBuilder;
-import com.yahoo.elide.Serdes;
-import com.yahoo.elide.Serdes.SerdesBuilder;
-import com.yahoo.elide.async.AsyncSettings;
-import com.yahoo.elide.async.AsyncSettings.AsyncSettingsBuilder;
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.async.models.TableExport;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.audit.Slf4jLogger;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.exceptions.ExceptionLogger;
-import com.yahoo.elide.core.exceptions.ExceptionMappers;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.datastores.aggregation.AggregationDataStore;
-import com.yahoo.elide.datastores.aggregation.DefaultQueryValidator;
-import com.yahoo.elide.datastores.aggregation.QueryEngine;
-import com.yahoo.elide.datastores.aggregation.cache.Cache;
-import com.yahoo.elide.datastores.aggregation.cache.CaffeineCache;
-import com.yahoo.elide.datastores.aggregation.core.Slf4jQueryLogger;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.DataSourceConfiguration;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
-import com.yahoo.elide.datastores.aggregation.validator.TemplateConfigValidator;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import com.yahoo.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.yahoo.elide.datastores.multiplex.MultiplexManager;
-import com.yahoo.elide.graphql.DefaultGraphQLErrorMapper;
-import com.yahoo.elide.graphql.DefaultGraphQLExceptionHandler;
-import com.yahoo.elide.graphql.GraphQLErrorMapper;
-import com.yahoo.elide.graphql.GraphQLExceptionHandler;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.jsonapi.DefaultJsonApiErrorMapper;
-import com.yahoo.elide.jsonapi.DefaultJsonApiExceptionHandler;
-import com.yahoo.elide.jsonapi.JsonApiErrorMapper;
-import com.yahoo.elide.jsonapi.JsonApiExceptionHandler;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
-import com.yahoo.elide.modelconfig.DBPasswordExtractor;
-import com.yahoo.elide.modelconfig.DynamicConfiguration;
-import com.yahoo.elide.modelconfig.store.ConfigDataStore;
-import com.yahoo.elide.modelconfig.store.models.ConfigChecks;
-import com.yahoo.elide.modelconfig.validator.DynamicConfigValidator;
-import com.yahoo.elide.swagger.OpenApiBuilder;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.ElideSettings.ElideSettingsBuilder;
+import com.paiondata.elide.Serdes;
+import com.paiondata.elide.Serdes.SerdesBuilder;
+import com.paiondata.elide.async.AsyncSettings;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.async.models.TableExport;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.audit.Slf4jLogger;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.exceptions.ExceptionLogger;
+import com.paiondata.elide.core.exceptions.ExceptionMappers;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.cache.Cache;
+import com.paiondata.elide.datastores.aggregation.cache.CaffeineCache;
+import com.paiondata.elide.datastores.aggregation.core.Slf4jQueryLogger;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.DataSourceConfiguration;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
+import com.paiondata.elide.datastores.aggregation.validator.TemplateConfigValidator;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
+import com.paiondata.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.graphql.DefaultGraphQLErrorMapper;
+import com.paiondata.elide.graphql.DefaultGraphQLExceptionHandler;
+import com.paiondata.elide.graphql.GraphQLErrorMapper;
+import com.paiondata.elide.graphql.GraphQLExceptionHandler;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.jsonapi.DefaultJsonApiErrorMapper;
+import com.paiondata.elide.jsonapi.DefaultJsonApiExceptionHandler;
+import com.paiondata.elide.jsonapi.JsonApiErrorMapper;
+import com.paiondata.elide.jsonapi.JsonApiExceptionHandler;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.modelconfig.DBPasswordExtractor;
+import com.paiondata.elide.modelconfig.DynamicConfiguration;
+import com.paiondata.elide.modelconfig.store.ConfigDataStore;
+import com.paiondata.elide.modelconfig.store.models.ConfigChecks;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -834,7 +834,7 @@ public interface ElideStandaloneSettings {
     /**
      * The maximum pagination size a client can request.
      * <p>
-     * The {@link com.yahoo.elide.annotation.Paginate#maxPageSize()} annotation
+     * The {@link com.paiondata.elide.annotation.Paginate#maxPageSize()} annotation
      * takes precendence.
      *
      * @return the max page size
@@ -846,7 +846,7 @@ public interface ElideStandaloneSettings {
     /**
      * Default pagination size for collections if the client doesn't paginate.
      * <p>
-     * The {@link com.yahoo.elide.annotation.Paginate#defaultPageSize()} annotation
+     * The {@link com.paiondata.elide.annotation.Paginate#defaultPageSize()} annotation
      * takes precendence.
      *
      * @return the default page size

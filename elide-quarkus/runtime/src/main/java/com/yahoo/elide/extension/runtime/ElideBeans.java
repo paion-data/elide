@@ -4,23 +4,23 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.runtime;
+package com.paiondata.elide.extension.runtime;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.audit.Slf4jLogger;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.Injector;
-import com.yahoo.elide.core.security.checks.prefab.Collections;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import com.yahoo.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.yahoo.elide.graphql.GraphQLSettings;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.swagger.OpenApiBuilder;
-import com.yahoo.elide.swagger.OpenApiDocument;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.audit.Slf4jLogger;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.Injector;
+import com.paiondata.elide.core.security.checks.prefab.Collections;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.swagger.OpenApiBuilder;
+import com.paiondata.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
@@ -144,7 +144,7 @@ public class ElideBeans {
     }
 
     @Produces
-    Optional<com.yahoo.elide.core.request.route.RouteResolver> emptyRouteResolver() {
+    Optional<com.paiondata.elide.core.request.route.RouteResolver> emptyRouteResolver() {
         return Optional.empty();
     }
 

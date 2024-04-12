@@ -4,20 +4,20 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import static com.yahoo.elide.datastores.aggregation.query.Queryable.extractFilterProjections;
-import static com.yahoo.elide.datastores.aggregation.queryengines.sql.query.QueryPlanTranslator.addHiddenProjections;
+import static com.paiondata.elide.datastores.aggregation.query.Queryable.extractFilterProjections;
+import static com.paiondata.elide.datastores.aggregation.queryengines.sql.query.QueryPlanTranslator.addHiddenProjections;
 
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.DimensionProjection;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjection;
-import com.yahoo.elide.datastores.aggregation.query.Optimizer;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.QueryVisitor;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
-import com.yahoo.elide.datastores.aggregation.query.TimeDimensionProjection;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.DimensionProjection;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
+import com.paiondata.elide.datastores.aggregation.query.Optimizer;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.QueryVisitor;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
 import com.google.common.collect.Streams;
 import org.apache.commons.lang3.tuple.Pair;
 

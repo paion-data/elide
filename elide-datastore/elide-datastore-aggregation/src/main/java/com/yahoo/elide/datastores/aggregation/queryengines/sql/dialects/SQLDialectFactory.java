@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects;
 
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.DruidDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.HiveDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.MySQLDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.PostgresDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.PrestoDBDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.DruidDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.H2Dialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.HiveDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.MySQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.PostgresDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.PrestoDBDialect;
 
 /**
  * A class with static methods to create an instance of all Dialects.

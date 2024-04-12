@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.jsonformats;
+package com.paiondata.elide.modelconfig.jsonformats;
 
-import static com.yahoo.elide.modelconfig.jsonformats.ValidateDimPropertiesValidator.COMMON_DIM_PROPERTIES;
+import static com.paiondata.elide.modelconfig.jsonformats.ValidateDimPropertiesValidator.COMMON_DIM_PROPERTIES;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;

@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa.config;
+package com.paiondata.elide.spring.orm.jpa.config;
 
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
-import com.yahoo.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
-import com.yahoo.elide.datastores.jpa.JpaDataStore.MetamodelSupplier;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.JpaTransactionSupplier;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.MetamodelSupplier;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * Registration entry to configure a JpaDataStore.
  *
- * @see com.yahoo.elide.datastores.jpa.JpaDataStore
+ * @see com.paiondata.elide.datastores.jpa.JpaDataStore
  */
 @Builder
 @AllArgsConstructor

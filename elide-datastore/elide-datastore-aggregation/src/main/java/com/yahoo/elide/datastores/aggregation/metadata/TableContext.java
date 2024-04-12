@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.metadata;
+package com.paiondata.elide.datastores.aggregation.metadata;
 
-import static com.yahoo.elide.datastores.aggregation.metadata.ColumnContext.TBL_PREFIX;
+import static com.paiondata.elide.datastores.aggregation.metadata.ColumnContext.TBL_PREFIX;
 
-import com.yahoo.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Argument;
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Formatter;
 import com.github.jknack.handlebars.Handlebars;
@@ -36,8 +36,8 @@ public class TableContext extends HashMap<String, Object> {
     private final Handlebars handlebars = new Handlebars()
                     .with(EscapingStrategy.NOOP)
                     .with((Formatter) (value, next) -> {
-                        if (value instanceof com.yahoo.elide.core.request.Argument) {
-                            return ((com.yahoo.elide.core.request.Argument) value).getValue();
+                        if (value instanceof com.paiondata.elide.core.request.Argument) {
+                            return ((com.paiondata.elide.core.request.Argument) value).getValue();
                         }
                         return next.format(value);
                     });

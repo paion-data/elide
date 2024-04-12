@@ -4,22 +4,22 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.datastores.jpql.annotations.JPQLFilterFragment;
-import com.yahoo.elide.datastores.jpql.filter.FilterTranslator;
-import com.yahoo.elide.datastores.jpql.filter.JPQLPredicateGenerator;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.datastores.jpql.annotations.JPQLFilterFragment;
+import com.paiondata.elide.datastores.jpql.filter.FilterTranslator;
+import com.paiondata.elide.datastores.jpql.filter.JPQLPredicateGenerator;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 

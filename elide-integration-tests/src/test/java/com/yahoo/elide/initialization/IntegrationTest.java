@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.initialization;
+package com.paiondata.elide.initialization;
 
 import static io.restassured.RestAssured.get;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
-import com.yahoo.elide.test.jsonapi.elements.Data;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.test.jsonapi.elements.Data;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -140,7 +140,7 @@ public abstract class IntegrationTest {
         ServletHolder graphqlServlet = servletContextHandler.addServlet(ServletContainer.class, "/graphQL/*");
         graphqlServlet.setInitOrder(2);
         graphqlServlet.setInitParameter("jersey.config.server.provider.packages",
-                com.yahoo.elide.graphql.GraphQLEndpoint.class.getPackage().getName());
+                com.paiondata.elide.graphql.GraphQLEndpoint.class.getPackage().getName());
         graphqlServlet.setInitParameter("jakarta.ws.rs.Application", resourceConfig);
 
         log.debug("...Starting Server...");

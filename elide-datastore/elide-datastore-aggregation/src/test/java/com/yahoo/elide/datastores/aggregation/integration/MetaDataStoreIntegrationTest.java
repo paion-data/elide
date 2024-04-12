@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.integration;
+package com.paiondata.elide.datastores.aggregation.integration;
 
-import static com.yahoo.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.VALIDATOR;
-import static com.yahoo.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDBPasswordExtractor;
-import static com.yahoo.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDataSource;
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.VALIDATOR;
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDBPasswordExtractor;
+import static com.paiondata.elide.datastores.aggregation.integration.AggregationDataStoreIntegrationTest.getDataSource;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -20,25 +20,25 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.datastores.aggregation.checks.OperatorCheck;
-import com.yahoo.elide.datastores.aggregation.checks.VideoGameFilterCheck;
-import com.yahoo.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.initialization.IntegrationTest;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.datastores.aggregation.checks.OperatorCheck;
+import com.paiondata.elide.datastores.aggregation.checks.VideoGameFilterCheck;
+import com.paiondata.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.initialization.IntegrationTest;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import example.TestCheckMappings;

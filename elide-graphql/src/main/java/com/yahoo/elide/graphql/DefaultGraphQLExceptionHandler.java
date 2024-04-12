@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.ElideError;
-import com.yahoo.elide.ElideErrorResponse;
-import com.yahoo.elide.ElideErrors;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.core.exceptions.ExceptionHandlerSupport;
-import com.yahoo.elide.core.exceptions.ExceptionLogger;
-import com.yahoo.elide.core.exceptions.ExceptionMappers;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.core.exceptions.InvalidApiVersionException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.TransactionException;
-import com.yahoo.elide.graphql.models.GraphQLErrors;
+import com.paiondata.elide.ElideError;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.core.exceptions.ExceptionHandlerSupport;
+import com.paiondata.elide.core.exceptions.ExceptionLogger;
+import com.paiondata.elide.core.exceptions.ExceptionMappers;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.core.exceptions.InvalidApiVersionException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.TransactionException;
+import com.paiondata.elide.graphql.models.GraphQLErrors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

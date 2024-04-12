@@ -3,27 +3,27 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
-import static com.yahoo.elide.core.PersistentResource.ALL_FIELDS;
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.PersistentResource.ALL_FIELDS;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.type.ClassType;
 import example.TestCheckMappings;
 import org.junit.jupiter.api.Test;
 
@@ -540,7 +540,7 @@ public class PermissionExecutorTest {
 
     public static final class SampleOperationCheck extends OperationCheck<SampleOperationModel> {
         @Override
-        public boolean ok(SampleOperationModel model, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(SampleOperationModel model, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return model.test();
         }
     }
@@ -548,7 +548,7 @@ public class PermissionExecutorTest {
 
     public static final class SampleOperationCheckInverse extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return !changeSpec.isPresent();
         }
     }
@@ -560,7 +560,7 @@ public class PermissionExecutorTest {
         }
 
         @Override
-        public boolean ok(SampleOperationModel model, com.yahoo.elide.core.security.RequestScope requestScope,
+        public boolean ok(SampleOperationModel model, com.paiondata.elide.core.security.RequestScope requestScope,
                 Optional<ChangeSpec> changeSpec) {
             return model.test();
         }
@@ -634,21 +634,21 @@ public class PermissionExecutorTest {
     public static class ShouldCache extends OperationCheck<Object> {
         private static AtomicBoolean hasRun = new AtomicBoolean(false);
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return !hasRun.getAndSet(true);
         }
     }
 
     public static final class PassingOperationCheck extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return true;
         }
     }
 
     public static final class FailingOperationCheck extends OperationCheck<Object> {
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return false;
         }
     }

@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.annotation.dimensionformula;
+package com.paiondata.elide.datastores.aggregation.annotation.dimensionformula;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.datastores.aggregation.annotation.DimensionFormula;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
 
 import jakarta.persistence.Id;
 import lombok.EqualsAndHashCode;

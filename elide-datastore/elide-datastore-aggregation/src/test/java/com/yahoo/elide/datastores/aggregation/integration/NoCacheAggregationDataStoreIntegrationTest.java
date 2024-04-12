@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.integration;
+package com.paiondata.elide.datastores.aggregation.integration;
 
-import static com.yahoo.elide.test.graphql.GraphQLDSL.argument;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.arguments;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.document;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.mutation;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selections;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.data;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.allOf;
@@ -27,13 +27,13 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.datastores.aggregation.AggregationDataStore;
-import com.yahoo.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.test.graphql.elements.Arguments;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.framework.NoCacheAggregationDataStoreTestHarness;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.test.graphql.elements.Arguments;
 import example.PlayerStats;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

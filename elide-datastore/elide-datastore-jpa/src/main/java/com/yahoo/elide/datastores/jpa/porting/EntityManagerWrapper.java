@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa.porting;
+package com.paiondata.elide.datastores.jpa.porting;
 
-import static com.yahoo.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
+import static com.paiondata.elide.datastores.jpa.JpaDataStore.DEFAULT_LOGGER;
 
-import com.yahoo.elide.datastores.jpql.porting.Query;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
-import com.yahoo.elide.datastores.jpql.porting.Session;
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.datastores.jpql.porting.Session;
 
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;

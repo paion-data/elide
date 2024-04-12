@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger;
+package com.paiondata.elide.swagger;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.audit.Slf4jLogger;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.utils.coerce.converters.TimeZoneSerde;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.audit.Slf4jLogger;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.utils.coerce.converters.TimeZoneSerde;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 import example.models.Author;
 import example.models.Book;
 import example.models.Publisher;

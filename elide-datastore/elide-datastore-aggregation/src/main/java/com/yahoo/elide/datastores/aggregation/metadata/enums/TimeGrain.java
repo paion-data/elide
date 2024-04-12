@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
-import com.yahoo.elide.datastores.aggregation.timegrains.Day;
-import com.yahoo.elide.datastores.aggregation.timegrains.Hour;
-import com.yahoo.elide.datastores.aggregation.timegrains.ISOWeek;
-import com.yahoo.elide.datastores.aggregation.timegrains.Minute;
-import com.yahoo.elide.datastores.aggregation.timegrains.Month;
-import com.yahoo.elide.datastores.aggregation.timegrains.Quarter;
-import com.yahoo.elide.datastores.aggregation.timegrains.Second;
-import com.yahoo.elide.datastores.aggregation.timegrains.Week;
-import com.yahoo.elide.datastores.aggregation.timegrains.Year;
+import com.paiondata.elide.datastores.aggregation.timegrains.Day;
+import com.paiondata.elide.datastores.aggregation.timegrains.Hour;
+import com.paiondata.elide.datastores.aggregation.timegrains.ISOWeek;
+import com.paiondata.elide.datastores.aggregation.timegrains.Minute;
+import com.paiondata.elide.datastores.aggregation.timegrains.Month;
+import com.paiondata.elide.datastores.aggregation.timegrains.Quarter;
+import com.paiondata.elide.datastores.aggregation.timegrains.Second;
+import com.paiondata.elide.datastores.aggregation.timegrains.Week;
+import com.paiondata.elide.datastores.aggregation.timegrains.Year;
 
 import lombok.Getter;
 

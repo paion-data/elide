@@ -3,27 +3,27 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger;
+package com.paiondata.elide.swagger;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.swagger.converter.JsonApiModelResolver;
-import com.yahoo.elide.swagger.models.media.Data;
-import com.yahoo.elide.swagger.models.media.Datum;
-import com.yahoo.elide.swagger.models.media.Relationship;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.swagger.converter.JsonApiModelResolver;
+import com.paiondata.elide.swagger.models.media.Data;
+import com.paiondata.elide.swagger.models.media.Datum;
+import com.paiondata.elide.swagger.models.media.Relationship;
 import com.google.common.collect.Sets;
 
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -395,7 +395,7 @@ public class OpenApiBuilder {
 
             ApiResponse okSingularResponse = new ApiResponse().description("Successful response")
                     .content(new Content().addMediaType(JsonApi.MEDIA_TYPE,
-                            new MediaType().schema(new com.yahoo.elide.swagger.models.media.Datum(schemaName))));
+                            new MediaType().schema(new com.paiondata.elide.swagger.models.media.Datum(schemaName))));
 
             ApiResponse okEmptyResponse = new ApiResponse().description("Successful response");
 

@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.type;
+package com.paiondata.elide.core.type;
 
-import static com.yahoo.elide.core.type.ClassType.STRING_TYPE;
+import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.spy;
 
-import com.yahoo.elide.core.exceptions.InvalidParameterizedAttributeException;
-import com.yahoo.elide.core.request.Attribute;
+import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
+import com.paiondata.elide.core.request.Attribute;
 import org.junit.jupiter.api.Test;
 
 public class ParameterizedModelTest {

@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.Settings;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BasicExceptionMappers;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.graphql.FilterDialect;
-import com.yahoo.elide.graphql.federation.FederationVersion;
+import com.paiondata.elide.Settings;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.graphql.FilterDialect;
+import com.paiondata.elide.graphql.federation.FederationVersion;
 
 import lombok.Getter;
 

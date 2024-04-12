@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig.validator;
+package com.paiondata.elide.modelconfig.validator;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.catchSystemExit;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemErr;
@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.modelconfig.model.Argument;
-import com.yahoo.elide.modelconfig.model.Table;
-import com.yahoo.elide.modelconfig.model.Type;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.modelconfig.model.Argument;
+import com.paiondata.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.Type;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

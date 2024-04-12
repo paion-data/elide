@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
 import lombok.Builder;
 import lombok.Value;

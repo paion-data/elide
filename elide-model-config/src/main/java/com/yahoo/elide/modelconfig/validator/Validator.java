@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.validator;
+package com.paiondata.elide.modelconfig.validator;
 
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 
 import java.util.Map;
 

@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.graphql.subscriptions.hooks.SubscriptionScanner;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.graphql.subscriptions.hooks.SubscriptionScanner;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

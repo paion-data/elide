@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpql.filter;
+package com.paiondata.elide.datastores.jpql.filter;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 
 import java.util.function.Function;
 

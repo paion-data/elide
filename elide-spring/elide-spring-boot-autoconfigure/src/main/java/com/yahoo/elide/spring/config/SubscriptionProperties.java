@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
 import org.springframework.boot.convert.DurationUnit;
 
@@ -32,7 +32,7 @@ public class SubscriptionProperties extends ControllerProperties {
 
     /**
      * Websocket sends a PING immediate after receiving a SUBSCRIBE.  Only useful for testing.
-     * @see com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient
+     * @see com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient
      */
     protected boolean sendPingOnSubscribe = false;
 

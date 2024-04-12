@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.multiplex;
+package com.paiondata.elide.datastores.multiplex;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.security.PermissionExecutor;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.ObjectCloner;
-import com.yahoo.elide.core.utils.ObjectCloners;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.security.PermissionExecutor;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.ObjectCloner;
+import com.paiondata.elide.core.utils.ObjectCloners;
 
 import lombok.AccessLevel;
 import lombok.Setter;

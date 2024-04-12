@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.filter.visitor;
+package com.paiondata.elide.datastores.aggregation.filter.visitor;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpressionVisitor;
-import com.yahoo.elide.core.filter.expression.NotFilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
-import com.yahoo.elide.core.request.Argument;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpressionVisitor;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.visitors.FilterExpressionNormalizationVisitor;
+import com.paiondata.elide.core.request.Argument;
 import com.google.common.base.Preconditions;
 
 import java.util.HashMap;

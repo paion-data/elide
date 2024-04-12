@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.test;
+package com.paiondata.elide.extension.test;
 
 import org.junit.jupiter.api.Assertions;
 

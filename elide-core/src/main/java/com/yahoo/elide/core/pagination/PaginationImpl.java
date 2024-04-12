@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.pagination;
+package com.paiondata.elide.core.pagination;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.Paginate;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.Paginate;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.EqualsAndHashCode;

@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.lifecycle;
+package com.paiondata.elide.core.lifecycle;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRECOMMIT;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.security.ChangeSpec;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.security.ChangeSpec;
 
 import jakarta.persistence.Id;
 
@@ -34,7 +34,7 @@ public class ErrorTestModel {
         public void execute(LifeCycleHookBinding.Operation operation,
                             LifeCycleHookBinding.TransactionPhase phase,
                             ErrorTestModel elideEntity,
-                            com.yahoo.elide.core.security.RequestScope requestScope,
+                            com.paiondata.elide.core.security.RequestScope requestScope,
                             Optional<ChangeSpec> changes) {
             throw new BadRequestException("Invalid");
         }

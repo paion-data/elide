@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async;
+package com.paiondata.elide.async;
 
-import com.yahoo.elide.async.AsyncSettings.AsyncSettingsBuilder;
+import com.paiondata.elide.async.AsyncSettings.AsyncSettingsBuilder;
 
 /**
  * Utility methods for customizing a {@link AsyncSettingsBuilder}.

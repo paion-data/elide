@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig;
+package com.paiondata.elide.modelconfig;
 
-import com.yahoo.elide.modelconfig.model.DBConfig;
+import com.paiondata.elide.modelconfig.model.DBConfig;
 
 /**
  * Interface for providing password extractor implementation.

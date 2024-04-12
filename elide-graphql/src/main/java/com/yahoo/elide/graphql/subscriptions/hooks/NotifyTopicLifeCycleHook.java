@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.hooks;
+package com.paiondata.elide.graphql.subscriptions.hooks;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.lifecycle.CRUDEvent;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.lifecycle.CRUDEvent;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.type.Type;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

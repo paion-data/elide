@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa;
+package com.paiondata.elide.datastores.jpa;
 
-import com.yahoo.elide.datastores.jpql.porting.ScrollableIteratorBase;
+import com.paiondata.elide.datastores.jpql.porting.ScrollableIteratorBase;
 
 import java.util.Iterator;
 

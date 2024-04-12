@@ -4,25 +4,25 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.test.jsonapi;
+package com.paiondata.elide.test.jsonapi;
 
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.atomicOperation;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.datum;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.lid;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.linkage;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.links;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relation;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relationships;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
-import static com.yahoo.elide.test.jsonapi.elements.PatchOperationType.add;
-import static com.yahoo.elide.test.jsonapi.elements.Relation.TO_ONE;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.atomicOperation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.lid;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.links;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.test.jsonapi.elements.PatchOperationType.add;
+import static com.paiondata.elide.test.jsonapi.elements.Relation.TO_ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.test.jsonapi.elements.AtomicOperationCode;
+import com.paiondata.elide.test.jsonapi.elements.AtomicOperationCode;
 
 import org.junit.jupiter.api.Test;
 

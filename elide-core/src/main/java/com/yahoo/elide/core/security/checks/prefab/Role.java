@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.checks.prefab;
+package com.paiondata.elide.core.security.checks.prefab;
 
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.checks.UserCheck;
 
 /**
  * Simple checks to always grant or deny.

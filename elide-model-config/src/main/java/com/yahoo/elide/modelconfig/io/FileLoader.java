@@ -4,13 +4,13 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.io;
+package com.paiondata.elide.modelconfig.io;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.yahoo.elide.modelconfig.DynamicConfigHelpers;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.DynamicConfigHelpers;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 

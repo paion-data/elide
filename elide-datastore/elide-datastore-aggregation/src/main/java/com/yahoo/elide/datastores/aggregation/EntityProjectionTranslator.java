@@ -3,25 +3,25 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation;
+package com.paiondata.elide.datastores.aggregation;
 
-import static com.yahoo.elide.core.request.Argument.getArgumentMapFromArgumentSet;
+import static com.paiondata.elide.core.request.Argument.getArgumentMapFromArgumentSet;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.InvalidOperationException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.PredicateExtractionVisitor;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.datastores.aggregation.filter.visitor.FilterConstraints;
-import com.yahoo.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Dimension;
-import com.yahoo.elide.datastores.aggregation.metadata.models.Table;
-import com.yahoo.elide.datastores.aggregation.metadata.models.TimeDimension;
-import com.yahoo.elide.datastores.aggregation.query.DimensionProjection;
-import com.yahoo.elide.datastores.aggregation.query.ImmutablePagination;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjection;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.TimeDimensionProjection;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.PredicateExtractionVisitor;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.datastores.aggregation.filter.visitor.FilterConstraints;
+import com.paiondata.elide.datastores.aggregation.filter.visitor.SplitFilterExpressionVisitor;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Dimension;
+import com.paiondata.elide.datastores.aggregation.metadata.models.Table;
+import com.paiondata.elide.datastores.aggregation.metadata.models.TimeDimension;
+import com.paiondata.elide.datastores.aggregation.query.DimensionProjection;
+import com.paiondata.elide.datastores.aggregation.query.ImmutablePagination;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjection;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.TimeDimensionProjection;
 import com.google.common.collect.Sets;
 
 import java.util.Collections;

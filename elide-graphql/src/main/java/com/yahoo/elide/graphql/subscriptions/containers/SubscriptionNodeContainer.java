@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.subscriptions.containers;
+package com.paiondata.elide.graphql.subscriptions.containers;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.graphql.Environment;
-import com.yahoo.elide.graphql.containers.NodeContainer;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.graphql.Environment;
+import com.paiondata.elide.graphql.containers.NodeContainer;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

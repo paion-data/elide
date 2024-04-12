@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
 
 import lombok.Builder;
 import lombok.NonNull;

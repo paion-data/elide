@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide;
+package com.paiondata.elide;
 
 import lombok.Getter;
 

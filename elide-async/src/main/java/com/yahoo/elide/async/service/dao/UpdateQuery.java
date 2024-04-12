@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.service.dao;
+package com.paiondata.elide.async.service.dao;
 
-import com.yahoo.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.AsyncApi;
 
 /**
  * Function which will be invoked for updating elide async query base implementation.

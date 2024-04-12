@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
-import com.yahoo.elide.core.type.Dynamic;
-import com.yahoo.elide.core.type.ParameterizedModel;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.type.Dynamic;
+import com.paiondata.elide.core.type.ParameterizedModel;
+import com.paiondata.elide.core.type.Type;
 
 /**
  * Base model instance returned by AggregationStore for dynamic types.

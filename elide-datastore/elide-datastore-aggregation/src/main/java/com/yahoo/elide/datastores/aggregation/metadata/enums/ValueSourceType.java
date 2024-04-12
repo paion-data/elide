@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
-import com.yahoo.elide.datastores.aggregation.annotation.TableSource;
+import com.paiondata.elide.datastores.aggregation.annotation.TableSource;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Set;

@@ -4,35 +4,35 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
-import static com.yahoo.elide.datastores.aggregation.annotation.JoinType.INNER;
+import static com.paiondata.elide.datastores.aggregation.annotation.JoinType.INNER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.datastores.aggregation.annotation.CardinalitySize;
-import com.yahoo.elide.datastores.aggregation.annotation.ColumnMeta;
-import com.yahoo.elide.datastores.aggregation.annotation.DimensionFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.MetricFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.TableMeta;
-import com.yahoo.elide.datastores.aggregation.annotation.Temporal;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.yahoo.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-import com.yahoo.elide.modelconfig.model.Dimension;
-import com.yahoo.elide.modelconfig.model.Grain;
-import com.yahoo.elide.modelconfig.model.Join;
-import com.yahoo.elide.modelconfig.model.Measure;
-import com.yahoo.elide.modelconfig.model.Table;
-import com.yahoo.elide.modelconfig.model.TableSource;
-import com.yahoo.elide.modelconfig.model.Type;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
+import com.paiondata.elide.datastores.aggregation.annotation.ColumnMeta;
+import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.TableMeta;
+import com.paiondata.elide.datastores.aggregation.annotation.Temporal;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
+import com.paiondata.elide.modelconfig.model.Dimension;
+import com.paiondata.elide.modelconfig.model.Grain;
+import com.paiondata.elide.modelconfig.model.Join;
+import com.paiondata.elide.modelconfig.model.Measure;
+import com.paiondata.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.TableSource;
+import com.paiondata.elide.modelconfig.model.Type;
 import org.junit.jupiter.api.Test;
 
 import jakarta.persistence.EnumType;
@@ -387,7 +387,7 @@ public class TableTypeTest {
         TableType testType1 = new TableType(testTable1);
         TableType testType2 = new TableType(testTable2);
 
-        Map<String, com.yahoo.elide.core.type.Type<?>> tables = new HashMap<>();
+        Map<String, com.paiondata.elide.core.type.Type<?>> tables = new HashMap<>();
         tables.put("table1", testType1);
         tables.put("table2", testType2);
 
@@ -396,8 +396,8 @@ public class TableTypeTest {
         Field field = testType1.getDeclaredField("join1");
         assertNotNull(field);
 
-        com.yahoo.elide.datastores.aggregation.annotation.Join join = field.getAnnotation(
-                com.yahoo.elide.datastores.aggregation.annotation.Join.class);
+        com.paiondata.elide.datastores.aggregation.annotation.Join join = field.getAnnotation(
+                com.paiondata.elide.datastores.aggregation.annotation.Join.class);
 
         assertEquals(INNER, join.type());
         assertEquals("{{id}} = {{table2.id}}", join.value());

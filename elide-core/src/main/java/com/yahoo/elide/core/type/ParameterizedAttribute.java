@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.type;
+package com.paiondata.elide.core.type;
 
-import com.yahoo.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Argument;
 
 import java.io.Serializable;
 import java.util.Set;

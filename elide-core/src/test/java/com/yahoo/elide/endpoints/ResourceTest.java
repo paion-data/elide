@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.endpoints;
+package com.paiondata.elide.endpoints;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.generated.parsers.CoreBaseVisitor;
-import com.yahoo.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.generated.parsers.CoreBaseVisitor;
+import com.paiondata.elide.jsonapi.parser.JsonApiParser;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;

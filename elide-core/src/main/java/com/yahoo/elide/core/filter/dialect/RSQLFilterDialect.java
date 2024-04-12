@@ -3,40 +3,40 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect;
+package com.paiondata.elide.core.filter.dialect;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
-import static com.yahoo.elide.core.request.Argument.ARGUMENTS_PATTERN;
-import static com.yahoo.elide.core.request.Argument.getArgumentsFromString;
-import static com.yahoo.elide.core.type.ClassType.COLLECTION_TYPE;
-import static com.yahoo.elide.core.type.ClassType.NUMBER_TYPE;
-import static com.yahoo.elide.core.type.ClassType.STRING_TYPE;
-import static com.yahoo.elide.core.utils.TypeHelper.isPrimitiveNumberType;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.REGULAR_ID_NAME;
+import static com.paiondata.elide.core.request.Argument.ARGUMENTS_PATTERN;
+import static com.paiondata.elide.core.request.Argument.getArgumentsFromString;
+import static com.paiondata.elide.core.type.ClassType.COLLECTION_TYPE;
+import static com.paiondata.elide.core.type.ClassType.NUMBER_TYPE;
+import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
+import static com.paiondata.elide.core.utils.TypeHelper.isPrimitiveNumberType;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.Operator;
-import com.yahoo.elide.core.filter.dialect.graphql.FilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.expression.NotFilterExpression;
-import com.yahoo.elide.core.filter.expression.OrFilterExpression;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.filter.predicates.InInsensitivePredicate;
-import com.yahoo.elide.core.filter.predicates.InPredicate;
-import com.yahoo.elide.core.filter.predicates.IsEmptyPredicate;
-import com.yahoo.elide.core.filter.predicates.IsNullPredicate;
-import com.yahoo.elide.core.filter.predicates.NotEmptyPredicate;
-import com.yahoo.elide.core.filter.predicates.NotNullPredicate;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.jsonapi.parser.JsonApiParser;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.Operator;
+import com.paiondata.elide.core.filter.dialect.graphql.FilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.expression.NotFilterExpression;
+import com.paiondata.elide.core.filter.expression.OrFilterExpression;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.filter.predicates.InInsensitivePredicate;
+import com.paiondata.elide.core.filter.predicates.InPredicate;
+import com.paiondata.elide.core.filter.predicates.IsEmptyPredicate;
+import com.paiondata.elide.core.filter.predicates.IsNullPredicate;
+import com.paiondata.elide.core.filter.predicates.NotEmptyPredicate;
+import com.paiondata.elide.core.filter.predicates.NotNullPredicate;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.jsonapi.parser.JsonApiParser;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.collections4.CollectionUtils;
 

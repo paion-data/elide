@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.query;
+package com.paiondata.elide.datastores.aggregation.query;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.request.Argument;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.request.Argument;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

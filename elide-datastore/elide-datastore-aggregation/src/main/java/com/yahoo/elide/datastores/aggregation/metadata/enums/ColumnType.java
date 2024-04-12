@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
 /**
  * Type of a logical column based on its physical reference type.

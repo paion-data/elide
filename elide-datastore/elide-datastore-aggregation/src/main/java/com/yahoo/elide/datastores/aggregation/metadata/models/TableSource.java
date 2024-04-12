@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.models;
+package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
 import com.google.common.base.Preconditions;
 
 import jakarta.persistence.Id;
@@ -48,7 +48,7 @@ public class TableSource {
      * @return A new Table Source metadata model.
      */
     public static TableSource fromDefinition(
-            com.yahoo.elide.datastores.aggregation.annotation.TableSource sourceDefinition,
+            com.paiondata.elide.datastores.aggregation.annotation.TableSource sourceDefinition,
             String apiVersion,
             MetaDataStore metaDataStore
     ) {
@@ -56,10 +56,10 @@ public class TableSource {
             return null;
         }
 
-        String sourceModelName = com.yahoo.elide.modelconfig.model.Table.getModelName(
+        String sourceModelName = com.paiondata.elide.modelconfig.model.Table.getModelName(
                 sourceDefinition.table(), sourceDefinition.namespace());
 
-        com.yahoo.elide.datastores.aggregation.metadata.models.Table sourceTable =
+        com.paiondata.elide.datastores.aggregation.metadata.models.Table sourceTable =
                 metaDataStore.getTable(sourceModelName, apiVersion);
 
         Preconditions.checkNotNull(sourceTable, "Unable to locate table Source table: "

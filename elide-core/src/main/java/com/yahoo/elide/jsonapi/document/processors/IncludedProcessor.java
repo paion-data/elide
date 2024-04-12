@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.document.processors;
+package com.paiondata.elide.jsonapi.document.processors;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.jsonapi.EntityProjectionMaker;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.jsonapi.EntityProjectionMaker;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;

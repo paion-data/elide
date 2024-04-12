@@ -4,15 +4,15 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.initialization;
+package com.paiondata.elide.initialization;
 
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.datastore.inmemory.InMemoryDataStore;
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.datastore.inmemory.InMemoryDataStore;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.multiplex.MultiplexManager;
 import com.google.common.collect.Sets;
 import example.Address;
 import example.Company;

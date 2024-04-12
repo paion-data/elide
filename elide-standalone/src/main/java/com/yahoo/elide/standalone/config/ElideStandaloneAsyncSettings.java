@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone.config;
+package com.paiondata.elide.standalone.config;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.async.DefaultResultTypeFileExtensionMapper;
-import com.yahoo.elide.async.ResultTypeFileExtensionMapper;
-import com.yahoo.elide.async.export.formatter.CsvExportFormatter;
-import com.yahoo.elide.async.export.formatter.JsonExportFormatter;
-import com.yahoo.elide.async.export.formatter.TableExportFormatters;
-import com.yahoo.elide.async.export.formatter.TableExportFormatters.TableExportFormattersBuilder;
-import com.yahoo.elide.async.export.formatter.XlsxExportFormatter;
-import com.yahoo.elide.async.models.ResultType;
-import com.yahoo.elide.async.service.dao.AsyncApiDao;
-import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.async.DefaultResultTypeFileExtensionMapper;
+import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
+import com.paiondata.elide.async.export.formatter.CsvExportFormatter;
+import com.paiondata.elide.async.export.formatter.JsonExportFormatter;
+import com.paiondata.elide.async.export.formatter.TableExportFormatters;
+import com.paiondata.elide.async.export.formatter.TableExportFormatters.TableExportFormattersBuilder;
+import com.paiondata.elide.async.export.formatter.XlsxExportFormatter;
+import com.paiondata.elide.async.models.ResultType;
+import com.paiondata.elide.async.service.dao.AsyncApiDao;
+import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
 
 import java.time.Duration;
 import java.util.concurrent.ExecutorService;

@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig;
+package com.paiondata.elide.modelconfig;
 
-import com.yahoo.elide.modelconfig.model.DBConfig;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
-import com.yahoo.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.DBConfig;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.modelconfig.model.Table;
 
 import java.util.HashSet;
 import java.util.Set;

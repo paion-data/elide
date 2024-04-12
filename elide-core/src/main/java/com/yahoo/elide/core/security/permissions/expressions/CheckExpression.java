@@ -3,22 +3,22 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions.expressions;
+package com.paiondata.elide.core.security.permissions.expressions;
 
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.DEFERRED;
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.FAIL;
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.PASS;
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.UNEVALUATED;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.DEFERRED;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.FAIL;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.PASS;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.UNEVALUATED;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.security.permissions.ExpressionResultCache;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.ExpressionResultCache;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -135,7 +135,7 @@ public class CheckExpression implements Expression {
 
     @Override
     public String toString() {
-        EntityDictionary dictionary = ((com.yahoo.elide.core.RequestScope) requestScope).getDictionary();
+        EntityDictionary dictionary = ((com.paiondata.elide.core.RequestScope) requestScope).getDictionary();
         return String.format("(%s %s)", dictionary.getCheckIdentifier(check.getClass()), result);
     }
 }

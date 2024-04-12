@@ -4,29 +4,29 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.deployment;
+package com.paiondata.elide.extension.deployment;
 
 import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.security.checks.prefab.Collections;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.coerce.converters.ElideTypeConverter;
-import com.yahoo.elide.extension.runtime.ElideConfig;
-import com.yahoo.elide.extension.runtime.ElideRecorder;
-import com.yahoo.elide.extension.runtime.ElideResourceBuilder;
-import com.yahoo.elide.graphql.DeferredId;
-import com.yahoo.elide.graphql.GraphQLEndpoint;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
-import com.yahoo.elide.jsonapi.serialization.DataDeserializer;
-import com.yahoo.elide.jsonapi.serialization.DataSerializer;
-import com.yahoo.elide.jsonapi.serialization.KeySerializer;
-import com.yahoo.elide.jsonapi.serialization.MetaDeserializer;
-import com.yahoo.elide.swagger.OpenApiDocument;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.security.checks.prefab.Collections;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter;
+import com.paiondata.elide.extension.runtime.ElideConfig;
+import com.paiondata.elide.extension.runtime.ElideRecorder;
+import com.paiondata.elide.extension.runtime.ElideResourceBuilder;
+import com.paiondata.elide.graphql.DeferredId;
+import com.paiondata.elide.graphql.GraphQLEndpoint;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.jsonapi.serialization.DataDeserializer;
+import com.paiondata.elide.jsonapi.serialization.DataSerializer;
+import com.paiondata.elide.jsonapi.serialization.KeySerializer;
+import com.paiondata.elide.jsonapi.serialization.MetaDeserializer;
+import com.paiondata.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.SimpleLog;
@@ -70,7 +70,7 @@ class ElideExtensionProcessor {
 
     @BuildStep
     public void indexDependencies(BuildProducer<IndexDependencyBuildItem> dependencies) {
-        dependencies.produce(new IndexDependencyBuildItem("com.yahoo.elide", "elide-core"));
+        dependencies.produce(new IndexDependencyBuildItem("com.paiondata.elide", "elide-core"));
         dependencies.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-core-jakarta"));
         dependencies.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models-jakarta"));
 

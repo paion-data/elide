@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation;
+package com.paiondata.elide.datastores.aggregation;
 
-import com.yahoo.elide.core.exceptions.HttpStatusException;
-import com.yahoo.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.core.exceptions.HttpStatusException;
+import com.paiondata.elide.datastores.aggregation.query.Query;
 
 public interface QueryValidator {
 

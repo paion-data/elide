@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.extension.runtime;
+package com.paiondata.elide.extension.runtime;
 
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
 import org.jboss.logging.Logger;
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.annotations.Recorder;
@@ -25,12 +25,12 @@ public class ElideRecorder {
     private static final Logger LOG = Logger.getLogger(ElideRecorder.class.getName());
 
     public static final Class[] ANNOTATIONS = {
-        com.yahoo.elide.annotation.Include.class,
-        com.yahoo.elide.annotation.SecurityCheck.class,
-        com.yahoo.elide.annotation.LifeCycleHookBinding.class,
-        com.yahoo.elide.core.utils.coerce.converters.ElideTypeConverter.class,
-        com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable.class,
-        com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery.class,
+        com.paiondata.elide.annotation.Include.class,
+        com.paiondata.elide.annotation.SecurityCheck.class,
+        com.paiondata.elide.annotation.LifeCycleHookBinding.class,
+        com.paiondata.elide.core.utils.coerce.converters.ElideTypeConverter.class,
+        com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable.class,
+        com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery.class,
         jakarta.persistence.Entity.class,
         jakarta.persistence.Table.class,
     };

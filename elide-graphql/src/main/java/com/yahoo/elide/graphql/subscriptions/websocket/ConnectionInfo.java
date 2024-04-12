@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket;
+package com.paiondata.elide.graphql.subscriptions.websocket;
 
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.User;
 
 import lombok.Builder;
 import lombok.Value;

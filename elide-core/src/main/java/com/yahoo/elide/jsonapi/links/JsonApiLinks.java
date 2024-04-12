@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.links;
+package com.paiondata.elide.jsonapi.links;
 
-import com.yahoo.elide.core.PersistentResource;
+import com.paiondata.elide.core.PersistentResource;
 
 import java.util.Map;
 

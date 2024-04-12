@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl;
 
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.AbstractSqlDialect;
 import org.apache.calcite.sql.SqlDialect;
 import org.apache.calcite.sql.dialect.PostgresqlSqlDialect;
 

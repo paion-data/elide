@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.datastore.config;
+package com.paiondata.elide.spring.datastore.config;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.datastores.multiplex.MultiplexManager;
 
 import java.util.ArrayList;
 import java.util.List;

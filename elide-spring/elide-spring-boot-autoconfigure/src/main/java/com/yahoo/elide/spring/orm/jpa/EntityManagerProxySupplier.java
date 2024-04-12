@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa;
+package com.paiondata.elide.spring.orm.jpa;
 
-import com.yahoo.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
+import com.paiondata.elide.datastores.jpa.JpaDataStore.EntityManagerSupplier;
 
 import jakarta.persistence.EntityManager;
 

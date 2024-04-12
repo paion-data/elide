@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.hibernate.hql;
+package com.paiondata.elide.datastores.hibernate.hql;
 
-import com.yahoo.elide.datastores.jpql.porting.Query;
-import com.yahoo.elide.datastores.jpql.porting.Session;
+import com.paiondata.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpql.porting.Session;
 
 public class TestSessionWrapper implements Session {
     @Override

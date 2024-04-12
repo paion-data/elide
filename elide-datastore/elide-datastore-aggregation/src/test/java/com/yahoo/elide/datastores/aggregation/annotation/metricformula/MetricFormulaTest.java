@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.annotation.metricformula;
+package com.paiondata.elide.datastores.aggregation.annotation.metricformula;
 
-import static com.yahoo.elide.datastores.aggregation.annotation.dimensionformula.DimensionFormulaTest.DUMMY_CONNECTION;
+import static com.paiondata.elide.datastores.aggregation.annotation.dimensionformula.DimensionFormulaTest.DUMMY_CONNECTION;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 

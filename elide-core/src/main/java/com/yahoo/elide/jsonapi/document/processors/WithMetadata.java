@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.jsonapi.document.processors;
+package com.paiondata.elide.jsonapi.document.processors;
 
 import java.util.Optional;
 import java.util.Set;

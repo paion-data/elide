@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpql.filter;
+package com.paiondata.elide.datastores.jpql.filter;
 
-import static com.yahoo.elide.core.utils.TypeHelper.appendAlias;
-import static com.yahoo.elide.core.utils.TypeHelper.getPathAlias;
-import static com.yahoo.elide.core.utils.TypeHelper.getTypeAlias;
+import static com.paiondata.elide.core.utils.TypeHelper.appendAlias;
+import static com.paiondata.elide.core.utils.TypeHelper.getPathAlias;
+import static com.paiondata.elide.core.utils.TypeHelper.getTypeAlias;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.type.Type;
 import com.google.common.base.Preconditions;
 
 import java.util.Arrays;

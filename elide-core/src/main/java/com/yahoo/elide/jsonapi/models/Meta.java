@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.models;
+package com.paiondata.elide.jsonapi.models;
 
-import com.yahoo.elide.jsonapi.serialization.MetaDeserializer;
+import com.paiondata.elide.jsonapi.serialization.MetaDeserializer;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -4,26 +4,26 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.core.Path;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.TestRequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.filter.predicates.InPredicate;
-import com.yahoo.elide.core.pagination.PaginationImpl;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.core.type.ClassType;
+import com.paiondata.elide.core.Path;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.TestRequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.predicates.InPredicate;
+import com.paiondata.elide.core.pagination.PaginationImpl;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.core.type.ClassType;
 import com.google.common.collect.Sets;
 import example.Address;
 import example.Author;

@@ -3,25 +3,25 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.audit.TestAuditLogger;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.exceptions.ForbiddenAccessException;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.executors.ActivePermissionExecutor;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.audit.TestAuditLogger;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.exceptions.ForbiddenAccessException;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.executors.ActivePermissionExecutor;
 import example.FunWithPermissions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,8 +35,8 @@ public class PermissionAnnotationTest {
     private static final User GOOD_USER = new TestUser("3");
     private static final User BAD_USER = new TestUser("-1");
 
-    private static com.yahoo.elide.core.PersistentResource<FunWithPermissions> funRecord;
-    private static com.yahoo.elide.core.PersistentResource<FunWithPermissions> badRecord;
+    private static com.paiondata.elide.core.PersistentResource<FunWithPermissions> funRecord;
+    private static com.paiondata.elide.core.PersistentResource<FunWithPermissions> badRecord;
 
     private static EntityDictionary dictionary = TestDictionary.getTestDictionary();
 

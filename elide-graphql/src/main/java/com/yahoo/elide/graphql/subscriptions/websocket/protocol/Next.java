@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket.protocol;
+package com.paiondata.elide.graphql.subscriptions.websocket.protocol;
 
-import com.yahoo.elide.graphql.serialization.ExecutionResultDeserializer;
-import com.yahoo.elide.graphql.serialization.ExecutionResultSerializer;
+import com.paiondata.elide.graphql.serialization.ExecutionResultDeserializer;
+import com.paiondata.elide.graphql.serialization.ExecutionResultSerializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

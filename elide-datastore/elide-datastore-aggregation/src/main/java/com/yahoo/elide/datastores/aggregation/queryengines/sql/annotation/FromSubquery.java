@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation;
 
-import com.yahoo.elide.datastores.aggregation.query.DefaultTableSQLMaker;
-import com.yahoo.elide.datastores.aggregation.query.TableSQLMaker;
+import com.paiondata.elide.datastores.aggregation.query.DefaultTableSQLMaker;
+import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

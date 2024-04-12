@@ -3,33 +3,33 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core;
+package com.paiondata.elide.core;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.TestUser;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
-import com.yahoo.elide.jsonapi.JsonApiSettings;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.TestUser;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.jsonapi.JsonApiSettings;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import com.google.common.collect.Sets;
 import example.Author;
 import example.Book;
@@ -265,7 +265,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
     public static final class ChangeSpecCollection extends OperationCheck<Object> {
 
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             if (changeSpec.isPresent() && (object instanceof ChangeSpecModel)) {
                 ChangeSpec spec = changeSpec.get();
                 if (!(spec.getModified() instanceof Collection)) {
@@ -280,7 +280,7 @@ public class PersistenceResourceTestSetup extends PersistentResource {
     public static final class ChangeSpecNonCollection extends OperationCheck<Object> {
 
         @Override
-        public boolean ok(Object object, com.yahoo.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
+        public boolean ok(Object object, com.paiondata.elide.core.security.RequestScope requestScope, Optional<ChangeSpec> changeSpec) {
             return changeSpec.filter(c -> object instanceof ChangeSpecModel)
                     .map(c -> ((ChangeSpecModel) object).checkFunction.test(c))
                     .orElseThrow(() -> new IllegalStateException("Something is terribly wrong :("));
@@ -294,8 +294,8 @@ public class PersistenceResourceTestSetup extends PersistentResource {
         return resources.toList(LinkedHashSet::new).blockingGet();
     }
 
-    public com.yahoo.elide.core.request.Relationship getRelationship(Type<?> type, String name) {
-        return com.yahoo.elide.core.request.Relationship.builder()
+    public com.paiondata.elide.core.request.Relationship getRelationship(Type<?> type, String name) {
+        return com.paiondata.elide.core.request.Relationship.builder()
                 .name(name)
                 .alias(name)
                 .projection(EntityProjection.builder()

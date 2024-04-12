@@ -4,11 +4,11 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.type.Type;
 
 import graphql.language.OperationDefinition;
 

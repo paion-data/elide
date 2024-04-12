@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
-import com.yahoo.elide.ElideError;
-import com.yahoo.elide.jsonapi.models.JsonApiError;
-import com.yahoo.elide.jsonapi.models.JsonApiError.JsonApiErrorBuilder;
-import com.yahoo.elide.jsonapi.models.JsonApiError.Links;
-import com.yahoo.elide.jsonapi.models.JsonApiError.Links.LinksBuilder;
-import com.yahoo.elide.jsonapi.models.JsonApiError.Source;
-import com.yahoo.elide.jsonapi.models.JsonApiError.Source.SourceBuilder;
+import com.paiondata.elide.ElideError;
+import com.paiondata.elide.jsonapi.models.JsonApiError;
+import com.paiondata.elide.jsonapi.models.JsonApiError.JsonApiErrorBuilder;
+import com.paiondata.elide.jsonapi.models.JsonApiError.Links;
+import com.paiondata.elide.jsonapi.models.JsonApiError.Links.LinksBuilder;
+import com.paiondata.elide.jsonapi.models.JsonApiError.Source;
+import com.paiondata.elide.jsonapi.models.JsonApiError.Source.SourceBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

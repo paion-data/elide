@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.swagger.converter;
+package com.paiondata.elide.swagger.converter;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
-import com.yahoo.elide.swagger.models.media.Relationship;
-import com.yahoo.elide.swagger.models.media.Resource;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.swagger.models.media.Relationship;
+import com.paiondata.elide.swagger.models.media.Resource;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;

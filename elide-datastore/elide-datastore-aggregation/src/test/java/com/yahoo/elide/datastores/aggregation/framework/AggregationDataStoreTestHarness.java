@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.framework;
+package com.paiondata.elide.datastores.aggregation.framework;
 
-import com.yahoo.elide.core.datastore.test.DataStoreTestHarness;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.aggregation.AggregationDataStore;
-import com.yahoo.elide.datastores.aggregation.DefaultQueryValidator;
-import com.yahoo.elide.datastores.aggregation.core.Slf4jQueryLogger;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import com.yahoo.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.yahoo.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.core.datastore.test.DataStoreTestHarness;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
+import com.paiondata.elide.datastores.aggregation.core.Slf4jQueryLogger;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.query.AggregateBeforeJoinOptimizer;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.jpa.transaction.NonJtaTransaction;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
 import org.hibernate.Session;
 
 import jakarta.persistence.EntityManager;

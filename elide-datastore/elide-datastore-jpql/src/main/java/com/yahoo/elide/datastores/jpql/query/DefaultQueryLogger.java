@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jpql.query;
+package com.paiondata.elide.datastores.jpql.query;
 
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 
 import lombok.extern.slf4j.Slf4j;
 

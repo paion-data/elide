@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpql;
+package com.paiondata.elide.datastores.jpql;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.jpql.annotations.JPQLFilterFragment;
-import com.yahoo.elide.datastores.jpql.filter.FilterTranslator;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.jpql.annotations.JPQLFilterFragment;
+import com.paiondata.elide.datastores.jpql.filter.FilterTranslator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

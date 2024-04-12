@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.enums;
+package com.paiondata.elide.datastores.aggregation.metadata.enums;
 
-import static com.yahoo.elide.core.type.ClassType.BIGDECIMAL_TYPE;
-import static com.yahoo.elide.core.type.ClassType.BOOLEAN_TYPE;
-import static com.yahoo.elide.core.type.ClassType.LONG_TYPE;
-import static com.yahoo.elide.core.type.ClassType.STRING_TYPE;
-import static com.yahoo.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
+import static com.paiondata.elide.core.type.ClassType.BIGDECIMAL_TYPE;
+import static com.paiondata.elide.core.type.ClassType.BOOLEAN_TYPE;
+import static com.paiondata.elide.core.type.ClassType.LONG_TYPE;
+import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
+import static com.paiondata.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
 
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
 import com.google.common.collect.ImmutableMap;
 
 import java.math.BigDecimal;

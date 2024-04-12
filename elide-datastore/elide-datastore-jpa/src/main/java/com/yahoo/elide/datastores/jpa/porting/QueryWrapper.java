@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa.porting;
+package com.paiondata.elide.datastores.jpa.porting;
 
-import com.yahoo.elide.datastores.jpa.ScrollableIterator;
-import com.yahoo.elide.datastores.jpql.porting.Query;
+import com.paiondata.elide.datastores.jpa.ScrollableIterator;
+import com.paiondata.elide.datastores.jpql.porting.Query;
 
 import lombok.Getter;
 

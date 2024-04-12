@@ -3,23 +3,23 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.config;
+package com.paiondata.elide.spring.config;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.yahoo.elide.RefreshableElide;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import com.yahoo.elide.datastores.multiplex.MultiplexManager;
-import com.yahoo.elide.spring.orm.jpa.config.EnableJpaDataStore;
-import com.yahoo.elide.spring.orm.jpa.config.JpaDataStoreRegistration;
-import com.yahoo.elide.spring.orm.jpa.config.JpaDataStoreRegistrations;
+import com.paiondata.elide.RefreshableElide;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.datastores.jpa.JpaDataStore;
+import com.paiondata.elide.datastores.multiplex.MultiplexManager;
+import com.paiondata.elide.spring.orm.jpa.config.EnableJpaDataStore;
+import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistration;
+import com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrations;
 import com.atomikos.spring.AtomikosAutoConfiguration;
 import com.atomikos.spring.AtomikosDataSourceBean;
 

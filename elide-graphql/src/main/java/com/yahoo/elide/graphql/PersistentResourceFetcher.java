@@ -4,24 +4,24 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import static com.yahoo.elide.graphql.ModelBuilder.ARGUMENT_OPERATION;
-import static com.yahoo.elide.graphql.RelationshipOp.FETCH;
+import static com.paiondata.elide.graphql.ModelBuilder.ARGUMENT_OPERATION;
+import static com.paiondata.elide.graphql.RelationshipOp.FETCH;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.InvalidObjectIdentifierException;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.containers.ConnectionContainer;
-import com.yahoo.elide.graphql.containers.GraphQLContainer;
-import com.yahoo.elide.graphql.containers.MapEntryContainer;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.InvalidObjectIdentifierException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.containers.ConnectionContainer;
+import com.paiondata.elide.graphql.containers.GraphQLContainer;
+import com.paiondata.elide.graphql.containers.MapEntryContainer;
 import com.google.common.collect.Sets;
 
 import graphql.language.OperationDefinition;

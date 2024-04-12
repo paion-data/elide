@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.test.jsonapi.elements;
+package com.paiondata.elide.test.jsonapi.elements;
 
 /**
  * Holds a Resource.

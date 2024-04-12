@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.metadata.models;
+package com.paiondata.elide.datastores.aggregation.metadata.models;
 
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
 
-import com.yahoo.elide.annotation.ApiVersion;
-import com.yahoo.elide.annotation.ComputedRelationship;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage;
+import com.paiondata.elide.annotation.ApiVersion;
+import com.paiondata.elide.annotation.ComputedRelationship;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;

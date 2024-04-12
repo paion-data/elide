@@ -4,12 +4,12 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.filter.dialect.graphql;
+package com.paiondata.elide.core.filter.dialect.graphql;
 
-import com.yahoo.elide.core.filter.dialect.ParseException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.filter.dialect.ParseException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.type.Type;
 
 import java.util.Set;
 

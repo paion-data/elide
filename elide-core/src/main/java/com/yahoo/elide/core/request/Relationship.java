@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.request;
+package com.paiondata.elide.core.request;
 
 import lombok.Builder;
 import lombok.Data;

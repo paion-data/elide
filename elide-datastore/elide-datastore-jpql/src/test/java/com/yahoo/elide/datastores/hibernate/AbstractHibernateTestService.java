@@ -3,14 +3,14 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.hibernate;
+package com.paiondata.elide.datastores.hibernate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.jsonapi.JsonApiMapper;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.jsonapi.JsonApiMapper;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
 import org.junit.jupiter.api.BeforeAll;
 
 import lombok.NoArgsConstructor;

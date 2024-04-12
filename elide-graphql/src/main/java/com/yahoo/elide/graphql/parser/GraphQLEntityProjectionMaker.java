@@ -4,41 +4,41 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.parser;
+package com.paiondata.elide.graphql.parser;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.graphql.KeyWord.EDGES;
-import static com.yahoo.elide.graphql.KeyWord.NODE;
-import static com.yahoo.elide.graphql.KeyWord.PAGE_INFO;
-import static com.yahoo.elide.graphql.KeyWord.PAGE_INFO_TOTAL_RECORDS;
-import static com.yahoo.elide.graphql.KeyWord.SCHEMA;
-import static com.yahoo.elide.graphql.KeyWord.TYPE;
-import static com.yahoo.elide.graphql.KeyWord.TYPENAME;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.graphql.KeyWord.EDGES;
+import static com.paiondata.elide.graphql.KeyWord.NODE;
+import static com.paiondata.elide.graphql.KeyWord.PAGE_INFO;
+import static com.paiondata.elide.graphql.KeyWord.PAGE_INFO_TOTAL_RECORDS;
+import static com.paiondata.elide.graphql.KeyWord.SCHEMA;
+import static com.paiondata.elide.graphql.KeyWord.TYPE;
+import static com.paiondata.elide.graphql.KeyWord.TYPENAME;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.RelationshipType;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.InvalidValueException;
-import com.yahoo.elide.core.filter.dialect.ParseException;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.graphql.FilterDialect;
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.pagination.PaginationImpl;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.EntityProjection.EntityProjectionBuilder;
-import com.yahoo.elide.core.request.Pagination;
-import com.yahoo.elide.core.request.Relationship;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.sort.SortingImpl;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.GraphQLNameUtils;
-import com.yahoo.elide.graphql.GraphQLSettings;
-import com.yahoo.elide.graphql.ModelBuilder;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.RelationshipType;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.InvalidValueException;
+import com.paiondata.elide.core.filter.dialect.ParseException;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.graphql.FilterDialect;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.pagination.PaginationImpl;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.EntityProjection.EntityProjectionBuilder;
+import com.paiondata.elide.core.request.Pagination;
+import com.paiondata.elide.core.request.Relationship;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.sort.SortingImpl;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.GraphQLSettings;
+import com.paiondata.elide.graphql.ModelBuilder;
 
 import com.apollographql.federation.graphqljava._Entity;
 import com.apollographql.federation.graphqljava._Service;
@@ -185,7 +185,7 @@ public class GraphQLEntityProjectionMaker {
             if (_Entity.fieldName.equals(entityName)) {
                 /*
                  * query {
-                 *   _entities(representations: [{__typename: "Group", id: "com.yahoo.elide"}]) {
+                 *   _entities(representations: [{__typename: "Group", id: "com.paiondata.elide"}]) {
                  *     ... on Group {
                  *       name
                  *       commonName
@@ -594,9 +594,9 @@ public class GraphQLEntityProjectionMaker {
         }
     }
 
-    private List<com.yahoo.elide.core.request.Argument> getArguments(Field attributeField,
+    private List<com.paiondata.elide.core.request.Argument> getArguments(Field attributeField,
                                                                      Set<ArgumentType> availableArguments) {
-        List<com.yahoo.elide.core.request.Argument> arguments = new ArrayList<>();
+        List<com.paiondata.elide.core.request.Argument> arguments = new ArrayList<>();
 
         //Loop through all the arguments available for this field.
         availableArguments.forEach((argumentType -> {
@@ -608,7 +608,7 @@ public class GraphQLEntityProjectionMaker {
 
             //If so, use it.
             if (clientArgument.isPresent()) {
-                arguments.add(com.yahoo.elide.core.request.Argument.builder()
+                arguments.add(com.paiondata.elide.core.request.Argument.builder()
                         .name(clientArgument.get().getName())
                         .value(
                                 variableResolver.resolveValue(
@@ -619,7 +619,7 @@ public class GraphQLEntityProjectionMaker {
 
             //If not, check if there is a default value for this argument.
             } else if (argumentType.getDefaultValue() != null) {
-                arguments.add(com.yahoo.elide.core.request.Argument.builder()
+                arguments.add(com.paiondata.elide.core.request.Argument.builder()
                         .name(argumentType.getName())
                         .value(argumentType.getDefaultValue())
                         .build());

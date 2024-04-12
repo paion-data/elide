@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.hooks;
+package com.paiondata.elide.graphql.subscriptions.hooks;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.DELETE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.graphql.subscriptions.annotations.Subscription;
 
 import lombok.Getter;
 

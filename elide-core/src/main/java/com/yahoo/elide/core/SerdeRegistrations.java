@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core;
+package com.paiondata.elide.core;
 
-import com.yahoo.elide.core.utils.coerce.converters.Serde;
+import com.paiondata.elide.core.utils.coerce.converters.Serde;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

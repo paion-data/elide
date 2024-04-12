@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.api;
+package com.paiondata.elide.spring.api;
 
-import com.yahoo.elide.swagger.OpenApiDocument;
+import com.paiondata.elide.swagger.OpenApiDocument;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

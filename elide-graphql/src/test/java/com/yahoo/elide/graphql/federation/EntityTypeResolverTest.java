@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql.federation;
+package com.paiondata.elide.graphql.federation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.graphql.GraphQLNameUtils;
-import com.yahoo.elide.graphql.GraphQLRequestScope;
-import com.yahoo.elide.graphql.containers.NodeContainer;
-import com.yahoo.elide.models.Book;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.graphql.GraphQLNameUtils;
+import com.paiondata.elide.graphql.GraphQLRequestScope;
+import com.paiondata.elide.graphql.containers.NodeContainer;
+import com.paiondata.elide.models.Book;
 
 import org.junit.jupiter.api.Test;
 

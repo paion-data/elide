@@ -3,20 +3,20 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import static com.yahoo.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.argument;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.arguments;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.document;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.mutation;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.query;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.selections;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.toJson;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.variableDefinition;
-import static com.yahoo.elide.test.graphql.GraphQLDSL.variableDefinitions;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.UNQUOTED_VALUE;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.argument;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.arguments;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.document;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.field;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.mutation;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.query;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selection;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.selections;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.toJson;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinition;
+import static com.paiondata.elide.test.graphql.GraphQLDSL.variableDefinitions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,17 +25,17 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.audit.AuditLogger;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.ExceptionMappers;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.audit.AuditLogger;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.ExceptionMappers;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;

@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security;
+package com.paiondata.elide.core.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

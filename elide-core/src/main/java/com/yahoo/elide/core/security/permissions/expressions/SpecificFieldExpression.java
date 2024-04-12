@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions.expressions;
+package com.paiondata.elide.core.security.permissions.expressions;
 
-import static com.yahoo.elide.core.security.permissions.ExpressionResult.PASS;
+import static com.paiondata.elide.core.security.permissions.ExpressionResult.PASS;
 
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
-import com.yahoo.elide.core.security.permissions.PermissionCondition;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.PermissionCondition;
 
 import lombok.Getter;
 

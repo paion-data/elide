@@ -4,29 +4,29 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.validator;
+package com.paiondata.elide.datastores.aggregation.validator;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.datastores.aggregation.DefaultQueryValidator;
-import com.yahoo.elide.datastores.aggregation.QueryValidator;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.query.Optimizer;
-import com.yahoo.elide.datastores.aggregation.query.QueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.modelconfig.model.Argument;
-import com.yahoo.elide.modelconfig.model.Dimension;
-import com.yahoo.elide.modelconfig.model.Join;
-import com.yahoo.elide.modelconfig.model.NamespaceConfig;
-import com.yahoo.elide.modelconfig.model.Table;
-import com.yahoo.elide.modelconfig.model.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.datastores.aggregation.DefaultQueryValidator;
+import com.paiondata.elide.datastores.aggregation.QueryValidator;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.query.Optimizer;
+import com.paiondata.elide.datastores.aggregation.query.QueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.SQLQueryEngine;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.modelconfig.model.Argument;
+import com.paiondata.elide.modelconfig.model.Dimension;
+import com.paiondata.elide.modelconfig.model.Join;
+import com.paiondata.elide.modelconfig.model.NamespaceConfig;
+import com.paiondata.elide.modelconfig.model.Table;
+import com.paiondata.elide.modelconfig.model.Type;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.jupiter.api.Test;
 

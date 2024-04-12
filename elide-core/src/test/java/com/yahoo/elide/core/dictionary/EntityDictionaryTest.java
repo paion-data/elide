@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.dictionary;
+package com.paiondata.elide.core.dictionary;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.UPDATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -15,28 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.annotation.ComputedAttribute;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.FilterExpressionPath;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.LifeCycleHookBinding;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.SecurityCheck;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.InvalidAttributeException;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.checks.prefab.Collections.AppendOnly;
-import com.yahoo.elide.core.security.checks.prefab.Collections.RemoveOnly;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.AccessibleObject;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.core.utils.coerce.converters.ISO8601DateSerde;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.FilterExpressionPath;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.LifeCycleHookBinding;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.SecurityCheck;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.InvalidAttributeException;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.checks.prefab.Collections.AppendOnly;
+import com.paiondata.elide.core.security.checks.prefab.Collections.RemoveOnly;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.AccessibleObject;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.core.utils.coerce.converters.ISO8601DateSerde;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -164,7 +164,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     public static class Bar extends UserCheck {
 
         @Override
-        public boolean ok(com.yahoo.elide.core.security.User user) {
+        public boolean ok(com.paiondata.elide.core.security.User user) {
             return false;
         }
     }
@@ -195,7 +195,7 @@ public class EntityDictionaryTest extends EntityDictionary {
 
         @Override
         public FilterExpression getFilterExpression(Type entityClass,
-                                                    com.yahoo.elide.core.security.RequestScope requestScope) {
+                                                    com.paiondata.elide.core.security.RequestScope requestScope) {
             assertEquals(testLong, 123L);
             return null;
         }
@@ -1062,7 +1062,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     public static class TestCheck extends UserCheck {
 
         @Override
-        public boolean ok(com.yahoo.elide.core.security.User user) {
+        public boolean ok(com.paiondata.elide.core.security.User user) {
             throw new IllegalStateException();
         }
     }
@@ -1071,7 +1071,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     public void testCheckLookup() throws Exception {
         assertEquals(Role.ALL.class, this.getCheck("user has all access"));
 
-        assertEquals(TestCheck.class, this.getCheck("com.yahoo.elide.core.dictionary.EntityDictionaryTest$TestCheck"));
+        assertEquals(TestCheck.class, this.getCheck("com.paiondata.elide.core.dictionary.EntityDictionaryTest$TestCheck"));
 
         assertThrows(IllegalArgumentException.class, () -> this.getCheck("UnknownClassName"));
 
@@ -1111,7 +1111,7 @@ public class EntityDictionaryTest extends EntityDictionary {
     @Test
     public void testGetBoundByVersion() {
         Set<Type<?>> models = getBoundClassesByVersion("1.0");
-        assertEquals(3, models.size());  //Also includes com.yahoo.elide inner classes from this file.
+        assertEquals(3, models.size());  //Also includes com.paiondata.elide inner classes from this file.
         assertTrue(models.contains(ClassType.of(BookV2.class)));
 
         models = getBoundClassesByVersion(NO_VERSION);

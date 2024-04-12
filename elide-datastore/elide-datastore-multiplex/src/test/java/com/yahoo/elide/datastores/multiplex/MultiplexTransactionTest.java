@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.multiplex;
+package com.paiondata.elide.datastores.multiplex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,11 +12,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.datastore.DataStoreTransaction;
-import com.yahoo.elide.core.datastore.inmemory.HashMapDataStore;
-import com.yahoo.elide.core.datastore.inmemory.HashMapStoreTransaction;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStoreTransaction;
+import com.paiondata.elide.core.datastore.inmemory.HashMapDataStore;
+import com.paiondata.elide.core.datastore.inmemory.HashMapStoreTransaction;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -70,7 +70,7 @@ public class MultiplexTransactionTest {
 
         MultiplexManager store = new MultiplexManager(store1, store2);
         DataStoreTransaction multiplexTx = store.beginReadTransaction();
-        String propertyName = "com.yahoo.elide.core.datastore.Bar";
+        String propertyName = "com.paiondata.elide.core.datastore.Bar";
 
         String result = multiplexTx.getProperty(propertyName);
 

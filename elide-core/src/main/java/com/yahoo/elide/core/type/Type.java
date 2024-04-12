@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.type;
+package com.paiondata.elide.core.type;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;

@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone;
+package com.paiondata.elide.standalone;
 
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.datastores.jpa.PersistenceUnitInfoImpl;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.datastores.jpa.PersistenceUnitInfoImpl;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;

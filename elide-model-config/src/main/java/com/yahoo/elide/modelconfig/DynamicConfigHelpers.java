@@ -3,13 +3,13 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig;
+package com.paiondata.elide.modelconfig;
 
-import com.yahoo.elide.modelconfig.model.ElideDBConfig;
-import com.yahoo.elide.modelconfig.model.ElideNamespaceConfig;
-import com.yahoo.elide.modelconfig.model.ElideSecurityConfig;
-import com.yahoo.elide.modelconfig.model.ElideTableConfig;
-import com.yahoo.elide.modelconfig.parser.handlebars.HandlebarsHydrator;
+import com.paiondata.elide.modelconfig.model.ElideDBConfig;
+import com.paiondata.elide.modelconfig.model.ElideNamespaceConfig;
+import com.paiondata.elide.modelconfig.model.ElideSecurityConfig;
+import com.paiondata.elide.modelconfig.model.ElideTableConfig;
+import com.paiondata.elide.modelconfig.parser.handlebars.HandlebarsHydrator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

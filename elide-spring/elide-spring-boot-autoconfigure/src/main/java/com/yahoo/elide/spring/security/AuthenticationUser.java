@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.spring.security;
+package com.paiondata.elide.spring.security;
 
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.security.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

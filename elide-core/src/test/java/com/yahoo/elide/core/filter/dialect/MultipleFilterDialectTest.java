@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.filter.dialect;
+package com.paiondata.elide.core.filter.dialect;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -13,10 +13,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.MultipleFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

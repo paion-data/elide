@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.type.Type;
 import org.apache.commons.lang3.StringUtils;
 
 public class GraphQLNameUtils {
@@ -31,7 +31,7 @@ public class GraphQLNameUtils {
         }
 
         //Namespace internal types so they don't conflict with client models.
-        if (clazz.getPackage().getName().startsWith("com.yahoo.elide")) {
+        if (clazz.getPackage().getName().startsWith("com.paiondata.elide")) {
             typeName = "Elide" + typeName;
         }
 

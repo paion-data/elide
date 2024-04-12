@@ -4,20 +4,20 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.parsers.expression;
+package com.paiondata.elide.parsers.expression;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.EntityPermissions;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.security.permissions.expressions.CheckExpression;
-import com.yahoo.elide.core.security.permissions.expressions.Expression;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
-import com.yahoo.elide.core.security.visitors.PermissionExpressionVisitor;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityPermissions;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.security.permissions.expressions.CheckExpression;
+import com.paiondata.elide.core.security.permissions.expressions.Expression;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionNormalizationVisitor;
+import com.paiondata.elide.core.security.visitors.PermissionExpressionVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

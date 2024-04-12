@@ -4,22 +4,22 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions.websocket;
+package com.paiondata.elide.graphql.subscriptions.websocket;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.route.BasicApiVersionValidator;
-import com.yahoo.elide.core.request.route.FlexibleRouteResolver;
-import com.yahoo.elide.core.request.route.NullRouteResolver;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.graphql.NonEntityDictionary;
-import com.yahoo.elide.graphql.subscriptions.SubscriptionDataFetcher;
-import com.yahoo.elide.graphql.subscriptions.SubscriptionModelBuilder;
-import com.yahoo.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.route.BasicApiVersionValidator;
+import com.paiondata.elide.core.request.route.FlexibleRouteResolver;
+import com.paiondata.elide.core.request.route.NullRouteResolver;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.graphql.subscriptions.SubscriptionDataFetcher;
+import com.paiondata.elide.graphql.subscriptions.SubscriptionModelBuilder;
+import com.paiondata.elide.graphql.subscriptions.websocket.protocol.WebSocketCloseReasons;
 
 import graphql.GraphQL;
 import graphql.execution.AsyncSerialExecutionStrategy;

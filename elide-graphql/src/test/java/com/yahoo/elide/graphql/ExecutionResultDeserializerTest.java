@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.yahoo.elide.graphql.serialization.ExecutionResultDeserializer;
-import com.yahoo.elide.graphql.serialization.GraphQLErrorDeserializer;
+import com.paiondata.elide.graphql.serialization.ExecutionResultDeserializer;
+import com.paiondata.elide.graphql.serialization.GraphQLErrorDeserializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;

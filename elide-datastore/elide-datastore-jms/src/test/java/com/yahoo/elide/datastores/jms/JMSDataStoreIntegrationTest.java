@@ -4,28 +4,28 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.jms;
+package com.paiondata.elide.datastores.jms;
 
-import static com.yahoo.elide.datastores.jms.TestBinder.EMBEDDED_JMS_URL;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attr;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.attributes;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.data;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.datum;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.id;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.linkage;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relation;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.relationships;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.resource;
-import static com.yahoo.elide.test.jsonapi.JsonApiDSL.type;
+import static com.paiondata.elide.datastores.jms.TestBinder.EMBEDDED_JMS_URL;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attr;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.attributes;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.data;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.datum;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.id;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.linkage;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relation;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.relationships;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.resource;
+import static com.paiondata.elide.test.jsonapi.JsonApiDSL.type;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
-import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
-import com.yahoo.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.jsonapi.resources.JsonApiEndpoint;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketConfigurator;
+import com.paiondata.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
+import com.paiondata.elide.graphql.subscriptions.websocket.SubscriptionWebSocket;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.jsonapi.resources.JsonApiEndpoint;
 import org.apache.activemq.artemis.core.config.Configuration;
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.JournalType;
@@ -109,7 +109,7 @@ public class JMSDataStoreIntegrationTest {
         ServletHolder graphqlServlet = servletContextHandler.addServlet(ServletContainer.class, "/graphQL/*");
         graphqlServlet.setInitOrder(2);
         graphqlServlet.setInitParameter("jersey.config.server.provider.packages",
-                com.yahoo.elide.graphql.GraphQLEndpoint.class.getPackage().getName());
+                com.paiondata.elide.graphql.GraphQLEndpoint.class.getPackage().getName());
         graphqlServlet.setInitParameter("jakarta.ws.rs.Application", TestResourceConfig.class.getName());
 
 

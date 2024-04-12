@@ -3,26 +3,26 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.modelconfig;
+package com.paiondata.elide.modelconfig;
 
-import com.yahoo.elide.modelconfig.jsonformats.ElideArgumentNameFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideCardinalityFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideFieldNameFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideFieldTypeFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideGrainTypeFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideJDBCUrlFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideJoinKindFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideJoinTypeFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideNameFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideNamespaceNameFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideRSQLFilterFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideRoleFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ElideTimeFieldTypeFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.JavaClassNameFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.JavaClassNameWithExtFormatAttr;
-import com.yahoo.elide.modelconfig.jsonformats.ValidateArgsPropertiesKeyword;
-import com.yahoo.elide.modelconfig.jsonformats.ValidateDimPropertiesKeyword;
-import com.yahoo.elide.modelconfig.jsonformats.ValidateTimeDimPropertiesKeyword;
+import com.paiondata.elide.modelconfig.jsonformats.ElideArgumentNameFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideCardinalityFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideFieldNameFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideFieldTypeFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideGrainTypeFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideJDBCUrlFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideJoinKindFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideJoinTypeFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideNameFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideNamespaceNameFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideRSQLFilterFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideRoleFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ElideTimeFieldTypeFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.JavaClassNameFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.JavaClassNameWithExtFormatAttr;
+import com.paiondata.elide.modelconfig.jsonformats.ValidateArgsPropertiesKeyword;
+import com.paiondata.elide.modelconfig.jsonformats.ValidateDimPropertiesKeyword;
+import com.paiondata.elide.modelconfig.jsonformats.ValidateTimeDimPropertiesKeyword;
 import com.github.fge.jsonschema.library.DraftV4Library;
 import com.github.fge.jsonschema.library.Library;
 

@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.type;
+package com.paiondata.elide.core.type;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;

@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.checks;
+package com.paiondata.elide.core.security.checks;
 
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.security.User;
 
 /**
  * Custom security access that verifies whether a user belongs to a role.

@@ -4,21 +4,21 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql.subscriptions;
+package com.paiondata.elide.graphql.subscriptions;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.graphql.ModelBuilderTest.validateEnum;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.graphql.ModelBuilderTest.validateEnum;
 import static graphql.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.graphql.GraphQLScalars;
-import com.yahoo.elide.graphql.NonEntityDictionary;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.graphql.GraphQLScalars;
+import com.paiondata.elide.graphql.NonEntityDictionary;
 import example.Address;
 import example.Author;
 import example.Book;

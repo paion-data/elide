@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
-import com.yahoo.elide.Settings;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.BasicExceptionMappers;
-import com.yahoo.elide.core.exceptions.HttpStatus;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
-import com.yahoo.elide.jsonapi.links.JsonApiLinks;
+import com.paiondata.elide.Settings;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
+import com.paiondata.elide.core.exceptions.HttpStatus;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.core.filter.dialect.RSQLFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
+import com.paiondata.elide.jsonapi.links.JsonApiLinks;
 
 import lombok.Getter;
 

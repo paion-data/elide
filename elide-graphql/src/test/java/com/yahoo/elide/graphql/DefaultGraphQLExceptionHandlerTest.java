@@ -3,19 +3,19 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.core.exceptions.BasicExceptionMappers;
-import com.yahoo.elide.core.exceptions.InvalidApiVersionException;
-import com.yahoo.elide.core.exceptions.InvalidConstraintException;
-import com.yahoo.elide.core.exceptions.InvalidEntityBodyException;
-import com.yahoo.elide.core.exceptions.Slf4jExceptionLogger;
-import com.yahoo.elide.graphql.models.GraphQLErrors;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.core.exceptions.BasicExceptionMappers;
+import com.paiondata.elide.core.exceptions.InvalidApiVersionException;
+import com.paiondata.elide.core.exceptions.InvalidConstraintException;
+import com.paiondata.elide.core.exceptions.InvalidEntityBodyException;
+import com.paiondata.elide.core.exceptions.Slf4jExceptionLogger;
+import com.paiondata.elide.graphql.models.GraphQLErrors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;

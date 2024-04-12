@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
 import static java.lang.reflect.Modifier.PUBLIC;
 
-import com.yahoo.elide.core.exceptions.InvalidParameterizedAttributeException;
-import com.yahoo.elide.core.request.Attribute;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.core.type.ParameterizedModel;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.core.exceptions.InvalidParameterizedAttributeException;
+import com.paiondata.elide.core.request.Attribute;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.core.type.ParameterizedModel;
+import com.paiondata.elide.core.type.Type;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;

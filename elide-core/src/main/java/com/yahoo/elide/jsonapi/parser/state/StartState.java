@@ -3,18 +3,18 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser.state;
+package com.paiondata.elide.jsonapi.parser.state;
 
-import com.yahoo.elide.core.PersistentResource;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.exceptions.InvalidCollectionException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.generated.parsers.CoreParser.EntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
+import com.paiondata.elide.core.PersistentResource;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.exceptions.InvalidCollectionException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.generated.parsers.CoreParser.EntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
 
 import java.util.Optional;
 

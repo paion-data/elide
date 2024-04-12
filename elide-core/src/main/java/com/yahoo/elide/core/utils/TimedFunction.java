@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.utils;
+package com.paiondata.elide.core.utils;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

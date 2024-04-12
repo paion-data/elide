@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.datastore.test;
+package com.paiondata.elide.core.datastore.test;
 
-import com.yahoo.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.datastore.DataStore;
 
 /**
  * Any data store that wants IT tests to run against it needs to provide an implementation of this harness.

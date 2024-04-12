@@ -3,59 +3,59 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.aggregation.dynamic;
+package com.paiondata.elide.datastores.aggregation.dynamic;
 
-import static com.yahoo.elide.core.type.ClassType.BIGDECIMAL_TYPE;
-import static com.yahoo.elide.core.type.ClassType.BOOLEAN_TYPE;
-import static com.yahoo.elide.core.type.ClassType.LONG_TYPE;
-import static com.yahoo.elide.core.type.ClassType.STRING_TYPE;
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
-import static com.yahoo.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
-import static com.yahoo.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
-import static com.yahoo.elide.modelconfig.model.Type.BOOLEAN;
-import static com.yahoo.elide.modelconfig.model.Type.COORDINATE;
-import static com.yahoo.elide.modelconfig.model.Type.DECIMAL;
-import static com.yahoo.elide.modelconfig.model.Type.ENUM_ORDINAL;
-import static com.yahoo.elide.modelconfig.model.Type.ENUM_TEXT;
-import static com.yahoo.elide.modelconfig.model.Type.INTEGER;
-import static com.yahoo.elide.modelconfig.model.Type.MONEY;
-import static com.yahoo.elide.modelconfig.model.Type.TEXT;
-import static com.yahoo.elide.modelconfig.model.Type.TIME;
+import static com.paiondata.elide.core.type.ClassType.BIGDECIMAL_TYPE;
+import static com.paiondata.elide.core.type.ClassType.BOOLEAN_TYPE;
+import static com.paiondata.elide.core.type.ClassType.LONG_TYPE;
+import static com.paiondata.elide.core.type.ClassType.STRING_TYPE;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT;
+import static com.paiondata.elide.datastores.aggregation.dynamic.NamespacePackage.DEFAULT_NAMESPACE;
+import static com.paiondata.elide.datastores.aggregation.timegrains.Time.TIME_TYPE;
+import static com.paiondata.elide.modelconfig.model.Type.BOOLEAN;
+import static com.paiondata.elide.modelconfig.model.Type.COORDINATE;
+import static com.paiondata.elide.modelconfig.model.Type.DECIMAL;
+import static com.paiondata.elide.modelconfig.model.Type.ENUM_ORDINAL;
+import static com.paiondata.elide.modelconfig.model.Type.ENUM_TEXT;
+import static com.paiondata.elide.modelconfig.model.Type.INTEGER;
+import static com.paiondata.elide.modelconfig.model.Type.MONEY;
+import static com.paiondata.elide.modelconfig.model.Type.TEXT;
+import static com.paiondata.elide.modelconfig.model.Type.TIME;
 
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.security.checks.prefab.Role;
-import com.yahoo.elide.core.type.Field;
-import com.yahoo.elide.core.type.Method;
-import com.yahoo.elide.core.type.Package;
-import com.yahoo.elide.core.type.Type;
-import com.yahoo.elide.datastores.aggregation.annotation.ArgumentDefinition;
-import com.yahoo.elide.datastores.aggregation.annotation.CardinalitySize;
-import com.yahoo.elide.datastores.aggregation.annotation.ColumnMeta;
-import com.yahoo.elide.datastores.aggregation.annotation.DimensionFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.JoinType;
-import com.yahoo.elide.datastores.aggregation.annotation.MetricFormula;
-import com.yahoo.elide.datastores.aggregation.annotation.TableMeta;
-import com.yahoo.elide.datastores.aggregation.annotation.TableSource;
-import com.yahoo.elide.datastores.aggregation.annotation.Temporal;
-import com.yahoo.elide.datastores.aggregation.annotation.TimeGrainDefinition;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.TimeGrain;
-import com.yahoo.elide.datastores.aggregation.metadata.enums.ValueType;
-import com.yahoo.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
-import com.yahoo.elide.datastores.aggregation.query.MetricProjectionMaker;
-import com.yahoo.elide.datastores.aggregation.query.TableSQLMaker;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
-import com.yahoo.elide.modelconfig.model.Argument;
-import com.yahoo.elide.modelconfig.model.Dimension;
-import com.yahoo.elide.modelconfig.model.Grain;
-import com.yahoo.elide.modelconfig.model.Join;
-import com.yahoo.elide.modelconfig.model.Measure;
-import com.yahoo.elide.modelconfig.model.Table;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.security.checks.prefab.Role;
+import com.paiondata.elide.core.type.Field;
+import com.paiondata.elide.core.type.Method;
+import com.paiondata.elide.core.type.Package;
+import com.paiondata.elide.core.type.Type;
+import com.paiondata.elide.datastores.aggregation.annotation.ArgumentDefinition;
+import com.paiondata.elide.datastores.aggregation.annotation.CardinalitySize;
+import com.paiondata.elide.datastores.aggregation.annotation.ColumnMeta;
+import com.paiondata.elide.datastores.aggregation.annotation.DimensionFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.JoinType;
+import com.paiondata.elide.datastores.aggregation.annotation.MetricFormula;
+import com.paiondata.elide.datastores.aggregation.annotation.TableMeta;
+import com.paiondata.elide.datastores.aggregation.annotation.TableSource;
+import com.paiondata.elide.datastores.aggregation.annotation.Temporal;
+import com.paiondata.elide.datastores.aggregation.annotation.TimeGrainDefinition;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.TimeGrain;
+import com.paiondata.elide.datastores.aggregation.metadata.enums.ValueType;
+import com.paiondata.elide.datastores.aggregation.query.DefaultMetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.MetricProjectionMaker;
+import com.paiondata.elide.datastores.aggregation.query.TableSQLMaker;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromSubquery;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.annotation.FromTable;
+import com.paiondata.elide.modelconfig.model.Argument;
+import com.paiondata.elide.modelconfig.model.Dimension;
+import com.paiondata.elide.modelconfig.model.Grain;
+import com.paiondata.elide.modelconfig.model.Join;
+import com.paiondata.elide.modelconfig.model.Measure;
+import com.paiondata.elide.modelconfig.model.Table;
 import org.apache.commons.lang3.StringUtils;
 
 import jakarta.persistence.EnumType;
@@ -248,11 +248,11 @@ public class TableType implements Type<DynamicModelInstance> {
 
     private static Map<Class<? extends Annotation>, Annotation> buildAnnotations(Join join) {
         Map<Class<? extends Annotation>, Annotation> annotations = new HashMap<>();
-        annotations.put(com.yahoo.elide.datastores.aggregation.annotation.Join.class,
-                new com.yahoo.elide.datastores.aggregation.annotation.Join() {
+        annotations.put(com.paiondata.elide.datastores.aggregation.annotation.Join.class,
+                new com.paiondata.elide.datastores.aggregation.annotation.Join() {
                     @Override
                     public Class<? extends Annotation> annotationType() {
-                        return com.yahoo.elide.datastores.aggregation.annotation.Join.class;
+                        return com.paiondata.elide.datastores.aggregation.annotation.Join.class;
                     }
 
                     @Override
@@ -613,10 +613,10 @@ public class TableType implements Type<DynamicModelInstance> {
         return annotations;
     }
 
-    private static TableSource buildTableSource(com.yahoo.elide.modelconfig.model.TableSource source) {
+    private static TableSource buildTableSource(com.paiondata.elide.modelconfig.model.TableSource source) {
         if (source == null) {
             return buildTableSource(
-                    new com.yahoo.elide.modelconfig.model.TableSource("", DEFAULT, "", new HashSet<>()));
+                    new com.paiondata.elide.modelconfig.model.TableSource("", DEFAULT, "", new HashSet<>()));
         }
         return new TableSource() {
 

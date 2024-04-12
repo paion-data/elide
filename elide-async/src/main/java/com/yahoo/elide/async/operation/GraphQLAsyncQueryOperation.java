@@ -3,16 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.operation;
+package com.paiondata.elide.async.operation;
 
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.async.models.AsyncApi;
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.async.service.AsyncExecutorService;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.InvalidOperationException;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.graphql.QueryRunner;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.async.service.AsyncExecutorService;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.graphql.QueryRunner;
 
 import lombok.extern.slf4j.Slf4j;
 

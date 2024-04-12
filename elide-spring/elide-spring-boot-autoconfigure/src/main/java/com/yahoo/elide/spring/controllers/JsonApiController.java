@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.controllers;
+package com.paiondata.elide.spring.controllers;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideResponse;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.jsonapi.JsonApi;
-import com.yahoo.elide.spring.config.ElideConfigProperties;
-import com.yahoo.elide.spring.security.AuthenticationUser;
-import com.yahoo.elide.utils.HeaderProcessor;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideResponse;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.jsonapi.JsonApi;
+import com.paiondata.elide.spring.config.ElideConfigProperties;
+import com.paiondata.elide.spring.security.AuthenticationUser;
+import com.paiondata.elide.utils.HeaderProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

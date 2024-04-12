@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.security.permissions.expressions;
+package com.paiondata.elide.core.security.permissions.expressions;
 
-import com.yahoo.elide.core.security.permissions.ExpressionResult;
+import com.paiondata.elide.core.security.permissions.ExpressionResult;
 
 /**
  * Interface describing an expression.

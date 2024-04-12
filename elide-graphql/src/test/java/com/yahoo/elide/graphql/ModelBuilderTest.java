@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.graphql;
+package com.paiondata.elide.graphql;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
 import static graphql.Assert.assertNotNull;
 import static graphql.scalars.ExtendedScalars.GraphQLBigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.DeletePermission;
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.annotation.UpdatePermission;
-import com.yahoo.elide.core.dictionary.ArgumentType;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.Sorting;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.core.utils.coerce.CoerceUtil;
-import com.yahoo.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
-import com.yahoo.elide.graphql.federation.FederationVersion;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.DeletePermission;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.annotation.UpdatePermission;
+import com.paiondata.elide.core.dictionary.ArgumentType;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.Sorting;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.core.utils.coerce.CoerceUtil;
+import com.paiondata.elide.graphql.GraphQLSettings.GraphQLSettingsBuilder;
+import com.paiondata.elide.graphql.federation.FederationVersion;
 import com.apollographql.federation.graphqljava.FederationDirectives;
 import example.Address;
 import example.Author;
@@ -111,7 +111,7 @@ public class ModelBuilderTest {
     public ModelBuilderTest() {
         dictionary = EntityDictionary.builder().build();
 
-        dictionary.bindEntity(com.yahoo.elide.models.Book.class);
+        dictionary.bindEntity(com.paiondata.elide.models.Book.class);
         dictionary.bindEntity(Book.class);
         dictionary.bindEntity(Author.class);
         dictionary.bindEntity(Publisher.class);

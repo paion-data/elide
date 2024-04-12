@@ -4,27 +4,27 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.parsers.expression;
+package com.paiondata.elide.parsers.expression;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.annotation.Include;
-import com.yahoo.elide.annotation.ReadPermission;
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.dictionary.TestDictionary;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.User;
-import com.yahoo.elide.core.security.checks.Check;
-import com.yahoo.elide.core.security.checks.FilterExpressionCheck;
-import com.yahoo.elide.core.security.checks.OperationCheck;
-import com.yahoo.elide.core.security.checks.UserCheck;
-import com.yahoo.elide.core.security.visitors.CanPaginateVisitor;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.type.Type;
+import com.paiondata.elide.annotation.Include;
+import com.paiondata.elide.annotation.ReadPermission;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.dictionary.TestDictionary;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.User;
+import com.paiondata.elide.core.security.checks.Check;
+import com.paiondata.elide.core.security.checks.FilterExpressionCheck;
+import com.paiondata.elide.core.security.checks.OperationCheck;
+import com.paiondata.elide.core.security.checks.UserCheck;
+import com.paiondata.elide.core.security.visitors.CanPaginateVisitor;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.type.Type;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ public class CanPaginateVisitorTest {
     public static final class TestOperationCheck extends OperationCheck<Object> {
         @Override
         public boolean ok(Object object,
-                          com.yahoo.elide.core.security.RequestScope requestScope,
+                          com.paiondata.elide.core.security.RequestScope requestScope,
                           Optional<ChangeSpec> changeSpec) {
             return false;
         }
@@ -67,7 +67,7 @@ public class CanPaginateVisitorTest {
 
     public static final class TestFilterExpressionCheck extends FilterExpressionCheck<Object> {
         @Override
-        public FilterExpression getFilterExpression(Type entityClass, com.yahoo.elide.core.security.RequestScope requestScope) {
+        public FilterExpression getFilterExpression(Type entityClass, com.paiondata.elide.core.security.RequestScope requestScope) {
             return null;
         }
     }

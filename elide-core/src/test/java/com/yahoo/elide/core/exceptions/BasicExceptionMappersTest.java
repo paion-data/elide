@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.core.exceptions;
+package com.paiondata.elide.core.exceptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
-import com.yahoo.elide.ElideErrorResponse;
-import com.yahoo.elide.ElideErrors;
+import com.paiondata.elide.ElideErrorResponse;
+import com.paiondata.elide.ElideErrors;
 
 import org.junit.jupiter.api.Test;
 

@@ -4,21 +4,21 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.queryengines.sql.query;
+package com.paiondata.elide.datastores.aggregation.queryengines.sql.query;
 
-import com.yahoo.elide.core.filter.expression.AndFilterExpression;
-import com.yahoo.elide.core.filter.expression.FilterExpression;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.query.ColumnProjection;
-import com.yahoo.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.query.Query;
-import com.yahoo.elide.datastores.aggregation.query.QueryPlan;
-import com.yahoo.elide.datastores.aggregation.query.QueryPlanMerger;
-import com.yahoo.elide.datastores.aggregation.query.QueryVisitor;
-import com.yahoo.elide.datastores.aggregation.query.Queryable;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.LogicalReference;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.expression.ReferenceExtractor;
+import com.paiondata.elide.core.filter.expression.AndFilterExpression;
+import com.paiondata.elide.core.filter.expression.FilterExpression;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.query.ColumnProjection;
+import com.paiondata.elide.datastores.aggregation.query.DefaultQueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.query.Query;
+import com.paiondata.elide.datastores.aggregation.query.QueryPlan;
+import com.paiondata.elide.datastores.aggregation.query.QueryPlanMerger;
+import com.paiondata.elide.datastores.aggregation.query.QueryVisitor;
+import com.paiondata.elide.datastores.aggregation.query.Queryable;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ExpressionParser;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.LogicalReference;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.expression.ReferenceExtractor;
 import com.google.common.collect.Streams;
 
 import java.util.HashSet;

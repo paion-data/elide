@@ -3,11 +3,11 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa.transaction;
+package com.paiondata.elide.datastores.jpa.transaction;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.TransactionException;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.TransactionException;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Status;

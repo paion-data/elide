@@ -3,26 +3,26 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser;
+package com.paiondata.elide.jsonapi.parser;
 
-import com.yahoo.elide.generated.parsers.CoreBaseVisitor;
-import com.yahoo.elide.generated.parsers.CoreParser.EntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.IdContext;
-import com.yahoo.elide.generated.parsers.CoreParser.QueryContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
-import com.yahoo.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
-import com.yahoo.elide.generated.parsers.CoreParser.StartContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionReadCollectionContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionReadEntityContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionRelationshipContext;
-import com.yahoo.elide.generated.parsers.CoreParser.SubCollectionSubCollectionContext;
-import com.yahoo.elide.generated.parsers.CoreParser.TermContext;
-import com.yahoo.elide.jsonapi.JsonApiRequestScope;
-import com.yahoo.elide.jsonapi.models.JsonApiDocument;
-import com.yahoo.elide.jsonapi.parser.state.StartState;
-import com.yahoo.elide.jsonapi.parser.state.StateContext;
+import com.paiondata.elide.generated.parsers.CoreBaseVisitor;
+import com.paiondata.elide.generated.parsers.CoreParser.EntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.IdContext;
+import com.paiondata.elide.generated.parsers.CoreParser.QueryContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntitiesContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionLoadEntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionRelationshipContext;
+import com.paiondata.elide.generated.parsers.CoreParser.RootCollectionSubCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.StartContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionReadCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionReadEntityContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionRelationshipContext;
+import com.paiondata.elide.generated.parsers.CoreParser.SubCollectionSubCollectionContext;
+import com.paiondata.elide.generated.parsers.CoreParser.TermContext;
+import com.paiondata.elide.jsonapi.JsonApiRequestScope;
+import com.paiondata.elide.jsonapi.models.JsonApiDocument;
+import com.paiondata.elide.jsonapi.parser.state.StartState;
+import com.paiondata.elide.jsonapi.parser.state.StateContext;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.function.Supplier;

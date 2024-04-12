@@ -4,10 +4,10 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.core.filter.expression;
+package com.paiondata.elide.core.filter.expression;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.predicates.FilterPredicate;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.predicates.FilterPredicate;
 
 /**
  * Intended to specify whether the expression must be evaluated in memory or can be pushed to the DataStore.

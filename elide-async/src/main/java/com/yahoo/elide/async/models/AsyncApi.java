@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.models;
+package com.paiondata.elide.async.models;
 
-import com.yahoo.elide.annotation.ComputedAttribute;
-import com.yahoo.elide.annotation.CreatePermission;
-import com.yahoo.elide.annotation.Exclude;
-import com.yahoo.elide.annotation.UpdatePermission;
+import com.paiondata.elide.annotation.ComputedAttribute;
+import com.paiondata.elide.annotation.CreatePermission;
+import com.paiondata.elide.annotation.Exclude;
+import com.paiondata.elide.annotation.UpdatePermission;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;

@@ -4,16 +4,16 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.modelconfig.store;
+package com.paiondata.elide.modelconfig.store;
 
-import static com.yahoo.elide.core.dictionary.EntityDictionary.NO_VERSION;
-import static com.yahoo.elide.modelconfig.store.ConfigDataStore.VALIDATE_ONLY_HEADER;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.ConfigFileType.DATABASE;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.ConfigFileType.NAMESPACE;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.ConfigFileType.SECURITY;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.ConfigFileType.TABLE;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.ConfigFileType.VARIABLE;
-import static com.yahoo.elide.modelconfig.store.models.ConfigFile.toId;
+import static com.paiondata.elide.core.dictionary.EntityDictionary.NO_VERSION;
+import static com.paiondata.elide.modelconfig.store.ConfigDataStore.VALIDATE_ONLY_HEADER;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.ConfigFileType.DATABASE;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.ConfigFileType.NAMESPACE;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.ConfigFileType.SECURITY;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.ConfigFileType.TABLE;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.ConfigFileType.VARIABLE;
+import static com.paiondata.elide.modelconfig.store.models.ConfigFile.toId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,16 +21,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.datastore.DataStoreIterable;
-import com.yahoo.elide.core.exceptions.BadRequestException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.core.request.route.Route;
-import com.yahoo.elide.core.type.ClassType;
-import com.yahoo.elide.core.utils.DefaultClassScanner;
-import com.yahoo.elide.modelconfig.store.models.ConfigFile;
-import com.yahoo.elide.modelconfig.validator.DynamicConfigValidator;
-import com.yahoo.elide.modelconfig.validator.Validator;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.datastore.DataStoreIterable;
+import com.paiondata.elide.core.exceptions.BadRequestException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.core.request.route.Route;
+import com.paiondata.elide.core.type.ClassType;
+import com.paiondata.elide.core.utils.DefaultClassScanner;
+import com.paiondata.elide.modelconfig.store.models.ConfigFile;
+import com.paiondata.elide.modelconfig.validator.DynamicConfigValidator;
+import com.paiondata.elide.modelconfig.validator.Validator;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -74,7 +74,7 @@ public class ConfigDataStoreTest {
                         + "      url: jdbc:db2:localhost:50000/testdb\n"
                         + "      driver: COM.ibm.db2.jdbc.net.DB2Driver\n"
                         + "      user: guestdb2\n"
-                        + "      dialect: com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.PrestoDBDialect\n"
+                        + "      dialect: com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.PrestoDBDialect\n"
                         + "      propertyMap:\n"
                         + "      {\n"
                         + "        hibernate.show_sql: true\n"
@@ -87,7 +87,7 @@ public class ConfigDataStoreTest {
                         + "      url: jdbc:mysql://localhost/testdb?serverTimezone=UTC\n"
                         + "      driver: com.mysql.jdbc.Driver\n"
                         + "      user: guestmysql\n"
-                        + "      dialect: com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.impl.HiveDialect\n"
+                        + "      dialect: com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.impl.HiveDialect\n"
                         + "    }\n"
                         + "  ]\n"
                         + "}\n";

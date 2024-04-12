@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.datastores.aggregation.cache;
+package com.paiondata.elide.datastores.aggregation.cache;
 
-import com.yahoo.elide.datastores.aggregation.query.QueryResult;
+import com.paiondata.elide.datastores.aggregation.query.QueryResult;
 import org.springframework.util.SerializationUtils;
 
 import lombok.Setter;

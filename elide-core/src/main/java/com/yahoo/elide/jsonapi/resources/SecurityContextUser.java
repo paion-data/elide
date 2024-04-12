@@ -4,9 +4,9 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.jsonapi.resources;
+package com.paiondata.elide.jsonapi.resources;
 
-import com.yahoo.elide.core.security.User;
+import com.paiondata.elide.core.security.User;
 
 import jakarta.ws.rs.core.SecurityContext;
 

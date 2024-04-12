@@ -3,12 +3,12 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.spring.orm.jpa.config;
+package com.paiondata.elide.spring.orm.jpa.config;
 
 /**
  * Customizer to customize registration entries for building JpaDataStores.
  *
- * @see com.yahoo.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilder
+ * @see com.paiondata.elide.spring.orm.jpa.config.JpaDataStoreRegistrationsBuilder
  */
 @FunctionalInterface
 public interface JpaDataStoreRegistrationsBuilderCustomizer {

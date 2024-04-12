@@ -3,41 +3,41 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.standalone.config;
+package com.paiondata.elide.standalone.config;
 
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
-import static com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.Operation.CREATE;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.POSTCOMMIT;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PREFLUSH;
+import static com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase.PRESECURITY;
 
-import com.yahoo.elide.Elide;
-import com.yahoo.elide.ElideSettings;
-import com.yahoo.elide.async.ResultTypeFileExtensionMapper;
-import com.yahoo.elide.async.export.formatter.TableExportFormatter;
-import com.yahoo.elide.async.hooks.AsyncQueryHook;
-import com.yahoo.elide.async.hooks.TableExportHook;
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.async.models.TableExport;
-import com.yahoo.elide.async.resources.ExportApiEndpoint.ExportApiProperties;
-import com.yahoo.elide.async.service.AsyncCleanerService;
-import com.yahoo.elide.async.service.AsyncExecutorService;
-import com.yahoo.elide.async.service.dao.AsyncApiDao;
-import com.yahoo.elide.async.service.dao.DefaultAsyncApiDao;
-import com.yahoo.elide.async.service.storageengine.FileResultStorageEngine;
-import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
-import com.yahoo.elide.core.TransactionRegistry;
-import com.yahoo.elide.core.datastore.DataStore;
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.request.route.RouteResolver;
-import com.yahoo.elide.core.utils.ClassScanner;
-import com.yahoo.elide.datastores.aggregation.AggregationDataStore;
-import com.yahoo.elide.datastores.aggregation.QueryEngine;
-import com.yahoo.elide.datastores.aggregation.metadata.MetaDataStore;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
-import com.yahoo.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
-import com.yahoo.elide.modelconfig.DynamicConfiguration;
-import com.yahoo.elide.standalone.Util;
-import com.yahoo.elide.swagger.resources.ApiDocsEndpoint;
+import com.paiondata.elide.Elide;
+import com.paiondata.elide.ElideSettings;
+import com.paiondata.elide.async.ResultTypeFileExtensionMapper;
+import com.paiondata.elide.async.export.formatter.TableExportFormatter;
+import com.paiondata.elide.async.hooks.AsyncQueryHook;
+import com.paiondata.elide.async.hooks.TableExportHook;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.async.models.TableExport;
+import com.paiondata.elide.async.resources.ExportApiEndpoint.ExportApiProperties;
+import com.paiondata.elide.async.service.AsyncCleanerService;
+import com.paiondata.elide.async.service.AsyncExecutorService;
+import com.paiondata.elide.async.service.dao.AsyncApiDao;
+import com.paiondata.elide.async.service.dao.DefaultAsyncApiDao;
+import com.paiondata.elide.async.service.storageengine.FileResultStorageEngine;
+import com.paiondata.elide.async.service.storageengine.ResultStorageEngine;
+import com.paiondata.elide.core.TransactionRegistry;
+import com.paiondata.elide.core.datastore.DataStore;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.request.route.RouteResolver;
+import com.paiondata.elide.core.utils.ClassScanner;
+import com.paiondata.elide.datastores.aggregation.AggregationDataStore;
+import com.paiondata.elide.datastores.aggregation.QueryEngine;
+import com.paiondata.elide.datastores.aggregation.metadata.MetaDataStore;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.ConnectionDetails;
+import com.paiondata.elide.datastores.aggregation.queryengines.sql.dialects.SQLDialectFactory;
+import com.paiondata.elide.modelconfig.DynamicConfiguration;
+import com.paiondata.elide.standalone.Util;
+import com.paiondata.elide.swagger.resources.ApiDocsEndpoint;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;

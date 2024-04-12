@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package com.yahoo.elide.utils;
+package com.paiondata.elide.utils;
 
 import jakarta.ws.rs.core.UriInfo;
 

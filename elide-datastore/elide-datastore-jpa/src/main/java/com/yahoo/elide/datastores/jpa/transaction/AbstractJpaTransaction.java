@@ -3,15 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.datastores.jpa.transaction;
+package com.paiondata.elide.datastores.jpa.transaction;
 
-import com.yahoo.elide.core.RequestScope;
-import com.yahoo.elide.core.exceptions.TransactionException;
-import com.yahoo.elide.core.request.EntityProjection;
-import com.yahoo.elide.datastores.jpa.porting.EntityManagerWrapper;
-import com.yahoo.elide.datastores.jpa.transaction.checker.PersistentCollectionChecker;
-import com.yahoo.elide.datastores.jpql.JPQLTransaction;
-import com.yahoo.elide.datastores.jpql.porting.QueryLogger;
+import com.paiondata.elide.core.RequestScope;
+import com.paiondata.elide.core.exceptions.TransactionException;
+import com.paiondata.elide.core.request.EntityProjection;
+import com.paiondata.elide.datastores.jpa.porting.EntityManagerWrapper;
+import com.paiondata.elide.datastores.jpa.transaction.checker.PersistentCollectionChecker;
+import com.paiondata.elide.datastores.jpql.JPQLTransaction;
+import com.paiondata.elide.datastores.jpql.porting.QueryLogger;
 import org.apache.commons.collections4.CollectionUtils;
 
 import jakarta.persistence.EntityManager;

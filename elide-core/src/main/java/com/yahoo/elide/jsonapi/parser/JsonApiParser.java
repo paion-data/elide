@@ -3,10 +3,10 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi.parser;
+package com.paiondata.elide.jsonapi.parser;
 
-import com.yahoo.elide.generated.parsers.CoreLexer;
-import com.yahoo.elide.generated.parsers.CoreParser;
+import com.paiondata.elide.generated.parsers.CoreLexer;
+import com.paiondata.elide.generated.parsers.CoreParser;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStream;

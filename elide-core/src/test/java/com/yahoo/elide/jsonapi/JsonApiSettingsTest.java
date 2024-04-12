@@ -3,17 +3,17 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.jsonapi;
+package com.paiondata.elide.jsonapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.yahoo.elide.core.dictionary.EntityDictionary;
-import com.yahoo.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
-import com.yahoo.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
-import com.yahoo.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
+import com.paiondata.elide.core.dictionary.EntityDictionary;
+import com.paiondata.elide.core.filter.dialect.jsonapi.DefaultFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.JoinFilterDialect;
+import com.paiondata.elide.core.filter.dialect.jsonapi.SubqueryFilterDialect;
+import com.paiondata.elide.jsonapi.JsonApiSettings.JsonApiSettingsBuilder;
 
 import org.junit.jupiter.api.Test;
 

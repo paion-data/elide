@@ -3,21 +3,21 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package com.yahoo.elide.async.hooks;
+package com.paiondata.elide.async.hooks;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding.Operation;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase;
-import com.yahoo.elide.async.models.AsyncApi;
-import com.yahoo.elide.async.models.AsyncApiResult;
-import com.yahoo.elide.async.models.AsyncQuery;
-import com.yahoo.elide.async.models.QueryType;
-import com.yahoo.elide.async.operation.GraphQLAsyncQueryOperation;
-import com.yahoo.elide.async.operation.JsonApiAsyncQueryOperation;
-import com.yahoo.elide.async.service.AsyncExecutorService;
-import com.yahoo.elide.core.exceptions.InvalidOperationException;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
-import com.yahoo.elide.graphql.QueryRunner;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.async.models.AsyncApi;
+import com.paiondata.elide.async.models.AsyncApiResult;
+import com.paiondata.elide.async.models.AsyncQuery;
+import com.paiondata.elide.async.models.QueryType;
+import com.paiondata.elide.async.operation.GraphQLAsyncQueryOperation;
+import com.paiondata.elide.async.operation.JsonApiAsyncQueryOperation;
+import com.paiondata.elide.async.service.AsyncExecutorService;
+import com.paiondata.elide.core.exceptions.InvalidOperationException;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
+import com.paiondata.elide.graphql.QueryRunner;
 
 import java.time.Duration;
 import java.util.Optional;
@@ -56,10 +56,10 @@ public class AsyncQueryHook extends AsyncApiHook<AsyncQuery> {
         Callable<AsyncApiResult> operation = null;
         if (query.getQueryType().equals(QueryType.JSONAPI_V1_0)) {
             operation = new JsonApiAsyncQueryOperation(getAsyncExecutorService(), query,
-                    (com.yahoo.elide.core.RequestScope) requestScope);
+                    (com.paiondata.elide.core.RequestScope) requestScope);
         } else {
             operation = new GraphQLAsyncQueryOperation(getAsyncExecutorService(), query,
-                    (com.yahoo.elide.core.RequestScope) requestScope);
+                    (com.paiondata.elide.core.RequestScope) requestScope);
         }
         return operation;
     }
