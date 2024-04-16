@@ -161,7 +161,8 @@ public abstract class JPQLTransaction implements DataStoreTransaction {
         Pagination pagination = relation.getProjection().getPagination();
 
         EntityDictionary dictionary = scope.getDictionary();
-        Iterable val = (Iterable) com.paiondata.elide.core.PersistentResource.getValue(entity, relation.getName(), scope);
+        Iterable val = (Iterable) com.paiondata.elide.core.PersistentResource.getValue(entity, relation.getName(),
+                scope);
 
         //If the query is safe for N+1 and the value is an ORM managed, persistent collection, run a JPQL query...
         if (doInDatabase(entity) && val instanceof Collection && isPersistentCollection().test((Collection<?>) val)) {

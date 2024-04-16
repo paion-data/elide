@@ -203,7 +203,8 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
         requestScope.getNewPersistentResources().add(newResource);
         checkPermission(CreatePermission.class, newResource);
 
-        newResource.auditClass(Audit.Action.CREATE, new ChangeSpec(newResource, null, null, newResource.getObject()));
+        newResource.auditClass(Audit.Action.CREATE, new ChangeSpec(newResource, null, null,
+                newResource.getObject()));
 
         requestScope.publishLifecycleEvent(newResource, CREATE);
 
@@ -648,7 +649,8 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
         EntityBinding binding = dictionary.getEntityBinding(type);
 
         Preconditions.checkState(! binding.equals(EMPTY_BINDING), "Model not found.");
-        Preconditions.checkState(binding.apiRelationships.isEmpty(), "Deep copy of relationships not supported");
+        Preconditions.checkState(binding.apiRelationships.isEmpty(),
+                "Deep copy of relationships not supported");
 
         Object copy;
         try {
@@ -882,7 +884,8 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
                         .forEach(toDelete -> {
                             deletedRelationships.add(toDelete.getObject());
                         });
-                modifyCollection(collection, relationName, Collections.emptySet(), deletedRelationships, true);
+                modifyCollection(collection, relationName, Collections.emptySet(),
+                        deletedRelationships, true);
                 this.markDirty();
                 //hook for updateToManyRelation
                 transaction.updateToManyRelation(transaction, obj, relationName,
@@ -1275,7 +1278,8 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
      * @param relationship the relationship to fetch
      * @return collection relation
      */
-    public Observable<PersistentResource> getRelationChecked(com.paiondata.elide.core.request.Relationship relationship) {
+    public Observable<PersistentResource> getRelationChecked(
+            com.paiondata.elide.core.request.Relationship relationship) {
         if (!checkRelation(relationship)) {
             return Observable.empty();
         }
@@ -1801,7 +1805,8 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
             RelationshipType inverseRelationType = inverseResource.getRelationshipType(inverseField);
             if (inverseRelationType.isToOne()) {
                 //hook for updateToOneRelation
-                transaction.updateToOneRelation(transaction, inverseEntity, inverseField, null, requestScope);
+                transaction.updateToOneRelation(transaction, inverseEntity, inverseField,
+                        null, requestScope);
             } else {
                 //hook for updateToManyRelation
                 assert (inverseRelation instanceof Collection) : inverseField + " not a collection";

@@ -17,9 +17,12 @@ public class ElideModules {
     private static final boolean ASYNC_PRESENT;
 
     static {
-        GRAPHQL_PRESENT = isPresent("com.paiondata.elide.graphql.GraphQLSettings", ElideModules.class.getClassLoader());
-        JSON_API_PRESENT = isPresent("com.paiondata.elide.jsonapi.JsonApiSettings", ElideModules.class.getClassLoader());
-        ASYNC_PRESENT = isPresent("com.paiondata.elide.async.AsyncSettings", ElideModules.class.getClassLoader());
+        GRAPHQL_PRESENT = isPresent("com.paiondata.elide.graphql.GraphQLSettings",
+                ElideModules.class.getClassLoader());
+        JSON_API_PRESENT = isPresent("com.paiondata.elide.jsonapi.JsonApiSettings",
+                ElideModules.class.getClassLoader());
+        ASYNC_PRESENT = isPresent("com.paiondata.elide.async.AsyncSettings",
+                ElideModules.class.getClassLoader());
     }
 
     /**
