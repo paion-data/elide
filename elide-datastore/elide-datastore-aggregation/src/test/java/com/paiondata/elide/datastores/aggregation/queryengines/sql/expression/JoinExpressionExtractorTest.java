@@ -45,7 +45,7 @@ import javax.sql.DataSource;
 
 public class JoinExpressionExtractorTest {
 
-    private static final String ALIAS_PREFIX = "com_yahoo_elide_datastores_aggregation_queryengines_sql_expression_";
+    private static final String ALIAS_PREFIX = "com_paiondata_elide_datastores_aggregation_queryengines_sql_expression_";
     private static final Pattern REPEATEDSPACE_PATTERN = Pattern.compile("\\s\\s*");
     private static final String NL = System.lineSeparator();
 

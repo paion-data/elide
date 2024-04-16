@@ -71,7 +71,7 @@ More information about Elide can be found at [elide.io](https://elide.io/).
 
 To try out an Elide example service, check out this [Spring boot example project](https://github.com/yahoo/elide-spring-boot-example).
 
-Alternatively, use [elide-standalone](https://github.com/yahoo/elide/tree/master/elide-standalone) which allows you to quickly setup a local instance of Elide running inside an embedded Jetty application.
+Alternatively, use [elide-standalone](https://github.com/paion-data/elide/tree/master/elide-standalone) which allows you to quickly setup a local instance of Elide running inside an embedded Jetty application.
 
 ## Usage 
 

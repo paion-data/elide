@@ -120,22 +120,22 @@ public class ColumnContextTest {
         // definition: {{$$column.args.aggregation}}({{$impressions}})
         // -> value of 'aggregation' argument is passed in the query for "impressions" column and same is used while
         // resolving this column.
-        assertEquals("SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)",
+        assertEquals("SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)",
                         impressions.toSQL(expandedQuery, metaDataStore));
 
         // definition: {{impressions}}) * {{$$table.args.testPercentage}}
         // -> default value of table argument 'testPercentage' is used.
         // -> value of 'aggregation' argument is passed in the query for "testImpressions" column and same is used while
         // resolving referenced column "impressions".
-        assertEquals("MIN(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)) * 0.1",
+        assertEquals("MIN(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)) * 0.1",
                         testImpressions.toSQL(expandedQuery, metaDataStore));
 
         // definition: {{revenue}}
         // revenue definition: TO_CHAR(SUM({{$revenue}}) * {{rate.conversionRate}}, {{$$column.args.format}})
         // -> default value of 'format' argument in "revenue" column is used while resolving this column.
         // -> default value of 'format' argument in "revenue" column is passed to joined table's "conversionRate" column.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99D00), 99D00)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99D00), 99D00)",
                         testRevenue.toSQL(expandedQuery, metaDataStore));
 
         // definition: {{revenueUsingLogicalRef}}
@@ -143,25 +143,25 @@ public class ColumnContextTest {
         // -> default value of 'format' argument in "revenueUsingLogicalRef" column is used while resolving this column.
         // -> This column references "conversionRate" which references "rate.conversionRate". Since conversionRate doesn't have
         // 'format' argument defined, default value of 'format' argument in joined table's "conversionRate" column is used.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9D0), 99D00)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9D0), 99D00)",
                         testRevenueLogicalRef.toSQL(expandedQuery, metaDataStore));
 
         // definition: TO_CHAR(SUM({{$revenue}}) * {{rate.conversionRate}}, {{$$column.args.format}})
         // -> value of 'format' argument is passed in the query for "revenue" column and same is used for resolving
         // referenced column "rate.conversionRate" and this column.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 11D00), 11D00)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 11D00), 11D00)",
                         revenueWithArg.toSQL(expandedQuery, metaDataStore));
 
         // definition: {{rate.conversionRate}}
         // -> logical column 'conversionRate' doesn't support arguments.
         // -> default value of 'format' argument in "conversionRate" column of joined table is used while resolving this.
-        assertEquals("TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9D0)",
+        assertEquals("TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9D0)",
                         conversionRate.toSQL(expandedQuery, metaDataStore));
 
         // definition: {{rate.$provider}}
-        assertEquals("`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`provider`",
+        assertEquals("`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`provider`",
                         rateProvider.toSQL(expandedQuery, metaDataStore));
     }
 
@@ -202,8 +202,8 @@ public class ColumnContextTest {
         // -> value of 'format' argument is passed in the query for "revenueUsingSqlHelper" column and same is used for
         // resolving this column.
         // -> pinned value (9999D0000) of 'format' argument in SQL helper is used while resolving referenced column "rate.conversionRate".
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9999D0000), 11D00)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9999D0000), 11D00)",
                         revenueUsingSqlHelper.toSQL(expandedQuery, metaDataStore));
 
         // definition: TO_CHAR({{sql column='impressions[aggregation:SUM]'}} / {{sql column='revenue[format:99999D00000]'}}, {{$$table.args.format}})
@@ -212,24 +212,24 @@ public class ColumnContextTest {
         // -> pinned value (99999D00000) of 'format' argument in SQL helper is used while resolving invoked column "revenue".
         // -> revenue definition is : TO_CHAR(SUM({{$revenue}}) * {{rate.conversionRate}}, {{$$column.args.format}}),
         // Available value of 'format' argument in "revenue" column is passed to joined table's "conversionRate" column.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
-                        + " / TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99999D00000), 99999D00000), 999999D000000)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
+                        + " / TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99999D00000), 99999D00000), 999999D000000)",
                         impressionsPerUSD.toSQL(expandedQuery, metaDataStore));
 
         // -> Even 'format' is passed in query column args, pinned value (9999D0000) of 'format' argument in SQL helper is used while
         // resolving "revenue" column and same is passed to joined table's "conversionRate" column.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
-                        + " / TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99999D00000), 99999D00000), 999999D000000)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
+                        + " / TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 99999D00000), 99999D00000), 999999D000000)",
                         impressionsPerUSDWithArg.toSQL(expandedQuery, metaDataStore));
 
         // definition: TO_CHAR({{sql column='impressions[aggregation:SUM]'}} / {{sql column='revenueUsingSqlHelper[format:99999D00000]'}}, {{$$table.args.format}})
         // -> As "rate.conversionRate" is invoked using SQL helper from "revenue" column, this uses the fixed value(9999D0000) of
         // 'format' argument provided in definition of "revenueUsingSqlHelper" column.
-        assertEquals("TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
-                        + " / TO_CHAR(SUM(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
-                        + " * TO_CHAR(`com_yahoo_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9999D0000), 99999D00000), 999999D000000)",
+        assertEquals("TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`impressions`)"
+                        + " / TO_CHAR(SUM(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact`.`revenue`)"
+                        + " * TO_CHAR(`com_paiondata_elide_datastores_aggregation_metadata_RevenueFact_rate_221749474`.`conversion_rate`, 9999D0000), 99999D00000), 999999D000000)",
                         impressionsPerUSD2.toSQL(expandedQuery, metaDataStore));
     }
 }

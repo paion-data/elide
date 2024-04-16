@@ -579,7 +579,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+
     <profiles>
         <profile>
             <id>ossrh</id>
