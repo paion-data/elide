@@ -203,8 +203,7 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
         requestScope.getNewPersistentResources().add(newResource);
         checkPermission(CreatePermission.class, newResource);
 
-        newResource.auditClass(Audit.Action.CREATE, new ChangeSpec(newResource, null, null,
-                newResource.getObject()));
+        newResource.auditClass(Audit.Action.CREATE, new ChangeSpec(newResource, null, null, newResource.getObject()));
 
         requestScope.publishLifecycleEvent(newResource, CREATE);
 
@@ -649,8 +648,7 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
         EntityBinding binding = dictionary.getEntityBinding(type);
 
         Preconditions.checkState(! binding.equals(EMPTY_BINDING), "Model not found.");
-        Preconditions.checkState(binding.apiRelationships.isEmpty(),
-                "Deep copy of relationships not supported");
+        Preconditions.checkState(binding.apiRelationships.isEmpty(), "Deep copy of relationships not supported");
 
         Object copy;
         try {
@@ -884,8 +882,7 @@ public class PersistentResource<T> implements com.paiondata.elide.core.security.
                         .forEach(toDelete -> {
                             deletedRelationships.add(toDelete.getObject());
                         });
-                modifyCollection(collection, relationName, Collections.emptySet(),
-                        deletedRelationships, true);
+                modifyCollection(collection, relationName, Collections.emptySet(), deletedRelationships, true);
                 this.markDirty();
                 //hook for updateToManyRelation
                 transaction.updateToManyRelation(transaction, obj, relationName,
