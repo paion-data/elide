@@ -5,11 +5,11 @@
  */
 package example.hooks;
 
-import com.yahoo.elide.annotation.LifeCycleHookBinding.Operation;
-import com.yahoo.elide.annotation.LifeCycleHookBinding.TransactionPhase;
-import com.yahoo.elide.core.lifecycle.LifeCycleHook;
-import com.yahoo.elide.core.security.ChangeSpec;
-import com.yahoo.elide.core.security.RequestScope;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.Operation;
+import com.paiondata.elide.annotation.LifeCycleHookBinding.TransactionPhase;
+import com.paiondata.elide.core.lifecycle.LifeCycleHook;
+import com.paiondata.elide.core.security.ChangeSpec;
+import com.paiondata.elide.core.security.RequestScope;
 
 import example.models.jpa.ArtifactGroup;
 import example.models.services.HookService;

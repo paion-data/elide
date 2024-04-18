@@ -12,7 +12,7 @@ Opinionated jar which packages dependencies to get started with Elide and Spring
 
 ```xml
 <dependency>
-    <groupId>com.yahoo.elide</groupId>
+    <groupId>com.paiondata.elide</groupId>
     <artifactId>elide-spring-boot-starter</artifactId>
     <version>${elide.version}</version>
 </dependency>
@@ -52,27 +52,27 @@ The following dependencies are automatically included, but can be explicitly exc
 
 ```xml
 <dependency>
-    <groupId>com.yahoo.elide</groupId>
+    <groupId>com.paiondata.elide</groupId>
     <artifactId>elide-spring-boot-starter</artifactId>
     <exclusions>
         <exclusion>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-async</artifactId>
         </exclusion>
         <exclusion>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-aggregation</artifactId>
         </exclusion>				
         <exclusion>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-datastore-jms</artifactId>
         </exclusion>
         <exclusion>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-graphql</artifactId>
         </exclusion>
         <exclusion>
-            <groupId>com.yahoo.elide</groupId>
+            <groupId>com.paiondata.elide</groupId>
             <artifactId>elide-swagger</artifactId>
         </exclusion>
     </exclusions>
