@@ -64,7 +64,7 @@ public class QueryRunner {
     private static final String VARIABLES = "variables";
     private static final String MUTATION = "mutation";
     private static final String FRAGMENT = "fragment";
-    public  static final String patternString = "(?<=\\}\\s*)" + Pattern.quote(MUTATION);
+    public  static final String PATTERN_STRING = "(?<=\\}\\s*)" + Pattern.quote(MUTATION);
 
     /**
      * Builds a new query runner.
@@ -141,7 +141,7 @@ public class QueryRunner {
         if (query.startsWith(FRAGMENT)) {
             //Use a regular expression to match "}(any amount of whitespace)*mutation".
             //There can be only Spaces between "}" and "mutation", and no other characters
-            Pattern pattern = Pattern.compile(patternString, Pattern.UNICODE_CHARACTER_CLASS);
+            Pattern pattern = Pattern.compile(PATTERN_STRING, Pattern.UNICODE_CHARACTER_CLASS);
             Matcher matcher = pattern.matcher(query);
 
             //Find the first match
