@@ -40,6 +40,7 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -64,7 +65,7 @@ public class QueryRunner {
     private static final String VARIABLES = "variables";
     private static final String MUTATION = "mutation";
     private static final String FRAGMENT = "fragment";
-    public  static final String PATTERN_STRING = "(?<=\\}\\s*)" + Pattern.quote(MUTATION);
+    private static final String PATTERN_STRING = "(?<=\\}\\s*)" + Pattern.quote(MUTATION);
 
     /**
      * Builds a new query runner.
