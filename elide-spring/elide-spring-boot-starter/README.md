@@ -3,6 +3,7 @@
 For more information on Elide, visit [elide.io](https://elide.io).
 
 Opinionated jar which packages dependencies to get started with Elide and Spring Boot.  The starter includes:
+
 1. Spring Boot Web
 2. Spring Boot JPA
 3. YAML Configuration
@@ -18,9 +19,9 @@ Opinionated jar which packages dependencies to get started with Elide and Spring
 </dependency>
 ```
 
-## Example Usage.
+## Example Usage
 
-An example project can be viewed [here](https://github.com/yahoo/elide-spring-boot-example).
+An example project can be viewed [here](https://github.com/paion-data/elide-spring-boot-example).
 
 ## Configuration
 
