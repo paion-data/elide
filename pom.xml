@@ -769,15 +769,35 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>aggregate-jar</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <doclint>all,-missing</doclint>
                     <source>${source.jdk.version}</source>
-                    <sourcepath>${delombok.output}</sourcepath>
-                    <sourcepath>${project.basedir}/src/main/java</sourcepath>
+                    <sourcepath>
+                        elide-core/target/lombok;
+                        elide-async/src/main/java;
+                        elide-datastore/elide-datastore-aggregation/src/main/java;
+                        elide-datastore/elide-datastore-inmemorydb/src/main/java;
+                        elide-datastore/elide-datastore-jms/src/main/java;
+                        elide-datastore/elide-datastore-jpa/src/main/java;
+                        elide-datastore/elide-datastore-jpql/src/main/java;
+                        elide-datastore/elide-datastore-multiplex/src/main/java;
+                        elide-datastore/elide-datastore-noop/src/main/java;
+                        elide-datastore/elide-datastore-search/src/main/java;
+                        elide-graphql/src/main/java;
+                        elide-integration-tests/src/main/java;
+                        elide-model-config/src/main/java;
+                        elide-quarkus/deployment/src/main/java;
+                        elide-quarkus/integration-tests/src/main/java;
+                        elide-quarkus/runtime/src/main/java;
+                        elide-spring/elide-spring-boot-autoconfigure/src/main/java;
+                        elide-standalone/src/main/java;
+                        elide-swagger/src/main/java;
+                        elide-test/src/main/java;
+                    </sourcepath>
                 </configuration>
             </plugin>
             <plugin>
