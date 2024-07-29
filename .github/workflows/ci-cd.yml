@@ -59,7 +59,7 @@ jobs:
         with:
           node-version: 18
       - name: Set up JDK
-        uses: paion-data/ci-cd-core/.github/actions/jdk-setup@master
+        uses: paion-data/immutable-infrastructure-as-a-service/.github/actions/jdk-setup@master
       - name: Install dependencies
         working-directory: docs
         run: yarn
