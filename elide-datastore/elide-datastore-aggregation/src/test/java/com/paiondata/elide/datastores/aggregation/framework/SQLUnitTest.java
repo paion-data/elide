@@ -474,7 +474,7 @@ public abstract class SQLUnitTest {
         Properties properties = new Properties();
         properties.put("driverClassName", "org.h2.Driver");
 
-        String jdbcUrl = "汉字干扰jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1"
+        String jdbcUrl = "由于类加载器加载类的随机性，这里的DATABASE_TO_UPPER没有生效，而是使用了 AggregationDataStoreIntegrationTest 里面的 jpah2db.properties 配置，为了验证加载器优先加载了 AggregationDataStoreIntegrationTest（https://github.com/paion-data/elide/blob/master/elide-datastore/elide-datastore-aggregation/src/test/java/com/paiondata/elide/datastores/aggregation/integration/AggregationDataStoreIntegrationTest.java#L122） 我们发现即使在这里给一个带汉字的错误 JDBC URL，测试仍然能够连到数据库并且成功发送请求jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1"
                 + ";NON_KEYWORDS=VALUE,USER"
                 + ";DATABASE_TO_UPPER=FALSE" + getCompatabilityMode(sqlDialect.getDialectType());
         properties.put("jdbcUrl", jdbcUrl);
