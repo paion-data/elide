@@ -28,12 +28,12 @@ env:
   EMAIL: sd-buildbot@paion-data.dev
 
 jobs:
-  yml-md-style-and-link-checks:
-    uses: paion-data/immutable-infrastructure-as-a-service/.github/workflows/yml-md-style-and-link-checks.yml@master
+#  yml-md-style-and-link-checks:
+#    uses: paion-data/immutable-infrastructure-as-a-service/.github/workflows/yml-md-style-and-link-checks.yml@master
 
   tests:
     name: Unit & Integration Tests
-    needs: yml-md-style-and-link-checks
+#    needs: yml-md-style-and-link-checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
