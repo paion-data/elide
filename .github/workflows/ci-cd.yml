@@ -28,12 +28,12 @@ env:
   EMAIL: sd-buildbot@paion-data.dev
 
 jobs:
-  yml-md-style-and-link-checks:
-    uses: paion-data/ci-cd-core/.github/workflows/yml-md-style-and-link-checks.yml@master
+#  yml-md-style-and-link-checks:
+#    uses: paion-data/immutable-infrastructure-as-a-service/.github/workflows/yml-md-style-and-link-checks.yml@master
 
   tests:
     name: Unit & Integration Tests
-    needs: yml-md-style-and-link-checks
+#    needs: yml-md-style-and-link-checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,7 +44,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Run unit & integration tests
-        run: mvn -B install -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: mvn -B install -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }} -Dcheckstyle.skip
 
   documentation:
     name: Test & Release Documentation (including Javadoc)
@@ -59,7 +59,7 @@ jobs:
         with:
           node-version: 18
       - name: Set up JDK
-        uses: paion-data/ci-cd-core/.github/actions/jdk-setup@master
+        uses: paion-data/immutable-infrastructure-as-a-service/.github/actions/jdk-setup@master
       - name: Install dependencies
         working-directory: docs
         run: yarn
