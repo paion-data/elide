@@ -471,7 +471,12 @@ public abstract class SQLUnitTest {
     protected Pattern repeatedWhitespacePattern = Pattern.compile("\\s\\s*");
 
     public static void init(SQLDialect sqlDialect, Set<Optimizer> optimizers, MetaDataStore metaDataStore) {
-        HikariConfig config = new HikariConfig("/" + "SQLUnitTestJpah2db.properties");
+        HikariConfig config = new HikariConfig("/" + "jpah2db4SQLUnitTest.properties");
+
+        String jdbcUrl = config.getJdbcUrl();
+        jdbcUrl += getCompatabilityMode(sqlDialect.getDialectType());
+        config.setJdbcUrl(jdbcUrl);
+
         DataSource dataSource = new HikariDataSource(config);
 
         try (Connection h2Conn = dataSource.getConnection()) {
