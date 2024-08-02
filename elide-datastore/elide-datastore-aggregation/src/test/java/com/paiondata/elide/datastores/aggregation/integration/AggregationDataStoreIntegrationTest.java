@@ -110,6 +110,9 @@ public abstract class AggregationDataStoreIntegrationTest extends GraphQLIntegra
     }
 
     protected ConnectionDetails createDefaultConnectionDetails() {
+        String jdbcUrl = config.getJdbcUrl();
+        jdbcUrl += ";DATABASE_TO_UPPER=FALSE";
+        config.setJdbcUrl(jdbcUrl);
         DataSource defaultDataSource = new HikariDataSource(config);
         SQLDialect defaultDialect = SQLDialectFactory.getDefaultDialect();
         return new ConnectionDetails(defaultDataSource, defaultDialect);
