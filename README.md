@@ -1,3 +1,7 @@
+<div align="center">
+    <h1>A new system is under development and will be replacing Elide.</h1>
+</div>
+
 Elide
 =====
 
